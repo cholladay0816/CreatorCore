@@ -16,6 +16,14 @@ class CommissionController extends Controller
             ->get();
         return view('commission.list', ['title'=>'Commissions','commissions'=>$commissions]);
     }
+    public function timeline()
+    {
+        $commissions = Commission::where('creator_id', auth()->user()->id)
+            ->whereNotIn('status', ['Unpaid', 'Declined', 'Expired', 'Canceled'])
+            ->latest()
+            ->get();
+        return view('commission.timeline', ['title'=>'Commissions','commissions'=>$commissions]);
+    }
     public function orders()
     {
         $commissions = Commission::where('buyer_id', auth()->user()->id)
@@ -23,7 +31,6 @@ class CommissionController extends Controller
             ->get();
         return view('commission.list', ['title'=>'My Orders','commissions'=>$commissions]);
     }
-
 
     public function view(Commission $commission)
     {

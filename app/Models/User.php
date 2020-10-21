@@ -63,4 +63,20 @@ class User extends Authenticatable
     {
         return "https://ui-avatars.com/api/?name=".urlencode($this->name);
     }
+    public function gallery()
+    {
+        return $this->hasMany(Gallery::class);
+    }
+    public function presets()
+    {
+        return $this->hasMany(CommissionPreset::class);
+    }
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+    public function creator()
+    {
+        return $this->hasOne(Creator::class, 'user_id');
+    }
 }

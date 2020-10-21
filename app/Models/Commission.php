@@ -58,6 +58,36 @@ class Commission extends Model
         $diff = $d1->diff($d2);
         return ($diff->days*24 + $diff->h);
     }
+    public function delivery_date()
+    {
+        if($this->status == 'Pending')
+        {
+            $date = new \DateTime($this->expiration_date);
+            $date->add(new \DateInterval('P' . $this->days_to_complete . 'D'));
+        }
+        else if($this->status == 'Active')
+        {
+            $date = new \DateTime($this->expiration_date);
+        }
+        return $date;
+    }
+    public function delivery_days()
+    {
+        $d1 = new \DateTime(now());
+        $d2 = $this->delivery_date();
+        $diff = $d1->diff($d2);
+        return $diff->days;
+    }
+    public function processing_date()
+    {
+        $date = $this->delivery_date();
+        $date->add(new \DateInterval('P7D'));
+        return $date;
+    }
+    public function processing_days()
+    {
+        return 7;
+    }
     public function getLocalExpiration()
     {
         return $this->expiration_date->diffForHumans();

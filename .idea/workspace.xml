@@ -1,15 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="61e15a0a-f7d6-4971-b621-a51ee3642e21" name="Default Changelist" comment="" />
+    <list default="true" id="61e15a0a-f7d6-4971-b621-a51ee3642e21" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CommissionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CommissionController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Commission.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Commission.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Review.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Review.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/commission/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/commission/list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/guest.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/guest.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/navigation-dropdown.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/navigation-dropdown.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -163,7 +177,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1602449369066</updated>
-      <workItem from="1602449370095" duration="33563000" />
+      <workItem from="1602449370095" duration="46486000" />
+      <workItem from="1603313663054" duration="279000" />
+      <workItem from="1603314017788" duration="84000" />
     </task>
     <servers />
   </component>
@@ -171,37 +187,45 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="480" y="165" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1603313825031">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="480" y="165" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1603313825031" />
     <state x="530" y="184" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1602598202598">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="530" y="184" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1602598202598" />
-    <state width="778" height="218" key="GridCell.Tab.0.bottom" timestamp="1602475776965">
+    <state width="1556" height="218" key="GridCell.Tab.0.bottom" timestamp="1603313941677">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="778" height="218" key="GridCell.Tab.0.bottom/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1602475776965" />
-    <state width="778" height="218" key="GridCell.Tab.0.center" timestamp="1602475776965">
+    <state width="1556" height="218" key="GridCell.Tab.0.bottom/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1603313941677" />
+    <state width="1556" height="218" key="GridCell.Tab.0.center" timestamp="1603313941677">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="778" height="218" key="GridCell.Tab.0.center/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1602475776965" />
-    <state width="778" height="218" key="GridCell.Tab.0.left" timestamp="1602475776965">
+    <state width="1556" height="218" key="GridCell.Tab.0.center/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1603313941677" />
+    <state width="1556" height="218" key="GridCell.Tab.0.left" timestamp="1603313941677">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="778" height="218" key="GridCell.Tab.0.left/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1602475776965" />
-    <state width="778" height="218" key="GridCell.Tab.0.right" timestamp="1602475776965">
+    <state width="1556" height="218" key="GridCell.Tab.0.left/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1603313941677" />
+    <state width="1556" height="218" key="GridCell.Tab.0.right" timestamp="1603313941677">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="778" height="218" key="GridCell.Tab.0.right/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1602475776965" />
-    <state x="635" y="352" key="NewPhpFileDialog" timestamp="1602474169898">
+    <state width="1556" height="218" key="GridCell.Tab.0.right/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1603313941677" />
+    <state x="635" y="352" key="NewPhpFileDialog" timestamp="1602797519510">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="635" y="352" key="NewPhpFileDialog/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1602474169898" />
+    <state x="635" y="352" key="NewPhpFileDialog/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1602797519510" />
     <state x="507" y="163" width="585" height="534" key="find.popup" timestamp="1602451886749">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="507" y="163" width="585" height="534" key="find.popup/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1602451886749" />
-    <state x="456" y="190" width="672" height="677" key="run.anything.popup" timestamp="1602475789701">
+    <state x="456" y="190" width="672" height="677" key="run.anything.popup" timestamp="1603313936667">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="456" y="190" width="672" height="677" key="run.anything.popup/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1602475789701" />
+    <state x="456" y="190" width="672" height="677" key="run.anything.popup/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1603313936667" />
+    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup" timestamp="1602617198900">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1602617198900" />
   </component>
 </project>
