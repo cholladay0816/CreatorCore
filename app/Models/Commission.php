@@ -123,7 +123,7 @@ class Commission extends Model
         //Refund payment
         if($this->status == 'Pending')
         {
-
+            //Send message to buyer, do refund
         }
         $this->delete();
     }
