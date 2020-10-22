@@ -75,9 +75,7 @@ class CommissionController extends Controller
     {
         if($commission->isBuyer() && $commission->status == 'Unpaid')
         {
-            // TODO: Don't use this for live version
-            $commission->pay();
-            return redirect(url('/commission/'.$commission->id));
+            return redirect(url('/payment/'.$commission->id));
         }
         if($commission->isCreator() && $commission->status == 'Pending')
         {

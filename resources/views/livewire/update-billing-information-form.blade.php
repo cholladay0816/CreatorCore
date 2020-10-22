@@ -10,10 +10,9 @@
     <x-slot name="form">
         <!-- Name -->
         <div class="col-span-6 sm:col-span-4">
-            <a href="{{url('')}}">Continue to Stripe</a>
-            <x-jet-button>
-                {{ __('Continue to Stripe') }}
-            </x-jet-button>
+            <a class="button bg-indigo-500 hover:bg-indigo-400 text-white font-semibold hover:text-white
+                      py-2 px-4 border border-indigo-500 hover:border-transparent rounded"
+               href="{{auth()->user()->billingPortalUrl(url('user/profile'))}}">Continue to Stripe</a>
         </div>
 
     </x-slot>

@@ -49,6 +49,14 @@ class Commission extends Model
             return $this->price - $this->preset->value;
         return 0;
     }
+    public function taxPrice()
+    {
+        return ceil($this->price * 100 + ($this->price * 100 * env('COMMISSION_SALES_TAX')));
+    }
+    public function truePrice()
+    {
+        return 0.01*($this->taxPrice() + env('STRIPE_FLAT_TAX') + ceil(($this->taxPrice() + env('STRIPE_FLAT_TAX')) * env('STRIPE_SALES_TAX')));
+    }
     public function hoursleft()
     {
         if($this->isExpired())

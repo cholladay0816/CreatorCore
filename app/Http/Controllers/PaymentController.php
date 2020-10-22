@@ -10,24 +10,14 @@ class PaymentController extends Controller
 {
     public function show(Commission $commission)
     {
-        return view('payment.pay');
-    }
-    public function new(Request $request)
-    {
-        return $request->user()->redirectToBillingPortal(route('dashboard'));
-        //return view('payment.new');
-        //return auth()->user()->paymentMethods();
-    }
-    public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'payment_method' => 'required',
-        ]);
-        auth()->user()->createAsStripeCustomer()->updateDefaultPaymentMethod(request('payment_method'));
-    }
-    public function update(Request $request)
-    {
-        return $request->user()->redirectToBillingPortal(route('dashboard'));
+        if(!$commission->isBuyer())
+        {
+            abort(401);
+        }
+        //A payment method must be set up
+        if(!auth()->user()->hasPaymentMethod())
+            return auth()->user()->redirectToBillingPortal(url('/payment/'.$commission->id));
+        return view('payment.pay', ['title'=>$commission->title, 'commission'=>$commission, 'method'=>auth()->user()->defaultPaymentMethod()]);
     }
 
     public function pay(Commission $commission, Request $request)
@@ -35,19 +25,27 @@ class PaymentController extends Controller
         if(!$commission->isBuyer())
             abort(401);
 
-        $validatedData = $request->validate([
-            'payment_method' => 'required',
-        ]);
-        $paymentMethod = $validatedData['payment_method'];
-        if(!$paymentMethod)
-        {
+        if(!auth()->user()->hasPaymentMethod())
             abort(401);
-        }
-        try {
-            $stripeCharge = auth()->user()->charge(100, $paymentMethod);
 
-        } catch (\Exception $e) {
-            abort(500);
+        try
+        {
+            $stripeCharge = auth()->user()->invoiceFor($commission->title, $commission->truePrice()*100);
+
+            $payment = new \App\Models\Payment();
+            $payment->user_id = auth()->user()->id;
+            $payment->customer_id = $stripeCharge->customer;
+            $payment->invoice_id = $stripeCharge->id;
+            $payment->commission_id = $commission->id;
+            $payment->value = $commission->price;
+            $payment->total = floatval($stripeCharge->total) / 100;
+            $payment->save();
+
+            return redirect(route('orders'));
+        }
+        catch (\Exception $e)
+        {
+            var_dump($e);
         }
     }
 }

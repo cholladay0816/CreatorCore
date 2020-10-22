@@ -63,7 +63,7 @@ class User extends Authenticatable
     public function addFunds($amount)
     {
         $balance = $this->asStripeCustomer()->balance;
-        $newbalance = $balance + ($amount * 100);
+        $newbalance = $balance - ($amount * 100);
         $this->updateStripeCustomer(['balance' => $newbalance]);
     }
 
