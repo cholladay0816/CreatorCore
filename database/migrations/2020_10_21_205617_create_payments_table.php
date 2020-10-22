@@ -15,6 +15,15 @@ class CreatePaymentsTable extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('commission_id');
+            $table->foreign('commission_id')->references('id')->on('commissions');
+            $table->decimal('value');
+            $table->decimal('tax');
+            $table->decimal('total');
+            $table->string('transaction_id');
+            $table->enum('status', ['Pending', 'Accepted', 'Declined', 'Expired'])->default('Pending');
+            $table->string('body');
+
             $table->timestamps();
         });
     }

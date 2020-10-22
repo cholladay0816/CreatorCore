@@ -6,21 +6,21 @@ use App\Models\Commission;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class RemoveExpiredCommissions extends Command
+class ArchiveCommissions extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'commissions:expire';
+    protected $signature = 'commissions:archive';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Removes Expired Commissions.';
+    protected $description = 'Archives completed commissions.';
 
     /**
      * Create a new command instance.
@@ -39,8 +39,8 @@ class RemoveExpiredCommissions extends Command
      */
     public function handle()
     {
-        Commission::where('expiration_date', '<', Carbon::now())->whereIn('status', ['Unpaid', 'Pending'])->each(function ($commission) {
-            $commission->remove();
+        Commission::where('expiration_date', '<', Carbon::now())->where('status', 'Completed')->each(function ($commission) {
+            $commission->archive();
         });
     }
 }

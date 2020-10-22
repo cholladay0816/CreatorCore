@@ -5,6 +5,9 @@ use \App\Http\Controllers\CommissionController;
 use \App\Http\Controllers\AttachmentController;
 use \App\Http\Controllers\CreatorController;
 use \App\Http\Controllers\PaymentController;
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,7 +30,13 @@ Route::middleware(['auth:sanctum', 'verified'])->group( function() {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::get('/payment/new', [PaymentController::class, 'new']);
+    Route::post('/payment/new', [PaymentController::class, 'store']);
+
     Route::get('/payment/{commission}', [PaymentController::class, 'show']);
+    Route::post('/payment/{commission}', [PaymentController::class, 'pay']);
+
     Route::get('/commission/orders', [CommissionController::class, 'orders'])
         ->name('orders');
     Route::get('/commission/timeline', [CommissionController::class, 'timeline'])

@@ -14,6 +14,7 @@ class DeleteUser implements DeletesUsers
      */
     public function delete($user)
     {
+        $user->deleteStripeCustomer();
         $user->delete();
     }
 }

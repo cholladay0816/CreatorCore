@@ -170,10 +170,12 @@ class Commission extends Model
         //Send a notification to the Buyer
         $this->lockAttachments();
         $this->status = 'Completed';
+        $this->expiration_date = new \DateTime('now + '.env('COMMISSION_AUTO_ARCHIVE').' day',new DateTimeZone('America/Chicago'));
         return $this->save();
     }
     public function archive()
     {
+        $this->buyer->addFunds($this->price);
         //Send a notification to the Creator, payment ready
         $this->status = 'Archived';
         return $this->save();
@@ -183,6 +185,12 @@ class Commission extends Model
         //Send a notification to the Creator, dispute underway
         //Create a case?
         $this->status = 'Disputed';
+        return $this->save();
+    }
+    public function refund()
+    {
+        //Send a notification to both parties, refund payment
+        $this->status = 'Refunded';
         return $this->save();
     }
 }

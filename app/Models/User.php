@@ -60,6 +60,13 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    public function addFunds($amount)
+    {
+        $balance = $this->asStripeCustomer()->balance;
+        $newbalance = $balance + ($amount * 100);
+        $this->updateStripeCustomer(['balance' => $newbalance]);
+    }
+
     public function avatar()
     {
         return "https://ui-avatars.com/api/?name=".urlencode($this->name);

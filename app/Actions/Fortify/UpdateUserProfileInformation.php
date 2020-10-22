@@ -36,6 +36,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 'name' => $input['name'],
                 'email' => $input['email'],
             ])->save();
+            $user->updateStripeCustomer(['name'=>$input['name'],'email'=>$input['email']]);
         }
     }
 
@@ -53,7 +54,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             'email' => $input['email'],
             'email_verified_at' => null,
         ])->save();
-
+        $user->updateStripeCustomer(['name'=>$input['name'],'email'=>$input['email']]);
         $user->sendEmailVerificationNotification();
     }
 }
