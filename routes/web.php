@@ -18,7 +18,6 @@ use App\Http\Controllers\WebhookController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::post(
     'stripe/webhook',
     [WebhookController::class, 'handleWebhook']

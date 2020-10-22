@@ -7,6 +7,11 @@
     <form method="POST">
         @csrf
         @method('POST')
+        @if(env('GOOGLE_RECAPTCHA_KEY'))
+            <div class="g-recaptcha"
+                 data-sitekey="{{env('GOOGLE_RECAPTCHA_KEY')}}">
+            </div>
+        @endif
         @if(isset($commissionPreset))
             <input type="hidden" name="preset" value="{{$commissionPreset->id}}">
             <input type="hidden" name="creator_id" value="{{$commissionPreset->user->creator->id}}">

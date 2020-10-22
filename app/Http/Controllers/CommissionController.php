@@ -68,6 +68,7 @@ class CommissionController extends Controller
     public function store()
     {
         request()->validate([
+            'g-recaptcha-response' => 'required|recaptcha',
             'title' => 'required|max:255|min:3',
             'description' => 'required|max:255|min:3',
             'note' => 'required|max:255|min:3',
