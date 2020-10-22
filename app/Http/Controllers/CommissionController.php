@@ -51,7 +51,7 @@ class CommissionController extends Controller
         {
             return $this->createPreset($preset);
         }
-        return view('commission.create');
+        abort(404);
     }
     public function createCustom(Creator $creator)
     {
