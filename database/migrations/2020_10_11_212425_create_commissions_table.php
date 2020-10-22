@@ -25,7 +25,8 @@ class CreateCommissionsTable extends Migration
             $table->string('note');
             $table->decimal('price',8,2,true);
             $table->integer('days_to_complete')->default(3);
-            $table->dateTime('expiration_date')->default(DB::raw('DATE_ADD(CURRENT_TIMESTAMP, INTERVAL 7 DAY)'));
+            $exp = new \DateTime('now + 7 day',new DateTimeZone('America/Chicago'));
+            $table->dateTime('expiration_date')->default($exp->format('Y-m-d H:i:s'));
             $table->enum('status',['Unpaid', 'Pending', 'Declined', 'Active', 'Canceled', 'Completed', 'Disputed', 'Archived', 'Refunded'])
                 ->default('Unpaid');
             $table->timestamps();
