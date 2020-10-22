@@ -5,7 +5,7 @@ use \App\Http\Controllers\CommissionController;
 use \App\Http\Controllers\AttachmentController;
 use \App\Http\Controllers\CreatorController;
 use \App\Http\Controllers\PaymentController;
-
+use App\Http\Controllers\WebhookController;
 
 
 /*
@@ -19,7 +19,10 @@ use \App\Http\Controllers\PaymentController;
 |
 */
 
-
+Route::post(
+    'stripe/webhook',
+    [WebhookController::class, 'handleWebhook']
+);
 
 Route::get('/attachment/{attachment}', [AttachmentController::class, 'view']);
 
