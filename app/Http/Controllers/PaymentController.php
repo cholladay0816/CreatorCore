@@ -31,7 +31,6 @@ class PaymentController extends Controller
         try
         {
             $stripeCharge = auth()->user()->invoiceFor($commission->title, $commission->truePrice()*100);
-
             $payment = new \App\Models\Payment();
             $payment->user_id = auth()->user()->id;
             $payment->customer_id = $stripeCharge->customer;

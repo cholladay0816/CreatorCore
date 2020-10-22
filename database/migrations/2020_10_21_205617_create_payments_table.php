@@ -25,6 +25,8 @@ class CreatePaymentsTable extends Migration
             $table->decimal('total');
             $table->enum('status', ['Pending', 'Accepted', 'Declined', 'Expired'])->default('Pending');
             $table->string('body')->nullable;
+            $exp = new \DateTime('now + 7 day',new DateTimeZone('America/Chicago'));
+            $table->dateTime('expiration_date')->default($exp->format('Y-m-d H:i:s'));
             $table->timestamps();
         });
     }

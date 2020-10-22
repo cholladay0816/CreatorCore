@@ -131,7 +131,8 @@ class Commission extends Model
         //Refund payment
         if($this->status == 'Pending')
         {
-            //Send message to buyer, do refund
+            $this->rebate();
+            //Send message to buyer
         }
         $this->delete();
     }
@@ -156,9 +157,9 @@ class Commission extends Model
     public function cancel()
     {
         $this->removeAttachments();
+        $this->rebate();
         //Send notification to Buyer
         //Give strike to Creator
-        //Refund payment
         $this->status = 'Canceled';
         $this->expiration_date = now();
         return $this->save();
@@ -166,6 +167,7 @@ class Commission extends Model
     public function expire()
     {
         $this->removeAttachments();
+        $this->rebate();
         //Send notification to Creator
         $this->status = 'Canceled';
         $this->expiration_date = now();
@@ -183,7 +185,7 @@ class Commission extends Model
     }
     public function archive()
     {
-        $this->buyer->addFunds($this->price);
+        $this->creator->addFunds($this->price);
         //Send a notification to the Creator, payment ready
         $this->status = 'Archived';
         return $this->save();
@@ -197,8 +199,13 @@ class Commission extends Model
     }
     public function refund()
     {
+        $this->rebate();
         //Send a notification to both parties, refund payment
         $this->status = 'Refunded';
         return $this->save();
+    }
+    public function rebate()
+    {
+        $this->buyer->addFunds($this->truePrice()*100);
     }
 }
