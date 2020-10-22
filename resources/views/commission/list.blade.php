@@ -59,15 +59,15 @@
                                     <div class="text-sm leading-5 text-gray-900">{{$commission->getLocalExpiration()}}</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-no-wrap">
-                                    @if($commission->status == 'Unpaid')
+                                    @if($commission->status == 'Proposed')
                                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
                                         bg-indigo-100 text-indigo-800">
                                           {{$commission->status}}
                                         </span>
-                                    @elseif($commission->status == 'Pending')
+                                    @elseif($commission->status == 'Unpaid')
                                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
                                         bg-blue-100 text-blue-800">
-                                          {{$commission->status}}
+                                          {{$commission->isCreator()?'Awaiting Payment':$commission->status}}
                                         </span>
                                     @elseif($commission->status == 'Declined')
                                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full

@@ -46,6 +46,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group( function() {
         ->name('timeline');
     Route::get('/commission', [CommissionController::class, 'index'])
         ->name('commissions');
+    Route::get('/commission/create/{title}', [CommissionController::class, 'create']);
+    Route::post('/commission/create/{title}', [CommissionController::class, 'store']);
     Route::get('/commission/{commission}', [CommissionController::class, 'view']);
     Route::put('/commission/{commission}', [CommissionController::class, 'update']);
     Route::delete('/commission/{commission}', [CommissionController::class, 'delete']);

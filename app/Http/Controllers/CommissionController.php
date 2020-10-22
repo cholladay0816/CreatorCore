@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Commission;
 use App\Models\CommissionPreset;
+use App\Models\Creator;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CommissionController extends Controller
@@ -11,7 +13,7 @@ class CommissionController extends Controller
     public function index()
     {
         $commissions = Commission::where('creator_id', auth()->user()->id)
-            ->whereNotIn('status', ['Unpaid', 'Declined', 'Expired', 'Canceled'])
+            ->whereNotIn('status', ['Declined', 'Expired', 'Canceled'])
             ->latest()
             ->get();
         return view('commission.list', ['title'=>'Commissions','commissions'=>$commissions]);
@@ -37,20 +39,43 @@ class CommissionController extends Controller
         return view('commission.view', ['commission'=>$commission]);
     }
 
-    public function create(?CommissionPreset $preset)
+    public function create($name)
     {
+        $creator = Creator::find($name);
+        if($creator)
+        {
+            return $this->createCustom($creator);
+        }
+        $preset = CommissionPreset::find($name);
+        if($preset)
+        {
+            return $this->createPreset($preset);
+        }
         return view('commission.create');
     }
-
+    public function createCustom(Creator $creator)
+    {
+        if($creator->allows_custom_commissions == '0' || $creator->accepting_commissions == '0')
+            abort(401);
+        return view('commission.create', ['creator'=>$creator]);
+    }
+    public function createPreset(CommissionPreset $commissionPreset)
+    {
+        if($commissionPreset->user->creator->accepting_commissions == '0')
+            abort(401);
+        return view('commission.create', ['commissionPreset'=>$commissionPreset]);
+    }
     public function store()
     {
         request()->validate([
             'title' => 'required|max:255|min:3',
             'description' => 'required|max:255|min:3',
             'note' => 'required|max:255|min:3',
-            'price'=> 'required|min:5|max:1000',
+            'price'=> 'numeric|required|min:5|max:1000',
             'days_to_complete' => 'required|min:1|max:365',
+            'creator_id' => 'required',
         ]);
+        $creator = Creator::where('id', '=', request('creator_id'))->first();
         $preset = CommissionPreset::find(request('preset_id'));
         $use_preset=false;
         if($preset)
@@ -63,6 +88,8 @@ class CommissionController extends Controller
         }
 
         $commission = new Commission();
+        $commission->buyer_id = auth()->user()->id;
+        $commission->creator_id = $creator->user_id;
         $commission->title = $use_preset ? $preset->title : request('title');
         $commission->description = $use_preset ? $preset->description : request('description');
         $commission->note = request('note');

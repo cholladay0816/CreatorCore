@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="61e15a0a-f7d6-4971-b621-a51ee3642e21" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/resources/views/commission/create.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CommissionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CommissionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Commission.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Commission.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_10_11_212425_create_commissions_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_10_11_212425_create_commissions_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/commission/view.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/commission/view.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/CommissionPreset.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/CommissionPreset.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/commission/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/commission/list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,6 +161,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Actions/Fortify" />
@@ -190,7 +195,7 @@
       <updated>1602449369066</updated>
       <workItem from="1602449370095" duration="46486000" />
       <workItem from="1603313663054" duration="279000" />
-      <workItem from="1603314017788" duration="27144000" />
+      <workItem from="1603314017788" duration="30157000" />
     </task>
     <servers />
   </component>
@@ -226,10 +231,10 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state width="1556" height="218" key="GridCell.Tab.0.right/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1603326657379" />
-    <state x="635" y="352" key="NewPhpFileDialog" timestamp="1603320867078">
+    <state x="635" y="352" key="NewPhpFileDialog" timestamp="1603343983670">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="635" y="352" key="NewPhpFileDialog/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1603320867078" />
+    <state x="635" y="352" key="NewPhpFileDialog/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1603343983670" />
     <state x="507" y="163" width="585" height="534" key="find.popup" timestamp="1602451886749">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
@@ -238,9 +243,9 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="456" y="190" width="672" height="677" key="run.anything.popup/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1603314133362" />
-    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup" timestamp="1602617198900">
+    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup" timestamp="1603344289885">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1602617198900" />
+    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1603344289885" />
   </component>
 </project>
