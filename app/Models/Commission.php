@@ -106,16 +106,16 @@ class Commission extends Model
         {
            return null;
         }
-        $this->status = 'Pending';
+        $this->status = 'Active';
         //Send Notification to Creator
-        $this->expiration_date = new \DateTime('now + 7 day',new DateTimeZone('America/Chicago'));
+        $this->expiration_date = new \DateTime('now + '.$this->days_to_complete.' day',new DateTimeZone('America/Chicago'));
         return $this->save();
     }
     public function accept()
     {
         //Send notification to Buyer
-        $this->status = 'Active';
-        $this->expiration_date = new \DateTime('now + '.$this->days_to_complete.' day',new DateTimeZone('America/Chicago'));
+        $this->status = 'Unpaid';
+        $this->expiration_date = new \DateTime('now + 3 day',new DateTimeZone('America/Chicago'));
         return $this->save();
     }
     public function decline()
@@ -125,16 +125,6 @@ class Commission extends Model
         $this->status = 'Declined';
         $this->expiration_date = now()->toString();
         return $this->save();
-    }
-    public function remove()
-    {
-        //Refund payment
-        if($this->status == 'Pending')
-        {
-            $this->rebate();
-            //Send message to buyer
-        }
-        $this->delete();
     }
     public function removeAttachments()
     {
@@ -169,7 +159,7 @@ class Commission extends Model
         $this->removeAttachments();
         $this->rebate();
         //Send notification to Creator
-        $this->status = 'Canceled';
+        $this->status = 'Expired';
         $this->expiration_date = now();
         return $this->save();
     }

@@ -149,7 +149,7 @@
                         <input name="action" value = "Delete" type="submit" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-red-600 hover:bg-red-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out"/>
                     </div>
                 </form>
-            @elseif($commission->status == 'Pending' && $commission->isBuyer())
+            @elseif($commission->status == 'Proposed' && $commission->isBuyer())
                 <form method="POST" action="{{url('/commission/'.$commission->id)}}">
                     @csrf
                     @method('DELETE')
@@ -158,7 +158,7 @@
                     </div>
                 </form>
             @endif
-            @if($commission->status=='Pending' && $commission->isCreator())
+            @if($commission->status=='Proposed' && $commission->isCreator())
                 <form method="POST" action="{{url('/commission/'.$commission->id)}}">
                     @csrf
                     @method('PUT')

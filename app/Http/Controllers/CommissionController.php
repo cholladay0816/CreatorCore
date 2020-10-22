@@ -73,14 +73,14 @@ class CommissionController extends Controller
     }
     public function update(Commission  $commission)
     {
-        if($commission->isBuyer() && $commission->status == 'Unpaid')
-        {
-            return redirect(url('/payment/'.$commission->id));
-        }
-        if($commission->isCreator() && $commission->status == 'Pending')
+        if($commission->isCreator() && $commission->status == 'Proposed')
         {
             $commission->accept();
             return redirect(url('/commission/'.$commission->id));
+        }
+        if($commission->isBuyer() && $commission->status == 'Unpaid')
+        {
+            return redirect(url('/payment/'.$commission->id));
         }
         if($commission->isCreator() && $commission->status == 'Active')
         {
@@ -96,16 +96,10 @@ class CommissionController extends Controller
     public function delete(Commission $commission)
     {
         //Deleting the orders (Literally)
-        if($commission->isBuyer() && ($commission->status == 'Unpaid' || $commission->status == 'Pending'))
+        if($commission->isBuyer() && ($commission->status == 'Unpaid' || $commission->status == 'Proposed'))
         {
             $commission->remove();
             return redirect(route('orders'));
-        }
-        //Declined
-        else if($commission->isCreator() && ($commission->status == 'Pending'))
-        {
-            $commission->decline();
-            return redirect(route('commissions'));
         }
         //Expired by Buyer
         else if($commission->isBuyer() && ($commission->status == 'Active') && $commission->isExpired())
