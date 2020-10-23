@@ -38,12 +38,12 @@ class Creator extends Model
     {
         return $this->user->reviews->count();
     }
-    public function commissions_enabled($int)
+    public function set_commissions_enabled($int)
     {
         $this->commissions_enabled = $int;
         return $this->save();
     }
-    public function custom_commissions_allowed($int)
+    public function set_custom_commissions_allowed($int)
     {
         $this->custom_commissions_allowed = $int;
         return $this->save();
