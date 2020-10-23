@@ -116,13 +116,13 @@
                     </div>
                     <ul class="flex border-b mt-24 mx-auto">
                         <li class="flex flex-1 {{$page=='details'?'-mb-px':''}}">
-                            <a class="bg-white inline-block py-2 px-24 mx-auto {{$page=='details'?'border-l border-t border-r rounded-t text-blue-700':'text-blue-500 hover:text-blue-800'}} font-semibold" href="{{url('/'.$creator->displayname.'/')}}">Details</a>
+                            <a class="bg-white inline-block py-2 px-2 sm:px-6 lg:px-24 mx-auto {{$page=='details'?'border-l border-t border-r rounded-t text-blue-700':'text-blue-500 hover:text-blue-800'}} font-semibold" href="{{url('/'.$creator->displayname.'/')}}">Details</a>
                         </li>
                         <li class="flex flex-1 {{$page=='gallery'?'-mb-px':''}}">
-                            <a class="bg-white inline-block py-2 px-24 mx-auto {{$page=='gallery'?'border-l border-t border-r rounded-t text-blue-700':'text-blue-500 hover:text-blue-800'}} font-semibold" href="{{url('/'.$creator->displayname.'/gallery')}}">Gallery</a>
+                            <a class="bg-white inline-block py-2 px-2 sm:px-6 lg:px-24 mx-auto {{$page=='gallery'?'border-l border-t border-r rounded-t text-blue-700':'text-blue-500 hover:text-blue-800'}} font-semibold" href="{{url('/'.$creator->displayname.'/gallery')}}">Gallery</a>
                         </li>
                         <li class="flex flex-1 {{$page=='commissions'?'-mb-px':''}}">
-                            <a class="bg-white inline-block py-2 px-24 mx-auto {{$page=='commissions'?'border-l border-t border-r rounded-t text-blue-700':'text-blue-500 hover:text-blue-800'}} font-semibold" href="{{url('/'.$creator->displayname.'/commissions')}}">Commissions</a>
+                            <a class="bg-white inline-block py-2 px-2 sm:px-6 lg:px-24 mx-auto {{$page=='commissions'?'border-l border-t border-r rounded-t text-blue-700':'text-blue-500 hover:text-blue-800'}} font-semibold" href="{{url('/'.$creator->displayname.'/commissions')}}">Commissions</a>
                         </li>
                     </ul>
                     <div class="mt-10 py-10 text-center">
