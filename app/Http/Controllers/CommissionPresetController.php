@@ -17,7 +17,8 @@ class CommissionPresetController extends Controller
     }
     public function create()
     {
-        return view('commissionpreset.create', ['title'=>'Create Commission Preset']);
+        $tags = Tag::all();
+        return view('commissionpreset.create', ['title'=>'Create Commission Preset', 'tags'=>$tags]);
     }
     public function store()
     {
@@ -41,11 +42,10 @@ class CommissionPresetController extends Controller
     public function edit(CommissionPreset $commissionPreset)
     {
         $tags = Tag::all();
-        $categories = Tag::all()->pluck('art_type')->unique()->toArray();
         if($commissionPreset->user_id != auth()->user()->id)
             abort(404);
         return view('commissionpreset.create', ['title'=>'Edit Commission Preset',
-            'commissionPreset'=>$commissionPreset, 'tags'=>$tags, 'categories'=>$categories]);
+            'commissionPreset'=>$commissionPreset, 'tags'=>$tags]);
     }
     public function update(CommissionPreset $commissionPreset)
     {
