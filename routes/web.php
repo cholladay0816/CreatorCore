@@ -6,7 +6,7 @@ use \App\Http\Controllers\AttachmentController;
 use \App\Http\Controllers\CreatorController;
 use \App\Http\Controllers\PaymentController;
 use App\Http\Controllers\WebhookController;
-
+use App\Http\Controllers\CommissionPresetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,14 +51,29 @@ Route::middleware(['auth:sanctum', 'verified'])->group( function() {
     Route::put('/commission/{commission}', [CommissionController::class, 'update']);
     Route::delete('/commission/{commission}', [CommissionController::class, 'delete']);
 
+    Route::get('/commissionpreset/new', [CommissionPresetController::class, 'create']);
+    Route::post('/commissionpreset/new', [CommissionPresetController::class, 'store']);
+    Route::get('/commissionpreset/{commissionPreset}', [CommissionPresetController::class, 'edit']);
+    Route::put('/commissionpreset/{commissionPreset}', [CommissionPresetController::class, 'update']);
+    Route::delete('/commissionpreset/{commissionPreset}', [CommissionPresetController::class, 'delete']);
+
     Route::get('/attachment/create/{commission}',[AttachmentController::class, 'create']);
     Route::post('/attachment/create/{commission}',[AttachmentController::class, 'store']);
 
     Route::delete('/attachment/{attachment}', [AttachmentController::class, 'delete']);
 });
+Route::get('/testindex', function () {
+    return view('index-sample');
+});
+Route::get('/explore', function () {
+    return view('index-sample');
+})->name('explore');
 Route::get('/{creator}', [CreatorController::class, 'index']);
 Route::get('/{creator}/{page}', [CreatorController::class, 'index']);
+
+
 
 Route::get('/', function () {
     return view('welcome');
 });
+

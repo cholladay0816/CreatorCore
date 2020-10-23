@@ -73,7 +73,7 @@ class CommissionController extends Controller
             'description' => 'required|max:255|min:3',
             'note' => 'required|max:255|min:3',
             'price'=> 'numeric|required|min:5|max:1000',
-            'days_to_complete' => 'required|min:1|max:365',
+            'days_to_complete' => 'numeric|required|min:1|max:365',
             'creator_id' => 'required',
         ]);
         $creator = Creator::where('id', '=', request('creator_id'))->first();

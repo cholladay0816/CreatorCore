@@ -13,6 +13,15 @@ class Creator extends Model
     public $incrementing = false;
 
     protected $keyType = 'string';
+
+    public function isCurrentUser()
+    {
+        if(!auth()->user())
+            return false;
+
+        return $this->user_id == auth()->user()->id;
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

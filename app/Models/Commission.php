@@ -51,11 +51,11 @@ class Commission extends Model
     }
     public function taxPrice()
     {
-        return ceil($this->price * 100 + ($this->price * 100 * env('COMMISSION_SALES_TAX')));
+        return ceil($this->price * 100 + ($this->price * 100 * env('COMMISSION_SALES_TAX')))/100;
     }
     public function truePrice()
     {
-        return 0.01*($this->taxPrice() + env('STRIPE_FLAT_TAX') + ceil(($this->taxPrice() + env('STRIPE_FLAT_TAX')) * env('STRIPE_SALES_TAX')));
+        return 0.01*(($this->taxPrice()*100) + env('STRIPE_FLAT_TAX') + ceil((($this->taxPrice()*100) + env('STRIPE_FLAT_TAX')) * env('STRIPE_SALES_TAX')));
     }
     public function hoursleft()
     {
@@ -100,32 +100,6 @@ class Commission extends Model
     {
         return $this->expiration_date->diffForHumans();
     }
-    public function pay()
-    {
-        if($this->status != 'Unpaid')
-        {
-           return null;
-        }
-        $this->status = 'Active';
-        //Send Notification to Creator
-        $this->expiration_date = new \DateTime('now + '.$this->days_to_complete.' day',new DateTimeZone('America/Chicago'));
-        return $this->save();
-    }
-    public function accept()
-    {
-        //Send notification to Buyer
-        $this->status = 'Unpaid';
-        $this->expiration_date = new \DateTime('now + 3 day',new DateTimeZone('America/Chicago'));
-        return $this->save();
-    }
-    public function decline()
-    {
-        //Send notification to Buyer
-        //Refund payment
-        $this->status = 'Declined';
-        $this->expiration_date = now()->toString();
-        return $this->save();
-    }
     public function removeAttachments()
     {
         $this->attachments->each(function($attachment){
@@ -143,6 +117,32 @@ class Commission extends Model
         $this->attachments->each(function($att){
             $att->unlist();
         });
+    }
+    public function accept()
+    {
+        //Send notification to Buyer
+        $this->status = 'Unpaid';
+        $this->expiration_date = new \DateTime('now + 3 day',new DateTimeZone('America/Chicago'));
+        return $this->save();
+    }
+    public function decline()
+    {
+        //Send notification to Buyer
+        //Refund payment
+        $this->status = 'Declined';
+        $this->expiration_date = now()->toString();
+        return $this->save();
+    }
+    public function pay()
+    {
+        if($this->status != 'Unpaid')
+        {
+            return null;
+        }
+        $this->status = 'Active';
+        //Send Notification to Creator
+        $this->expiration_date = new \DateTime('now + '.$this->days_to_complete.' day',new DateTimeZone('America/Chicago'));
+        return $this->save();
     }
     public function cancel()
     {
@@ -196,6 +196,10 @@ class Commission extends Model
     }
     public function rebate()
     {
-        $this->buyer->addFunds($this->truePrice()*100);
+        //Fully reimburse customer
+        $payment = Payment::where('commission_id','=',$this->id)->first();
+        $this->buyer->refund($payment->invoice_id);
+        //Deduct sales tax from creator
+        $this->creator->addFunds(($this->taxPrice() - $this->truePrice())*100);
     }
 }

@@ -48,7 +48,7 @@
                             <div class="relative">
                                 <img
                                     alt="Profile Picture"
-                                    src="{{$creator->user->avatar()}}"
+                                    src="{{$creator->user->getProfilePhotoUrlAttribute()}}"
                                     class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16"
                                     style="width:150px;max-width: 150px;"
                                 />
@@ -115,13 +115,20 @@
                     </div>
                     <div class="mt-10 py-10 border-t border-gray-300 text-center">
                         <div class="flex flex-wrap justify-center">
-                            <div class="w-full lg:w-9/12 px-4">
+                            <div class="w-full lg:w-10/12 px-1">
                                 <p class="mb-4 text-lg leading-relaxed text-gray-800">
                                     {{$creator->bio}}
                                 </p>
-                                <a href="" class="font-normal text-indigo-500"
-                                >Show more</a
-                                >
+                                @if($page=='gallery')
+                                    @component('components.creator-gallery', ['creator'=>$creator])
+                                    @endcomponent
+                                @elseif($page=='commissions')
+                                    @component('components.creator-commissions', ['creator'=>$creator])
+                                    @endcomponent
+                                @else
+                                    @component('components.creator-details', ['creator'=>$creator])
+                                    @endcomponent
+                                @endif
                             </div>
                         </div>
                     </div>

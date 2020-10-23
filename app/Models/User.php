@@ -67,10 +67,6 @@ class User extends Authenticatable
         $this->updateStripeCustomer(['balance' => $newbalance]);
     }
 
-    public function avatar()
-    {
-        return "https://ui-avatars.com/api/?name=".urlencode($this->name);
-    }
     public function gallery()
     {
         return $this->hasMany(Gallery::class);

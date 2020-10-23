@@ -5,11 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="61e15a0a-f7d6-4971-b621-a51ee3642e21" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Validators/ReCaptcha.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/commissionpreset/create.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/components/new-commission-preset.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/components/new-custom-commission.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/creator/edit.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/index-sample.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CommissionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CommissionController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CommissionPresetController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CommissionPresetController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CreatorController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CreatorController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Commission.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Commission.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/CommissionPreset.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/CommissionPreset.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Creator.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Creator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/CommissionPresetFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/CommissionPresetFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/commission/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/commission/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/creator/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/creator/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
@@ -165,12 +178,13 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Actions/Fortify" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/components" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Users\Chris\Documents\GitHub\LaravelStackTest\resources\views\components" />
       <recent name="E:\Users\Chris\Documents\GitHub\LaravelStackTest\app\Actions\Fortify" />
       <recent name="E:\Users\Chris\Documents\GitHub\LaravelStackTest\resources\views\profile" />
     </key>
@@ -196,7 +210,7 @@
       <updated>1602449369066</updated>
       <workItem from="1602449370095" duration="46486000" />
       <workItem from="1603313663054" duration="279000" />
-      <workItem from="1603314017788" duration="31468000" />
+      <workItem from="1603314017788" duration="59232000" />
     </task>
     <servers />
   </component>
@@ -212,10 +226,10 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="480" y="165" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1603313825031" />
-    <state x="530" y="184" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1603341579447">
+    <state x="530" y="184" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1603412935063">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="530" y="184" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1603341579447" />
+    <state x="530" y="184" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1603412935063" />
     <state width="1556" height="218" key="GridCell.Tab.0.bottom" timestamp="1603326657379">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
@@ -232,10 +246,11 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state width="1556" height="218" key="GridCell.Tab.0.right/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1603326657379" />
-    <state x="635" y="352" key="NewPhpFileDialog" timestamp="1603347404263">
+    <state x="635" y="352" key="NewPhpFileDialog" timestamp="1603413629878">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="635" y="352" key="NewPhpFileDialog/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1603347404263" />
+    <state x="-965" y="352" key="NewPhpFileDialog/-1600.0.1600.860/0.0.1600.860@-1600.0.1600.860" timestamp="1603388084745" />
+    <state x="635" y="352" key="NewPhpFileDialog/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1603413629878" />
     <state x="507" y="163" width="585" height="534" key="find.popup" timestamp="1602451886749">
       <screen x="0" y="0" width="1600" height="860" />
     </state>

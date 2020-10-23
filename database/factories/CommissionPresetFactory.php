@@ -22,7 +22,7 @@ class CommissionPresetFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => User::factory(),
+            'user_id' => 1,
             'title' => $this->faker->sentence(7),
             'description'=>$this->faker->sentence(14),
             'price'=> 5,
