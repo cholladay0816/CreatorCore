@@ -58,13 +58,14 @@
                             class="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center"
                         >
                             <div class="py-6 px-3 mt-32 sm:mt-0">
-                                <button
+                                <a
                                     class="bg-indigo-500 active:bg-indigo-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1"
                                     type="button"
                                     style="transition: all 0.15s ease 0s;"
+                                    href="{{url('/'.$creator->displayname.'/commissions')}}"
                                 >
                                     Commission
-                                </button>
+                                </a>
                             </div>
                         </div>
                         <div class="w-full lg:w-4/12 px-4 lg:order-1">
@@ -113,7 +114,18 @@
                             >University of Computer Science
                         </div>
                     </div>
-                    <div class="mt-10 py-10 border-t border-gray-300 text-center">
+                    <ul class="flex border-b mt-24 mx-auto">
+                        <li class="flex flex-1 {{$page=='details'?'-mb-px':''}}">
+                            <a class="bg-white inline-block py-2 px-24 mx-auto {{$page=='details'?'border-l border-t border-r rounded-t text-blue-700':'text-blue-500 hover:text-blue-800'}} font-semibold" href="{{url('/'.$creator->displayname.'/')}}">Details</a>
+                        </li>
+                        <li class="flex flex-1 {{$page=='gallery'?'-mb-px':''}}">
+                            <a class="bg-white inline-block py-2 px-24 mx-auto {{$page=='gallery'?'border-l border-t border-r rounded-t text-blue-700':'text-blue-500 hover:text-blue-800'}} font-semibold" href="{{url('/'.$creator->displayname.'/gallery')}}">Gallery</a>
+                        </li>
+                        <li class="flex flex-1 {{$page=='commissions'?'-mb-px':''}}">
+                            <a class="bg-white inline-block py-2 px-24 mx-auto {{$page=='commissions'?'border-l border-t border-r rounded-t text-blue-700':'text-blue-500 hover:text-blue-800'}} font-semibold" href="{{url('/'.$creator->displayname.'/commissions')}}">Commissions</a>
+                        </li>
+                    </ul>
+                    <div class="mt-10 py-10 text-center">
                         <div class="flex flex-wrap justify-center">
                             <div class="w-full lg:w-10/12 px-1">
                                 <p class="mb-4 text-lg leading-relaxed text-gray-800">

@@ -5,26 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="61e15a0a-f7d6-4971-b621-a51ee3642e21" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/commissionpreset/create.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/components/new-commission-preset.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/components/new-custom-commission.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/creator/edit.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/index-sample.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CommissionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CommissionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CommissionPresetController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CommissionPresetController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CreatorController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CreatorController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Commission.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Commission.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/CommissionPreset.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/CommissionPreset.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Creator.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Creator.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/CommissionPresetFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/CommissionPresetFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/commission/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/commission/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/components/creator-commissions.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/components/creator-commissions.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/creator/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/creator/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/guest.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/guest.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -210,7 +194,7 @@
       <updated>1602449369066</updated>
       <workItem from="1602449370095" duration="46486000" />
       <workItem from="1603313663054" duration="279000" />
-      <workItem from="1603314017788" duration="59232000" />
+      <workItem from="1603314017788" duration="60307000" />
     </task>
     <servers />
   </component>
