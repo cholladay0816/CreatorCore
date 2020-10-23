@@ -26,6 +26,18 @@ class Creator extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function commissionCount()
+    {
+        return $this->user->presets->count();
+    }
+    public function galleryCount()
+    {
+        return $this->user->gallery->count();
+    }
+    public function reviewCount()
+    {
+        return $this->user->reviews->count();
+    }
     public function commissions_enabled($int)
     {
         $this->commissions_enabled = $int;

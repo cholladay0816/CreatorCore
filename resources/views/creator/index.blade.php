@@ -73,19 +73,19 @@
                                 <div class="mr-4 p-3 text-center">
                       <span
                           class="text-xl font-bold block uppercase tracking-wide text-gray-700"
-                      >22</span
+                      >{{$creator->reviewCount()}}</span
                       ><span class="text-sm text-gray-500">Reviews</span>
                                 </div>
                                 <div class="mr-4 p-3 text-center">
                       <span
                           class="text-xl font-bold block uppercase tracking-wide text-gray-700"
-                      >10</span
+                      >{{$creator->galleryCount()}}</span
                       ><span class="text-sm text-gray-500">Photos</span>
                                 </div>
                                 <div class="lg:mr-4 p-3 text-center">
                       <span
                           class="text-xl font-bold block uppercase tracking-wide text-gray-700"
-                      >89</span
+                      >{{$creator->commissionCount()}}</span
                       ><span class="text-sm text-gray-500">Commissions</span>
                                 </div>
                             </div>
