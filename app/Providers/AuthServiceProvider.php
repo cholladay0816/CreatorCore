@@ -25,6 +25,13 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        Gate::before(function ($user, $ability) {
+            if($user->hasAbility($ability))
+            {
+                return true;
+            }
+        });
+
         Gate::define('view-as-creator', function ($user) {
             return isset( $user->creator );
         });

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Gate;
 
 class Creator extends Model
 {
@@ -21,7 +22,10 @@ class Creator extends Model
 
         return $this->user_id == auth()->user()->id;
     }
-
+    public function canBeEdited()
+    {
+        return $this->isCurrentUser() || Gate::allows('edit-users');
+    }
     public function user()
     {
         return $this->belongsTo(User::class);

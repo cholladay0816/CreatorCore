@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class Gallery extends Model
@@ -31,6 +32,7 @@ class Gallery extends Model
         //TODO: Add Copyright Logic
 
         if($this->isClaimed())
+            return false;
 
         if($this->is_visible == 1)
             return true;
@@ -38,6 +40,14 @@ class Gallery extends Model
             return true;
 
         return false;
+    }
+    public function canBeEdited()
+    {
+        if(auth()->user() === null)
+            return false;
+        if(Gate::allows('edit-users'))
+            return true;
+        return ($this->user_id == auth()->user()->id);
     }
     public function remove()
     {

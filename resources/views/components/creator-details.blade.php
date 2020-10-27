@@ -1,6 +1,6 @@
 <div>
     <p id="displayBio"
-       @if($creator->isCurrentUser())
+       @if($creator->canBeEdited())
         ondblclick="openBioEditor()"
        @endif
         class="mb-4 leading-relaxed text-gray-800 text-xl font-semibold mb-2">
@@ -8,7 +8,7 @@
     </p>
 </div>
 
-@if($creator->isCurrentUser())
+@if($creator->canBeEdited())
     <form id="editNameForm" method="POST" action="{{url('/creator/edit/'.$creator->displayname)}}" class="hidden">
         @csrf
         @method('PUT')
@@ -29,7 +29,7 @@
     </form>
 @endif
 
-@if($creator->isCurrentUser())
+@if($creator->canBeEdited())
 <form id="editBioForm" class="hidden" method="POST" action="{{url('creator/edit/'.$creator->displayname)}}">
     @csrf
     @method('PUT')

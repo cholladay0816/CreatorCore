@@ -3,6 +3,10 @@
         @component('components.gallery', ['gallery' => $gallery, 'view_as_guest'=>1])
         @endcomponent
     @endforeach
-    @component('components.new-gallery')
-    @endcomponent
+    @auth
+        @if($creator->user->id == auth()->user()->id)
+            @component('components.new-gallery')
+            @endcomponent
+        @endif
+    @endauth
 </div>

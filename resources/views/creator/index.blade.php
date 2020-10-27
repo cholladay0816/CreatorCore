@@ -93,14 +93,14 @@
                     </div>
                     <div class="text-center mt-12">
                         <h3 id="displayNameHeader"
-                            @if($creator->isCurrentUser())
+                            @if($creator->canBeEdited())
                                 ondblclick="openNameEditor()"
                             @endif
                             class="text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
                         >
                             {{$creator->displayname}}
                         </h3>
-                        @if($creator->isCurrentUser())
+                        @if($creator->canBeEdited())
                         <form id="editNameForm" method="POST" action="{{url('/creator/edit/'.$creator->displayname)}}" class="hidden">
                             @csrf
                             @method('PUT')
@@ -172,11 +172,13 @@
 
 </x-app-layout>
 <script>
-    function openNameEditor()
-    {
-        document.getElementById('editNameForm').classList.toggle("hidden");
-        document.getElementById('displayNameHeader').classList.toggle("hidden");
-    }
+    @if($creator->canBeEdited())
+        function openNameEditor()
+        {
+            document.getElementById('editNameForm').classList.toggle("hidden");
+            document.getElementById('displayNameHeader').classList.toggle("hidden");
+        }
+    @endif
     function toggleNavbar(collapseID) {
         document.getElementById(collapseID).classList.toggle("hidden");
         document.getElementById(collapseID).classList.toggle("block");

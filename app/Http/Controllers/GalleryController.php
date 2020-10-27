@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Attachment;
 use App\Models\Gallery;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class GalleryController extends Controller
@@ -49,9 +50,10 @@ class GalleryController extends Controller
 
     public function delete(Gallery $gallery)
     {
-        if(auth()->user()->id != $gallery->user_id)
+        if(auth()->user()->id != $gallery->user_id && Gate::denies('edit-users'))
             abort(401);
+        $name = $gallery->user->creator->displayname;
         $gallery->delete();
-        return redirect(url('/'.auth()->user()->creator->displayname.'/gallery'));
+        return redirect(url('/'.$name.'/gallery'));
     }
 }

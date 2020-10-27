@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Creator;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Polyfill\Ctype\Ctype;
 
@@ -17,12 +18,6 @@ class CreatorController extends Controller
         if(is_null($creator))
         {
             return view('creator.not-found');
-        }
-        if(auth()->user())
-        {
-            if (!$creator->user->id == auth()->user()->id) {
-                return view('creator.edit', ['creator' => $creator]);
-            }
         }
         return view('creator.index', ['creator'=>$creator, 'page'=>$page]);
     }
@@ -47,7 +42,7 @@ class CreatorController extends Controller
     }
     public function edit(Creator $creator)
     {
-        if($creator->user_id != auth()->user()->id)
+        if($creator->user_id != auth()->user()->id && Gate::denies('edit-users'))
             abort(401);
         return view('creator.edit',['creator'=>$creator]);
     }
@@ -58,17 +53,17 @@ class CreatorController extends Controller
                 'bio'=>'max:256'
             ]
         );
-        if($creator->user_id != auth()->user()->id)
+        if($creator->user_id != auth()->user()->id && Gate::denies('edit-users'))
             abort(401);
         $creator->displayname = request('displayname');
         if(request('bio'))
             $creator->bio = request('bio');
         $creator->save();
-        return redirect(url('/'.$creator->displayname));
+        return redirect()->back();
     }
     public function delete(Creator $creator)
     {
-        if($creator->user_id != auth()->user()->id)
+        if($creator->user_id != auth()->user()->id && Gate::denies('edit-users'))
             abort(401);
 
         $creator->deletePresets();
