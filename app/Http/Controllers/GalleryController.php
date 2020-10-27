@@ -46,4 +46,12 @@ class GalleryController extends Controller
         return redirect(url('/'.$gallery->user->creator->displayname.'/gallery'));
 
     }
+
+    public function delete(Gallery $gallery)
+    {
+        if(auth()->user()->id != $gallery->user_id)
+            abort(401);
+        $gallery->delete();
+        return redirect(url('/'.auth()->user()->creator->displayname.'/gallery'));
+    }
 }
