@@ -26,6 +26,8 @@ Route::post(
 Route::get('/attachment/{attachment}', [AttachmentController::class, 'view']);
 
 Route::middleware(['auth:sanctum', 'verified'])->group( function() {
+
+    //Dashboard
     Route::get('/', function () {
         return view('dashboard');
     });
@@ -33,12 +35,24 @@ Route::middleware(['auth:sanctum', 'verified'])->group( function() {
         return view('dashboard');
     })->name('dashboard');
 
+
+
+    //Attachment Routes
+    Route::get('/attachment/create/{commission}',[AttachmentController::class, 'create']);
+    Route::post('/attachment/create/{commission}',[AttachmentController::class, 'store']);
+    Route::delete('/attachment/{attachment}', [AttachmentController::class, 'delete']);
+
+
+    //Payment Routes
     Route::get('/payment/new', [PaymentController::class, 'new']);
     Route::post('/payment/new', [PaymentController::class, 'store']);
 
     Route::get('/payment/{commission}', [PaymentController::class, 'show']);
     Route::post('/payment/{commission}', [PaymentController::class, 'pay']);
 
+    Route::get('/transactions', [PaymentController::class, 'history']);
+
+    //Commission Routes
     Route::get('/commission/orders', [CommissionController::class, 'orders'])
         ->name('orders');
     Route::get('/commission/timeline', [CommissionController::class, 'timeline'])
@@ -51,23 +65,26 @@ Route::middleware(['auth:sanctum', 'verified'])->group( function() {
     Route::put('/commission/{commission}', [CommissionController::class, 'update']);
     Route::delete('/commission/{commission}', [CommissionController::class, 'delete']);
 
+
+    //Commission Preset Routes
     Route::get('/commissionpreset/new', [CommissionPresetController::class, 'create']);
     Route::post('/commissionpreset/new', [CommissionPresetController::class, 'store']);
     Route::get('/commissionpreset/{commissionPreset}', [CommissionPresetController::class, 'edit']);
     Route::put('/commissionpreset/{commissionPreset}', [CommissionPresetController::class, 'update']);
     Route::delete('/commissionpreset/{commissionPreset}', [CommissionPresetController::class, 'delete']);
 
-    Route::get('/attachment/create/{commission}',[AttachmentController::class, 'create']);
-    Route::post('/attachment/create/{commission}',[AttachmentController::class, 'store']);
 
-    Route::delete('/attachment/{attachment}', [AttachmentController::class, 'delete']);
 });
+
+
 Route::get('/testindex', function () {
     return view('index-sample');
 });
 Route::get('/explore', function () {
     return view('index-sample');
 })->name('explore');
+
+//Creator Routes
 Route::get('/{creator}', [CreatorController::class, 'index']);
 Route::get('/{creator}/{page}', [CreatorController::class, 'index']);
 
@@ -75,5 +92,5 @@ Route::get('/{creator}/{page}', [CreatorController::class, 'index']);
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->middleware('guest');
 

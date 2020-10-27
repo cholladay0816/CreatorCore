@@ -50,11 +50,18 @@
                     <x-slot name="content">
                         <!-- Account Management -->
                         <div class="block px-4 py-2 text-xs text-gray-400">
-                            {{ __('Manage Account') }}
+                            {{ __('Account Management') }}
                         </div>
+                        <x-jet-dropdown-link href="{{ url('/'.auth()->user()->creator->displayname) }}">
+                            {{ __('Visit Profile') }}
+                        </x-jet-dropdown-link>
+
+                        <x-jet-dropdown-link href="{{ url('/transactions') }}">
+                            {{ __('Transactions') }}
+                        </x-jet-dropdown-link>
 
                         <x-jet-dropdown-link href="{{ route('profile.show') }}">
-                            {{ __('Profile') }}
+                            {{ __('Settings') }}
                         </x-jet-dropdown-link>
 
                         @if (Laravel\Jetstream\Jetstream::hasApiFeatures())

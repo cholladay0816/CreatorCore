@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCreatorsTable extends Migration
+class CreateReviewRatingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreateCreatorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('creators', function (Blueprint $table) {
+        Schema::create('review_ratings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->unique();
+            $table->foreignId('user_id');
             $table->foreign('user_id')->references('id')->on('users')
                 ->cascadeOnDelete();
-            $table->string('displayname')->unique();
-            $table->string('bio')->nullable();
-            $table->tinyInteger('accepting_commissions')->default(0);
-            $table->tinyInteger('allows_custom_commissions')->default(0);
+            $table->foreign('review_id')->references('id')->on('reviews')
+                ->cascadeOnUpdate();
+            $table->tinyInteger('helpful');
             $table->timestamps();
         });
     }
@@ -33,6 +32,6 @@ class CreateCreatorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('creators');
+        Schema::dropIfExists('review_ratings');
     }
 }

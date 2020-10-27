@@ -20,6 +20,13 @@ class PaymentController extends Controller
         return view('payment.pay', ['title'=>$commission->title, 'commission'=>$commission, 'method'=>auth()->user()->defaultPaymentMethod()]);
     }
 
+    public function history()
+    {
+        $commissions = Commission::where('buyer_id', '=', auth()->user()->id)
+                ->orWhere('creator_id', '=', auth()->user()->id)->get();
+        return view('payment.history', ['commissions'=>$commissions]);
+    }
+
     public function pay(Commission $commission, Request $request)
     {
         if(!$commission->isBuyer())

@@ -16,9 +16,11 @@ class CreateAttachmentsTable extends Migration
         Schema::create('attachments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')
+                    ->cascadeOnDelete();
             $table->foreignId('commission_id');
-            $table->foreign('commission_id')->references('id')->on('commissions');
+            $table->foreign('commission_id')->references('id')->on('commissions')
+                    ->cascadeOnDelete();
             $table->string('content')->unique();
             $table->bigInteger('size');
             $table->tinyInteger('is_visible')->default(0);

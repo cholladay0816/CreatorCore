@@ -15,12 +15,14 @@ class CreatePaymentsTable extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreignId('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')
+            ->nullOnDelete();
             $table->string('invoice_id');
             $table->string('customer_id');
-            $table->foreignId('commission_id');
-            $table->foreign('commission_id')->references('id')->on('commissions');
+            $table->foreignId('commission_id')->nullable();
+            $table->foreign('commission_id')->references('id')->on('commissions')
+            ->nullOnDelete();
             $table->decimal('value');
             $table->decimal('total');
             $table->enum('status', ['Pending', 'Accepted', 'Declined', 'Expired'])->default('Pending');

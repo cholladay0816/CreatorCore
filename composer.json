@@ -37,16 +37,21 @@
             "dont-discover": []
         }
     },
+
     "autoload": {
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
-        }
+            "Database\\Seeders\\": "database/seeders/",
+            "Laravel\\Fortify\\Http\\Responses\\": "app/Overrides/"
+        },
+        "exclude-from-classmap": ["vendor/laravel/fortify/src/Http/Responses/RegisterResponse.php"],
+        "files": ["app/Overrides/RegisterResponse.php"]
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "Tests\\": "tests/",
+            "Laravel\\Fortify\\Http\\Responses\\": "app/Overrides/"
         }
     },
     "minimum-stability": "dev",

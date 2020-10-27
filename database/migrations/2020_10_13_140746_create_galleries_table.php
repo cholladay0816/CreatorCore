@@ -16,7 +16,8 @@ class CreateGalleriesTable extends Migration
         Schema::create('galleries', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')
+            ->cascadeOnDelete();
             $table->string('content')->unique();
             $table->string('title')->nullable();
             $table->string('description')->nullable();

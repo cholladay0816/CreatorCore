@@ -39,17 +39,8 @@ class AttachmentController extends Controller
         request()->validate([
             'file' => 'required|file|image|max:4096' //Must be an image file (4MB limit)
         ]);
-        //If this is not the user's commission, back out
-        //if($commission->user_id != auth()->user()->id)
-        //{
-        //    dd($commission->user_id);
-        //    return back();
-        //}
 
         $path = $request->file('file')->store('attachments');
-        //dd($path);
-        //File Validation
-
 
         $attachment = new Attachment();
         $attachment->user_id = auth()->user()->id;

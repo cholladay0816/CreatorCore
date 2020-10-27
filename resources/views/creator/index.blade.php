@@ -1,9 +1,9 @@
-<x-guest-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ $creator->displayname }}
-        </h2>
-    </x-slot>
+
+<x-app-layout>
+
+
+
+
 <main class="profile-page">
     <section class="relative block" style="height: 500px;">
         <div
@@ -149,10 +149,11 @@
         </div>
     </section>
 </main>
+
+</x-app-layout>
 <script>
     function toggleNavbar(collapseID) {
         document.getElementById(collapseID).classList.toggle("hidden");
         document.getElementById(collapseID).classList.toggle("block");
     }
 </script>
-</x-guest-layout>

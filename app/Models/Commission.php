@@ -13,6 +13,11 @@ class Commission extends Model
 
     protected $dates = ['created_at', 'updated_at', 'expiration_date'];
 
+    public function earnings()
+    {
+        return $this->price * ($this->isBuyer()?-1:1);
+    }
+
     public function buyer()
     {
         return $this->belongsTo(User::class, 'buyer_id');

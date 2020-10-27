@@ -5,10 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use App\Events\AttachmentDeleted;
 
 class Attachment extends Model
 {
     use HasFactory;
+
+    protected $dispatchesEvents = [
+        'deleted' => AttachmentDeleted::class
+    ];
+
     public function canView()
     {
         if($this->is_visible == 1)

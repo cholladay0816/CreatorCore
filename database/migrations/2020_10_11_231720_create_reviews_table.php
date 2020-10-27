@@ -17,15 +17,16 @@ class CreateReviewsTable extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreign('user_id')->references('id')->on('users')
-                ->onDelete('cascade');
+                ->cascadeOnDelete();
             $table->foreignId('commission_id');
             $table->foreign('commission_id')->references('id')->on('commissions')
-                ->onDelete('cascade');
+                ->cascadeOnDelete();
             $table->tinyInteger('positive')->default(1);
             $table->tinyInteger('anonymous')->default(1);
             $table->string('message')->nullable();
-            $table->foreignId('attachment_id');
-            $table->foreign('attachment_id')->references('id')->on('attachments');
+            $table->foreignId('attachment_id')->nullable;
+            $table->foreign('attachment_id')->references('id')->on('attachments')
+                ->nullOnDelete();
             $table->timestamps();
         });
     }
