@@ -25,6 +25,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('view-as-creator', function ($user) {
+            return isset( $user->creator );
+        });
     }
 }

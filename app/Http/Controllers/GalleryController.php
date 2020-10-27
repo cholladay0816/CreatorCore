@@ -27,19 +27,23 @@ class GalleryController extends Controller
 
         request()->validate([
             'file' => 'required|file|image|max:4096', //Must be an image file (4MB limit)
-            'title' => 'nullable|max:256',
-            'description' => 'nullable|max:1024'
+            'title' => 'nullable|max:255',
+            'description' => 'nullable|max:255'
         ]);
 
         $path = $request->file('file')->store('gallery');
 
         $gallery = new Gallery();
         $gallery->user_id = auth()->user()->id;
+        if(request('title'))
+            $gallery->title = request('title');
+        if(request('description'))
+            $gallery->description = request('description');
         $gallery->content = $path;
         $gallery->size = $request->file('file')->getSize();
         $gallery->is_visible = 1;
         $gallery->save();
-        return redirect(url('user/'.$gallery->user->creator->displayname.'/gallery'));
+        return redirect(url('/'.$gallery->user->creator->displayname.'/gallery'));
 
     }
 }

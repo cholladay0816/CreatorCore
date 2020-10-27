@@ -26,6 +26,20 @@ class Creator extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function deletePresets()
+    {
+        foreach ($this->user->presets as $preset)
+        {
+            $preset->delete();
+        }
+    }
+    public function deleteGallery()
+    {
+        foreach ($this->user->gallery as $gallery)
+        {
+            $gallery->remove();
+        }
+    }
     public function commissionCount()
     {
         return $this->user->presets->count();

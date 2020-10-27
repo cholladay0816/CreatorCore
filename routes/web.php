@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GalleryController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\CommissionController;
 use \App\Http\Controllers\AttachmentController;
@@ -24,6 +25,7 @@ Route::post(
 );
 
 Route::get('/attachment/{attachment}', [AttachmentController::class, 'view']);
+Route::get('/gallery/{gallery}', [GalleryController::class, 'view']);
 
 Route::middleware(['auth:sanctum', 'verified'])->group( function() {
 
@@ -36,21 +38,33 @@ Route::middleware(['auth:sanctum', 'verified'])->group( function() {
     })->name('dashboard');
 
 
-
     //Attachment Routes
     Route::get('/attachment/create/{commission}',[AttachmentController::class, 'create']);
     Route::post('/attachment/create/{commission}',[AttachmentController::class, 'store']);
     Route::delete('/attachment/{attachment}', [AttachmentController::class, 'delete']);
 
 
+    //Gallery Routes
+    Route::post('/gallery/upload',[GalleryController::class, 'store']);
+    Route::delete('/gallery/{gallery}', [GalleryController::class, 'delete']);
+
+
+    //Creator Routes
+    Route::get('/creator/new',[CreatorController::class, 'create']);
+    Route::post('/creator/new',[CreatorController::class, 'store']);
+    Route::get('/creator/edit/{creator}',[CreatorController::class, 'edit']);
+    Route::put('/creator/edit/{creator}',[CreatorController::class, 'update']);
+    Route::delete('/creator/delete/{creator}',[CreatorController::class, 'delete']);
+
+
     //Payment Routes
     Route::get('/payment/new', [PaymentController::class, 'new']);
     Route::post('/payment/new', [PaymentController::class, 'store']);
-
     Route::get('/payment/{commission}', [PaymentController::class, 'show']);
     Route::post('/payment/{commission}', [PaymentController::class, 'pay']);
 
     Route::get('/transactions', [PaymentController::class, 'history']);
+
 
     //Commission Routes
     Route::get('/commission/orders', [CommissionController::class, 'orders'])

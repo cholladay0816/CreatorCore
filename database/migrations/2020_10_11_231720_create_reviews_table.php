@@ -24,7 +24,7 @@ class CreateReviewsTable extends Migration
             $table->tinyInteger('positive')->default(1);
             $table->tinyInteger('anonymous')->default(1);
             $table->string('message')->nullable();
-            $table->foreignId('attachment_id')->nullable;
+            $table->foreignId('attachment_id')->nullable();
             $table->foreign('attachment_id')->references('id')->on('attachments')
                 ->nullOnDelete();
             $table->timestamps();

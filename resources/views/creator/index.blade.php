@@ -92,11 +92,34 @@
                         </div>
                     </div>
                     <div class="text-center mt-12">
-                        <h3
+                        <h3 id="displayNameHeader"
+                            @if($creator->isCurrentUser())
+                                ondblclick="openNameEditor()"
+                            @endif
                             class="text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
                         >
                             {{$creator->displayname}}
                         </h3>
+                        @if($creator->isCurrentUser())
+                        <form id="editNameForm" method="POST" action="{{url('/creator/edit/'.$creator->displayname)}}" class="hidden">
+                            @csrf
+                            @method('PUT')
+                            <div>
+                            <input required
+                                class=" bg-gray-300 rounded text-center font-semibold sm:text-4xl"
+                                type="text" name="displayname" value="{{old('displayname')??$creator->displayname}}"
+                            />
+                                @error('displayname')
+                                <div class="flex mx-auto">
+                                        <span class="text-red-500 mx-auto">{{$message}}</span>
+                                </div>
+                                @enderror
+                                <div class="py-4">
+                                    <input class="w-40 sm:py-3 sm:px-2 bg-indigo-500 rounded text-white sm:text-2xl" type="submit" value="Change"/>
+                                </div>
+                            </div>
+                        </form>
+                        @endif
                         <div
                             class="text-sm leading-normal mt-0 mb-2 text-gray-500 font-bold uppercase"
                         >
@@ -128,9 +151,6 @@
                     <div class="mt-10 py-10 text-center">
                         <div class="flex flex-wrap justify-center">
                             <div class="w-full lg:w-10/12 px-1">
-                                <p class="mb-4 text-lg leading-relaxed text-gray-800">
-                                    {{$creator->bio}}
-                                </p>
                                 @if($page=='gallery')
                                     @component('components.creator-gallery', ['creator'=>$creator])
                                     @endcomponent
@@ -152,6 +172,11 @@
 
 </x-app-layout>
 <script>
+    function openNameEditor()
+    {
+        document.getElementById('editNameForm').classList.toggle("hidden");
+        document.getElementById('displayNameHeader').classList.toggle("hidden");
+    }
     function toggleNavbar(collapseID) {
         document.getElementById(collapseID).classList.toggle("hidden");
         document.getElementById(collapseID).classList.toggle("block");

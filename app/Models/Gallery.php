@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Gallery extends Model
 {
@@ -14,16 +15,15 @@ class Gallery extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function claim()
+    public function claims()
     {
         return $this->hasMany(GalleryClaim::class)
-            ->where('status', '=', 'Active')
-            ->first();
+            ->where('status', '=', 'Active');
     }
 
     public function isClaimed()
     {
-        return $this->claim->isActive();
+        return $this->claims()->count()>0;
     }
 
     public function canView()
@@ -41,8 +41,6 @@ class Gallery extends Model
     }
     public function remove()
     {
-        if($this->locked==1)
-            return null;
         Storage::delete($this->content);
         return $this->delete();
     }

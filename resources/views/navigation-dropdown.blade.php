@@ -52,10 +52,16 @@
                         <div class="block px-4 py-2 text-xs text-gray-400">
                             {{ __('Account Management') }}
                         </div>
+                        @can('view-as-creator')
                         <x-jet-dropdown-link href="{{ url('/'.auth()->user()->creator->displayname) }}">
                             {{ __('Visit Profile') }}
                         </x-jet-dropdown-link>
-
+                        @endcan
+                        @cannot('view-as-creator')
+                            <x-jet-dropdown-link href="{{ url('/creator/new') }}">
+                                {{ __('Become a Creator') }}
+                            </x-jet-dropdown-link>
+                        @endcan
                         <x-jet-dropdown-link href="{{ url('/transactions') }}">
                             {{ __('Transactions') }}
                         </x-jet-dropdown-link>

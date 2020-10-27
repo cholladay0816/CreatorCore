@@ -18,6 +18,7 @@ class CreateReviewRatingsTable extends Migration
             $table->foreignId('user_id');
             $table->foreign('user_id')->references('id')->on('users')
                 ->cascadeOnDelete();
+            $table->foreignId('review_id');
             $table->foreign('review_id')->references('id')->on('reviews')
                 ->cascadeOnUpdate();
             $table->tinyInteger('helpful');

@@ -3,4 +3,6 @@
         @component('components.gallery', ['gallery' => $gallery, 'view_as_guest'=>1])
         @endcomponent
     @endforeach
+    @component('components.new-gallery')
+    @endcomponent
 </div>
