@@ -16,10 +16,14 @@ class CreateCommissionsTable extends Migration
         Schema::create('commissions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('preset_id')->nullable();
-            $table->foreignId('buyer_id');
-            $table->foreign('buyer_id')->references('id')->on('users');
-            $table->foreignId('creator_id');
-            $table->foreign('creator_id')->references('id')->on('users');
+            $table->foreign('preset_id')->references('id')->on('commission_presets')
+                ->nullOnDelete();
+            $table->foreignId('buyer_id')->nullable();
+            $table->foreign('buyer_id')->references('id')->on('users')
+                ->nullOnDelete();
+            $table->foreignId('creator_id')->nullable();
+            $table->foreign('creator_id')->references('id')->on('users')
+                ->nullOnDelete();
             $table->string('title');
             $table->string('description');
             $table->string('note');

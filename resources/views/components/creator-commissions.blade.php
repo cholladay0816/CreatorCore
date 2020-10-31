@@ -5,9 +5,9 @@
         @endcomponent
     @endforeach
     @if($creator->isCurrentUser())
-    @component('components.new-commission-preset')
-    @endcomponent
-    @elseif($creator->commissions_enabled && $creator->custom_commissions_allowed)
+        @component('components.new-commission-preset')
+        @endcomponent
+    @elseif($creator->accepting_commissions && $creator->allows_custom_commissions)
         @component('components.new-custom-commission', ['creator'=>$creator])
         @endcomponent
     @endif

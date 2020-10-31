@@ -17,7 +17,7 @@ class CreateCommissionPresetsTable extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreign('user_id')->references('id')->on('users')
-                ->onDelete('cascade');
+                ->cascadeOnDelete();
             $table->string('title');
             $table->string('description');
             $table->decimal('price')->default(5);

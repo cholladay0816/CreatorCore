@@ -31,8 +31,8 @@
 
                     <div class="w-full overflow-hidden sm:my-1 sm:px-1 sm:w-1/2 md:my-px md:px-px md:w-1/2 lg:my-2 lg:px-2 lg:w-1/4 xl:my-2 xl:px-2 xl:w-1/4 ">
                         <!-- Column 1 Content -->
-                        <img style="max-width: 70%;height:auto;" class="" src="{{asset('/logo/default-monochrome-black.svg')}}" alt="CreatorCore Logo">
-                        <div class="text-black pt-3">CreatorCore is an innovative platform that streamlines the commission process for content creators.</div>
+                        <img style="max-width: 70%;height:auto;" class="" src="{{asset('/logo/default-monochrome-black.svg')}}" alt="{{env('APP_NAME')}} Logo">
+                        <div class="text-black pt-3">{{env('APP_NAME')}} is an innovative platform that streamlines the commission process for content creators.</div>
                     </div>
 
                     <div class="w-full overflow-hidden sm:my-1 sm:px-1 sm:w-1/2 md:my-px md:px-px md:w-1/2 lg:my-2 lg:px-2 lg:w-1/4 xl:my-2 xl:px-2 xl:w-1/4 pb-6">

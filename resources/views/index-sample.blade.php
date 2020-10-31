@@ -98,7 +98,7 @@ via-blue-500" style="">
             <div class="grid grid-cols-2 sm:grid-cols-5">
 
                 <div class="text-center col-span-2">
-                    <img class="object-center object-contain wow fadeInUp" src="https://mdbootstrap.com/img/Photos/Others/screens-section.jpg" alt="Sample image">
+                    <img class="object-center object-contain wow fadeInUp" src="" alt="Sample image">
                 </div>
                 <div class="col-span-3 lg:col-span-2">
                     <div class="mb-3">
@@ -227,7 +227,7 @@ via-blue-500" style="">
                 <div class="grid grid-cols-1 lg:grid-cols-2 py-20">
                     <div class="mb-4">
                         <div class="view">
-                            <img src="https://mdbootstrap.com/img/illustrations/graphics(3).png" class="object-contain" alt="Commission Solutions">
+                            <img src="" class="object-contain" alt="Commission Solutions">
                         </div>
 
                     </div>
@@ -310,7 +310,7 @@ via-blue-500" style="">
                     </div>
                     <div class="col-lg-6 mb-4">
                         <div class="view">
-                            <img src="https://mdbootstrap.com/img/illustrations/graphics(4).png" class="img-fluid" alt="Roadmap">
+                            <img src="" class="img-fluid" alt="Roadmap">
                         </div>
                     </div>
                 </div>

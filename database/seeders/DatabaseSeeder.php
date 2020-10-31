@@ -37,5 +37,16 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\CommissionPreset::factory(12)->create(['user_id'=>'1']);
 
+        $admin = \App\Models\Administrator::factory()->create(['user_id'=>1]);
+        $edit = \App\Models\Ability::factory()->create(['title'=>'edit-users','label'=>'Manage Users']);
+        $ban = \App\Models\Ability::factory()->create(['title'=>'ban-users','label'=>'Suspend Users']);
+
+        $manager = \App\Models\Role::factory()->create(['title'=>'manager','label'=>'Manager']);
+        $moderator = \App\Models\Role::factory()->create(['title'=>'moderator','label'=>'Moderator']);
+
+        $manager->first()->abilities()->sync($edit);
+        $moderator->first()->abilities()->sync($ban);
+
+        $admin->first()->roles()->sync($manager);
     }
 }
