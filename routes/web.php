@@ -105,6 +105,6 @@ Route::get('/{creator}/{page}', [CreatorController::class, 'index']);
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index-sample');
 })->middleware('guest');
 

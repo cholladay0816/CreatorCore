@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-app-layout>
 <link rel="stylesheet" type="text/css" href="{{asset('/css/index.css')}}">
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
@@ -318,4 +318,4 @@ via-blue-500" style="">
         </div>
     </div>
 </div>
-</x-guest-layout>
+</x-app-layout>
