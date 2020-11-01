@@ -36,10 +36,13 @@ class GalleryController extends Controller
 
         $gallery = new Gallery();
         $gallery->user_id = auth()->user()->id;
+
         if(request('title'))
             $gallery->title = request('title');
+
         if(request('description'))
             $gallery->description = request('description');
+
         $gallery->content = $path;
         $gallery->size = $request->file('file')->getSize();
         $gallery->is_visible = 1;

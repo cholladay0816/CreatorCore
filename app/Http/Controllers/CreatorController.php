@@ -24,6 +24,9 @@ class CreatorController extends Controller
 
     public function create()
     {
+        $creator = Creator::where('user_id','=',auth()->user()->id)->first();
+        if($creator)
+            return redirect(url('/creator/edit/'.$creator->displayname))->with('error', 'Creator Already Exists');
         return view('creator.create');
     }
     public function store()
@@ -31,7 +34,7 @@ class CreatorController extends Controller
         $response = \request()->validate(['displayname'=>'required|unique:creators|max:64', 'bio'=>'max:255']);
         $creator = Creator::where('user_id','=',auth()->user()->id)->first();
         if($creator)
-            return redirect(url('/creator/edit/'.Creator::find(auth()->user()->id)))->with('errors', 'Creator Already Exists');
+            return redirect(url('/creator/edit/'.$creator->displayname))->with('error', 'Creator Already Exists');
 
         $creator = new Creator();
         $creator->user_id = auth()->user()->id;

@@ -6,9 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="61e15a0a-f7d6-4971-b621-a51ee3642e21" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CreatorController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CreatorController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/GalleryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/GalleryController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/index-sample.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/index-sample.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/guest.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/guest.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -206,7 +206,7 @@
       <workItem from="1603314017788" duration="62020000" />
       <workItem from="1603750221795" duration="31689000" />
       <workItem from="1604180008945" duration="736000" />
-      <workItem from="1604180969270" duration="127000" />
+      <workItem from="1604180969270" duration="3802000" />
     </task>
     <servers />
   </component>
@@ -214,6 +214,10 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="552" y="238" key="#Images" timestamp="1604185213397">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="552" y="238" key="#Images/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1604185213397" />
     <state x="506" y="200" key="#Log_Highlighting_(ideolog)" timestamp="1603322919543">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
