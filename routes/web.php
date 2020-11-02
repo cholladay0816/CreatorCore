@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ExploreController;
 use App\Http\Controllers\GalleryController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\CommissionController;
@@ -90,13 +91,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group( function() {
 
 });
 
-
-Route::get('/testindex', function () {
-    return view('index-sample');
-});
-Route::get('/explore', function () {
-    return view('index-sample');
-})->name('explore');
+//Explore Page
+Route::get('/explore', [ExploreController::class, 'index'])->name('explore');
 
 //Creator Routes
 Route::get('/{creator}', [CreatorController::class, 'index']);
