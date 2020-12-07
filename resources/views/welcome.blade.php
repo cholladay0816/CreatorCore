@@ -1,103 +1,52 @@
-<x-guest-layout>
-
-    <!--
-Tailwind UI components require Tailwind CSS v1.8 and the @tailwindcss/ui plugin.
-Read the documentation to get started: https://tailwindui.com/documentation
--->
-    <div class="relative bg-white overflow-hidden">
-        <div class="max-w-screen-xl mx-auto">
-            <div class="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
-                <svg src="{{asset('/logo/default-monochrome-primary.svg')}}" class="hidden lg:block absolute right-0 inset-y-0 h-full w-48 text-white transform translate-x-1/2" fill="currentColor" viewBox="0 0 100 100" preserveAspectRatio="none">
-                </svg>
-                <div class="relative pt-6 px-4 sm:px-6 lg:px-8">
-                    <nav class="relative flex items-center justify-between sm:h-10 lg:justify-start">
-                        <div class="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
-                            <div class="flex items-center justify-between w-full md:w-auto">
-                                <a href="#" aria-label="Home">
-                                    <img class="h-8 w-auto sm:h-10" src="{{asset('/logo/default-monochrome-primary.svg')}}" alt="Logo">
-                                </a>
-                                <div class="-mr-2 flex items-center md:hidden">
-                                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out" id="main-menu" aria-label="Main menu" aria-haspopup="true">
-                                        <svg src="{{asset('/logo/default-monochrome-primary.svg')}}"
-                                             class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="hidden md:block md:ml-10 md:pr-4">
-                            <a href="#product" class="font-medium text-gray-500 hover:text-gray-900 transition duration-150 ease-in-out">Product</a>
-                            <a href="#features" class="ml-8 font-medium text-gray-500 hover:text-gray-900 transition duration-150 ease-in-out">Features</a>
-                            <a href="{{route('login')}}" class="ml-8 font-medium text-indigo-600 hover:text-indigo-900 transition duration-150 ease-in-out">Log in</a>
-                        </div>
-                    </nav>
-                </div>
-
-                <!--
-                  Mobile menu, show/hide based on menu open state.
-
-                  Entering: "duration-150 ease-out"
-                    From: "opacity-0 scale-95"
-                    To: "opacity-100 scale-100"
-                  Leaving: "duration-100 ease-in"
-                    From: "opacity-100 scale-100"
-                    To: "opacity-0 scale-95"
-                -->
-                <div class="absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden">
-                    <div class="rounded-lg shadow-md">
-                        <div class="rounded-lg bg-white shadow-xs overflow-hidden" role="menu" aria-orientation="vertical" aria-labelledby="main-menu">
-                            <div class="px-5 pt-4 flex items-center justify-between">
-                                <div>
-                                    <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-on-white.svg" alt="">
-                                </div>
-                                <div class="-mr-2">
-                                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out" aria-label="Close menu">
-                                        <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="px-2 pt-2 pb-3">
-                                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" role="menuitem">Product</a>
-                                <a href="#" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" role="menuitem">Features</a>
-                                <a href="#" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" role="menuitem">Marketplace</a>
-                                <a href="#" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" role="menuitem">Company</a>
-                            </div>
-                            <div>
-                                <a href="{{route('login')}}" class="block w-full px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100 hover:text-indigo-700 focus:outline-none focus:bg-gray-100 focus:text-indigo-700 transition duration-150 ease-in-out" role="menuitem">
-                                    Log in
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <main class="mt-10 mx-auto max-w-screen-xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
-                    <div class="sm:text-center lg:text-left">
-                        <h2 class="text-4xl tracking-tight leading-10 font-extrabold text-gray-900 sm:text-5xl sm:leading-none md:text-6xl">
-                            Data to enrich your
-                            <br class="xl:hidden">
-                            <span class="text-indigo-600">online business</span>
-                        </h2>
-                        <p class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                            Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.
-                        </p>
-                        <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
-                            <div class="rounded-md shadow">
-                                <a href="{{route('register')}}" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10">
-                                    Get started
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </main>
-            </div>
+<x-app-layout>
+<div class="bg-white min-h-screen max-w-screen">
+    <div class="text-white max-w-screen bg-blue-600 min-h-screen flex flex-col mx-auto">
+        <div class="mx-auto my-auto text-center object-center">
+            <h1 class="mx-auto font-bold text-6xl">Welcome to {{env('APP_NAME')}}</h1>
+            <h2 class="font-semibold text-xl text-gray-200">The Free Platform To Help Artists <span class="font-semibold text-white underline">Succeed</span>.</h2>
         </div>
-        <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-            <img class="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full" src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80" alt="">
-        </div>
+        <img class="" src="{{asset('img/wave3.png')}}">
     </div>
 
+    <div class="bg-white min-h-screen">
+        <div class="max-w-6xl p-8 mt-24 mx-auto shadow-lg rounded-lg text-black">
+            <h1 class="text-center font-bold text-4xl">What is {{env('APP_NAME')}}?</h1>
+            <p class="pt-4 px-4 text-2xl">
+                {{env('APP_NAME')}} is a web service designed to streamline, simplify, and improve the commission process.
+                We provide a service where content creators can receive commissions from clients and get paid after delivering
+                a finished commission. The service is <a class="text-blue-600 font-semibold">100% free to use</a>, takes <a class="font-semibold text-green-500">$0</a> from creators, and helps you <a class="font-semibold text-orange-500">establish your brand</a>.
+            </p>
+        </div>
 
-</x-guest-layout>
+        <div class="max-w-6xl p-8 mt-24 mx-auto shadow-lg rounded-lg text-black">
+            <h1 class="text-center font-bold text-4xl">Why choose us?</h1>
+            <p class="pt-4 px-4 text-2xl">
+                {{env('APP_NAME')}} is built and managed by a dedicated team that found
+                several problems with the state of internet freelance work.
+                We found room for improvement to provide a better, cheaper, more user-friendly solution to commissions.
+                Our mission is to simplify and streamline commissions for artists everywhere,
+                so we can stop worrying about logistics and get back to making great things!
+            </p>
+        </div>
+    </div>
+    <div class="bg-blue-500 max-w-screen">
+        <div class="py-2 max-w-7xl mx-auto grid lg:grid-cols-3 grid-cols-1">
+            @component('components.index.featurebadge', ['heading'=>'Customizable'])
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2" />
+            @endcomponent
+            @component('components.index.featurebadge', ['heading'=>'Community-Driven'])
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+            @endcomponent
+
+            @component('components.index.featurebadge', ['heading'=>'Open Source'])
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+            @endcomponent
+
+        </div>
+    </div>
+    <div class="bg-white min-h-screen">
+
+    </div>
+    </div>
+</div>
+</x-app-layout>

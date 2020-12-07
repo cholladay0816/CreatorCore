@@ -5,8 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="61e15a0a-f7d6-4971-b621-a51ee3642e21" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/explore/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/wave3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/LaravelStackTest.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/LaravelStackTest.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/index-sample.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/index-sample.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/guest.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/guest.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -40,7 +46,6 @@
       <path value="$PROJECT_DIR$/vendor/asm89/stack-cors" />
       <path value="$PROJECT_DIR$/vendor/paragonie/constant_time_encoding" />
       <path value="$PROJECT_DIR$/vendor/vlucas/phpdotenv" />
-      <path value="$PROJECT_DIR$/vendor/paragonie/random_compat" />
       <path value="$PROJECT_DIR$/vendor/bacon/bacon-qr-code" />
       <path value="$PROJECT_DIR$/vendor/mockery/mockery" />
       <path value="$PROJECT_DIR$/vendor/opis/closure" />
@@ -50,7 +55,6 @@
       <path value="$PROJECT_DIR$/vendor/phpunit/php-timer" />
       <path value="$PROJECT_DIR$/vendor/phpunit/php-text-template" />
       <path value="$PROJECT_DIR$/vendor/phpunit/phpunit" />
-      <path value="$PROJECT_DIR$/vendor/phpunit/php-code-coverage" />
       <path value="$PROJECT_DIR$/vendor/voku/portable-ascii" />
       <path value="$PROJECT_DIR$/vendor/myclabs/deep-copy" />
       <path value="$PROJECT_DIR$/vendor/phpoption/phpoption" />
@@ -103,7 +107,6 @@
       <path value="$PROJECT_DIR$/vendor/symfony/deprecation-contracts" />
       <path value="$PROJECT_DIR$/vendor/symfony/string" />
       <path value="$PROJECT_DIR$/vendor/symfony/finder" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php70" />
       <path value="$PROJECT_DIR$/vendor/brick/math" />
       <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher-contracts" />
       <path value="$PROJECT_DIR$/vendor/symfony/process" />
@@ -139,7 +142,6 @@
       <path value="$PROJECT_DIR$/vendor/phpdocumentor/type-resolver" />
       <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-common" />
       <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock" />
-      <path value="$PROJECT_DIR$/vendor/scrivo/highlight.php" />
       <path value="$PROJECT_DIR$/vendor/fideloper/proxy" />
       <path value="$PROJECT_DIR$/vendor/symfony/intl" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-icu" />
@@ -150,6 +152,8 @@
       <path value="$PROJECT_DIR$/vendor/stripe/stripe-php" />
       <path value="$PROJECT_DIR$/vendor/laravel/cashier" />
       <path value="$PROJECT_DIR$/vendor/dompdf/dompdf" />
+      <path value="$PROJECT_DIR$/vendor/league/mime-type-detection" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-code-coverage" />
     </include_path>
   </component>
   <component name="ProjectId" id="1ikQz2Q4vzlAC4OwOPToxiWhuSt" />
@@ -160,13 +164,15 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../OpenValet" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/img" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Users\Chris\Documents\GitHub\LaravelStackTest\public\img" />
       <recent name="E:\Users\Chris\Documents\GitHub\LaravelStackTest\app\Overrides" />
       <recent name="E:\Users\Chris\Documents\GitHub\LaravelStackTest\resources\views\components" />
       <recent name="E:\Users\Chris\Documents\GitHub\LaravelStackTest\app\Actions\Fortify" />
@@ -175,7 +181,6 @@
   </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
-      <command value="php artisan serve" />
       <command value="php artisan make:model Administrator -mcf" />
       <command value="php artisan make:model Role -mcf" />
       <command value="php artisan make:model Ability -cmf" />
@@ -184,6 +189,8 @@
       <command value="php artisan migrate:rollback" />
       <command value="php artisan migrate" />
       <command value="php artisan db:seed" />
+      <command value="composer update" />
+      <command value="php artisan serve" />
     </option>
   </component>
   <component name="RunManager">
@@ -205,66 +212,13 @@
       <workItem from="1603314017788" duration="62020000" />
       <workItem from="1603750221795" duration="31689000" />
       <workItem from="1604180008945" duration="736000" />
-      <workItem from="1604180969270" duration="6545000" />
+      <workItem from="1604180969270" duration="9046000" />
+      <workItem from="1604960000401" duration="964000" />
+      <workItem from="1607298038553" duration="4683000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="552" y="238" key="#Images" timestamp="1604185213397">
-      <screen x="0" y="0" width="1600" height="860" />
-    </state>
-    <state x="552" y="238" key="#Images/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1604185213397" />
-    <state x="506" y="200" key="#Log_Highlighting_(ideolog)" timestamp="1603322919543">
-      <screen x="0" y="0" width="1600" height="860" />
-    </state>
-    <state x="506" y="200" key="#Log_Highlighting_(ideolog)/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1603322919543" />
-    <state x="480" y="165" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1603313825031">
-      <screen x="0" y="0" width="1600" height="860" />
-    </state>
-    <state x="480" y="165" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1603313825031" />
-    <state x="530" y="184" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1603827572827">
-      <screen x="0" y="0" width="1600" height="860" />
-    </state>
-    <state x="530" y="184" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1603827572827" />
-    <state x="580" y="184" key="FileChooserDialogImpl" timestamp="1604004350761">
-      <screen x="0" y="0" width="1600" height="860" />
-    </state>
-    <state x="580" y="184" key="FileChooserDialogImpl/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1604004350761" />
-    <state width="1556" height="218" key="GridCell.Tab.0.bottom" timestamp="1604004358289">
-      <screen x="0" y="0" width="1600" height="860" />
-    </state>
-    <state width="1556" height="218" key="GridCell.Tab.0.bottom/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1604004358289" />
-    <state width="1556" height="218" key="GridCell.Tab.0.center" timestamp="1604004358289">
-      <screen x="0" y="0" width="1600" height="860" />
-    </state>
-    <state width="1556" height="218" key="GridCell.Tab.0.center/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1604004358289" />
-    <state width="1556" height="218" key="GridCell.Tab.0.left" timestamp="1604004358289">
-      <screen x="0" y="0" width="1600" height="860" />
-    </state>
-    <state width="1556" height="218" key="GridCell.Tab.0.left/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1604004358289" />
-    <state width="1556" height="218" key="GridCell.Tab.0.right" timestamp="1604004358289">
-      <screen x="0" y="0" width="1600" height="860" />
-    </state>
-    <state width="1556" height="218" key="GridCell.Tab.0.right/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1604004358289" />
-    <state x="635" y="352" key="NewPhpFileDialog" timestamp="1604192524956">
-      <screen x="0" y="0" width="1600" height="860" />
-    </state>
-    <state x="-965" y="352" key="NewPhpFileDialog/-1600.0.1600.860/0.0.1600.860@-1600.0.1600.860" timestamp="1603388084745" />
-    <state x="635" y="352" key="NewPhpFileDialog/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1604192524956" />
-    <state x="507" y="163" width="585" height="534" key="find.popup" timestamp="1602451886749">
-      <screen x="0" y="0" width="1600" height="860" />
-    </state>
-    <state x="507" y="163" width="585" height="534" key="find.popup/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1602451886749" />
-    <state x="456" y="190" width="672" height="677" key="run.anything.popup" timestamp="1603837689141">
-      <screen x="0" y="0" width="1600" height="860" />
-    </state>
-    <state x="456" y="190" width="672" height="677" key="run.anything.popup/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1603837689141" />
-    <state x="466" y="180" width="672" height="678" key="search.everywhere.popup" timestamp="1603440331186">
-      <screen x="0" y="0" width="1600" height="860" />
-    </state>
-    <state x="466" y="180" width="672" height="678" key="search.everywhere.popup/-1600.0.1600.860/0.0.1600.860@0.0.1600.860" timestamp="1603440331186" />
   </component>
 </project>

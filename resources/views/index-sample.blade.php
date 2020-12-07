@@ -3,11 +3,10 @@
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
 
-
 <div class="bg-blue-500 bg-gradient-to-b
-from-blue-400
-to-blue-600
-via-blue-500" style="">
+            from-blue-400
+            to-blue-600
+            via-blue-500" style="">
 
     <div class="flex justify-center" style="padding-top: 25vh; padding-bottom: 40vh;">
 
