@@ -94,6 +94,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group( function() {
 //Explore Page
 Route::get('/explore', [ExploreController::class, 'index'])->name('explore');
 
+Route::get('/sample', function() {return view('index-sample');});
+
 //Creator Routes
 Route::get('/{creator}', [CreatorController::class, 'index']);
 Route::get('/{creator}/{page}', [CreatorController::class, 'index']);
@@ -101,6 +103,6 @@ Route::get('/{creator}/{page}', [CreatorController::class, 'index']);
 
 
 Route::get('/', function () {
-    return view('index-sample');
+    return view('welcome');
 })->middleware('guest');
 
