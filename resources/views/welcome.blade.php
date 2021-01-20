@@ -1,9 +1,13 @@
 <x-app-layout>
 <div class="bg-white min-h-screen max-w-screen">
-    <div class="text-white max-w-screen bg-blue-600 min-h-screen flex flex-col mx-auto">
-        <div class="mx-auto my-auto text-center object-center">
-            <h1 class="mx-auto font-bold text-6xl">Welcome to {{env('APP_NAME')}}</h1>
-            <h2 class="font-semibold text-xl text-gray-200">The Free Platform To Help Artists <span class="font-semibold text-white underline">Succeed</span>.</h2>
+    <div class="text-white max-w-screen bg-blue-500 min-h-screen mx-auto">
+        <div class="text-center object-center min-h-screen flex flex-col">
+            <div class="mx-auto pt-48">
+                <h1 class="mx-auto my-auto font-bold text-6xl">Welcome to {{env('APP_NAME')}}</h1>
+                <h2 class="font-semibold text-xl text-gray-200 pb-12">The Free Platform To Help Artists <span class="font-semibold text-white underline">Succeed</span>.</h2>
+
+                <a href="{{route('register')}}" class="py-2 px-3 rounded bg-blue-700 hover:bg-blue-800 shadow-md text-3xl">Get Started</a>
+            </div>
         </div>
         <img class="" src="{{asset('img/wave3.png')}}">
     </div>
