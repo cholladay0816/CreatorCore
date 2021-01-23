@@ -6,16 +6,18 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Cashier\Billable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
+use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
-use Laravel\Cashier\Billable;
 
 class User extends Authenticatable
 {
     use HasApiTokens;
     use HasFactory;
     use HasProfilePhoto;
+    use HasTeams;
     use Notifiable;
     use TwoFactorAuthenticatable;
     use Billable;
@@ -25,9 +27,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'name', 'email', 'password',
     ];
 
     /**
@@ -59,46 +59,4 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
-
-    public function addFunds($amount)
-    {
-        $balance = $this->asStripeCustomer()->balance;
-        $newbalance = $balance - ($amount * 100);
-        $this->updateStripeCustomer(['balance' => $newbalance]);
-    }
-
-    public function gallery()
-    {
-        return $this->hasMany(Gallery::class);
-    }
-    public function presets()
-    {
-        return $this->hasMany(CommissionPreset::class);
-    }
-    public function reviews()
-    {
-        return $this->hasMany(Review::class);
-    }
-    public function creator()
-    {
-        return $this->hasOne(Creator::class, 'user_id');
-    }
-
-    public function administrator()
-    {
-        return $this->hasOne(Administrator::class, 'user_id', 'id');
-    }
-
-    public function isAdministrator()
-    {
-        return !is_null($this->administrator);
-    }
-
-    public function hasAbility($ability)
-    {
-        if(!$this->isAdministrator()) {
-            return false;
-        }
-        return $this->administrator->abilities()->contains($ability);
-    }
 }
