@@ -16,11 +16,15 @@ class CreateCommissionPresetsTable extends Migration
     {
         Schema::create('commission_presets', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(User::class)
+                ->constrained()
+                ->cascadeOnDelete();
             $table->string('title');
             $table->string('description');
             $table->decimal('price');
-            $table->integer('days_to_complete')->unsigned()->default(7);
+            $table->integer('days_to_complete')
+                ->unsigned()
+                ->default(7);
             $table->timestamps();
         });
     }

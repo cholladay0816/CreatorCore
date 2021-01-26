@@ -16,13 +16,18 @@ class CreateMessagesTable extends Migration
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
             $table->foreignId('sender_id');
-            $table->foreign('sender_id')->references('id')->on('users')
+            $table->foreign('sender_id')
+                ->references('id')
+                ->on('users')
                 ->cascadeOnDelete();
             $table->foreignId('receiver_id');
-            $table->foreign('receiver_id')->references('id')->on('users')
+            $table->foreign('receiver_id')
+                ->references('id')
+                ->on('users')
                 ->cascadeOnDelete();
             $table->string('message', 2048);
-            $table->dateTime('read_at')->nullable();
+            $table->dateTime('read_at')
+                ->nullable();
             $table->timestamps();
         });
     }
