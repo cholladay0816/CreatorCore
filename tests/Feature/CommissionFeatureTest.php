@@ -51,6 +51,10 @@ class CommissionFeatureTest extends TestCase
 
     // TODO: test to make sure unauthorized users (logged in or otherwise) cannot view.
 
+    // TODO: test for declining commission
+
+    // TODO: test for user deleting pending commission
+
     // TODO: test for accepting commission
 
     // TODO: test for paying for commission
