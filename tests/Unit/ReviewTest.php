@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\Review;
+
 class ReviewTest extends TestCase
 {
     use RefreshDatabase;
@@ -19,7 +20,6 @@ class ReviewTest extends TestCase
         $review = Review::factory()->create(['user_id'=>$user->id]);
 
         $this->assertEquals($review->owner->id, $user->id);
-
     }
     /** @test */
     public function a_review_has_a_commission()
@@ -40,6 +40,5 @@ class ReviewTest extends TestCase
         $attachment->delete();
 
         $this->assertNull($review->fresh()->attachment);
-
     }
 }

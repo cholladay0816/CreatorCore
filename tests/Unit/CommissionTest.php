@@ -57,7 +57,8 @@ class CommissionTest extends TestCase
                 'buyer_id' => User::factory()->create()->id,
                 'creator_id' => User::factory()->create()->id,
                 'commission_preset_id' => $preset->id
-            ]);
+            ]
+        );
         // Stores the commission in the database
         $commission->save();
 

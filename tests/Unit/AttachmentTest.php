@@ -24,6 +24,4 @@ class AttachmentTest extends TestCase
         $attachment = Attachment::factory()->create(['commission_id' => $commission->id]);
         $this->assertEquals($attachment->commission->id, $commission->id);
     }
-
-
 }

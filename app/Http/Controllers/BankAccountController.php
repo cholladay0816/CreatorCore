@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Stripe\BankAccount;
 use Illuminate\Http\Request;
+
 class BankAccountController extends Controller
 {
     /**
@@ -57,9 +58,7 @@ class BankAccountController extends Controller
 
         try {
             $stripe->customers->createSource(auth()->user()->createOrGetStripeCustomer()->id, ['source' => $token->id]);
-        }
-        catch (\Exception $exception)
-        {
+        } catch (\Exception $exception) {
             return redirect(route('bankaccount.list'))->with(['error'=>'Failed to link bank account, you may have already linked your account.']);
         }
         return redirect(route('bankaccount.list'))->with(['success'=>'Bank Account Linked']);

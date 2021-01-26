@@ -30,7 +30,8 @@ class CommissionFactory extends Factory
                 ->create(['user_id' => $creator->id])->id,
             'title' => $preset->title??$this->faker->sentence(5),
             'description' => $preset->description??$this->faker->paragraph(2),
-            'price' => $preset->price??$this->faker->randomFloat(2, 5,20)
+            'price' => $preset->price??$this->faker->randomFloat(2, 5, 20),
+            'status' => 'Unpaid',
         ];
     }
 }

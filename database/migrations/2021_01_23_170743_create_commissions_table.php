@@ -36,6 +36,23 @@ class CreateCommissionsTable extends Migration
                 ->unsigned()
                 ->default(7);
             $table->dateTime('expiration_date')->nullable();
+            $table->enum(
+                'status',
+                [
+                    'Unpaid',
+                    'Pending',
+                    'Declined',
+                    'Purchasing',
+                    'Failed',
+                    'Active',
+                    'Overdue',
+                    'Expired',
+                    'Completed',
+                    'Disputed',
+                    'Refunded',
+                    'Archived',
+                ]
+            )->default('Unpaid');
             $table->timestamps();
         });
     }

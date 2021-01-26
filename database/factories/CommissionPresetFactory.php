@@ -26,7 +26,7 @@ class CommissionPresetFactory extends Factory
             'user_id' => User::factory()->create()->id,
             'title' => $this->faker->sentence(5),
             'description' => $this->faker->paragraph(2),
-            'price' => $this->faker->randomFloat(2, 5,20),
+            'price' => $this->faker->randomFloat(2, 5, 20),
             'days_to_complete' => 7,
         ];
     }

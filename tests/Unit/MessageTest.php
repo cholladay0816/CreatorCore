@@ -53,5 +53,4 @@ class MessageTest extends TestCase
         // Assert read at date is no longer null
         $this->assertNotNull($message->fresh()->read_at);
     }
-
 }
