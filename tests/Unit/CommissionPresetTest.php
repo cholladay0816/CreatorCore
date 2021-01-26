@@ -46,4 +46,11 @@ class CommissionPresetTest extends TestCase
         $preset = CommissionPreset::factory()->create(['price'=>'5.01']);
         $this->assertEquals('5.01', $preset->price);
     }
+
+    /** @test */
+    public function a_commission_preset_has_days_to_complete()
+    {
+        $preset = CommissionPreset::factory()->create(['days_to_complete'=>'3']);
+        $this->assertEquals('3', $preset->days_to_complete);
+    }
 }

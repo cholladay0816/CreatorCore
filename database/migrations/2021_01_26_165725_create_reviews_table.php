@@ -15,18 +15,13 @@ class CreateReviewsTable extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->foreign('user_id')->references('id')->on('users')
-                ->cascadeOnDelete();
-            $table->foreignId('commission_id');
-            $table->foreign('commission_id')->references('id')->on('commissions')
-                ->cascadeOnDelete();
+            $table->foreignIdFor(\App\Models\User::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(\App\Models\Commission::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(\App\Models\Attachment::class)->nullable()->constrained()->nullOnDelete();
             $table->tinyInteger('positive')->default(1);
+            $table->string('message', 2048)->nullable();
             $table->tinyInteger('anonymous')->default(1);
-            $table->string('message')->nullable();
-            $table->foreignId('attachment_id')->nullable();
-            $table->foreign('attachment_id')->references('id')->on('attachments')
-                ->nullOnDelete();
+
             $table->timestamps();
         });
     }

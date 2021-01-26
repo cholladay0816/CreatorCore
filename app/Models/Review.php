@@ -8,16 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Review extends Model
 {
     use HasFactory;
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
     public function commission()
     {
-        return $this->belongsTo(Commission::class);
+        return $this->belongsTo(Commission::class, 'commission_id');
     }
-    public function reviewer()
+    public function attachment()
     {
-        return $this->hasOne(User::class, 'reviewer_id');
-    }
-    public function reviewee()
-    {
-        return $this->commission->creator;
+        return $this->belongsTo(Attachment::class, 'attachment_id');
     }
 }

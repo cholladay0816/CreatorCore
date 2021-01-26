@@ -2,7 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Models\Attachment;
+use App\Models\Commission;
 use App\Models\Review;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ReviewFactory extends Factory
@@ -22,7 +25,11 @@ class ReviewFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'user_id' => ($user = User::factory()->create())->id,
+            'commission_id' => ($commission = Commission::factory()->create(['buyer_id'=>$user->id]))->id,
+            'positive' => $this->faker->numberBetween(0,1),
+            'message' => $this->faker->paragraph(3),
+            'attachment_id' => (Attachment::factory()->create(['user_id'=>$user->id, 'commission_id'=>$commission->id]))
         ];
     }
 }
