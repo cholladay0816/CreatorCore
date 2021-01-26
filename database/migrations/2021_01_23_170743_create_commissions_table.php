@@ -29,8 +29,10 @@ class CreateCommissionsTable extends Migration
             $table->foreign('commission_preset_id')->references('id')
                 ->on('commission_presets')
                 ->nullOnDelete();
-            $table->string('title');
-            $table->string('description');
+            $table->string('title', 128);
+            $table->string('slug');
+            $table->string('description', 2048);
+            $table->string('memo', 2048);
             $table->decimal('price');
             $table->integer('days_to_complete')
                 ->unsigned()

@@ -60,8 +60,27 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'name';
+    }
+
     public function commissionPresets()
     {
         return $this->hasMany(CommissionPreset::class);
+    }
+
+    public function commissions()
+    {
+        return $this->hasMany(Commission::class, 'creator_id');
+    }
+    public function orders()
+    {
+        return $this->hasMany(Commission::class, 'buyer_id');
     }
 }
