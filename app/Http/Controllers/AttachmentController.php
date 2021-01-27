@@ -4,62 +4,105 @@ namespace App\Http\Controllers;
 
 use App\Models\Attachment;
 use App\Models\Commission;
-use App\Models\CommissionPreset;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Storage;
 
 class AttachmentController extends Controller
 {
-    public function view(Attachment $attachment)
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index()
     {
-        if(!$attachment->canView())
-        {
-            abort(401);
-        }
-        $file = Storage::get($attachment->content);
-        $type = Storage::mimeType($attachment->content);
-
-        return response($file,'200',["Content-Type"=>$type]);
+        //
     }
 
-    public function create(Commission $commission)
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function create()
     {
-        if($commission->status != 'Active' || !$commission->isCreator())
-        {
-            abort(401);
-        }
-        return view('attachment.create', ['commission'=>$commission]);
+        //
     }
-    public function store(Commission $commission, Request $request)
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Request $request
+     * @param Commission $commission
+     * @return Application|RedirectResponse|Response|Redirector|void
+     */
+    public function store(Request $request, Commission $commission)
     {
-        if($commission->status != 'Active' || !$commission->isCreator())
-        {
-            abort(401);
-        }
-        request()->validate([
+        if(!$commission)
+            return abort(404);
+        if(!$commission->isCreator())
+            return abort(404);
+        $res = $request->validate([
             'file' => 'required|file|image|max:4096' //Must be an image file (4MB limit)
         ]);
-
         $path = $request->file('file')->store('attachments');
-
         $attachment = new Attachment();
         $attachment->user_id = auth()->user()->id;
         $attachment->commission_id = $commission->id;
-        $attachment->content = $path;
+        $attachment->path = $path;
         $attachment->size = $request->file('file')->getSize();
         $attachment->save();
-        return redirect(url('commission/'.$attachment->commission_id));
+        return redirect()
+            ->to(route('commissions.show', $commission))
+            ->with(['success' => 'Attachment created']);
     }
 
-    public function delete(Attachment $attachment)
+    /**
+     * Display the specified resource.
+     *
+     * @param Attachment $attachment
+     * @return Response
+     */
+    public function show(Attachment $attachment)
     {
-        if($attachment->user_id === auth()->user()->id) {
-            $attachment->delete();
-            return redirect( url('/commission/'.$attachment->commission_id));
-        }
-        else
-        {
-            return abort(401);
-        }
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param Attachment $attachment
+     * @return Response
+     */
+    public function edit(Attachment $attachment)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @param Attachment $attachment
+     * @return Response
+     */
+    public function update(Request $request, Attachment $attachment)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param Attachment $attachment
+     * @return Response
+     */
+    public function destroy(Attachment $attachment)
+    {
+        //
     }
 }
