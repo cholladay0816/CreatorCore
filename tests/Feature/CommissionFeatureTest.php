@@ -6,7 +6,6 @@ use App\Models\Attachment;
 use App\Models\Commission;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class CommissionFeatureTest extends TestCase

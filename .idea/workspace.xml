@@ -5,142 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="61e15a0a-f7d6-4971-b621-a51ee3642e21" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/LaravelStackTest.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/LaravelStackTest.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.php_cs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/.php_cs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Console/Commands/ExpirePayments.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Console/Commands/RemoveExpiredCommissions.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Console/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Kernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Events/AttachmentDeleted.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AbilityController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AdministratorController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AttachmentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AttachmentController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CommissionPresetTagController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CreatorController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ExploreController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/GalleryClaimController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/GalleryClaimDisputeController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/GalleryController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PaymentController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ReviewRatingController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/RoleController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TagController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/WebhookController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Livewire/Dashboard/Navbar.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Livewire/UpdateBillingInformationForm.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Livewire/Welcome/Navbar.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Ability.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Administrator.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/CommissionPresetTag.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Creator.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Gallery.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/GalleryClaim.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/GalleryClaimDispute.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Payment.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/ReviewRating.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Role.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Tag.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/View/Components/Attachment.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/View/Components/CommissionPreset.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/View/Components/CreatorCommissions.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/View/Components/CreatorDetails.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/View/Components/CreatorGallery.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/View/Components/CreatorPage.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/View/Components/Gallery.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/View/Components/creator-display.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/View/Components/index.featurebadge.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/View/Components/new-gallery.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/View/Components/sidebar.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/AbilityFactory.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/AdministratorFactory.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/CommissionPresetTagFactory.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/CreatorFactory.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/GalleryClaimDisputeFactory.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/GalleryClaimFactory.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/GalleryFactory.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/PaymentFactory.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/ReviewRatingFactory.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/RoleFactory.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/TagFactory.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_10_13_140746_create_galleries_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_10_13_192157_create_creators_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_10_21_205617_create_payments_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_10_22_234227_create_tags_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_10_23_000429_create_commission_preset_tag.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_10_26_222841_create_gallery_claims_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_10_26_223158_create_gallery_claim_disputes_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_10_26_231834_create_review_ratings_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_10_27_185317_create_administrators_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_10_27_185440_create_roles_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_10_27_185451_create_abilities_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_10_27_185505_create_ability_role.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_10_27_185527_create_administrator_role.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/logo/default-monochrome-black.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/logo/default-monochrome-primary.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/logo/default-monochrome-white.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/logo/default-monochrome.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/logo/default.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/logo/isolated-layout.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/logo/isolated-monochrome-black.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/logo/isolated-monochrome-white.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/attachment/create.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/commission/create.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/commission/list.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/commission/timeline.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/commission/view.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/commissionpreset/create.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/components/attachment.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/components/commission-preset.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/components/creator-commissions.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/components/creator-details.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/components/creator-display.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/components/creator-gallery.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/components/creator-page.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/components/gallery.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/components/index/featurebadge.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/components/new-commission-preset.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/components/new-custom-commission.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/components/new-gallery.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/components/sidebar.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/creator/create.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/creator/edit.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/creator/index.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/creator/not-found.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/explore/index.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/index-sample.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/livewire/dashboard/navbar.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/livewire/update-billing-information-form.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/livewire/welcome/navbar.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/navigation-dropdown.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/payment/history.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/payment/new.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/payment/pay.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/vendor/jetstream/components/action-message.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/vendor/jetstream/components/action-section.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/vendor/jetstream/components/application-logo.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/vendor/jetstream/components/application-mark.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/vendor/jetstream/components/authentication-card-logo.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/vendor/jetstream/components/authentication-card.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/vendor/jetstream/components/button.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/vendor/jetstream/components/confirmation-modal.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/vendor/jetstream/components/confirms-password.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/vendor/jetstream/components/danger-button.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/vendor/jetstream/components/dialog-modal.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/vendor/jetstream/components/dropdown-link.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/vendor/jetstream/components/dropdown.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/vendor/jetstream/components/form-section.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/vendor/jetstream/components/input-error.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/vendor/jetstream/components/input.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/vendor/jetstream/components/label.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/vendor/jetstream/components/modal.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/vendor/jetstream/components/nav-link.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/vendor/jetstream/components/responsive-nav-link.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/vendor/jetstream/components/secondary-button.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/vendor/jetstream/components/section-border.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/vendor/jetstream/components/section-title.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/vendor/jetstream/components/switchable-team.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/vendor/jetstream/components/validation-errors.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/vendor/jetstream/components/welcome.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/CommissionFeatureTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/CommissionFeatureTest.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -371,7 +240,7 @@
       <workItem from="1611421613240" duration="7282000" />
       <workItem from="1611429890538" duration="494000" />
       <workItem from="1611679544394" duration="5460000" />
-      <workItem from="1611688427947" duration="23269000" />
+      <workItem from="1611688427947" duration="23690000" />
     </task>
     <servers />
   </component>
