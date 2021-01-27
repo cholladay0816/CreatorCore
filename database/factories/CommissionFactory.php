@@ -6,6 +6,7 @@ use App\Models\Commission;
 use App\Models\CommissionPreset;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 class CommissionFactory extends Factory
 {
@@ -30,6 +31,7 @@ class CommissionFactory extends Factory
                 ->create(['user_id' => $creator->id]))->id,
             'title' => $preset->title??$this->faker->sentence(5),
             'description' => $preset->description??$this->faker->paragraph(2),
+            'memo' => $this->faker->paragraph(3),
             'price' => $preset->price??$this->faker->randomFloat(2, 5, 20),
             'status' => 'Unpaid',
             'days_to_complete' => $preset->days_to_complete ?? '7',

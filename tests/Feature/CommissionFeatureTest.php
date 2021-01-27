@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Attachment;
 use App\Models\Commission;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -26,7 +27,10 @@ class CommissionFeatureTest extends TestCase
         [$buyer, $seller] = $this->createBuyerAndSeller();
 
         // Make a working commission
-        $commission = Commission::factory()->make(['buyer_id'=>$buyer->id, 'creator_id'=>$seller->id]);
+        $commission = Commission::factory()->make([
+            'buyer_id'=>$buyer->id,
+            'creator_id'=>$seller->id
+        ]);
         $commission->memo = 'Test Memo';
 
         // As the buyer, visit the create commission page
@@ -50,28 +54,176 @@ class CommissionFeatureTest extends TestCase
     }
 
     // TODO: test to make sure unauthorized users (logged in or otherwise) cannot view.
+    /** @test */
+    public function a_commission_cannot_be_viewed_by_guests()
+    {
+        $commission = Commission::factory()->create();
+        $this->get(route('commissions.show', $commission))
+            ->assertRedirect(route('login'));
+    }
 
-    // TODO: test for declining commission
+    /** @test */
+    public function a_commission_cannot_be_viewed_by_third_parties()
+    {
+        $commission = Commission::factory()->create();
+        $user = User::factory()->create();
+        $this->actingAs($user)
+            ->get(route('commissions.show', $commission))
+            ->assertNotFound();
+    }
 
-    // TODO: test for user deleting pending commission
+    /** @test */
+    public function a_commission_can_be_deleted()
+    {
+        [$buyer, $seller] = $this->createBuyerAndSeller();
+        $commission = Commission::factory()->create([
+            'buyer_id' => $buyer->id,
+            'creator_id' => $seller->id,
+            'status' => 'Unpaid'
+        ]);
+        $this->actingAs($buyer)
+            ->delete(route('commissions.destroy', $commission->fresh()))
+            ->assertSessionHas('success', 'Commission deleted')
+            ->assertRedirect(route('commissions.orders'));
 
-    // TODO: test for accepting commission
+        $this->assertNull($commission->fresh());
+    }
+
+    /** @test */
+    public function a_commission_can_be_declined()
+    {
+        [$buyer, $seller] = $this->createBuyerAndSeller();
+        $commission = Commission::factory()->create([
+            'buyer_id' => $buyer->id,
+            'creator_id' => $seller->id,
+            'status' => 'Pending'
+        ]);
+        $this->actingAs($seller)
+            ->delete(route('commissions.destroy', $commission->fresh()))
+            ->assertSessionHas('success', 'Commission declined')
+            ->assertRedirect(route('commissions.index'));
+
+        $this->assertEquals('Declined', $commission->fresh()->status);
+    }
+
+    /** @test */
+    public function a_commission_can_be_accepted()
+    {
+        [$buyer, $seller] = $this->createBuyerAndSeller();
+        $commission = Commission::factory()->create([
+            'buyer_id' => $buyer->id,
+            'creator_id' => $seller->id,
+            'status' => 'Pending'
+        ]);
+        $this->actingAs($seller)
+            ->put(route('commissions.update', $commission->fresh()))
+            ->assertSessionHas('success', 'Commission accepted')
+            ->assertRedirect(route('commissions.index'));
+
+        $this->assertEquals('Purchasing', $commission->fresh()->status);
+    }
 
     // TODO: test for paying for commission
 
     // TODO: test for payment failing
 
-    // TODO: test for attaching to commission
+    /** @test */
+    public function a_commission_can_not_be_completed_without_attachments()
+    {
+        [$buyer, $seller] = $this->createBuyerAndSeller();
+        // Create an active commission
+        $commission = Commission::factory()->create([
+            'buyer_id' => $buyer->id,
+            'creator_id' => $seller->id,
+            'status' => 'Active'
+        ]);
+        // Attempt to complete the order
+        $this->actingAs($seller)
+            ->put(route('commissions.update', $commission->fresh()))
+            // Assert that this attempt to complete the order failed, as we do not have an attachment.
+            ->assertStatus(401);
+    }
 
-    // TODO: test for completing commission
+    /** @test */
+    public function a_commission_can_be_completed()
+    {
+        [$buyer, $seller] = $this->createBuyerAndSeller();
+        // Create an active commission
+        $commission = Commission::factory()->create([
+            'buyer_id' => $buyer->id,
+            'creator_id' => $seller->id,
+            'status' => 'Active'
+        ]);
+        // Create an attachment, one is needed to complete the order
+        Attachment::factory()->create([
+            'commission_id' => $commission->id,
+            'user_id' => $seller->id
+        ]);
+        // Put an update to cycle the commission into completion.
+        $this->actingAs($seller)
+            ->put(route('commissions.update', $commission->fresh()))
+            // Assert the session contains a success field
+            ->assertSessionHas('success', 'Commission completed')
+            // Assert we are redirected back to the commission list
+            ->assertRedirect(route('commissions.index'));
 
-    // TODO: test for disputing commission
+        // Assert that the commission is completed
+        $this->assertEquals('Completed', $commission->fresh()->status);
+    }
+
+    /** @test */
+    public function a_commission_can_be_disputed()
+    {
+        [$buyer, $seller] = $this->createBuyerAndSeller();
+        $commission = Commission::factory()->create([
+            'buyer_id' => $buyer->id,
+            'creator_id' => $seller->id,
+            'status' => 'Completed'
+        ]);
+        $this->actingAs($buyer)
+            ->delete(route('commissions.destroy', $commission->fresh()))
+            ->assertSessionHas('success', 'Commission disputed')
+            ->assertRedirect(route('commissions.orders'));
+
+        $this->assertEquals('Disputed', $commission->fresh()->status);
+    }
 
     // TODO: test for resolving commission
 
     // TODO: test for refunding commission
 
-    // TODO: test for expiring commission
+    /** @test */
+    public function a_commission_can_be_expired()
+    {
+        [$buyer, $seller] = $this->createBuyerAndSeller();
+        $commission = Commission::factory()->create([
+            'buyer_id' => $buyer->id,
+            'creator_id' => $seller->id,
+            'status' => 'Active',
+            'expiration_date' => now()
+        ]);
+        $this->actingAs($buyer)
+            ->delete(route('commissions.destroy', $commission->fresh()))
+            ->assertSessionHas('success', 'Commission canceled')
+            ->assertRedirect(route('commissions.orders'));
 
-    // TODO: test for archived commission
+        $this->assertEquals('Expired', $commission->fresh()->status);
+    }
+
+    /** @test */
+    public function a_commission_can_be_archived()
+    {
+        [$buyer, $seller] = $this->createBuyerAndSeller();
+        $commission = Commission::factory()->create([
+            'buyer_id' => $buyer->id,
+            'creator_id' => $seller->id,
+            'status' => 'Completed'
+        ]);
+        $this->actingAs($buyer)
+            ->put(route('commissions.update', $commission->fresh()))
+            ->assertSessionHas('success', 'Commission archived')
+            ->assertRedirect(route('commissions.orders'));
+
+        $this->assertEquals('Archived', $commission->fresh()->status);
+    }
 }

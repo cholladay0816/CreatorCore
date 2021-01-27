@@ -13,6 +13,6 @@ class CommissionPresetSeeder extends Seeder
      */
     public function run()
     {
-        //
+        \App\Models\CommissionPreset::factory(10)->create();
     }
 }

@@ -13,6 +13,6 @@ class CommissionSeeder extends Seeder
      */
     public function run()
     {
-        //
+        \App\Models\Commission::factory(10)->create();
     }
 }

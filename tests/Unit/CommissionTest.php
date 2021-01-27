@@ -7,7 +7,6 @@ use App\Models\CommissionPreset;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-
 class CommissionTest extends TestCase
 {
     use RefreshDatabase;
@@ -56,7 +55,8 @@ class CommissionTest extends TestCase
             [
                 'buyer_id' => User::factory()->create()->id,
                 'creator_id' => User::factory()->create()->id,
-                'commission_preset_id' => $preset->id
+                'commission_preset_id' => $preset->id,
+                'memo' => 'Test Memo'
             ]
         );
         // Stores the commission in the database
