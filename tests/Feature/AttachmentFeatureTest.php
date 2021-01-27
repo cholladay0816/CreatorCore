@@ -15,25 +15,84 @@ class AttachmentFeatureTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function an_attachment_can_be_added_and_removed_from_commissions()
+    public function an_attachment_cannot_be_uploaded_if_it_is_too_large()
     {
-        Storage::fake('attachments');
         $user = User::factory()->create();
         $commission = Commission::factory()->create(['creator_id' => $user->id]);
         $commission = $commission->fresh();
-        $file = UploadedFile::fake()->image('test.png', '64', '64');
+        // Create a dummy image
+        $file = UploadedFile::fake()->image('test.png')->size(4097);
+        // Attempt to upload this file as an attachment
         $this->actingAs($user)
             ->post(route('attachments.store', $commission), [
                 'file' => $file
             ])
+            // Assert the file failed to upload.
+            ->assertSessionHasErrors();
+    }
+    /** @test */
+    public function an_attachment_cannot_be_uploaded_if_it_is_not_an_image()
+    {
+        // Create a User and Commission
+        $user = User::factory()->create();
+        $commission = Commission::factory()->create(['creator_id' => $user->id]);
+        $commission = $commission->fresh();
+        // Create a dummy executable
+        $file = UploadedFile::fake()->create('test.exe', '1024', 'application/x-msdownload');
+        // Attempt to upload this file as an attachment
+        $this->actingAs($user)
+            ->post(route('attachments.store', $commission), [
+                'file' => $file
+            ])
+            // Assert the file failed to upload.
+            ->assertSessionHasErrors();
+
+        $file = UploadedFile::fake()->create('test.mp4', '1024', 'video/mp4');
+        // Attempt to upload this file as an attachment
+        $this->actingAs($user)
+            ->post(route('attachments.store', $commission), [
+                'file' => $file
+            ])
+            // Assert the file failed to upload.
+            ->assertSessionHasErrors();
+
+        $file = UploadedFile::fake()->create('test.cpp', '12', 'text/plain');
+        // Attempt to upload this file as an attachment
+        $this->actingAs($user)
+            ->post(route('attachments.store', $commission), [
+                'file' => $file
+            ])
+            // Assert the file failed to upload.
+            ->assertSessionHasErrors();
+    }
+
+    /** @test */
+    public function an_attachment_can_be_added_and_removed_from_commissions()
+    {
+        // Create a User and Commission
+        $user = User::factory()->create();
+        $commission = Commission::factory()->create(['creator_id' => $user->id]);
+        $commission = $commission->fresh();
+
+        // Create a dummy image
+        $file = UploadedFile::fake()->image('test.png', '64', '64');
+        // Attempt to upload this image as an attachment
+        $this->actingAs($user)
+            ->post(route('attachments.store', $commission), [
+                'file' => $file
+            ])
+            // Assert the file was uploaded successfully
             ->assertSessionHas('success', 'Attachment created')
+            // Assert we are redirected back to the commissions page
             ->assertRedirect(route('commissions.show', $commission));
+        // Assert we have exactly one commission attachment
         $this->assertEquals(1, $commission->attachments->count());
 
         // Assert the file was created
         Storage::assertExists('attachments/' . $file->hashName());
         $attachment = $commission->attachments->first();
         $path = $attachment->path;
+
         // Delete the attachment
         $attachment->delete();
         // Assert that the file no longer exists
