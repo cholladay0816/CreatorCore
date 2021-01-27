@@ -4,149 +4,190 @@ namespace App\Http\Controllers;
 
 use App\Models\Commission;
 use App\Models\CommissionPreset;
-use App\Models\Creator;
 use App\Models\User;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class CommissionController extends Controller
 {
-    public function index()
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Application|Factory|View|Response
+     */
+    public function commissions()
     {
-        $commissions = Commission::where('creator_id', auth()->user()->id)
-            ->whereNotIn('status', ['Declined', 'Expired', 'Canceled'])
-            ->latest()
-            ->get();
-        return view('commission.list', ['title'=>'Commissions','commissions'=>$commissions]);
+        return view('commissions.index', [
+            'title' => 'Commissions',
+            'commissions' => auth()->user()->commissions,
+        ]);
     }
-    public function timeline()
-    {
-        $commissions = Commission::where('creator_id', auth()->user()->id)
-            ->whereNotIn('status', ['Unpaid', 'Declined', 'Expired', 'Canceled'])
-            ->latest()
-            ->get();
-        return view('commission.timeline', ['title'=>'Commissions','commissions'=>$commissions]);
-    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Application|Factory|View|Response
+     */
     public function orders()
     {
-        $commissions = Commission::where('buyer_id', auth()->user()->id)
-            ->latest()
-            ->get();
-        return view('commission.list', ['title'=>'My Orders','commissions'=>$commissions]);
-    }
-
-    public function view(Commission $commission)
-    {
-        return view('commission.view', ['commission'=>$commission]);
-    }
-
-    public function create($name)
-    {
-        $creator = Creator::find($name);
-        if($creator)
-        {
-            return $this->createCustom($creator);
-        }
-        $preset = CommissionPreset::find($name);
-        if($preset)
-        {
-            return $this->createPreset($preset);
-        }
-        abort(404);
-    }
-    public function createCustom(Creator $creator)
-    {
-        if($creator->allows_custom_commissions == '0' || $creator->accepting_commissions == '0')
-            abort(401);
-        return view('commission.create', ['creator'=>$creator]);
-    }
-    public function createPreset(CommissionPreset $commissionPreset)
-    {
-        if($commissionPreset->user->creator->accepting_commissions == '0')
-            abort(401);
-        return view('commission.create', ['commissionPreset'=>$commissionPreset]);
-    }
-    public function store()
-    {
-        request()->validate([
-            'g-recaptcha-response' => 'required|recaptcha',
-            'title' => 'required|max:255|min:3',
-            'description' => 'required|max:255|min:3',
-            'note' => 'required|max:255|min:3',
-            'price'=> 'numeric|required|min:5|max:1000',
-            'days_to_complete' => 'numeric|required|min:1|max:365',
-            'creator_id' => 'required',
+        return view('commissions.index', [
+            'title' => 'Orders',
+            'commissions' => auth()->user()->orders,
         ]);
-        $creator = Creator::where('id', '=', request('creator_id'))->first();
-        $preset = CommissionPreset::find(request('preset_id'));
-        $use_preset=false;
-        if($preset)
-        {
-            $use_preset = (
-                request('title') == $preset->title &&
-                request('description') == $preset->description &&
-                request('days_to_complete') >= $preset->min_days_to_complete
-            );
-        }
+    }
 
-        $commission = new Commission();
-        $commission->buyer_id = auth()->user()->id;
-        $commission->creator_id = $creator->user_id;
-        $commission->title = $use_preset ? $preset->title : request('title');
-        $commission->description = $use_preset ? $preset->description : request('description');
-        $commission->note = request('note');
-        $commission->price = request('price');
-        $commission->days_to_complete = request('days_to_complete');
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @param User $user
+     * @param CommissionPreset|null $commissionPreset
+     * @return Application|Factory|View|Response
+     */
+    public function create(User $user, CommissionPreset $commissionPreset = null)
+    {
+        return view('commissions.create', compact([$user, $commissionPreset]));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Request $request
+     * @param User $user
+     * @param CommissionPreset|null $commissionPreset
+     * @return RedirectResponse
+     */
+    public function store(Request $request, User $user, CommissionPreset $commissionPreset = null): RedirectResponse
+    {
+        $res = $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'memo' => 'required|max:2048',
+            'price' => 'required|numeric|max:1000|min:'
+                .($commissionPreset ? $commissionPreset->price : '5'),
+
+            'days_to_complete' => 'required|integer|min:'
+                .($commissionPreset ? $commissionPreset->days_to_complete : '1'),
+        ]);
+
+        $commission = new Commission($res);
+        $commission->commission_preset_id = $commissionPreset;
+
         $commission->save();
-        return redirect(route('orders'));
-    }
-    public function update(Commission  $commission)
-    {
-        if($commission->isCreator() && $commission->status == 'Proposed')
-        {
-            $commission->accept();
-            return redirect(url('/commission/'.$commission->id));
-        }
-        if($commission->isBuyer() && $commission->status == 'Unpaid')
-        {
-            return redirect(url('/payment/'.$commission->id));
-        }
-        if($commission->isCreator() && $commission->status == 'Active')
-        {
-            $commission->complete();
-            return redirect(url('/commission/'.$commission->id));
-        }
-        if($commission->isBuyer() && $commission->status == 'Completed')
-        {
-            $commission->archive();
-            return redirect(route('orders'));
-        }
-    }
-    public function delete(Commission $commission)
-    {
-        //Deleting the orders (Literally)
-        if($commission->isBuyer() && ($commission->status == 'Unpaid' || $commission->status == 'Proposed'))
-        {
-            $commission->remove();
-            return redirect(route('orders'));
-        }
-        //Expired by Buyer
-        else if($commission->isBuyer() && ($commission->status == 'Active') && $commission->isExpired())
-        {
-            $commission->expire();
-            return redirect(route('orders'));
-        }
-        //Canceled by Creator
-        else if($commission->isCreator() && ($commission->status == 'Active'))
-        {
-            $commission->cancel();
-            return redirect(route('commissions'));
-        }
-        if($commission->isBuyer() && $commission->status == 'Completed')
-        {
-            $commission->dispute();
-            return redirect(route('orders'));
-        }
 
-        return redirect(route('orders'));
+        return redirect()
+            ->to(route('commissions.show', $commission))
+            ->with(['success' => 'Commission created successfully']);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param Commission $commission
+     * @return Application|Factory|View|Response|void
+     */
+    public function show(Commission $commission)
+    {
+        if (!$commission->canView()) {
+            return abort(404);
+        }
+        return view('commissions.show', ['commission' => $commission]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param Commission $commission
+     * @return Response
+     */
+    public function edit(Commission $commission)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @param Commission $commission
+     * @return RedirectResponse|void
+     */
+    public function update(Request $request, Commission $commission)
+    {
+        if ($commission->status == 'Pending') {
+            if (!$commission->isCreator()) {
+                return abort(401);
+            }
+            $commission->accept();
+            return redirect()->to(route('commissions.index'))
+                ->with(['success' => 'Commission accepted']);
+        } elseif ($commission->status == 'Active') {
+            if (!$commission->isCreator()) {
+                return abort(401);
+            }
+            if ($commission->attachments->count() < 1) {
+                return abort(401);
+            }
+            $commission->complete();
+            return redirect()->to(route('commissions.index'))
+                ->with(['success' => 'Commission completed']);
+        } elseif ($commission->status == 'Completed') {
+            if (!$commission->isBuyer()) {
+                return abort(401);
+            }
+            $commission->archive();
+            return redirect()->to(route('commissions.orders'))
+                ->with(['success' => 'Commission archived']);
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param Commission $commission
+     * @return RedirectResponse
+     */
+    public function destroy(Commission $commission): RedirectResponse
+    {
+        if ($commission->status == 'Unpaid') {
+            if (!$commission->isBuyer()) {
+                return abort(401);
+            }
+            $commission->delete();
+            return redirect()
+                ->to(route('commissions.orders'))
+                ->with(['success' => 'Commission deleted']);
+        } elseif ($commission->status == 'Pending') {
+            if (!$commission->isCreator()) {
+                return abort(401);
+            }
+            $commission->decline();
+            return redirect()
+                ->to(route('commissions.index'))
+                ->with(['success' => 'Commission declined']);
+        } elseif ($commission->status == 'Active') {
+            if (!$commission->isBuyer()) {
+                return abort(401);
+            }
+            if ($commission->expiration_date > now()) {
+                return abort(401);
+            }
+            $commission->expire();
+            return redirect()
+                ->to(route('commissions.orders'))
+                ->with(['success' => 'Commission canceled']);
+        } elseif ($commission->status == 'Completed') {
+            if (!$commission->isBuyer()) {
+                return abort(401);
+            }
+            $commission->dispute();
+            return redirect()
+                ->to(route('commissions.orders'))
+                ->with(['success' => 'Commission disputed']);
+        } else {
+            abort(500);
+        }
     }
 }

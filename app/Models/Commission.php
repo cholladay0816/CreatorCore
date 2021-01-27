@@ -2,209 +2,145 @@
 
 namespace App\Models;
 
-use DateTimeZone;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Str;
 
 class Commission extends Model
 {
     use HasFactory;
 
-    protected $dates = ['created_at', 'updated_at', 'expiration_date'];
+    protected $guarded = [];
 
-    public function earnings()
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
     {
-        return $this->price * ($this->isBuyer()?-1:1);
+        return 'slug';
     }
 
-    public function buyer()
+    public function canView()
+    {
+        if (auth()->guest()) {
+            return false;
+        }
+        if (!$this->isBuyer() && !$this->isCreator()) {
+            return false;
+        }
+        return true;
+    }
+    public function isBuyer()
+    {
+        if (auth()->guest()) {
+            return false;
+        }
+        return auth()->user()->id == $this->buyer_id;
+    }
+    public function isCreator()
+    {
+        if (auth()->guest()) {
+            return false;
+        }
+        return auth()->user()->id == $this->creator_id;
+    }
+
+
+    public function buyer(): BelongsTo
     {
         return $this->belongsTo(User::class, 'buyer_id');
     }
-    public function creator()
+    public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'creator_id');
     }
-    public function preset()
+    public function preset(): BelongsTo
     {
-        return $this->belongsTo(CommissionPreset::class, 'preset_id');
+        return $this->belongsTo(CommissionPreset::class, 'commission_preset_id');
     }
     public function attachments()
     {
         return $this->hasMany(Attachment::class, 'commission_id');
     }
-    public function isBuyer()
+
+    public function getSlug()
     {
-        return auth()->user()->id == $this->buyer_id;
+        return Str::slug($this->id . '-' . $this->title);
     }
-    public function isCreator()
+
+    protected static function boot()
     {
-        return auth()->user()->id == $this->creator_id;
-    }
-    public function isExpired()
-    {
-        return $this->expiration_date < now();
-    }
-    public function getTip()
-    {
-        if($this->preset == null)
-            return 0;
-        if($this->price > $this->preset->value)
-            return $this->price - $this->preset->value;
-        return 0;
-    }
-    public function taxPrice()
-    {
-        return ceil($this->price * 100 + ($this->price * 100 * env('COMMISSION_SALES_TAX')))/100;
-    }
-    public function truePrice()
-    {
-        return 0.01*(($this->taxPrice()*100) + env('STRIPE_FLAT_TAX') + ceil((($this->taxPrice()*100) + env('STRIPE_FLAT_TAX')) * env('STRIPE_SALES_TAX')));
-    }
-    public function hoursleft()
-    {
-        if($this->isExpired())
-            return 0;
-        $d1 = new \DateTime(now());
-        $d2 = new \DateTime($this->expiration_date);
-        $diff = $d1->diff($d2);
-        return ($diff->days*24 + $diff->h);
-    }
-    public function delivery_date()
-    {
-        if($this->status == 'Pending')
-        {
-            $date = new \DateTime($this->expiration_date);
-            $date->add(new \DateInterval('P' . $this->days_to_complete . 'D'));
-        }
-        else if($this->status == 'Active')
-        {
-            $date = new \DateTime($this->expiration_date);
-        }
-        return $date;
-    }
-    public function delivery_days()
-    {
-        $d1 = new \DateTime(now());
-        $d2 = $this->delivery_date();
-        $diff = $d1->diff($d2);
-        return $diff->days;
-    }
-    public function processing_date()
-    {
-        $date = $this->delivery_date();
-        $date->add(new \DateInterval('P7D'));
-        return $date;
-    }
-    public function processing_days()
-    {
-        return 7;
-    }
-    public function getLocalExpiration()
-    {
-        return $this->expiration_date->diffForHumans();
-    }
-    public function removeAttachments()
-    {
-        $this->attachments->each(function($attachment){
-            $attachment->remove();
+        self::creating(function ($commission) {
+            if ($commission->commission_preset_id != null) {
+                $preset = $commission->preset;
+                $commission->title = $preset->title;
+                $commission->description = $preset->description;
+                $commission->price = $preset->price;
+                $commission->days_to_complete = $preset->days_to_complete;
+            }
+            $commission->slug = Str::slug($commission->id . '-' . $commission->title);
         });
-    }
-    public function lockAttachments()
-    {
-        $this->attachments->each(function($attachment){
-            $attachment->lock();
+        self::created(function ($commission) {
+            $commission->slug = $commission->getSlug();
         });
-    }
-    public function unlistAttachments()
-    {
-        $this->attachments->each(function($att){
-            $att->unlist();
+        self::factory(function ($commission) {
+            $commission->slug = Str::slug($commission->id . '-' . $commission->title);
         });
+
+        parent::boot();
+    }
+
+    public function decline()
+    {
+        $this->status = 'Declined';
+        $this->save();
+        // TODO: Send Email
     }
     public function accept()
     {
-        //Send notification to Buyer
-        $this->status = 'Unpaid';
-        $this->expiration_date = new \DateTime('now + 3 day',new DateTimeZone('America/Chicago'));
-        return $this->save();
+        $this->status = 'Purchasing';
+        $this->save();
+        $this->attemptCharge();
     }
-    public function decline()
+    public function attemptCharge()
     {
-        //Send notification to Buyer
-        //Refund payment
-        $this->status = 'Declined';
-        $this->expiration_date = now()->toString();
-        return $this->save();
-    }
-    public function pay()
-    {
-        if($this->status != 'Unpaid')
-        {
-            return null;
-        }
-        $this->status = 'Active';
-        //Send Notification to Creator
-        $this->expiration_date = new \DateTime('now + '.$this->days_to_complete.' day',new DateTimeZone('America/Chicago'));
-        return $this->save();
-    }
-    public function cancel()
-    {
-        $this->removeAttachments();
-        $this->rebate();
-        //Send notification to Buyer
-        //Give strike to Creator
-        $this->status = 'Canceled';
-        $this->expiration_date = now();
-        return $this->save();
-    }
-    public function expire()
-    {
-        $this->removeAttachments();
-        $this->rebate();
-        //Send notification to Creator
-        $this->status = 'Expired';
-        $this->expiration_date = now();
-        return $this->save();
+        // TODO: charge the buyer
+        // $this->buyer->invoice($this->price);
     }
     public function complete()
     {
-        if($this->attachments->count() <= 0)
-            return false;
-        //Send a notification to the Buyer
-        $this->lockAttachments();
         $this->status = 'Completed';
-        $this->expiration_date = new \DateTime('now + '.env('COMMISSION_AUTO_ARCHIVE').' day',new DateTimeZone('America/Chicago'));
-        return $this->save();
-    }
-    public function archive()
-    {
-        $this->creator->addFunds($this->price);
-        //Send a notification to the Creator, payment ready
-        $this->status = 'Archived';
-        return $this->save();
+        $this->save();
+        // TODO: Send email
     }
     public function dispute()
     {
-        //Send a notification to the Creator, dispute underway
-        //Create a case?
         $this->status = 'Disputed';
-        return $this->save();
+        $this->save();
+        // TODO: Send email
+    }
+    public function expire()
+    {
+        $this->status = 'Expired';
+        $this->save();
+        // TODO: Refund buyer
+        // TODO: Send email
     }
     public function refund()
     {
-        $this->rebate();
-        //Send a notification to both parties, refund payment
         $this->status = 'Refunded';
-        return $this->save();
+        $this->save();
+        // TODO: Refund buyer
+        // TODO: Send email
     }
-    public function rebate()
+    public function archive()
     {
-        //Fully reimburse customer
-        $payment = Payment::where('commission_id','=',$this->id)->first();
-        $this->buyer->refund($payment->invoice_id);
-        //Deduct sales tax from creator
-        $this->creator->addFunds(($this->taxPrice() - $this->truePrice())*100);
+        $this->status = 'Archived';
+        $this->save();
+        // TODO: payout the creator
+        // $this->creator->payout($this->price);
     }
 }

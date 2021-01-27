@@ -9,45 +9,13 @@ class CommissionPreset extends Model
 {
     use HasFactory;
 
-
-    public function url()
+    public function owner()
     {
-        if($this->isOwner())
-        {
-            return url('/commissionpreset/'.$this->id);
-        }
-        else
-        {
-            return $this->isEnabled()?url('/commission/create/'.$this->id):'javascript:;';
-        }
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    public function isEnabled()
-    {
-        return $this->user->creator->accepting_commissions;
-    }
-
-    public function isOwner()
-    {
-        if(!auth()->user())
-            return false;
-
-        return $this->user_id == auth()->user()->id;
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function commissions()
     {
-        return $this->hasMany(Commission::class, 'preset_id');
+        return $this->hasMany(Commission::class);
     }
-
-    public function tags()
-    {
-        return $this->belongsToMany(Tag::class);
-    }
-
 }
