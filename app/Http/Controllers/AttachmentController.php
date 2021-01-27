@@ -42,8 +42,6 @@ class AttachmentController extends Controller
      */
     public function store(Request $request, Commission $commission)
     {
-        if(!$commission)
-            return abort(404);
         if(!$commission->isCreator())
             return abort(404);
         $res = $request->validate([
