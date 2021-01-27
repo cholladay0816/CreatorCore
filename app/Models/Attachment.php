@@ -24,7 +24,7 @@ class Attachment extends Model
     {
         //If the object is being deleted, remove the saved attachment.
         static::deleting(function ($attachment) {
-            Storage::delete(storage_path($attachment->path));
+            Storage::delete($attachment->path);
         });
     }
 }

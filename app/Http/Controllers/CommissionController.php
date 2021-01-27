@@ -73,6 +73,8 @@ class CommissionController extends Controller
         ]);
 
         $commission = new Commission($res);
+        $commission->creator_id = $user->id;
+        $commission->buyer_id = auth()->user()->id;
         $commission->commission_preset_id = $commissionPreset;
 
         $commission->save();

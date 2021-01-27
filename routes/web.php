@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AttachmentController;
 use App\Http\Controllers\BankAccountController;
 use App\Http\Controllers\CommissionController;
 use Illuminate\Support\Facades\Route;
@@ -24,7 +25,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
-
+    Route::post('/attachments/new/{commission}', [AttachmentController::class, 'store'])
+        ->name('attachments.store');
 
     Route::get('/commissions/new/{user}/{commissionpreset?}', [CommissionController::class, 'create'])
         ->name('commissions.create');
