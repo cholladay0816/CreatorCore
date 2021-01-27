@@ -83,4 +83,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(Commission::class, 'buyer_id');
     }
+
+    protected static function boot()
+    {
+        self::created(function ($user) {
+            $user->createOrGetStripeCustomer();
+        });
+
+        parent::boot();
+    }
 }

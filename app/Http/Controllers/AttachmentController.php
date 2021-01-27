@@ -42,8 +42,9 @@ class AttachmentController extends Controller
      */
     public function store(Request $request, Commission $commission)
     {
-        if(!$commission->isCreator())
+        if (!$commission->isCreator()) {
             return abort(404);
+        }
         $res = $request->validate([
             'file' => 'required|file|image|max:4096' //Must be an image file (4MB limit)
         ]);
@@ -97,10 +98,23 @@ class AttachmentController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Attachment $attachment
-     * @return Response
+     * @return RedirectResponse | void
      */
     public function destroy(Attachment $attachment)
     {
-        //
+        $commission = $attachment->commission;
+        if (!$commission->isCreator()) {
+            abort(401);
+        }
+        // Make sure the commission is not completed
+        if ($commission->status != 'Active') {
+            abort(401);
+        }
+
+        $attachment->delete();
+
+        return redirect()
+            ->to(route('commissions.show', $commission))
+            ->with('success', 'Attachment deleted');
     }
 }

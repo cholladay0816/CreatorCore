@@ -28,6 +28,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::post('/attachments/new/{commission}', [AttachmentController::class, 'store'])
         ->name('attachments.store');
 
+    Route::delete('/attachments/{attachment}', [AttachmentController::class, 'destroy'])
+        ->name('attachments.destroy');
+
     Route::get('/commissions/new/{user}/{commissionpreset?}', [CommissionController::class, 'create'])
         ->name('commissions.create');
     Route::post('/commissions/new/{user}/{commissionpreset?}', [CommissionController::class, 'store'])

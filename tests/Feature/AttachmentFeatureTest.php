@@ -100,4 +100,61 @@ class AttachmentFeatureTest extends TestCase
         // Assert the attachment is gone
         $this->assertNull($attachment->fresh());
     }
+
+    /** @test */
+    public function an_attachment_cannot_be_deleted_after_completion()
+    {
+        $user = User::factory()->create();
+        $commission = Commission::factory()->create([
+            'creator_id' => $user->id,
+            'status' => 'Archived'
+        ])->fresh();
+        $attachment = Attachment::factory()->create([
+            'user_id' => $user->id,
+            'commission_id' => $commission->id
+        ])->fresh();
+
+        $this->actingAs($user)
+            ->delete(route('attachments.destroy', $attachment))
+            ->assertStatus(401);
+    }
+
+    /** @test */
+    public function an_attachment_cannot_be_deleted_by_a_third_party()
+    {
+        $buyer = User::factory()->create();
+        $seller = User::factory()->create();
+        $commission = Commission::factory()->create([
+            'creator_id' => $seller->id,
+            'buyer_id' => $buyer->id,
+            'status' => 'Active'
+        ])->fresh();
+        $attachment = Attachment::factory()->create([
+            'user_id' => $seller->id,
+            'commission_id' => $commission->id
+        ])->fresh();
+
+        $this->actingAs($buyer)
+            ->delete(route('attachments.destroy', $attachment))
+            ->assertStatus(401);
+    }
+
+    /** @test */
+    public function an_attachment_can_be_deleted_by_its_creator()
+    {
+        $user = User::factory()->create();
+        $commission = Commission::factory()->create([
+            'creator_id' => $user->id,
+            'status' => 'Active'
+        ])->fresh();
+        $attachment = Attachment::factory()->create([
+            'user_id' => $user->id,
+            'commission_id' => $commission->id
+        ])->fresh();
+
+        $this->actingAs($user)
+            ->delete(route('attachments.destroy', $attachment))
+            ->assertSessionHas('success', 'Attachment deleted')
+            ->assertRedirect(route('commissions.show', $commission));
+    }
 }
