@@ -55,6 +55,7 @@ class CreateCommissionsTable extends Migration
                     'Archived',
                 ]
             )->default('Unpaid');
+            $table->string('invoice_id')->nullable();
             $table->timestamps();
         });
     }
