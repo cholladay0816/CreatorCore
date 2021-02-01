@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
+use Stripe\Exception\CardException;
 
 class Commission extends Model
 {
@@ -107,9 +108,49 @@ class Commission extends Model
     }
     public function attemptCharge()
     {
-        // TODO: charge the buyer
-        // $this->buyer->invoice($this->price);
+        if ($this->invoice_id) {
+            return null;
+        }
+
+        $this->buyer->createOrGetStripeCustomer();
+
+        if ($this->buyer->hasPaymentMethod()) {
+            try {
+                $invoice = $this->buyer->invoiceFor($this->title, ($this->price * 100));
+
+                $this->invoice_id = $invoice->id;
+                $this->save();
+                return $invoice;
+            } catch (\Exception $e) {
+                return $e;
+            }
+        }
+        return null;
     }
+
+    public function checkInvoiceStatus()
+    {
+        $stripe = new \Stripe\StripeClient(
+            config('stripe.secret'),
+        );
+        $invoice = $stripe->invoices->retrieve(
+            $this->invoice_id,
+        );
+        if ($invoice->status == 'paid') {
+            $this->chargeSuccess();
+        }
+    }
+
+    public function chargeSuccess()
+    {
+        // TODO: send emails and notifications
+        $this->status = 'Pending';
+        $this->save();
+    }
+    public function chargeFail()
+    {
+    }
+
     public function complete()
     {
         $this->status = 'Completed';

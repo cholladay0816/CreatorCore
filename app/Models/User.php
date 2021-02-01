@@ -87,15 +87,18 @@ class User extends Authenticatable
     protected static function boot()
     {
         self::created(function ($user) {
-            $user->createOrGetStripeCustomer();
+            // $user->createOrGetStripeCustomer();
         });
 
         self::deleting(function ($user) {
             $stripe = new \Stripe\StripeClient(
                 config('stripe.secret')
             );
-            $stripe->customers->delete($user->stripe_id);
+            if ($user->stripe_id) {
+                $stripe->customers->delete($user->stripe_id);
+            }
         });
+
 
         parent::boot();
     }
