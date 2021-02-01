@@ -94,7 +94,7 @@ class User extends Authenticatable
             $stripe = new \Stripe\StripeClient(
                 config('stripe.secret')
             );
-            $stripe->customers->delete($user->stripe_customer_id);
+            $stripe->customers->delete($user->stripe_id);
         });
 
         parent::boot();
