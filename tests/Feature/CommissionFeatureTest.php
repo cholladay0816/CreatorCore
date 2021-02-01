@@ -6,6 +6,9 @@ use App\Models\Attachment;
 use App\Models\Commission;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Laravel\Cashier\Exceptions\PaymentFailure;
+use Stripe\Card;
+use Stripe\Exception\CardException;
 use Tests\TestCase;
 
 class CommissionFeatureTest extends TestCase
@@ -50,6 +53,7 @@ class CommissionFeatureTest extends TestCase
 
         // Assert that we redirect back to the commission show page.
         $res->assertRedirect('/commissions/' . $commission->getSlug());
+
     }
 
     // TODO: test to make sure unauthorized users (logged in or otherwise) cannot view.
@@ -123,8 +127,112 @@ class CommissionFeatureTest extends TestCase
     }
 
     // TODO: test for paying for commission
+    /** @test */
+    public function a_commission_can_be_paid_for()
+    {
+        // Create our buyer and seller
+        [$buyer, $seller] = $this->createBuyerAndSeller();
 
-    // TODO: test for payment failing
+        // Make the buyer a Stripe customer
+        $buyer->createAsStripeCustomer();
+
+        // Create the commission
+        $commission = Commission::factory()->create([
+            'buyer_id' => $buyer->id,
+            'creator_id' => $seller->id,
+            'status' => 'Unpaid'
+        ]);
+        // Initialize Stripe
+        $stripe = new \Stripe\StripeClient(
+            config('stripe.secret'),
+        );
+        // Create a payment method
+        $paymentmethod = $stripe->paymentMethods->create([
+            'type' => 'card',
+            'card' => [
+                'number' => '4242424242424242',
+                'exp_month' => 2,
+                'exp_year' => 2022,
+                'cvc' => '123',
+            ],
+        ]);
+        // Attach it to the customer
+        $stripe->paymentMethods->attach(
+            $paymentmethod->id,
+            ['customer' => $buyer->stripe_id],
+        );
+        // Make this payment method their default
+        $stripe->customers->update(
+            $buyer->stripe_id,
+            [
+                'invoice_settings' => [
+                    'default_payment_method' => $paymentmethod->id,
+                ],
+            ],
+        );
+        // Attempt to charge the customer with an invoice.
+        $invoice = $commission->attemptCharge();
+
+        // Assert the customer cannot be billed twice.
+        $this->assertNull($commission->attemptCharge());
+
+        // Check the commission to see if the invoice is paid.
+        // TESTING ONLY, not live implementation.  Refer to Webhooks.
+        $commission->checkInvoiceStatus();
+
+        // Assert the commission is Pending after being paid for.
+        $this->assertEquals('Pending', $commission->status);
+
+    }
+    /** @test */
+    public function a_commission_can_fail_payment()
+    {
+        // Create our buyer and seller
+        [$buyer, $seller] = $this->createBuyerAndSeller();
+
+        // Make the buyer a Stripe customer
+        $buyer->createAsStripeCustomer();
+
+        // Create the commission
+        $commission = Commission::factory()->create([
+            'buyer_id' => $buyer->id,
+            'creator_id' => $seller->id,
+            'status' => 'Unpaid'
+        ]);
+        // Initialize Stripe
+        $stripe = new \Stripe\StripeClient(
+            config('stripe.secret'),
+        );
+        // Create a payment method
+        $paymentmethod = $stripe->paymentMethods->create([
+            'type' => 'card',
+            'card' => [
+                'number' => '4000000000000341',
+                'exp_month' => 2,
+                'exp_year' => 2022,
+                'cvc' => '123',
+            ],
+        ]);
+        // Attach it to the customer
+        $stripe->paymentMethods->attach(
+            $paymentmethod->id,
+            ['customer' => $buyer->stripe_id],
+        );
+        // Make this payment method their default
+        $stripe->customers->update(
+            $buyer->stripe_id,
+            [
+                'invoice_settings' => [
+                    'default_payment_method' => $paymentmethod->id,
+                ],
+            ],
+        );
+        // We know this card will fail, so we expect an exception message.
+        // Attempt to charge the customer with an invoice.
+        $invoice = $commission->attemptCharge();
+
+        $this->assertEquals(PaymentFailure::class, get_class($invoice));
+    }
 
     /** @test */
     public function a_commission_can_not_be_completed_without_attachments()
