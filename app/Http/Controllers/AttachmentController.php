@@ -43,7 +43,7 @@ class AttachmentController extends Controller
     public function store(Request $request, Commission $commission)
     {
         if (!$commission->isCreator()) {
-            return abort(404);
+            abort(404);
         }
         $res = $request->validate([
             'file' => 'required|file|image|max:4096' //Must be an image file (4MB limit)
