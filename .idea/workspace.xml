@@ -5,10 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="61e15a0a-f7d6-4971-b621-a51ee3642e21" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/commandlinetools/Laravel_2_4_21__10_19_AM.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/commandlinetools/schemas/frameworkDescriptionVersion1.1.4.xsd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/LaravelStackTest.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/LaravelStackTest.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.php_cs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/.php_cs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CommissionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CommissionController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Commission.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Commission.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/CommissionFeatureTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/CommissionFeatureTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Unit/ReviewTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Unit/ReviewTest.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +69,6 @@
       <path value="$PROJECT_DIR$/vendor/voku/portable-ascii" />
       <path value="$PROJECT_DIR$/vendor/myclabs/deep-copy" />
       <path value="$PROJECT_DIR$/vendor/phpoption/phpoption" />
-      <path value="$PROJECT_DIR$/vendor/fzaninotto/faker" />
       <path value="$PROJECT_DIR$/vendor/ramsey/uuid" />
       <path value="$PROJECT_DIR$/vendor/ramsey/collection" />
       <path value="$PROJECT_DIR$/vendor/ralouphie/getallheaders" />
@@ -178,6 +185,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -212,11 +220,27 @@
       <command value="php artisan serve" />
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="PHPUnit.tests">
+    <configuration name="CommissionFeatureTest.a_disputed_commission_can_be_resolved" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <CommandLine>
+        <PhpTestInterpreterSettings>
+          <option name="interpreterName" value="PHP 7.4" />
+        </PhpTestInterpreterSettings>
+      </CommandLine>
+      <TestRunner class="Tests\Feature\CommissionFeatureTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/Feature/CommissionFeatureTest.php" method="a_disputed_commission_can_be_resolved" scope="Method" />
+      <method v="2" />
+    </configuration>
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner scope="XML" />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="PHPUnit.tests" />
+        <item itemvalue="PHPUnit.CommissionFeatureTest.a_disputed_commission_can_be_refunded" />
+        <item itemvalue="PHPUnit.CommissionFeatureTest.a_disputed_commission_can_be_resolved" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -241,6 +265,7 @@
       <workItem from="1611679544394" duration="5460000" />
       <workItem from="1611688427947" duration="26066000" />
       <workItem from="1612310377207" duration="23000" />
+      <workItem from="1612455588318" duration="4988000" />
     </task>
     <servers />
   </component>
