@@ -4,7 +4,9 @@ namespace Tests\Feature;
 
 use App\Models\Attachment;
 use App\Models\Commission;
+use App\Models\Role;
 use App\Models\User;
+use Database\Seeders\RoleSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Cashier\Exceptions\PaymentFailure;
 use Stripe\Card;
@@ -53,7 +55,6 @@ class CommissionFeatureTest extends TestCase
 
         // Assert that we redirect back to the commission show page.
         $res->assertRedirect('/commissions/' . $commission->getSlug());
-
     }
 
     // TODO: test to make sure unauthorized users (logged in or otherwise) cannot view.
@@ -187,9 +188,45 @@ class CommissionFeatureTest extends TestCase
         $this->assertEquals('Disputed', $commission->fresh()->status);
     }
 
-    // TODO: test for resolving commission
+    /** @test */
+    public function a_disputed_commission_can_be_resolved()
+    {
+        $this->seed(RoleSeeder::class);
+        $admin = Role::where('title', 'Administrator')->firstOrCreate();
+        $administrator = User::factory()->create();
+        $admin->users()->attach($administrator->id);
 
-    // TODO: test for refunding commission
+        [$buyer, $seller] = $this->createBuyerAndSeller();
+        $commission = Commission::factory()->create([
+            'buyer_id' => $buyer->id,
+            'creator_id' => $seller->id,
+            'status' => 'Disputed'
+        ]);
+        $this->actingAs($administrator)
+            ->put(route('commissions.update', $commission->fresh()));
+
+        $this->assertEquals('Archived', $commission->fresh()->status);
+    }
+
+    /** @test */
+    public function a_disputed_commission_can_be_refunded()
+    {
+        $this->seed(RoleSeeder::class);
+        $admin = Role::where('title', 'Administrator')->firstOrCreate();
+        $administrator = User::factory()->create();
+        $admin->users()->attach($administrator->id);
+
+        [$buyer, $seller] = $this->createBuyerAndSeller();
+        $commission = Commission::factory()->create([
+            'buyer_id' => $buyer->id,
+            'creator_id' => $seller->id,
+            'status' => 'Disputed'
+        ]);
+        $this->actingAs($administrator)
+            ->delete(route('commissions.destroy', $commission->fresh()));
+
+        $this->assertEquals('Refunded', $commission->fresh()->status);
+    }
 
     /** @test */
     public function a_commission_can_be_expired()

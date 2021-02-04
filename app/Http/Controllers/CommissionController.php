@@ -11,6 +11,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
 
 class CommissionController extends Controller
 {
@@ -142,6 +143,13 @@ class CommissionController extends Controller
             $commission->archive();
             return redirect()->to(route('commissions.orders'))
                 ->with(['success' => 'Commission archived']);
+        } elseif ($commission->status == 'Disputed') {
+            if (Gate::allows('manage-users')) {
+                $commission->resolve();
+            // TODO: redirect for admin
+            } else {
+                abort(401);
+            }
         }
     }
 
@@ -188,6 +196,13 @@ class CommissionController extends Controller
             return redirect()
                 ->to(route('commissions.orders'))
                 ->with(['success' => 'Commission disputed']);
+        } elseif ($commission->status == 'Disputed') {
+            if (Gate::allows('manage-users')) {
+                $commission->refund();
+            // TODO: redirect for admin
+            } else {
+                abort(401);
+            }
         } else {
             abort(500);
         }

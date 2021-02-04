@@ -177,6 +177,11 @@ class Commission extends Model
         // TODO: Refund buyer
         // TODO: Send email
     }
+    public function resolve()
+    {
+        // TODO: Send a resolution letter
+        $this->archive();
+    }
     public function archive()
     {
         $this->status = 'Archived';

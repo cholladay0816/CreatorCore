@@ -83,6 +83,23 @@ class User extends Authenticatable
     {
         return $this->hasMany(Commission::class, 'buyer_id');
     }
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+    public function abilities()
+    {
+        return $this->roles->map->abilities->flatten();
+    }
+    public function getAbilitiesAttribute()
+    {
+        return $this->abilities();
+    }
+
+    public function hasAbility($slug)
+    {
+        return $this->abilities->where('slug', $slug)->count() > 0;
+    }
 
     protected static function boot()
     {
