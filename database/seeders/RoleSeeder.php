@@ -20,6 +20,7 @@ class RoleSeeder extends Seeder
 
         $manage_users = Ability::factory()->create(['title' => 'Manage Users'])->id;
         $manage_content = Ability::factory()->create(['title' => 'Manage Content'])->id;
+        $manage_admins = Ability::factory()->create(['title' => 'Manage Admins'])->id;
         $view_admin_dashboard = Ability::factory()->create(['title' => 'View Admin Dashboard'])->id;
         $manage_reports = Ability::factory()->create(['title' => 'Manage Reports'])->id;
         $manage_financials = Ability::factory()->create(['title' => 'Manage Financials'])->id;
@@ -33,6 +34,7 @@ class RoleSeeder extends Seeder
                 $manage_reports,
                 $manage_financials,
                 $manage_analytics,
+                $manage_admins
             ]
         );
         $moderator->abilities()->attach(
