@@ -37,7 +37,7 @@ class CreateCommissionsTable extends Migration
             $table->integer('days_to_complete')
                 ->unsigned()
                 ->default(7);
-            $table->dateTime('expiration_date')->nullable();
+            $table->dateTime('expires_at')->nullable();
             $table->enum(
                 'status',
                 [

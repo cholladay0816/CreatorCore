@@ -23,7 +23,7 @@ class CommissionPresetTest extends TestCase
     {
         $user = User::factory()->create();
         $preset = CommissionPreset::factory()->create(['user_id'=>$user->id]);
-        $this->assertEquals($preset->owner->id, $user->id);
+        $this->assertEquals($preset->user->id, $user->id);
     }
 
     /** @test */

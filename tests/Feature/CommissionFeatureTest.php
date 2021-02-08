@@ -236,7 +236,7 @@ class CommissionFeatureTest extends TestCase
             'buyer_id' => $buyer->id,
             'creator_id' => $seller->id,
             'status' => 'Active',
-            'expiration_date' => now()
+            'expires_at' => now()
         ]);
         $this->actingAs($buyer)
             ->delete(route('commissions.destroy', $commission->fresh()))

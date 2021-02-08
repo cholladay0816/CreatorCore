@@ -14,6 +14,12 @@ class Commission extends Model
 
     protected $guarded = [];
 
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'expires_at',
+    ];
+
     /**
      * Get the route key for the model.
      *
@@ -22,6 +28,15 @@ class Commission extends Model
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    public function displayTitle()
+    {
+        return '[$' . $this->price . '] ' . $this->title;
+    }
+    public function getDisplayTitleAttribute()
+    {
+        return $this->displayTitle();
     }
 
     public function canView()
