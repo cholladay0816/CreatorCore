@@ -18,9 +18,13 @@ jobs:
       - uses: actions/checkout@v2
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+      - name: Login to Laravel Nova
+          run: composer config http-basic.nova.laravel.com ${NOVA_USERNAME} ${NOVA_PASSWORD}
+          env:
+            NOVA_PASSWORD: ${{ secrets.NOVA_PASSWORD }}
+            NOVA_USERNAME: ${{ secrets.NOVA_USERNAME }}
       - name: Install Dependencies
-        run: echo "{\"http-basic\":{\"nova.laravel.com\":{\"username\":\"${NOVA_USERNAME}\",\"password\":\"${NOVA_PASSWORD}\"}}}" > auth.json
-          composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
       - name: Generate key
         run: php artisan key:generate
       - name: Directory Permissions
