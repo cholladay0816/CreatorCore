@@ -2,6 +2,7 @@
 /storage/*.key
 /vendor
 .env
+.env.cypress
 .env.backup
 .phpunit.result.cache
 docker-compose.override.yml
