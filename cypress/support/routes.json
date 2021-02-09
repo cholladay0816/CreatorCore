@@ -1,0 +1,545 @@
+{
+  "ignition.healthCheck": {
+    "name": "ignition.healthCheck",
+    "domain": null,
+    "action": "Facade\\Ignition\\Http\\Controllers\\HealthCheckController",
+    "uri": "_ignition/health-check",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "ignition.executeSolution": {
+    "name": "ignition.executeSolution",
+    "domain": null,
+    "action": "Facade\\Ignition\\Http\\Controllers\\ExecuteSolutionController",
+    "uri": "_ignition/execute-solution",
+    "method": [
+      "POST"
+    ]
+  },
+  "ignition.shareReport": {
+    "name": "ignition.shareReport",
+    "domain": null,
+    "action": "Facade\\Ignition\\Http\\Controllers\\ShareReportController",
+    "uri": "_ignition/share-report",
+    "method": [
+      "POST"
+    ]
+  },
+  "ignition.scripts": {
+    "name": "ignition.scripts",
+    "domain": null,
+    "action": "Facade\\Ignition\\Http\\Controllers\\ScriptController",
+    "uri": "_ignition/scripts/{script}",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "ignition.styles": {
+    "name": "ignition.styles",
+    "domain": null,
+    "action": "Facade\\Ignition\\Http\\Controllers\\StyleController",
+    "uri": "_ignition/styles/{style}",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "cypress.factory": {
+    "name": "cypress.factory",
+    "domain": null,
+    "action": "Laracasts\\Cypress\\Controllers\\CypressController@factory",
+    "uri": "__cypress__/factory",
+    "method": [
+      "POST"
+    ]
+  },
+  "cypress.login": {
+    "name": "cypress.login",
+    "domain": null,
+    "action": "Laracasts\\Cypress\\Controllers\\CypressController@login",
+    "uri": "__cypress__/login",
+    "method": [
+      "POST"
+    ]
+  },
+  "cypress.logout": {
+    "name": "cypress.logout",
+    "domain": null,
+    "action": "Laracasts\\Cypress\\Controllers\\CypressController@logout",
+    "uri": "__cypress__/logout",
+    "method": [
+      "POST"
+    ]
+  },
+  "cypress.artisan": {
+    "name": "cypress.artisan",
+    "domain": null,
+    "action": "Laracasts\\Cypress\\Controllers\\CypressController@artisan",
+    "uri": "__cypress__/artisan",
+    "method": [
+      "POST"
+    ]
+  },
+  "cypress.run-php": {
+    "name": "cypress.run-php",
+    "domain": null,
+    "action": "Laracasts\\Cypress\\Controllers\\CypressController@runPhp",
+    "uri": "__cypress__/run-php",
+    "method": [
+      "POST"
+    ]
+  },
+  "cypress.csrf-token": {
+    "name": "cypress.csrf-token",
+    "domain": null,
+    "action": "Laracasts\\Cypress\\Controllers\\CypressController@csrfToken",
+    "uri": "__cypress__/csrf_token",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "cypress.routes": {
+    "name": "cypress.routes",
+    "domain": null,
+    "action": "Laracasts\\Cypress\\Controllers\\CypressController@routes",
+    "uri": "__cypress__/routes",
+    "method": [
+      "POST"
+    ]
+  },
+  "cashier.payment": {
+    "name": "cashier.payment",
+    "domain": null,
+    "action": "Laravel\\Cashier\\Http\\Controllers\\PaymentController@show",
+    "uri": "stripe/payment/{id}",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "cashier.webhook": {
+    "name": "cashier.webhook",
+    "domain": null,
+    "action": "Laravel\\Cashier\\Http\\Controllers\\WebhookController@handleWebhook",
+    "uri": "stripe/webhook",
+    "method": [
+      "POST"
+    ]
+  },
+  "login": {
+    "name": "login",
+    "domain": null,
+    "action": "Laravel\\Fortify\\Http\\Controllers\\AuthenticatedSessionController@create",
+    "uri": "login",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "": {
+    "name": null,
+    "domain": null,
+    "action": "Closure",
+    "uri": "/",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "logout": {
+    "name": "logout",
+    "domain": null,
+    "action": "Laravel\\Fortify\\Http\\Controllers\\AuthenticatedSessionController@destroy",
+    "uri": "logout",
+    "method": [
+      "POST"
+    ]
+  },
+  "password.request": {
+    "name": "password.request",
+    "domain": null,
+    "action": "Laravel\\Fortify\\Http\\Controllers\\PasswordResetLinkController@create",
+    "uri": "forgot-password",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "password.reset": {
+    "name": "password.reset",
+    "domain": null,
+    "action": "Laravel\\Fortify\\Http\\Controllers\\NewPasswordController@create",
+    "uri": "reset-password/{token}",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "password.email": {
+    "name": "password.email",
+    "domain": null,
+    "action": "Laravel\\Fortify\\Http\\Controllers\\PasswordResetLinkController@store",
+    "uri": "forgot-password",
+    "method": [
+      "POST"
+    ]
+  },
+  "password.update": {
+    "name": "password.update",
+    "domain": null,
+    "action": "Laravel\\Fortify\\Http\\Controllers\\NewPasswordController@store",
+    "uri": "reset-password",
+    "method": [
+      "POST"
+    ]
+  },
+  "register": {
+    "name": "register",
+    "domain": null,
+    "action": "Laravel\\Fortify\\Http\\Controllers\\RegisteredUserController@create",
+    "uri": "register",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "user-profile-information.update": {
+    "name": "user-profile-information.update",
+    "domain": null,
+    "action": "Laravel\\Fortify\\Http\\Controllers\\ProfileInformationController@update",
+    "uri": "user/profile-information",
+    "method": [
+      "PUT"
+    ]
+  },
+  "user-password.update": {
+    "name": "user-password.update",
+    "domain": null,
+    "action": "Laravel\\Fortify\\Http\\Controllers\\PasswordController@update",
+    "uri": "user/password",
+    "method": [
+      "PUT"
+    ]
+  },
+  "password.confirm": {
+    "name": "password.confirm",
+    "domain": null,
+    "action": "Laravel\\Fortify\\Http\\Controllers\\ConfirmablePasswordController@show",
+    "uri": "user/confirm-password",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "password.confirmation": {
+    "name": "password.confirmation",
+    "domain": null,
+    "action": "Laravel\\Fortify\\Http\\Controllers\\ConfirmedPasswordStatusController@show",
+    "uri": "user/confirmed-password-status",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "two-factor.login": {
+    "name": "two-factor.login",
+    "domain": null,
+    "action": "Laravel\\Fortify\\Http\\Controllers\\TwoFactorAuthenticatedSessionController@create",
+    "uri": "two-factor-challenge",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "terms.show": {
+    "name": "terms.show",
+    "domain": null,
+    "action": "Laravel\\Jetstream\\Http\\Controllers\\Livewire\\TermsOfServiceController@show",
+    "uri": "terms-of-service",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "policy.show": {
+    "name": "policy.show",
+    "domain": null,
+    "action": "Laravel\\Jetstream\\Http\\Controllers\\Livewire\\PrivacyPolicyController@show",
+    "uri": "privacy-policy",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "profile.show": {
+    "name": "profile.show",
+    "domain": null,
+    "action": "Laravel\\Jetstream\\Http\\Controllers\\Livewire\\UserProfileController@show",
+    "uri": "user/profile",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "livewire.message": {
+    "name": "livewire.message",
+    "domain": null,
+    "action": "Livewire\\Controllers\\HttpConnectionHandler",
+    "uri": "livewire/message/{name}",
+    "method": [
+      "POST"
+    ]
+  },
+  "livewire.upload-file": {
+    "name": "livewire.upload-file",
+    "domain": null,
+    "action": "Livewire\\Controllers\\FileUploadHandler@handle",
+    "uri": "livewire/upload-file",
+    "method": [
+      "POST"
+    ]
+  },
+  "livewire.preview-file": {
+    "name": "livewire.preview-file",
+    "domain": null,
+    "action": "Livewire\\Controllers\\FilePreviewHandler@handle",
+    "uri": "livewire/preview-file/{filename}",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "nova.login": {
+    "name": "nova.login",
+    "domain": null,
+    "action": "Laravel\\Nova\\Http\\Controllers\\LoginController@login",
+    "uri": "nova/login",
+    "method": [
+      "POST"
+    ]
+  },
+  "nova.logout": {
+    "name": "nova.logout",
+    "domain": null,
+    "action": "Laravel\\Nova\\Http\\Controllers\\LoginController@logout",
+    "uri": "nova/logout",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "nova.password.request": {
+    "name": "nova.password.request",
+    "domain": null,
+    "action": "Laravel\\Nova\\Http\\Controllers\\ForgotPasswordController@showLinkRequestForm",
+    "uri": "nova/password/reset",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "nova.password.email": {
+    "name": "nova.password.email",
+    "domain": null,
+    "action": "Laravel\\Nova\\Http\\Controllers\\ForgotPasswordController@sendResetLinkEmail",
+    "uri": "nova/password/email",
+    "method": [
+      "POST"
+    ]
+  },
+  "nova.password.reset": {
+    "name": "nova.password.reset",
+    "domain": null,
+    "action": "Laravel\\Nova\\Http\\Controllers\\ResetPasswordController@showResetForm",
+    "uri": "nova/password/reset/{token}",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "dashboard": {
+    "name": "dashboard",
+    "domain": null,
+    "action": "Closure",
+    "uri": "dashboard",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "source.create": {
+    "name": "source.create",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\SourceController@create",
+    "uri": "source/new",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "source.store": {
+    "name": "source.store",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\SourceController@store",
+    "uri": "source/new",
+    "method": [
+      "POST"
+    ]
+  },
+  "attachments.store": {
+    "name": "attachments.store",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\AttachmentController@store",
+    "uri": "attachments/new/{commission}",
+    "method": [
+      "POST"
+    ]
+  },
+  "attachments.destroy": {
+    "name": "attachments.destroy",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\AttachmentController@destroy",
+    "uri": "attachments/{attachment}",
+    "method": [
+      "DELETE"
+    ]
+  },
+  "commissions.create": {
+    "name": "commissions.create",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\CommissionController@create",
+    "uri": "commissions/new/{user}/{commissionpreset?}",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "commissions.store": {
+    "name": "commissions.store",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\CommissionController@store",
+    "uri": "commissions/new/{user}/{commissionpreset?}",
+    "method": [
+      "POST"
+    ]
+  },
+  "commissions.show": {
+    "name": "commissions.show",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\CommissionController@show",
+    "uri": "commissions/{commission}",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "commissions.update": {
+    "name": "commissions.update",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\CommissionController@update",
+    "uri": "commissions/{commission}",
+    "method": [
+      "PUT"
+    ]
+  },
+  "commissions.destroy": {
+    "name": "commissions.destroy",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\CommissionController@destroy",
+    "uri": "commissions/{commission}",
+    "method": [
+      "DELETE"
+    ]
+  },
+  "commissions.index": {
+    "name": "commissions.index",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\CommissionController@commissions",
+    "uri": "commissions",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "commissions.orders": {
+    "name": "commissions.orders",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\CommissionController@orders",
+    "uri": "orders",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "bankaccount.list": {
+    "name": "bankaccount.list",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\BankAccountController@index",
+    "uri": "bankaccount",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "bankaccount.create": {
+    "name": "bankaccount.create",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\BankAccountController@create",
+    "uri": "bankaccount/create",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "bankaccount.store": {
+    "name": "bankaccount.store",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\BankAccountController@store",
+    "uri": "bankaccount/create",
+    "method": [
+      "POST"
+    ]
+  },
+  "bankaccount.verify": {
+    "name": "bankaccount.verify",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\BankAccountController@verify",
+    "uri": "bankaccount/{source}/verify",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "bankaccount.sendVerification": {
+    "name": "bankaccount.sendVerification",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\BankAccountController@sendVerification",
+    "uri": "bankaccount/{source}/verify",
+    "method": [
+      "PUT"
+    ]
+  },
+  "bankaccount.edit": {
+    "name": "bankaccount.edit",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\BankAccountController@edit",
+    "uri": "bankaccount/{source}",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "bankaccount.update": {
+    "name": "bankaccount.update",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\BankAccountController@update",
+    "uri": "bankaccount/{source}",
+    "method": [
+      "PUT"
+    ]
+  }
+}

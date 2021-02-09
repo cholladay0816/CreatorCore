@@ -1,29 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="SCOPE_TYPE" value="3" />
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="61e15a0a-f7d6-4971-b621-a51ee3642e21" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/cypress/integration/commissions.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cypress/integration/login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/LaravelStackTest.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/LaravelStackTest.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.php_cs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/.php_cs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/PaymentMethod.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/PaymentMethod.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Feature/Jetstream/ApiTokenPermissionsTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Jetstream/ApiTokenPermissionsTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Feature/Jetstream/AuthenticationTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Jetstream/AuthenticationTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Feature/Jetstream/BrowserSessionsTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Jetstream/BrowserSessionsTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Feature/Jetstream/CreateApiTokenTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Jetstream/CreateApiTokenTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Feature/Jetstream/DeleteAccountTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Jetstream/DeleteAccountTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Feature/Jetstream/DeleteApiTokenTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Jetstream/DeleteApiTokenTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Feature/Jetstream/EmailVerificationTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Jetstream/EmailVerificationTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Feature/Jetstream/PasswordConfirmationTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Jetstream/PasswordConfirmationTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Feature/Jetstream/PasswordResetTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Jetstream/PasswordResetTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Feature/Jetstream/ProfileInformationTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Jetstream/ProfileInformationTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Feature/Jetstream/RegistrationTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Jetstream/RegistrationTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Feature/Jetstream/TwoFactorAuthenticationSettingsTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Jetstream/TwoFactorAuthenticationSettingsTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Feature/Jetstream/UpdatePasswordTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Jetstream/UpdatePasswordTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +29,13 @@
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -195,6 +198,7 @@
       <path value="$PROJECT_DIR$/vendor/paragonie/random_compat" />
       <path value="$PROJECT_DIR$/vendor/brick/money" />
       <path value="$PROJECT_DIR$/vendor/cakephp/chronos" />
+      <path value="$PROJECT_DIR$/vendor/laracasts/cypress" />
     </include_path>
   </component>
   <component name="ProjectId" id="1ikQz2Q4vzlAC4OwOPToxiWhuSt" />
@@ -210,6 +214,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../LaravelTestSuite" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="settings.php.quality.tools" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -240,7 +245,7 @@
       <command value="php artisan serve" />
     </option>
   </component>
-  <component name="RunManager" selected="PHPUnit.tests">
+  <component name="RunManager" selected="PHPUnit.phpunit.xml">
     <configuration name="CommissionFeatureTest.a_disputed_commission_can_be_resolved" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
       <CommandLine>
         <PhpTestInterpreterSettings>
@@ -290,7 +295,7 @@
       <workItem from="1612725688600" duration="9346000" />
       <workItem from="1612803182627" duration="2628000" />
       <workItem from="1612888408528" duration="692000" />
-      <workItem from="1612896118599" duration="201000" />
+      <workItem from="1612896118599" duration="5817000" />
     </task>
     <servers />
   </component>
