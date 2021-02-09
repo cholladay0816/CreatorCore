@@ -37,4 +37,9 @@ jobs:
         env:
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
+          STRIPE_KEY: ${{ secrets.STRIPE_KEY }}
+          STRIPE_SECRET: ${{ secrets.STRIPE_SECRET }}
+          PLAID_CLIENT_ID: ${{ secrets.PLAID_CLIENT_ID }}
+          PLAID_KEY: ${{ secrets.PLAID_KEY }}
+          PLAID_SECRET: ${{ secrets.PLAID_SECRET }}
         run: vendor/bin/phpunit
