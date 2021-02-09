@@ -37,26 +37,29 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::delete('/attachments/{attachment}', [AttachmentController::class, 'destroy'])
         ->name('attachments.destroy');
 
-    Route::middleware(['paymentmethod'])->group(function () {
-        Route::get('/commissions/new/{user}/{commissionpreset?}', [CommissionController::class, 'create'])
-            ->name('commissions.create');
-        Route::post('/commissions/new/{user}/{commissionpreset?}', [CommissionController::class, 'store'])
-            ->name('commissions.store');
+    Route::prefix('commissions')->group(function () {
+        Route::middleware(['paymentmethod'])->group(function () {
+            Route::get('/new/{user}/{commissionpreset?}', [CommissionController::class, 'create'])
+                ->name('commissions.create');
+            Route::post('/new/{user}/{commissionpreset?}', [CommissionController::class, 'store'])
+                ->name('commissions.store');
+        });
+
+        Route::get('/{commission}', [CommissionController::class, 'show'])
+            ->name('commissions.show');
+
+        Route::put('/{commission}', [CommissionController::class, 'update'])
+            ->name('commissions.update');
+
+        Route::delete('/{commission}', [CommissionController::class, 'destroy'])
+            ->name('commissions.destroy');
+
+        Route::get('/', [CommissionController::class, 'commissions'])
+            ->name('commissions.index');
     });
-
-    Route::get('/commissions/{commission}', [CommissionController::class, 'show'])
-        ->name('commissions.show');
-
-    Route::put('/commissions/{commission}', [CommissionController::class, 'update'])
-        ->name('commissions.update');
-
-    Route::delete('/commissions/{commission}', [CommissionController::class, 'destroy'])
-        ->name('commissions.destroy');
-
-    Route::get('/commissions', [CommissionController::class, 'commissions'])
-        ->name('commissions.index');
     Route::get('/orders', [CommissionController::class, 'orders'])
         ->name('commissions.orders');
+
 
     Route::get('/bankaccount', [BankAccountController::class, 'index'])
         ->name('bankaccount.list');

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bce51c7c57a8befa19c8d18d819571a1",
+    "content-hash": "320fe79ce3e18198e73317228ee2ffbe",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -229,16 +229,16 @@
         },
         {
             "name": "cakephp/chronos",
-            "version": "2.1.0",
+            "version": "2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/chronos.git",
-                "reference": "3f119d1eb8105ed2c43bb72e8fc5c78487620089"
+                "reference": "5929b743aec34b3a2f74c70c383706f7f12e2725"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/chronos/zipball/3f119d1eb8105ed2c43bb72e8fc5c78487620089",
-                "reference": "3f119d1eb8105ed2c43bb72e8fc5c78487620089",
+                "url": "https://api.github.com/repos/cakephp/chronos/zipball/5929b743aec34b3a2f74c70c383706f7f12e2725",
+                "reference": "5929b743aec34b3a2f74c70c383706f7f12e2725",
                 "shasum": ""
             },
             "require": {
@@ -284,7 +284,7 @@
                 "issues": "https://github.com/cakephp/chronos/issues",
                 "source": "https://github.com/cakephp/chronos"
             },
-            "time": "2021-01-16T14:35:30+00:00"
+            "time": "2021-02-06T03:37:44+00:00"
         },
         {
             "name": "composer/semver",
@@ -1406,16 +1406,16 @@
         },
         {
             "name": "facade/ignition",
-            "version": "2.5.10",
+            "version": "2.5.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facade/ignition.git",
-                "reference": "98154e8b991fb616304c213cd405299ffedc26f5"
+                "reference": "e91d67353054bf827c64687fcac5ea44e4dcec54"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facade/ignition/zipball/98154e8b991fb616304c213cd405299ffedc26f5",
-                "reference": "98154e8b991fb616304c213cd405299ffedc26f5",
+                "url": "https://api.github.com/repos/facade/ignition/zipball/e91d67353054bf827c64687fcac5ea44e4dcec54",
+                "reference": "e91d67353054bf827c64687fcac5ea44e4dcec54",
                 "shasum": ""
             },
             "require": {
@@ -1479,7 +1479,7 @@
                 "issues": "https://github.com/facade/ignition/issues",
                 "source": "https://github.com/facade/ignition"
             },
-            "time": "2021-02-02T10:15:48+00:00"
+            "time": "2021-02-05T12:52:11+00:00"
         },
         {
             "name": "facade/ignition-contracts",
@@ -2381,16 +2381,16 @@
         },
         {
             "name": "laravel/cashier",
-            "version": "v12.7.1",
+            "version": "v12.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/cashier-stripe.git",
-                "reference": "21fde50bb734ab0aa63daef9f3a7ce8389127fac"
+                "reference": "a45ca57ccc9decef7362cfd27d35a667df968ea7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/cashier-stripe/zipball/21fde50bb734ab0aa63daef9f3a7ce8389127fac",
-                "reference": "21fde50bb734ab0aa63daef9f3a7ce8389127fac",
+                "url": "https://api.github.com/repos/laravel/cashier-stripe/zipball/a45ca57ccc9decef7362cfd27d35a667df968ea7",
+                "reference": "a45ca57ccc9decef7362cfd27d35a667df968ea7",
                 "shasum": ""
             },
             "require": {
@@ -2455,7 +2455,7 @@
                 "issues": "https://github.com/laravel/cashier/issues",
                 "source": "https://github.com/laravel/cashier"
             },
-            "time": "2021-02-04T16:01:33+00:00"
+            "time": "2021-02-09T16:07:57+00:00"
         },
         {
             "name": "laravel/fortify",
@@ -2522,16 +2522,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v8.26.1",
+            "version": "v8.27.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "275c78c97e007e4a9d771d4d1caa1c77ebfdcf94"
+                "reference": "a6680d98f9dadaa363aa7d5218517a08706cee64"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/275c78c97e007e4a9d771d4d1caa1c77ebfdcf94",
-                "reference": "275c78c97e007e4a9d771d4d1caa1c77ebfdcf94",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/a6680d98f9dadaa363aa7d5218517a08706cee64",
+                "reference": "a6680d98f9dadaa363aa7d5218517a08706cee64",
                 "shasum": ""
             },
             "require": {
@@ -2686,20 +2686,20 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2021-02-02T14:07:24+00:00"
+            "time": "2021-02-09T15:14:54+00:00"
         },
         {
             "name": "laravel/jetstream",
-            "version": "v2.1.3",
+            "version": "v2.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/jetstream.git",
-                "reference": "9996dfd8e6898a5b45d627ab6a5cdfbd255a47da"
+                "reference": "5bac1016b90ee0148d5e7d950b04b814977918e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/jetstream/zipball/9996dfd8e6898a5b45d627ab6a5cdfbd255a47da",
-                "reference": "9996dfd8e6898a5b45d627ab6a5cdfbd255a47da",
+                "url": "https://api.github.com/repos/laravel/jetstream/zipball/5bac1016b90ee0148d5e7d950b04b814977918e7",
+                "reference": "5bac1016b90ee0148d5e7d950b04b814977918e7",
                 "shasum": ""
             },
             "require": {
@@ -2753,15 +2753,21 @@
                 "issues": "https://github.com/laravel/jetstream/issues",
                 "source": "https://github.com/laravel/jetstream"
             },
-            "time": "2021-02-02T16:02:02+00:00"
+            "time": "2021-02-09T16:34:48+00:00"
         },
         {
             "name": "laravel/nova",
-            "version": "3.20.0",
+            "version": "3.21.0",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:laravel/nova.git",
+                "reference": "a50eb75d8c5ea26320353f96c26266ad53c5ff93"
+            },
             "dist": {
-                "type": "path",
-                "url": "./nova",
-                "reference": "5b9c5dd21760649208ca8c4ed23cf64335baa014"
+                "type": "zip",
+                "url": "https://nova.laravel.com/dist/laravel/nova/laravel-nova-a50eb75d8c5ea26320353f96c26266ad53c5ff93-zip-714e68.zip",
+                "reference": "a50eb75d8c5ea26320353f96c26266ad53c5ff93",
+                "shasum": "3d2d72bd42bf44b4df671194cb5381a3167f3aa6"
             },
             "require": {
                 "brick/money": "^0.5.0",
@@ -2838,22 +2844,23 @@
                 "admin",
                 "laravel"
             ],
-            "transport-options": {
-                "relative": true
-            }
+            "support": {
+                "source": "https://github.com/laravel/nova/tree/v3.21.0"
+            },
+            "time": "2021-02-02T17:55:49+00:00"
         },
         {
             "name": "laravel/sail",
-            "version": "v1.3.0",
+            "version": "v1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/sail.git",
-                "reference": "ce4861be1a528a36c98416c9954f3014d2500415"
+                "reference": "a18519e96c32894ac3f8775fa8eb6de5750aca5a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/sail/zipball/ce4861be1a528a36c98416c9954f3014d2500415",
-                "reference": "ce4861be1a528a36c98416c9954f3014d2500415",
+                "url": "https://api.github.com/repos/laravel/sail/zipball/a18519e96c32894ac3f8775fa8eb6de5750aca5a",
+                "reference": "a18519e96c32894ac3f8775fa8eb6de5750aca5a",
                 "shasum": ""
             },
             "require": {
@@ -2899,7 +2906,7 @@
                 "issues": "https://github.com/laravel/sail/issues",
                 "source": "https://github.com/laravel/sail"
             },
-            "time": "2021-01-26T19:38:10+00:00"
+            "time": "2021-02-09T16:44:58+00:00"
         },
         {
             "name": "laravel/sanctum",
@@ -3489,16 +3496,16 @@
         },
         {
             "name": "livewire/livewire",
-            "version": "v2.3.15",
+            "version": "v2.3.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/livewire/livewire.git",
-                "reference": "1d76638b54a0f952f4f0334a33dfcfefc456ea4a"
+                "reference": "1a1d43ff365301ae99ed7f0ccf02c553d4eeba03"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/livewire/livewire/zipball/1d76638b54a0f952f4f0334a33dfcfefc456ea4a",
-                "reference": "1d76638b54a0f952f4f0334a33dfcfefc456ea4a",
+                "url": "https://api.github.com/repos/livewire/livewire/zipball/1a1d43ff365301ae99ed7f0ccf02c553d4eeba03",
+                "reference": "1a1d43ff365301ae99ed7f0ccf02c553d4eeba03",
                 "shasum": ""
             },
             "require": {
@@ -3549,7 +3556,7 @@
             "description": "A front-end framework for Laravel.",
             "support": {
                 "issues": "https://github.com/livewire/livewire/issues",
-                "source": "https://github.com/livewire/livewire/tree/v2.3.15"
+                "source": "https://github.com/livewire/livewire/tree/v2.3.17"
             },
             "funding": [
                 {
@@ -3557,7 +3564,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-02-04T16:39:14+00:00"
+            "time": "2021-02-09T15:15:49+00:00"
         },
         {
             "name": "mobiledetect/mobiledetectlib",
@@ -3984,16 +3991,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.44.0",
+            "version": "2.45.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "e6ef33cb1f67a4bed831ed6d0f7e156739a5d8cd"
+                "reference": "e2ba3174ce869da1713c38340dbb36572dfacd5a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/e6ef33cb1f67a4bed831ed6d0f7e156739a5d8cd",
-                "reference": "e6ef33cb1f67a4bed831ed6d0f7e156739a5d8cd",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/e2ba3174ce869da1713c38340dbb36572dfacd5a",
+                "reference": "e2ba3174ce869da1713c38340dbb36572dfacd5a",
                 "shasum": ""
             },
             "require": {
@@ -4073,7 +4080,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-26T20:46:41+00:00"
+            "time": "2021-02-07T21:35:59+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -7267,16 +7274,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v7.70.0",
+            "version": "v7.72.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "5624b020d4541b8228ba47307811d880ed6bf4df"
+                "reference": "e502d1e97ec7857038d2131ded3134af964a55c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/5624b020d4541b8228ba47307811d880ed6bf4df",
-                "reference": "5624b020d4541b8228ba47307811d880ed6bf4df",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/e502d1e97ec7857038d2131ded3134af964a55c5",
+                "reference": "e502d1e97ec7857038d2131ded3134af964a55c5",
                 "shasum": ""
             },
             "require": {
@@ -7322,9 +7329,9 @@
             ],
             "support": {
                 "issues": "https://github.com/stripe/stripe-php/issues",
-                "source": "https://github.com/stripe/stripe-php/tree/v7.70.0"
+                "source": "https://github.com/stripe/stripe-php/tree/v7.72.0"
             },
-            "time": "2021-02-03T20:48:18+00:00"
+            "time": "2021-02-09T03:22:51+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

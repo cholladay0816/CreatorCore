@@ -6,11 +6,24 @@
   <component name="ChangeListManager">
     <list default="true" id="61e15a0a-f7d6-4971-b621-a51ee3642e21" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/LaravelStackTest.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/LaravelStackTest.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.php_cs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/.php_cs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/RoleSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/RoleSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/Jetstream/ApiTokenPermissionsTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Jetstream/ApiTokenPermissionsTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/Jetstream/AuthenticationTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Jetstream/AuthenticationTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/Jetstream/BrowserSessionsTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Jetstream/BrowserSessionsTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/Jetstream/CreateApiTokenTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Jetstream/CreateApiTokenTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/Jetstream/DeleteAccountTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Jetstream/DeleteAccountTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/Jetstream/DeleteApiTokenTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Jetstream/DeleteApiTokenTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/Jetstream/EmailVerificationTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Jetstream/EmailVerificationTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/Jetstream/PasswordConfirmationTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Jetstream/PasswordConfirmationTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/Jetstream/PasswordResetTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Jetstream/PasswordResetTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/Jetstream/ProfileInformationTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Jetstream/ProfileInformationTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/Jetstream/RegistrationTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Jetstream/RegistrationTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/Jetstream/TwoFactorAuthenticationSettingsTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Jetstream/TwoFactorAuthenticationSettingsTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/Jetstream/UpdatePasswordTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Jetstream/UpdatePasswordTest.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -275,7 +288,9 @@
       <workItem from="1612632251266" duration="604000" />
       <workItem from="1612660475270" duration="1617000" />
       <workItem from="1612725688600" duration="9346000" />
-      <workItem from="1612803182627" duration="1967000" />
+      <workItem from="1612803182627" duration="2628000" />
+      <workItem from="1612888408528" duration="692000" />
+      <workItem from="1612896118599" duration="201000" />
     </task>
     <servers />
   </component>
