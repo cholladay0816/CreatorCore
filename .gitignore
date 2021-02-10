@@ -13,3 +13,4 @@ yarn-error.log
 .idea
 .php_cs.cache
 nova
+*.mp4
