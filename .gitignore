@@ -1,5 +1,6 @@
 /node_modules
 /storage/*.key
+/storage/framework
 /vendor
 .env
 .env.cypress
