@@ -79,6 +79,7 @@
         "phpcs_validate" : "php-cs-fixer fix . --dry-run --diff",
 
         "test": [
+            "@phpunit",
             "@phpcs"
         ]
     }
