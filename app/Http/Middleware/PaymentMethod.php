@@ -16,12 +16,12 @@ class PaymentMethod
      */
     public function handle(Request $request, Closure $next)
     {
-        if (config('app.env') != 'testing') {
-            if (!$request->user()->hasPaymentMethod()) {
-                // This user does not have a valid source...
-                return redirect(route('source.create'));
-            }
-        }
+//        if (config('app.env') != 'testing') {
+//            if (!$request->user()->hasPaymentMethod()) {
+//                // This user does not have a valid source...
+//                return redirect(route('source.create'));
+//            }
+//        }
         return $next($request);
     }
 }
