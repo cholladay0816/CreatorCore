@@ -16,6 +16,8 @@ jobs:
         with:
           php-version: '8.0'
       - uses: actions/checkout@v2
+      - name: Install Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
       - name: Run php-cs-fixer
         run: ./vendor/bin/php-cs-fixer fix .
       - uses: stefanzweifel/git-auto-commit-action@v4
