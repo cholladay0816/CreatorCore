@@ -89,7 +89,7 @@ class Commission extends Model
 
     public function getSlug()
     {
-        return Str::slug($this->id??(Commission::count() + 1) . '-' . $this->title);
+        return Str::slug(($this->id??(Commission::count() + 1)) . '-' . $this->title);
     }
 
     protected static function boot()
