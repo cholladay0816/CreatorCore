@@ -4,4 +4,11 @@
             {{ $commission->title }}
         </h2>
     </x-slot>
+    {{ $commission->displayTitle }}
+    {{ $commission->title }}
+    {{ $commission->description }}
+    {{ $commission->memo }}
+    ${{ $commission->price }}
+    {{ $commission->days_to_complete }}
+
 </x-app-layout>
