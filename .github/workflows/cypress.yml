@@ -58,4 +58,5 @@ jobs:
           PLAID_KEY: ${{ secrets.PLAID_KEY }}
           PLAID_SECRET: ${{ secrets.PLAID_SECRET }}
         with:
-          command: php artisan serve
+          start: php artisan serve
+          wait-on: 'http://localhost:8000'
