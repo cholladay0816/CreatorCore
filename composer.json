@@ -73,6 +73,13 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "phpunit" : "phpunit --verbose --testdox",
+        "phpcs" : "php-cs-fixer fix .",
+        "phpcs_validate" : "php-cs-fixer fix . --dry-run --diff",
+
+        "test": [
+            "@phpcs"
         ]
     }
 }

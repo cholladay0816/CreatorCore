@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Cashier\Exceptions\PaymentFailure;
 use Tests\TestCase;
+
 class CommissionTest extends TestCase
 {
     use RefreshDatabase;
@@ -126,7 +127,6 @@ class CommissionTest extends TestCase
 
         // Assert the commission is Pending after being paid for.
         $this->assertEquals('Pending', $commission->status);
-
     }
     /** @test */
     public function a_commission_can_fail_payment()

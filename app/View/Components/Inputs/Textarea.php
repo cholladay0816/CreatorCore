@@ -1,10 +1,10 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\Inputs;
 
 use Illuminate\View\Component;
 
-class inputs.textarea extends Component
+class Textarea extends Component
 {
     /**
      * Create a new component instance.
