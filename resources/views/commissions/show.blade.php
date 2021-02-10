@@ -9,6 +9,6 @@
     {{ $commission->description }}
     {{ $commission->memo }}
     ${{ $commission->price }}
-    {{ $commission->days_to_complete }}
+    {{ $commission->days_to_complete }} days
 
 </x-app-layout>
