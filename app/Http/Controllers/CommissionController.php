@@ -81,7 +81,7 @@ class CommissionController extends Controller
         $commission->save();
 
         return redirect()
-            ->to(route('commissions.show', $commission))
+            ->to(route('commissions.show', $commission->fresh()))
             ->with(['success' => 'Commission created successfully']);
     }
 
@@ -96,6 +96,7 @@ class CommissionController extends Controller
         if (!$commission->canView()) {
             return abort(404);
         }
+
         return view('commissions.show', ['commission' => $commission]);
     }
 
