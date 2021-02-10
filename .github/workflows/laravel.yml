@@ -33,6 +33,11 @@ jobs:
         run: |
           mkdir -p database
           touch database/database.sqlite
+      - name: Run php-cs-fixer
+        run: ./vendor/bin/php-cs-fixer fix .
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Apply php-cs-fixer changes
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         env:
           DB_CONNECTION: sqlite
@@ -43,8 +48,3 @@ jobs:
           PLAID_KEY: ${{ secrets.PLAID_KEY }}
           PLAID_SECRET: ${{ secrets.PLAID_SECRET }}
         run: vendor/bin/phpunit
-      - name: Run php-cs-fixer
-        run: ./vendor/bin/php-cs-fixer fix .
-      - uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: Apply php-cs-fixer changes
