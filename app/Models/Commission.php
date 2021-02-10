@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Stripe\Exception\CardException;
 
@@ -41,12 +42,16 @@ class Commission extends Model
 
     public function canView()
     {
+        if (Gate::allows('manage-content')) {
+            return true;
+        }
         if (auth()->guest()) {
             return false;
         }
         if (!$this->isBuyer() && !$this->isCreator()) {
             return false;
         }
+
         return true;
     }
     public function isBuyer()
@@ -84,7 +89,7 @@ class Commission extends Model
 
     public function getSlug()
     {
-        return Str::slug($this->id . '-' . $this->title);
+        return Str::slug($this->id??(Commission::count() + 1) . '-' . $this->title);
     }
 
     protected static function boot()
@@ -97,13 +102,13 @@ class Commission extends Model
                 $commission->price = $preset->price;
                 $commission->days_to_complete = $preset->days_to_complete;
             }
-            $commission->slug = Str::slug($commission->id . '-' . $commission->title);
+            $commission->slug = $commission->getSlug();
         });
         self::created(function ($commission) {
             $commission->slug = $commission->getSlug();
         });
         self::factory(function ($commission) {
-            $commission->slug = Str::slug($commission->id . '-' . $commission->title);
+            $commission->slug = $commission->getSlug();
         });
 
         parent::boot();
