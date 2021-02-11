@@ -6,9 +6,10 @@ use Livewire\Component;
 
 class Stripe extends Component
 {
+    public $onboarded;
     public function render()
     {
-        auth()->user()->fetchStripeAccount();
+        $this->onboarded = auth()->user()->isOnboarded();
         return view('livewire.profile.stripe');
     }
 }
