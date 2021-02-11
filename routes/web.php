@@ -59,5 +59,4 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     });
     Route::get('/orders', [CommissionController::class, 'orders'])
         ->name('commissions.orders');
-
 });
