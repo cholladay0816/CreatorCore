@@ -11,7 +11,6 @@ class ViewStripeAccount extends Component
 
     public function render()
     {
-
         \Stripe\Stripe::setApiKey(config('stripe.secret'));
 
         try {
