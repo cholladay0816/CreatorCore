@@ -109,7 +109,7 @@ class User extends Authenticatable
             return true;
         }
         $account = $this->fetchStripeAccount();
-        return $account->payouts_enabled;
+        return (count($account->requirements->currently_due) == 0);
     }
 
     public function isOnboarded()
@@ -122,31 +122,24 @@ class User extends Authenticatable
     {
         \Stripe\Stripe::setApiKey(config('stripe.secret'));
         if (!$this->stripe_account_id) {
-
-//            $accounts = collect(\Stripe\Account::all()->data);
-//            $account = $accounts->where('email', auth()->user()->email)->first();
-
-            // if (!$account) {
             $account = \Stripe\Account::create([
                 'country' => 'US',
                 'type' => 'express',
             ]);
-            // }
             $this->stripe_account_id = $account->id;
             $this->save();
         } else {
-            try {
-                $account = \Stripe\Account::retrieve($this->stripe_account_id);
-            } catch (\Exception $exception) {
+            $account = \Stripe\Account::retrieve($this->stripe_account_id);
+            if (!$account) {
                 $account = \Stripe\Account::create([
-                    'country' => 'US',
-                    'type' => 'express',
-                ]);
-                $this->stripe_account_id = $account->id;
-                $this->save();
+                        'country' => 'US',
+                        'type' => 'express',
+                    ]);
             }
-            return $account;
+            $this->stripe_account_id = $account->id;
+            $this->save();
         }
+        return $account;
     }
 
     protected static function boot()
