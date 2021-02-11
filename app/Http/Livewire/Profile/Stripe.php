@@ -7,6 +7,7 @@ use Livewire\Component;
 class Stripe extends Component
 {
     public $onboarded;
+
     public function render()
     {
         $this->onboarded = auth()->user()->isOnboarded();
