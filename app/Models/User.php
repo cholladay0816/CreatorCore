@@ -112,6 +112,12 @@ class User extends Authenticatable
         return $account->payouts_enabled;
     }
 
+    public function isOnboarded()
+    {
+        $account = $this->fetchStripeAccount();
+        return $account->details_submitted;
+    }
+
     public function fetchStripeAccount()
     {
         \Stripe\Stripe::setApiKey(config('stripe.secret'));
