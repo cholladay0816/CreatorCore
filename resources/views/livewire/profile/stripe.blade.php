@@ -1,4 +1,4 @@
-@if(auth()->user()->stripe_account_id)
+@if($onboarded)
     @livewire('profile.view-stripe-account')
 @else
     @livewire('profile.connect-with-stripe')
