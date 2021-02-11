@@ -103,6 +103,31 @@ class User extends Authenticatable
         return $this->abilities->where('slug', $slug)->count() > 0;
     }
 
+    public function fetchStripeAccount()
+    {
+        \Stripe\Stripe::setApiKey(config('stripe.secret'));
+        if (!$this->stripe_account_id) {
+            $account = \Stripe\Account::create([
+                'country' => 'US',
+                'type' => 'express',
+            ]);
+            $this->stripe_account_id = $account->id;
+            $this->save();
+        } else {
+            try {
+                $account = \Stripe\Account::retrieve($this->stripe_account_id);
+            } catch (\Exception $exception) {
+                $account = \Stripe\Account::create([
+                    'country' => 'US',
+                    'type' => 'express',
+                ]);
+                $this->stripe_account_id = $account->id;
+                $this->save();
+            }
+            return $account;
+        }
+    }
+
     protected static function boot()
     {
         self::created(function ($user) {
