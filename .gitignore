@@ -13,6 +13,5 @@ npm-debug.log
 yarn-error.log
 .idea
 .php_cs.cache
-nova
 *.mp4
 auth.json
