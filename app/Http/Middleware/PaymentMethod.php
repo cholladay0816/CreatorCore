@@ -16,6 +16,7 @@ class PaymentMethod
      */
     public function handle(Request $request, Closure $next)
     {
+        $account = $request->user()->fetchStripeAccount();
 //        if (config('app.env') != 'testing') {
 //            if (!$request->user()->hasPaymentMethod()) {
 //                // This user does not have a valid source...
