@@ -3,27 +3,30 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Role extends Resource
+class CommissionPreset extends Resource
 {
-    public static $group = 'administration';
+    public static $group = 'users';
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Models\Role::class;
+    public static $model = \App\Models\CommissionPreset::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'title';
+    public static $title = 'displayTitle';
 
     /**
      * The columns that should be searched.
@@ -31,7 +34,7 @@ class Role extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'title', 'slug'
+        'id', 'displayTitle', 'title'
     ];
 
     /**
@@ -44,10 +47,16 @@ class Role extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
+            BelongsTo::make('Creator', 'user', '\App\Nova\User')->nullable(),
             Text::make('Title'),
-            Text::make('Slug')->hideWhenCreating(true),
-            BelongsToMany::make('Abilities'),
-            BelongsToMany::make('Users')
+            Trix::make('Description'),
+            Currency::make('Price')
+                ->min(5)
+                ->max(1000)
+                ->default(5),
+            Number::make('Days to Complete')
+            ->default(7)
+            ->min(1)
         ];
     }
 

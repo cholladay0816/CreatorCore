@@ -38,7 +38,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         ->name('attachments.destroy');
 
     Route::prefix('commissions')->group(function () {
-        Route::middleware(['paymentmethod'])->group(function () {
+        Route::middleware(['verified.account'])->group(function () {
             Route::get('/new/{user}/{commissionpreset?}', [CommissionController::class, 'create'])
                 ->name('commissions.create');
             Route::post('/new/{user}/{commissionpreset?}', [CommissionController::class, 'store'])
@@ -60,23 +60,4 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/orders', [CommissionController::class, 'orders'])
         ->name('commissions.orders');
 
-
-    Route::get('/bankaccount', [BankAccountController::class, 'index'])
-        ->name('bankaccount.list');
-    Route::get('/bankaccount/create', [BankAccountController::class, 'create'])
-        ->name('bankaccount.create');
-    Route::post('/bankaccount/create', [BankAccountController::class, 'store'])
-        ->name('bankaccount.store');
-
-    Route::get('/bankaccount/{source}/verify', [BankAccountController::class, 'verify'])
-        ->name('bankaccount.verify');
-    Route::put('/bankaccount/{source}/verify', [BankAccountController::class, 'sendVerification'])
-        ->name('bankaccount.sendVerification');
-
-
-    Route::get('/bankaccount/{source}', [BankAccountController::class, 'edit'])
-        ->name('bankaccount.edit');
-
-    Route::put('/bankaccount/{source}', [BankAccountController::class, 'update'])
-        ->name('bankaccount.update');
 });

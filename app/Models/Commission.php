@@ -31,6 +31,24 @@ class Commission extends Model
         return 'slug';
     }
 
+    public static function statuses()
+    {
+        return [
+            'Unpaid'=>'Unpaid',
+            'Pending'=>'Pending',
+            'Declined'=>'Declined',
+            'Purchasing'=>'Purchasing',
+            'Failed'=>'Failed',
+            'Active'=>'Active',
+            'Overdue'=>'Overdue',
+            'Expired'=>'Expired',
+            'Completed'=>'Completed',
+            'Disputed'=>'Disputed',
+            'Refunded'=>'Refunded',
+            'Archived'=>'Archived',
+        ];
+    }
+
     public function displayTitle()
     {
         return '[$' . $this->price . '] ' . $this->title;

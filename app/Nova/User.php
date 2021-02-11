@@ -10,6 +10,7 @@ use Laravel\Nova\Fields\Text;
 
 class User extends Resource
 {
+    public static $group = 'users';
     /**
      * The model the resource corresponds to.
      *
@@ -60,6 +61,9 @@ class User extends Resource
                 ->onlyOnForms()
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
+
+            Text::make('Stripe Customer ID', 'stripe_id'),
+            Text::make('Stripe Account ID'),
         ];
     }
 

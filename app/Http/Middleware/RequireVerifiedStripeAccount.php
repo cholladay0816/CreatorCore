@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class PaymentMethod
+class RequireVerifiedStripeAccount
 {
     /**
      * Handle an incoming request.
@@ -16,13 +16,12 @@ class PaymentMethod
      */
     public function handle(Request $request, Closure $next)
     {
-        $account = $request->user()->fetchStripeAccount();
-//        if (config('app.env') != 'testing') {
-//            if (!$request->user()->hasPaymentMethod()) {
-//                // This user does not have a valid source...
-//                return redirect(route('source.create'));
-//            }
-//        }
+        if (!$request->user()->canAcceptPayments()) {
+            return redirect(route('profile.show'))->with(['error' => '
+            Your Stripe Account must be able to make payouts.
+            Verify your ID or try again later.']);
+        }
+
         return $next($request);
     }
 }

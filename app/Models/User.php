@@ -103,14 +103,29 @@ class User extends Authenticatable
         return $this->abilities->where('slug', $slug)->count() > 0;
     }
 
+    public function canAcceptPayments()
+    {
+        if (config('app.env') == 'testing') {
+            return true;
+        }
+        $account = $this->fetchStripeAccount();
+        return $account->payouts_enabled;
+    }
+
     public function fetchStripeAccount()
     {
         \Stripe\Stripe::setApiKey(config('stripe.secret'));
         if (!$this->stripe_account_id) {
+
+//            $accounts = collect(\Stripe\Account::all()->data);
+//            $account = $accounts->where('email', auth()->user()->email)->first();
+
+            // if (!$account) {
             $account = \Stripe\Account::create([
                 'country' => 'US',
                 'type' => 'express',
             ]);
+            // }
             $this->stripe_account_id = $account->id;
             $this->save();
         } else {

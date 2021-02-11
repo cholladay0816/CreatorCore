@@ -40,20 +40,7 @@ class CreateCommissionsTable extends Migration
             $table->dateTime('expires_at')->nullable();
             $table->enum(
                 'status',
-                [
-                    'Unpaid',
-                    'Pending',
-                    'Declined',
-                    'Purchasing',
-                    'Failed',
-                    'Active',
-                    'Overdue',
-                    'Expired',
-                    'Completed',
-                    'Disputed',
-                    'Refunded',
-                    'Archived',
-                ]
+                \App\Models\Commission::statuses() // Static array of available statuses
             )->default('Unpaid');
             $table->string('invoice_id')->nullable();
             $table->timestamps();

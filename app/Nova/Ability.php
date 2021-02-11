@@ -10,6 +10,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Ability extends Resource
 {
+    public static $group = 'administration';
     /**
      * The model the resource corresponds to.
      *
