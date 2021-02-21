@@ -118,11 +118,13 @@ class CommissionTest extends TestCase
         // Attempt to charge the customer with an invoice.
         $invoice = $commission->attemptCharge();
 
+        $this->assertNotNull($invoice);
+
         // Assert the customer cannot be billed twice.
         $this->assertNull($commission->attemptCharge());
 
         // Check the commission to see if the invoice is paid.
-        // TESTING ONLY, not live implementation.  Refer to Webhooks.
+        // TESTING ONLY, not live implementation.  Refer to CashierWebhookController.
         $commission->checkInvoiceStatus();
 
         // Assert the commission is Pending after being paid for.
@@ -149,7 +151,7 @@ class CommissionTest extends TestCase
             config('stripe.secret'),
         );
         // Create a payment method
-        $paymentmethod = $stripe->paymentMethods->create([
+        $paymentMethod = $stripe->paymentMethods->create([
             'type' => 'card',
             'card' => [
                 'number' => '4000000000000341',
@@ -160,7 +162,7 @@ class CommissionTest extends TestCase
         ]);
         // Attach it to the customer
         $stripe->paymentMethods->attach(
-            $paymentmethod->id,
+            $paymentMethod->id,
             ['customer' => $buyer->stripe_id],
         );
         // Make this payment method their default
@@ -168,7 +170,7 @@ class CommissionTest extends TestCase
             $buyer->stripe_id,
             [
                 'invoice_settings' => [
-                    'default_payment_method' => $paymentmethod->id,
+                    'default_payment_method' => $paymentMethod->id,
                 ],
             ],
         );
