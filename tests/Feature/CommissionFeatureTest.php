@@ -335,12 +335,13 @@ class CommissionFeatureTest extends TestCase
     public function a_commission_can_be_expired()
     {
         [$buyer, $seller] = $this->createBuyerAndSeller();
-        $commission = Commission::factory()->create([
-            'buyer_id' => $buyer->id,
-            'creator_id' => $seller->id,
-            'status' => 'Active',
-            'expires_at' => now()
-        ]);
+        $commission = $this->getChargedCommission($buyer, $seller);
+        $commission->update(
+            [
+                'status' => 'Active',
+                'expires_at' => now()
+            ]
+        );
         $this->actingAs($buyer)
             ->delete(route('commissions.destroy', $commission->fresh()))
             ->assertSessionHas('success', 'Commission canceled')
@@ -362,5 +363,8 @@ class CommissionFeatureTest extends TestCase
             ->assertRedirect(route('commissions.orders'));
 
         $this->assertEquals('Archived', $commission->fresh()->status);
+
+        $stripe = new StripeClient(config('stripe.secret'));
+        $account = $stripe->accounts->retrieve($seller->stripe_account_id);
     }
 }
