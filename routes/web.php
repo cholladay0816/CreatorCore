@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\AttachmentController;
-use App\Http\Controllers\BankAccountController;
+use App\Http\Controllers\CashierWebhookController;
 use App\Http\Controllers\CommissionController;
 use App\Http\Controllers\SourceController;
 use Illuminate\Support\Facades\Route;
@@ -16,6 +16,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::post(
+    '/stripe/webhook',
+    [CashierWebhookController::class, 'handleWebhook']
+);
 
 Route::get('/', function () {
     return view('welcome');
