@@ -235,14 +235,22 @@ class Commission extends Model
     {
         $this->status = 'Expired';
         $this->save();
-        // TODO: Refund buyer
+        $stripe = new StripeClient(config('stripe.secret'));
+        $invoice = $stripe->invoices->retrieve($this->invoice_id, ['expand' => ['charge']]);
+        $stripe->refunds->create([
+            'charge' => $invoice->charge->id
+        ]);
         // TODO: Send email
     }
     public function refund()
     {
         $this->status = 'Refunded';
         $this->save();
-        // TODO: Refund buyer
+        $stripe = new StripeClient(config('stripe.secret'));
+        $invoice = $stripe->invoices->retrieve($this->invoice_id, ['expand' => ['charge']]);
+        $stripe->refunds->create([
+            'charge' => $invoice->charge->id
+        ]);
         // TODO: Send email
     }
     public function resolve()
