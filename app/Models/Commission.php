@@ -238,7 +238,8 @@ class Commission extends Model
         $stripe = new StripeClient(config('stripe.secret'));
         $invoice = $stripe->invoices->retrieve($this->invoice_id, ['expand' => ['charge']]);
         $stripe->refunds->create([
-            'charge' => $invoice->charge->id
+            'charge' => $invoice->charge->id,
+            'reason' => 'requested_by_customer'
         ]);
         // TODO: Send email
     }
