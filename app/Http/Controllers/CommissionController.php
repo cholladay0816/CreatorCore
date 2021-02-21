@@ -122,24 +122,24 @@ class CommissionController extends Controller
     {
         if ($commission->status == 'Pending') {
             if (!$commission->isCreator()) {
-                return abort(401);
+                abort(401);
             }
             $commission->accept();
             return redirect()->to(route('commissions.index'))
                 ->with(['success' => 'Commission accepted']);
         } elseif ($commission->status == 'Active') {
             if (!$commission->isCreator()) {
-                return abort(401);
+                abort(401);
             }
             if ($commission->attachments->count() < 1) {
-                return abort(401);
+                abort(401);
             }
             $commission->complete();
             return redirect()->to(route('commissions.index'))
                 ->with(['success' => 'Commission completed']);
         } elseif ($commission->status == 'Completed') {
             if (!$commission->isBuyer()) {
-                return abort(401);
+                abort(401);
             }
             $commission->archive();
             return redirect()->to(route('commissions.orders'))
@@ -164,7 +164,7 @@ class CommissionController extends Controller
     {
         if ($commission->status == 'Unpaid') {
             if (!$commission->isBuyer()) {
-                return abort(401);
+                abort(401);
             }
             $commission->delete();
             return redirect()
@@ -172,7 +172,7 @@ class CommissionController extends Controller
                 ->with(['success' => 'Commission deleted']);
         } elseif ($commission->status == 'Pending') {
             if (!$commission->isCreator()) {
-                return abort(401);
+                abort(401);
             }
             $commission->decline();
             return redirect()
@@ -180,10 +180,10 @@ class CommissionController extends Controller
                 ->with(['success' => 'Commission declined']);
         } elseif ($commission->status == 'Active') {
             if (!$commission->isBuyer()) {
-                return abort(401);
+                abort(401);
             }
             if ($commission->expiration_date > now()) {
-                return abort(401);
+                abort(401);
             }
             $commission->expire();
             return redirect()
@@ -191,7 +191,7 @@ class CommissionController extends Controller
                 ->with(['success' => 'Commission canceled']);
         } elseif ($commission->status == 'Completed') {
             if (!$commission->isBuyer()) {
-                return abort(401);
+                abort(401);
             }
             $commission->dispute();
             return redirect()
