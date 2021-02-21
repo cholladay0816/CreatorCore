@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
-use Stripe\Exception\CardException;
+use Stripe\StripeClient;
 
 class Commission extends Model
 {
@@ -121,6 +121,7 @@ class Commission extends Model
                 $commission->days_to_complete = $preset->days_to_complete;
             }
             $commission->slug = $commission->getSlug();
+
         });
         self::created(function ($commission) {
             $commission->slug = $commission->getSlug();
@@ -131,6 +132,34 @@ class Commission extends Model
 
         parent::boot();
     }
+//
+//    public function generateProduct()
+//    {
+//        $stripe = new StripeClient(config('stripe.secret'));
+//        $product = $stripe->products->create(
+//            [
+//                'name' => $this->title,
+//                'description' => $this->description,
+//                'metadata' => ['user_id' => $this->user_id],
+//            ]
+//        );
+//        $this->product_id = $product->id;
+//
+//        $this->generatePrice();
+//    }
+//
+//    public function generatePrice()
+//    {
+//        $stripe = new StripeClient(config('stripe.secret'));
+//        $stripe->prices->create(
+//            [
+//                'unit_amount'=>$this->price * 100,
+//                'currency' => 'usd',
+//                'product' => $this->product_id,
+//                'type' => 'one_time',
+//            ]
+//        );
+//    }
 
     public function decline()
     {
@@ -151,11 +180,14 @@ class Commission extends Model
         }
 
         $this->buyer->createOrGetStripeCustomer();
-
         if ($this->buyer->hasPaymentMethod()) {
             try {
-                $invoice = $this->buyer->invoiceFor($this->title, ($this->price * 100));
 
+                $amount = $this->price * 100;
+                $total = $amount + 30;
+                $total += ceil(($this->price * 0.06) * 100);
+
+                $invoice = $this->buyer->invoiceFor($this->displayTitle(), $total);
                 $this->invoice_id = $invoice->id;
                 $this->save();
                 return $invoice;
@@ -225,6 +257,19 @@ class Commission extends Model
         $this->status = 'Archived';
         $this->save();
         // TODO: payout the creator
+        $stripe = new StripeClient(config('stripe.secret'));
+        $invoice = $stripe->invoices->retrieve($this->invoice_id, ['expand' => ['charge']]);
+
+        $transfer = $stripe->transfers->create(
+            [
+                'amount' => $this->price * 100,
+                'currency' => 'usd',
+                'source_transaction' => $invoice->charge->id,
+                'destination' => $this->creator->stripe_account_id,
+                'transfer_group' => $this->slug,
+            ]
+        );
+
         // $this->creator->payout($this->price);
     }
 }
