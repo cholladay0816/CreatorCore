@@ -365,6 +365,7 @@ class CommissionFeatureTest extends TestCase
         $this->assertEquals('Archived', $commission->fresh()->status);
 
         $stripe = new StripeClient(config('stripe.secret'));
-        $account = $stripe->accounts->retrieve($seller->stripe_account_id);
+        $balance = $stripe->balance->retrieve([], ['stripe_account' => $seller->stripe_account_id]);
+        $this->assertEquals($commission->price * 100, $balance->pending[0]->amount);
     }
 }
