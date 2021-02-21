@@ -8,20 +8,122 @@ use App\Models\Role;
 use App\Models\User;
 use Database\Seeders\RoleSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Cashier\Exceptions\PaymentFailure;
+use phpseclib3\Crypt\Random;
+use Stripe\Account;
 use Stripe\Card;
 use Stripe\Exception\CardException;
+use Stripe\StripeClient;
 use Tests\TestCase;
 
 class CommissionFeatureTest extends TestCase
 {
     use RefreshDatabase;
-
+    use WithFaker;
     public function createBuyerAndSeller()
     {
         $buyer = User::factory()->create();
         $seller = User::factory()->create();
         return [$buyer, $seller];
+    }
+    public function getChargedCommission($buyer, User $seller)
+    {
+        $buyer->createAsStripeCustomer();
+
+        $stripe = new StripeClient(config('stripe.secret'));
+
+        $account = $stripe->accounts->create([
+            'country' => 'US',
+            'type' => 'custom',
+            'email' => $seller->email,
+            'business_type' => 'individual',
+            'capabilities' => [
+                'transfers' => ['requested' => true],
+            ],
+            'external_account' => [
+                'object' => 'bank_account',
+                'country' => 'us',
+                'currency' => 'usd',
+                'routing_number'=>'110000000',
+                'account_number' => '000123456789'
+            ],
+            'individual' => [
+
+                'id_number' => '000000000',
+                'ssn_last_4' => '0000',
+
+                'address' => [
+                    'city' =>'Schenectady',
+                    'line1' =>'123 State St',
+                    'postal_code' => '12345',
+                    'country' =>'US',
+                    'state' => 'NY',
+                ],
+                'dob' => [
+                    'day' => '10',
+                    'month' => '11',
+                    'year' => '1980',
+                ],
+                'email' => $seller->email,
+                'first_name' => $this->faker->firstName,
+                'last_name' => $this->faker->lastName,
+                'gender' => (random_int(0, 1)==1?'male':'female'),
+                'phone' => $this->faker->phoneNumber,
+            ],
+            'tos_acceptance' => [
+                'date' => now()->unix(),
+                'ip' => $this->faker->ipv4,
+                'user_agent' => $seller->name,
+            ],
+            'business_profile' => [
+                'mcc' => '7333',
+                'url' => 'https://creator-core.com',
+            ]
+
+        ]);
+        $seller->stripe_account_id = $account->id;
+        $seller->save();
+
+        // Create the commission
+        $commission = Commission::factory()->create([
+            'buyer_id' => $buyer->id,
+            'creator_id' => $seller->id,
+            'status' => 'Unpaid'
+        ]);
+        // Initialize Stripe
+        $stripe = new \Stripe\StripeClient(
+            config('stripe.secret'),
+        );
+        // Create a payment method
+        $paymentMethod = $stripe->paymentMethods->create([
+            'type' => 'card',
+            'card' => [
+                'number' => '4242424242424242',
+                'exp_month' => 2,
+                'exp_year' => 2022,
+                'cvc' => '123',
+            ],
+        ]);
+        // Attach it to the customer
+        $stripe->paymentMethods->attach(
+            $paymentMethod->id,
+            ['customer' => $buyer->stripe_id],
+        );
+        // Make this payment method their default
+        $stripe->customers->update(
+            $buyer->stripe_id,
+            [
+                'invoice_settings' => [
+                    'default_payment_method' => $paymentMethod->id,
+                ],
+            ],
+        );
+        // Attempt to charge the customer with an invoice.
+        $invoice = $commission->attemptCharge();
+        $commission->checkInvoiceStatus();
+
+        return $commission->fresh();
     }
 
     /** @test */
@@ -217,11 +319,12 @@ class CommissionFeatureTest extends TestCase
         $admin->users()->attach($administrator->id);
 
         [$buyer, $seller] = $this->createBuyerAndSeller();
-        $commission = Commission::factory()->create([
-            'buyer_id' => $buyer->id,
-            'creator_id' => $seller->id,
+        $commission = $this->getChargedCommission($buyer, $seller);
+        $commission->update(
+            [
             'status' => 'Disputed'
-        ]);
+            ]
+        );
         $this->actingAs($administrator)
             ->delete(route('commissions.destroy', $commission->fresh()));
 
@@ -250,14 +353,12 @@ class CommissionFeatureTest extends TestCase
     public function a_commission_can_be_archived()
     {
         [$buyer, $seller] = $this->createBuyerAndSeller();
-        $commission = Commission::factory()->create([
-            'buyer_id' => $buyer->id,
-            'creator_id' => $seller->id,
-            'status' => 'Completed'
-        ]);
-        $this->actingAs($buyer)
-            ->put(route('commissions.update', $commission->fresh()))
-            ->assertSessionHas('success', 'Commission archived')
+        $commission = $this->getChargedCommission($buyer, $seller);
+        $commission->status = 'Completed';
+        $commission->save();
+        $res = $this->actingAs($buyer)
+            ->put(route('commissions.update', $commission->fresh()));
+        $res->assertSessionHas('success', 'Commission archived')
             ->assertRedirect(route('commissions.orders'));
 
         $this->assertEquals('Archived', $commission->fresh()->status);
