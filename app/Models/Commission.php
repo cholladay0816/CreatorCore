@@ -121,7 +121,6 @@ class Commission extends Model
                 $commission->days_to_complete = $preset->days_to_complete;
             }
             $commission->slug = $commission->getSlug();
-
         });
         self::created(function ($commission) {
             $commission->slug = $commission->getSlug();
@@ -182,7 +181,6 @@ class Commission extends Model
         $this->buyer->createOrGetStripeCustomer();
         if ($this->buyer->hasPaymentMethod()) {
             try {
-
                 $amount = $this->price * 100;
                 $total = $amount + 30;
                 $total += ceil(($this->price * 0.06) * 100);
