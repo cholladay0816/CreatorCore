@@ -28,8 +28,8 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-    Route::resource('/notifications', NotificationController::class, ['index', 'show', 'update', 'delete'])
-        ->names(['notifications.index', 'notifications.show', 'notifications.update', 'notifications.delete']);
+    Route::resource('/notifications', NotificationController::class, ['index'])
+        ->names(['notifications.index']);
 
     Route::get('/dashboard', function () {
         return view('dashboard');
