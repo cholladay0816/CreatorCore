@@ -6,6 +6,7 @@ use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Livewire\Livewire;
 use Tests\TestCase;
 
 class NotificationFeatureTest extends TestCase
@@ -25,26 +26,13 @@ class NotificationFeatureTest extends TestCase
     }
 
     /** @test */
-    public function it_shows_one_notification()
-    {
-        $user = User::factory()->create();
-        $notification = Notification::factory()->create(['user_id' => $user->id]);
-
-        $response = $this->actingAs($user)
-                         ->get(route('notifications.show', $notification));
-
-        $response->assertSee($notification->title)
-                 ->assertSee($notification->description);
-    }
-
-    /** @test */
     public function it_can_be_read()
     {
         $user = User::factory()->create();
         $notification = Notification::factory()->create(['user_id' => $user->id]);
 
-        $this->actingAs($user)
-            ->put(route('notifications.update', $notification));
+        $this->actingAs($user);
+        Livewire::test('notifications', ['notifications' => [$notification]])->call('read', $notification->id);
 
         $this->assertNotNull($notification->fresh()->read_at);
     }
@@ -55,8 +43,8 @@ class NotificationFeatureTest extends TestCase
         $user = User::factory()->create();
         $notification = Notification::factory()->create(['user_id' => $user->id]);
 
-        $this->actingAs($user)
-            ->delete(route('notifications.update', $notification));
+        $this->actingAs($user);
+        Livewire::test('notifications', ['notifications' => [$notification]])->call('delete', $notification->id);
 
         $this->assertNull($notification->fresh());
     }
