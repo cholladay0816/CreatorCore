@@ -15,3 +15,4 @@ yarn-error.log
 .php_cs.cache
 *.mp4
 auth.json
+supervisord.*
