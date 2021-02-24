@@ -3,6 +3,7 @@
 use App\Http\Controllers\AttachmentController;
 use App\Http\Controllers\CashierWebhookController;
 use App\Http\Controllers\CommissionController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\SourceController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,9 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications');
+
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
