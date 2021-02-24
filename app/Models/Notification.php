@@ -10,7 +10,7 @@ class Notification extends Model
     use HasFactory;
 
     protected $guarded = [];
-    
+
     protected $dates = ['created_at', 'updated_at', 'read_at'];
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
