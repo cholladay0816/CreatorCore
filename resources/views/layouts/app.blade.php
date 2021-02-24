@@ -252,9 +252,9 @@
             </div>
         </div>
 
-
+    </div>
     @stack('modals')
 
-        @livewireScripts
+    @livewireScripts
     </body>
 </html>
