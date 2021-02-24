@@ -89,6 +89,10 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class);
     }
+    public function notifications(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Notification::class);
+    }
     public function abilities()
     {
         return $this->roles->map->abilities->flatten();
