@@ -27,7 +27,6 @@ class CommissionEventFactory extends Factory
             'title' => $this->faker->sentence,
             'color' => 'blue-500',
             'status' => 'Unpaid'
-
         ];
     }
 }
