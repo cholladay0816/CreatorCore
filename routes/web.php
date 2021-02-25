@@ -49,8 +49,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::delete('/attachments/{attachment}', [AttachmentController::class, 'destroy'])
         ->name('attachments.destroy');
 
+    //TODO: verified.account for commission presets
+
     Route::prefix('commissions')->group(function () {
-        Route::middleware(['verified.account'])->group(function () {
+        Route::middleware(['verified.payment'])->group(function () {
             Route::get('/new/{user}/{commissionpreset?}', [CommissionController::class, 'create'])
                 ->name('commissions.create');
             Route::post('/new/{user}/{commissionpreset?}', [CommissionController::class, 'store'])
