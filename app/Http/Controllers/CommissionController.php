@@ -120,7 +120,13 @@ class CommissionController extends Controller
      */
     public function update(Request $request, Commission $commission)
     {
-        if ($commission->status == 'Pending') {
+        if ($commission->status == 'Unpaid') {
+            if (!$commission->isBuyer()) {
+                abort(401);
+            }
+            $commission->attemptCharge();
+            redirect()->back();
+        } elseif ($commission->status == 'Pending') {
             if (!$commission->isCreator()) {
                 abort(401);
             }
@@ -152,6 +158,7 @@ class CommissionController extends Controller
                 abort(401);
             }
         }
+        return redirect()->back();
     }
 
     /**
