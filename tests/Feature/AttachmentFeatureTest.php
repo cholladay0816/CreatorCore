@@ -71,7 +71,7 @@ class AttachmentFeatureTest extends TestCase
     {
         // Create a User and Commission
         $user = User::factory()->create();
-        $commission = Commission::factory()->create(['creator_id' => $user->id]);
+        $commission = Commission::factory()->create(['creator_id' => $user->id, 'status' => 'Active']);
         $commission = $commission->fresh();
 
         // Create a dummy image
