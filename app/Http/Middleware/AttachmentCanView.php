@@ -17,7 +17,7 @@ class AttachmentCanView
     public function handle(Request $request, Closure $next)
     {
         if (!$request->attachment->canView()) {
-            return false;
+            abort(404);
         }
         return $next($request);
     }
