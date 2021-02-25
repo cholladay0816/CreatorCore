@@ -64,6 +64,16 @@
                                 {{$commission->memo}}
                             </dd>
                         </div>
+                        @if(in_array($commission->status, ['Active', 'Overdue']))
+                        <div class="sm:col-span-1">
+                            <dt class="text-sm font-medium text-gray-500">
+                                Order Due
+                            </dt>
+                            <dd class="mt-1 text-sm text-gray-900">
+                                {{$commission->expires_at->diffForHumans()}}
+                            </dd>
+                        </div>
+                        @else
                         <div class="sm:col-span-1">
                             <dt class="text-sm font-medium text-gray-500">
                                 Days to Complete
@@ -72,6 +82,7 @@
                                 {{$commission->days_to_complete}}
                             </dd>
                         </div>
+                        @endif
                         <div class="sm:col-span-1">
                             <dt class="text-sm font-medium text-gray-500">
                                 Status
@@ -81,7 +92,9 @@
                                 {{$commission->status}}
                             </dd>
                         </div>
-                        @livewire('commission.attachments', ['commission' => $commission])
+                        @if(($commission->isCreator()) || ($commission->isBuyer() && in_array($commission->status, ['Completed', 'Archived'])))
+                            @livewire('commission.attachments', ['commission' => $commission])
+                        @endif
                         <div class="sm:col-span-2">
                             <dt class="text-sm font-medium text-gray-500">
                                 Actions
@@ -123,7 +136,7 @@
                                                         <p class="text-sm text-gray-500">{{$event->title}}</p>
                                                     </div>
                                                     <div class="text-right text-sm whitespace-nowrap text-gray-500">
-                                                        <time datetime="{{$event->created_at}}">{{\Illuminate\Support\Carbon::parse($event->created_at)->format("M d")}}</time>
+                                                        <time datetime="{{$event->created_at}}">{{$event->created_at->format("M d")}}</time>
                                                     </div>
                                                 </div>
                                             </div>
