@@ -49,6 +49,53 @@ class Commission extends Model
             'Archived'=>'Archived',
         ];
     }
+    public static function statusesCommissions()
+    {
+        return [
+            'Pending'=>'Pending',
+            'Active'=>'Active',
+            'Overdue'=>'Overdue',
+            'Expired'=>'Expired',
+            'Completed'=>'Completed',
+            'Disputed'=>'Disputed',
+            'Refunded'=>'Refunded',
+            'Archived'=>'Archived',
+        ];
+    }
+    public static function statusPriorityCommissions()
+    {
+        return [
+            'Overdue' => 0,
+            'Active' => 1,
+            'Pending' => 2,
+            'Disputed' => 3,
+            'Completed' => 4,
+            'Archived' => 5,
+            'Refunded' => 6,
+            'Expired' => 7,
+            'Purchasing' => 11,
+            'Declined' => 11,
+            'Unpaid' => 11,
+            'Failed' => 11,
+        ];
+    }
+    public static function statusPriorityOrders()
+    {
+        return [
+            'Unpaid' => 0,
+            'Failed' => 1,
+            'Pending' => 2,
+            'Overdue' => 3,
+            'Active' => 4,
+            'Disputed' => 5,
+            'Completed' => 6,
+            'Purchasing' => 7,
+            'Archived' => 8,
+            'Refunded' => 9,
+            'Expired' => 10,
+            'Declined' => 11
+        ];
+    }
 
     public function displayTitle()
     {
@@ -96,6 +143,14 @@ class Commission extends Model
             return false;
         }
         return auth()->id() == $this->creator_id;
+    }
+    public function partner()
+    {
+        return $this->isCreator()?$this->buyer:$this->creator;
+    }
+    public function getPartnerAttribute()
+    {
+        return $this->partner();
     }
 
     public function events(): HasMany
@@ -166,7 +221,8 @@ class Commission extends Model
     }
     public function accept()
     {
-        $this->status = 'Purchasing';
+        $this->status = 'Active';
+        $this->expiration_date = now()->addDays($this->days_to_complete);
         $this->save();
         CommissionEvent::create(
             [
@@ -174,7 +230,6 @@ class Commission extends Model
                 'title' => 'Accepted by ' . $this->buyer->name, 'color' => 'green-500', 'status' => 'Purchasing'
             ]
         );
-        $this->attemptCharge();
     }
     public function attemptCharge()
     {
@@ -191,6 +246,7 @@ class Commission extends Model
 
                 $invoice = $this->buyer->invoiceFor($this->displayTitle(), $total);
                 $this->invoice_id = $invoice->id;
+                $this->status = 'Purchasing';
                 $this->save();
                 return $invoice;
             } catch (\Exception $e) {
@@ -228,6 +284,17 @@ class Commission extends Model
     }
     public function chargeFail()
     {
+        $this->status = 'Failed';
+        $this->invoice_id = null;
+        $this->save();
+        // TODO: send emails and notifications
+
+        CommissionEvent::create(
+            [
+                'commission_id' => $this->id,
+                'title' => 'Payment failed', 'color' => 'red-500', 'status' => 'Failed'
+            ]
+        );
     }
 
     public function complete()
