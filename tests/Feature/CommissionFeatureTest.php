@@ -132,6 +132,35 @@ class CommissionFeatureTest extends TestCase
         // Generate a buyer and seller
         [$buyer, $seller] = $this->createBuyerAndSeller();
 
+        $buyer->createOrGetStripeCustomer();
+
+        $stripe = new StripeClient(config('stripe.secret'));
+
+        // Create a payment method
+        $paymentmethod = $stripe->paymentMethods->create([
+            'type' => 'card',
+            'card' => [
+                'number' => '4242424242424242',
+                'exp_month' => 2,
+                'exp_year' => 2022,
+                'cvc' => '123',
+            ],
+        ]);
+        // Attach it to the customer
+        $stripe->paymentMethods->attach(
+            $paymentmethod->id,
+            ['customer' => $buyer->stripe_id],
+        );
+        // Make this payment method their default
+        $stripe->customers->update(
+            $buyer->stripe_id,
+            [
+                'invoice_settings' => [
+                    'default_payment_method' => $paymentmethod->id,
+                ],
+            ],
+        );
+
         // Make a working commission
         $commission = Commission::factory()->make([
             'buyer_id'=>$buyer->id,
