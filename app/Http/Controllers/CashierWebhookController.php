@@ -12,8 +12,13 @@ class CashierWebhookController extends WebhookController
 {
     public function handleInvoicePaymentSucceeded($payload)
     {
-        $invoice_id = $payload->data['object']['id'];
-        Commission::where('invoice_id', $invoice_id)->firstOrFail()
-            ->chargeSuccess();
+        $invoice_id = $payload['data']['object']['id'];
+        try {
+            Commission::where('invoice_id', $invoice_id)->firstOrFail()
+                ->chargeSuccess();
+        } catch (\Exception $e) {
+            Commission::where('invoice_id', $invoice_id)->firstOrFail()
+                ->chargeFail();
+        }
     }
 }
