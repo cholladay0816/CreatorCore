@@ -12,13 +12,14 @@ class Attachments extends Component
 
     public $file;
     public $commission;
-
+    public $hasErrors = false;
     protected $rules = [
         'file' => 'required|file|image|max:4096'
     ];
 
     public function render()
     {
+        $this->hasErrors = count($this->getErrorBag()->all()) > 0;
         return view('livewire.commission.attachments');
     }
 
@@ -26,12 +27,13 @@ class Attachments extends Component
     {
         $this->validate();
         if (!$this->commission->isCreator()) {
-            abort(401);
+            $this->addError('file', 'You are not the creator of this commission.');
         }
         if (!in_array($this->commission->status, ['Active', 'Overdue'])) {
-            abort(401);
+            $this->addError('file', 'This commission is no longer open for changes.');
         }
         $path = $this->file->store('attachments');
+        // $this->file->delete();
         $attachment = new Attachment();
         $attachment->user_id = auth()->id();
         $attachment->commission_id = $this->commission->id;
@@ -45,7 +47,7 @@ class Attachments extends Component
     {
         $attachment = Attachment::find($id);
         if (!$attachment->canEdit()) {
-            abort(401);
+            $this->addError('file', 'This commission is no longer open for changes.');
         }
         $attachment->delete();
     }
