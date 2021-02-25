@@ -18,7 +18,7 @@ class AttachmentFeatureTest extends TestCase
     public function an_attachment_cannot_be_uploaded_if_it_is_too_large()
     {
         $user = User::factory()->create();
-        $commission = Commission::factory()->create(['creator_id' => $user->id]);
+        $commission = Commission::factory()->create(['creator_id' => $user->id, 'status' => 'Active']);
         $commission = $commission->fresh();
         // Create a dummy image
         $file = UploadedFile::fake()->image('test.png')->size(4097);
@@ -35,7 +35,7 @@ class AttachmentFeatureTest extends TestCase
     {
         // Create a User and Commission
         $user = User::factory()->create();
-        $commission = Commission::factory()->create(['creator_id' => $user->id]);
+        $commission = Commission::factory()->create(['creator_id' => $user->id, 'status' => 'Active']);
         $commission = $commission->fresh();
         // Create a dummy executable
         $file = UploadedFile::fake()->create('test.exe', '1024', 'application/x-msdownload');
