@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class Attachment extends Model
 {
@@ -57,8 +58,17 @@ class Attachment extends Model
         return $this->hasOne(Review::class);
     }
 
+    public function getSlug()
+    {
+        return Str::slug($this->id . '-' . explode('/', $this->path)[1]);
+    }
+
     public static function booted()
     {
+        static::creating(function ($attachment) {
+            $attachment->slug = $attachment->getSlug();
+        });
+
         //If the object is being deleted, remove the saved attachment.
         static::deleting(function ($attachment) {
             Storage::delete($attachment->path);
