@@ -14,7 +14,7 @@ class AddTypeToAttachmentsTable extends Migration
     public function up()
     {
         Schema::table('attachments', function (Blueprint $table) {
-            $table->string('type');
+            $table->string('type')->after('path')->nullable();
         });
     }
 
