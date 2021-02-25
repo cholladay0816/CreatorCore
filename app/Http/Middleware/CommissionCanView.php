@@ -17,7 +17,7 @@ class CommissionCanView
     public function handle(Request $request, Closure $next)
     {
         if (!$request->commission->canView()) {
-            return false;
+            abort(404);
         }
         return $next($request);
     }
