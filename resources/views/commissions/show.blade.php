@@ -133,6 +133,50 @@
                                 @livewire('commission.action-buttons', ['commission' => $commission])
                             </dd>
                         </div>
+                        <div class="sm:col-span-2">
+
+                            <!-- This example requires Tailwind CSS v2.0+ -->
+                            <div class="relative py-12">
+                                <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                                    <div class="w-full border-t border-gray-300"></div>
+                                </div>
+                                <div class="relative flex justify-center">
+                                    <span class="px-2 bg-white text-sm text-gray-500">
+                                      History
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="flow-root pt-6">
+                                <ul class="-mb-8">
+                                    @foreach($commission->events as $event)
+                                    <li>
+                                        <div class="relative pb-8">
+                                            <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                                            <div class="relative flex space-x-3">
+                                                <div>
+                                                    <span class="h-8 w-8 rounded-full bg-{{$event->color}} flex items-center justify-center ring-8 ring-white">
+                                                      <!-- Heroicon name: solid/user -->
+                                                      <svg class="h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                                                      </svg>
+                                                    </span>
+                                                </div>
+                                                <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
+                                                    <div>
+                                                        <p class="text-sm text-gray-500">{{$event->title}}</p>
+                                                    </div>
+                                                    <div class="text-right text-sm whitespace-nowrap text-gray-500">
+                                                        <time datetime="{{$event->created_at}}">{{\Illuminate\Support\Carbon::parse($event->created_at)->format("M d")}}</time>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+
+                        </div>
                     </dl>
                 </div>
             </div>
