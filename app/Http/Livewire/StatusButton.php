@@ -9,6 +9,7 @@ class StatusButton extends Component
 {
     public $color = 'bg-blue-500';
     public $status;
+
     public function render()
     {
         if (in_array($this->status, ['Unpaid', 'Declined', 'Failed', 'Expired', 'Refunded'])) {
