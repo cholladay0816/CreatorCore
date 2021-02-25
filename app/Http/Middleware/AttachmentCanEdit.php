@@ -17,7 +17,7 @@ class AttachmentCanEdit
     public function handle(Request $request, Closure $next)
     {
         if (!$request->attachment->canEdit()) {
-            return false;
+            abort(401);
         }
         return $next($request);
     }
