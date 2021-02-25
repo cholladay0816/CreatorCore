@@ -25,6 +25,8 @@ class CreateAttachmentsTable extends Migration
                 ->constrained()
                 ->cascadeOnDelete();
             $table->string('path')->unique();
+            $table->string('slug');
+            $table->string('type');
             $table->bigInteger('size')->unsigned();
             $table->timestamps();
         });
