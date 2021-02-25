@@ -17,7 +17,7 @@ class CommissionCanUpload
     public function handle(Request $request, Closure $next)
     {
         if (!$request->commission->canEdit()) {
-            return false;
+            abort(401);
         }
         return $next($request);
     }
