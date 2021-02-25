@@ -35,18 +35,17 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('source/new', [SourceController::class, 'create'])
-        ->name('source.create');
-    Route::post('source/new', [SourceController::class, 'store'])
-        ->name('source.store');
 
     Route::post('/attachments/new/{commission}', [AttachmentController::class, 'store'])
+        ->middleware('commission.canedit')
         ->name('attachments.store');
 
     Route::get('/attachments/{attachment}', [AttachmentController::class, 'show'])
+        ->middleware('attachment.canview')
         ->name('attachments.show');
 
     Route::delete('/attachments/{attachment}', [AttachmentController::class, 'destroy'])
+        ->middleware('attachment.canedit')
         ->name('attachments.destroy');
 
     //TODO: verified.account for commission presets
@@ -60,12 +59,15 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         });
 
         Route::get('/{commission}', [CommissionController::class, 'show'])
+            ->middleware('commission.canview')
             ->name('commissions.show');
 
         Route::put('/{commission}', [CommissionController::class, 'update'])
+            ->middleware('commission.canview')
             ->name('commissions.update');
 
         Route::delete('/{commission}', [CommissionController::class, 'destroy'])
+            ->middleware('commission.canview')
             ->name('commissions.destroy');
 
         Route::get('/', [CommissionController::class, 'commissions'])
