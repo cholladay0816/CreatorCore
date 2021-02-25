@@ -79,7 +79,8 @@ class User extends Authenticatable
 
     public function commissions()
     {
-        return $this->hasMany(Commission::class, 'creator_id');
+        return $this->hasMany(Commission::class, 'creator_id')
+            ->whereIn('status', Commission::statusesCommissions());
     }
     public function orders()
     {
