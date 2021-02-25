@@ -28,6 +28,9 @@ class Attachments extends Component
         if (!$this->commission->isCreator()) {
             abort(401);
         }
+        if (!in_array($this->commission->status, ['Active', 'Overdue'])) {
+            abort(401);
+        }
         $path = $this->file->store('attachments');
         $attachment = new Attachment();
         $attachment->user_id = auth()->id();
@@ -40,10 +43,10 @@ class Attachments extends Component
     }
     public function delete($id)
     {
-        if (!$this->commission->isCreator()) {
+        $attachment = Attachment::find($id);
+        if (!$attachment->canEdit()) {
             abort(401);
         }
-        $attachment = Attachment::find($id);
         $attachment->delete();
     }
 }
