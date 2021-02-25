@@ -45,7 +45,7 @@ class AttachmentController extends Controller
         if (!$commission->isCreator()) {
             abort(404);
         }
-        $res = $request->validate([
+        $request->validate([
             'file' => 'required|file|image|max:4096' //Must be an image file (4MB limit)
         ]);
         $path = $request->file('file')->store('attachments');
@@ -54,6 +54,7 @@ class AttachmentController extends Controller
         $attachment->commission_id = $commission->id;
         $attachment->path = $path;
         $attachment->size = $request->file('file')->getSize();
+        $attachment->type = $request->file('file')->getMimeType();
         $attachment->save();
         return redirect()
             ->to(route('commissions.show', $commission))
@@ -68,7 +69,7 @@ class AttachmentController extends Controller
      */
     public function show(Attachment $attachment)
     {
-        //
+        return response(Storage::get($attachment->path), '200', ["Content-Type"=>$attachment->type]);
     }
 
     /**
