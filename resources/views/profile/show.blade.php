@@ -21,6 +21,10 @@
                 <x-jet-section-border />
             @endif
                 <div class="mt-10 sm:mt-0">
+                    @livewire('profile.payment-details')
+                </div>
+                <x-jet-section-border />
+                <div class="mt-10 sm:mt-0">
                     @livewire('profile.stripe')
                 </div>
                 <x-jet-section-border/>
