@@ -93,10 +93,6 @@ class CommissionController extends Controller
      */
     public function show(Commission $commission)
     {
-        if (!$commission->canView()) {
-            return abort(404);
-        }
-
         return view('commissions.show', ['commission' => $commission]);
     }
 
