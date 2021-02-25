@@ -73,6 +73,16 @@ class Commission extends Model
 
         return true;
     }
+    public function canEdit()
+    {
+        if (Gate::allows('manage-content')) {
+            return true;
+        }
+        if ($this->isCreator() && in_array($this->status, ['Active', 'Overdue'])) {
+            return true;
+        }
+        return false;
+    }
     public function isBuyer()
     {
         if (auth()->guest()) {
