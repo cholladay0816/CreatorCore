@@ -15,7 +15,7 @@ class CreateCommissionEventsTable extends Migration
     {
         Schema::create('commission_events', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Commission::class);
+            $table->foreignIdFor(\App\Models\Commission::class)->constrained()->cascadeOnDelete();
             $table->string('title');
             $table->string('color');
             $table->string('status');
