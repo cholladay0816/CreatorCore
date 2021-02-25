@@ -127,7 +127,7 @@ class CommissionController extends Controller
                 abort(401);
             }
             $commission->accept();
-            return redirect()->to(route('commissions.index'))
+            return redirect()->to(route('commissions.show', $commission))
                 ->with(['success' => 'Commission accepted']);
         } elseif ($commission->status == 'Active') {
             if (!$commission->isCreator()) {
