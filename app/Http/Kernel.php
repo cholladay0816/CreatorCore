@@ -55,8 +55,12 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'attachment.canview' => Middleware\AttachmentCanView::class,
+        'attachment.canedit' => Middleware\AttachmentCanEdit::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
+        'commission.canview' => Middleware\CommissionCanView::class,
+        'commission.canedit' => Middleware\CommissionCanUpload::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'verified.account' => Middleware\RequireVerifiedStripeAccount::class,
         'verified.payment' => Middleware\RequireVerifiedPaymentMethod::class,
