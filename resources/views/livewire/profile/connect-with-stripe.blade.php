@@ -9,7 +9,7 @@
 
     <x-slot name="content">
         <div class="max-w-xl text-sm text-gray-600">
-            {{ __('This option will create a Stripe customer which we can send payouts to.
+            {{ __('This option will create a Stripe account which we can send payouts to.
                     Once verified, you will be able to use this panel to manage your Stripe customer profile.') }}
         </div>
 
@@ -18,6 +18,5 @@
                 <a href=" {{ $accountLink }} " class="bg-indigo-500 text-white px-5 py-3 rounded-lg"><span>Connect with <span class="font-bold">Stripe</span></span></a>
             </div>
         </div>
-
     </x-slot>
 </x-jet-action-section>
