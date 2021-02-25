@@ -28,6 +28,7 @@ class AttachmentFactory extends Factory
             'commission_id' => Commission::factory()->create(['creator_id'=>$user->id])->id,
             'size' => $this->faker->numberBetween(1, 1024),
             'path' => $this->faker->imageUrl(),
+            'type' => 'image/png',
         ];
     }
 }
