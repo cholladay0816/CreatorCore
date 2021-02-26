@@ -222,7 +222,7 @@ class Commission extends Model
     public function accept()
     {
         $this->status = 'Active';
-        $this->expiration_date = now()->addDays($this->days_to_complete);
+        $this->expires_at = now()->addDays($this->days_to_complete);
         $this->save();
         CommissionEvent::create(
             [
