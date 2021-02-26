@@ -12,6 +12,13 @@ class Attachment extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     public function canView()
     {
         if (Gate::allows('manage-content')) {
