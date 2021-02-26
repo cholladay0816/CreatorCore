@@ -60,13 +60,19 @@ class Attachment extends Model
 
     public function getSlug()
     {
-        return Str::slug($this->id . '-' . explode('/', $this->path)[1]);
+        return Str::slug($this->id . '-' . str_replace('attachments/', '', $this->path));
     }
 
     public static function booted()
     {
         static::creating(function ($attachment) {
+            $attachment->slug = str_replace('attachments/', '', $attachment->path);
+        });
+        static::created(function ($attachment) {
             $attachment->slug = $attachment->getSlug();
+        });
+        static::factory(function ($attachment) {
+            $attachment->slug = str_replace('attachments/', '', $attachment->path);
         });
 
         //If the object is being deleted, remove the saved attachment.
