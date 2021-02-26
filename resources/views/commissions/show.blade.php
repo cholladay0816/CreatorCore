@@ -118,10 +118,13 @@
                             </div>
                             <div class="flow-root pt-6">
                                 <ul class="-mb-8">
+                                    <?php $i = 0; ?>
                                     @foreach($commission->events as $event)
                                     <li>
                                         <div class="relative pb-8">
+                                            @if($i < count($commission->events)-1)
                                             <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                                            @endif
                                             <div class="relative flex space-x-3">
                                                 <div>
                                                     <span class="h-8 w-8 rounded-full bg-{{$event->color}} flex items-center justify-center ring-8 ring-white">
@@ -142,6 +145,7 @@
                                             </div>
                                         </div>
                                     </li>
+                                            <?php $i++; ?>
                                     @endforeach
                                 </ul>
                             </div>
