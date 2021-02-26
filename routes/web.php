@@ -27,6 +27,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/attachments/{attachment}', [AttachmentController::class, 'show'])
+    ->middleware('attachments.canview')
+    ->name('attachments.show');
+
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::resource('/notifications', NotificationController::class, ['index'])
         ->names(['notifications.index']);
@@ -34,21 +38,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-
-
-    Route::post('/attachments/new/{commission}', [AttachmentController::class, 'store'])
-        ->middleware('commission.canedit')
-        ->name('attachments.store');
-
-    Route::get('/attachments/{attachment}', [AttachmentController::class, 'show'])
-        ->middleware('attachment.canview')
-        ->name('attachments.show');
-
-    Route::delete('/attachments/{attachment}', [AttachmentController::class, 'destroy'])
-        ->middleware('attachment.canedit')
-        ->name('attachments.destroy');
-
-    //TODO: verified.account for commission presets
 
     Route::prefix('commissions')->group(function () {
         Route::middleware(['verified.payment'])->group(function () {
@@ -59,15 +48,15 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         });
 
         Route::get('/{commission}', [CommissionController::class, 'show'])
-            ->middleware('commission.canview')
+            ->middleware('commissions.canview')
             ->name('commissions.show');
 
         Route::put('/{commission}', [CommissionController::class, 'update'])
-            ->middleware('commission.canview')
+            ->middleware('commissions.canview')
             ->name('commissions.update');
 
         Route::delete('/{commission}', [CommissionController::class, 'destroy'])
-            ->middleware('commission.canview')
+            ->middleware('commissions.canview')
             ->name('commissions.destroy');
 
         Route::get('/', [CommissionController::class, 'commissions'])
