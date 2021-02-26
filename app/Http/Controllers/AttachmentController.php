@@ -100,19 +100,10 @@ class AttachmentController extends Controller
      */
     public function destroy(Attachment $attachment)
     {
-        $commission = $attachment->commission;
-        if (!$commission->isCreator()) {
-            abort(401);
-        }
-        // Make sure the commission is not completed
-        if ($commission->status != 'Active') {
-            abort(401);
-        }
-
         $attachment->delete();
 
         return redirect()
-            ->to(route('commissions.show', $commission))
+            ->to(route('commissions.show', $attachment->commission))
             ->with('success', 'Attachment deleted');
     }
 }
