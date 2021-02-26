@@ -13,50 +13,6 @@ use Illuminate\Support\Facades\Storage;
 
 class AttachmentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Request $request
-     * @param Commission $commission
-     * @return Application|RedirectResponse|Response|Redirector|void
-     */
-    public function store(Request $request, Commission $commission)
-    {
-        $request->validate([
-            'file' => 'required|file|image|max:4096' //Must be an image file (4MB limit)
-        ]);
-        $path = $request->file('file')->store('attachments');
-        $attachment = new Attachment();
-        $attachment->user_id = auth()->user()->id;
-        $attachment->commission_id = $commission->id;
-        $attachment->path = $path;
-        $attachment->size = $request->file('file')->getSize();
-        $attachment->type = $request->file('file')->getMimeType();
-        $attachment->save();
-        return redirect()
-            ->to(route('commissions.show', $commission))
-            ->with(['success' => 'Attachment created']);
-    }
 
     /**
      * Display the specified resource.
@@ -67,43 +23,5 @@ class AttachmentController extends Controller
     public function show(Attachment $attachment)
     {
         return response(Storage::get($attachment->path), '200', ["Content-Type"=>$attachment->type]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param Attachment $attachment
-     * @return Response
-     */
-    public function edit(Attachment $attachment)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param Attachment $attachment
-     * @return Response
-     */
-    public function update(Request $request, Attachment $attachment)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param Attachment $attachment
-     * @return RedirectResponse | void
-     */
-    public function destroy(Attachment $attachment)
-    {
-        $attachment->delete();
-
-        return redirect()
-            ->to(route('commissions.show', $attachment->commission))
-            ->with('success', 'Attachment deleted');
     }
 }
