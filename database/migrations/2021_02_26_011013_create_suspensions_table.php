@@ -16,7 +16,7 @@ class CreateSuspensionsTable extends Migration
         Schema::create('suspensions', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\User::class)->constrained()->cascadeOnDelete();
-            $table->string('reason');
+            $table->string('reason')->default('No reason provided.');
             $table->dateTime('expires_at');
             $table->timestamps();
         });
