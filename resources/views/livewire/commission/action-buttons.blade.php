@@ -1,5 +1,5 @@
 <div>
-    @if($commission->status == 'Unpaid' && $commission->buyer->id == auth()->id())
+    @if($commission->status == 'Unpaid' && $commission->buyer_id == auth()->id())
         <form class="inline-flex items-center" method="POST" action="{{route('commissions.update', $commission)}}">
             @csrf
             @method('PUT')
@@ -22,7 +22,7 @@
             </button>
         </form>
     @endif
-        @if($commission->status == 'Pending' && $commission->creator->id == auth()->id())
+        @if($commission->status == 'Pending' && $commission->creator_id == auth()->id())
             <form class="inline-flex items-center" method="POST" action="{{route('commissions.update', $commission)}}">
                 @csrf
                 @method('PUT')
@@ -44,7 +44,7 @@
                 </button>
             </form>
         @endif
-        @if($commission->status == 'Active' && $commission->creator->id == auth()->id() && count($commission->attachments) > 0)
+        @if($commission->status == 'Active' && $commission->creator_id == auth()->id() && count($commission->attachments) > 0)
             <form class="inline-flex items-center" method="POST" action="{{route('commissions.update', $commission)}}">
                 @csrf
                 @method('PUT')
@@ -56,13 +56,25 @@
                 </button>
             </form>
         @endif
-        @if($commission->status == 'Active' && $commission->creator->id == auth()->id())
+        @if($commission->status == 'Active' && $commission->creator_id == auth()->id())
             <form class="inline-flex items-center" method="POST" action="{{route('commissions.destroy', $commission)}}">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-rose-600 hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500">
                     <svg class="-ml-1 mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M18 9.5a1.5 1.5 0 11-3 0v-6a1.5 1.5 0 013 0v6zM14 9.667v-5.43a2 2 0 00-1.105-1.79l-.05-.025A4 4 0 0011.055 2H5.64a2 2 0 00-1.962 1.608l-1.2 6A2 2 0 004.44 12H8v4a2 2 0 002 2 1 1 0 001-1v-.667a4 4 0 01.8-2.4l1.4-1.866a4 4 0 00.8-2.4z" />
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                    </svg>
+                    Cancel
+                </button>
+            </form>
+        @endif
+        @if($commission->status == 'Overdue' && $commission->buyer_id == auth()->id())
+            <form class="inline-flex items-center" method="POST" action="{{route('commissions.destroy', $commission)}}">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-rose-600 hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500">
+                    <svg class="-ml-1 mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
                     </svg>
                     Cancel
                 </button>
