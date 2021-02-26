@@ -209,6 +209,7 @@ class Commission extends Model
     }
     public function decline()
     {
+        // TODO: send emails and notifications
         $this->status = 'Declined';
         $this->save();
         CommissionEvent::create(
@@ -217,17 +218,17 @@ class Commission extends Model
                 'title' => 'Declined by ' . $this->buyer->name, 'color' => 'red-500', 'status' => 'Declined'
             ]
         );
-        // TODO: Send Email
     }
     public function accept()
     {
+        // TODO: send emails and notifications
         $this->status = 'Active';
         $this->expires_at = now()->addDays($this->days_to_complete);
         $this->save();
         CommissionEvent::create(
             [
                 'commission_id' => $this->id,
-                'title' => 'Accepted by ' . $this->buyer->name, 'color' => 'green-500', 'status' => 'Purchasing'
+                'title' => 'Accepted by ' . $this->buyer->name, 'color' => 'green-500', 'status' => 'Active'
             ]
         );
     }
@@ -282,6 +283,21 @@ class Commission extends Model
             ]
         );
     }
+
+    public function overdue()
+    {
+        // TODO: send emails and notifications
+        $this->status = 'Overdue';
+        $this->save();
+
+        CommissionEvent::create(
+            [
+                'commission_id' => $this->id,
+                'title' => 'Commission passed due date', 'color' => 'yellow-500', 'status' => 'Overdue'
+            ]
+        );
+    }
+
     public function chargeFail()
     {
         $this->status = 'Failed';
@@ -301,7 +317,7 @@ class Commission extends Model
     {
         $this->status = 'Completed';
         $this->save();
-        // TODO: Send email
+        // TODO: send emails and notifications
         CommissionEvent::create(
             [
                 'commission_id' => $this->id,
@@ -313,7 +329,7 @@ class Commission extends Model
     {
         $this->status = 'Disputed';
         $this->save();
-        // TODO: Send email
+        // TODO: send emails and notifications
         CommissionEvent::create(
             [
                 'commission_id' => $this->id,
@@ -321,8 +337,32 @@ class Commission extends Model
             ]
         );
     }
+
+//    public function cancel()
+//    {
+//        // TODO: send emails and notifications
+//        $this->status = 'Canceled';
+//        $this->save();
+//        $stripe = new StripeClient(config('stripe.secret'));
+//        $invoice = $stripe->invoices->retrieve($this->invoice_id, ['expand' => ['charge']]);
+//        $stripe->refunds->create([
+//            'charge' => $invoice->charge->id,
+//            'reason' => 'requested_by_customer'
+//        ]);
+//
+//        $this->creator->addStrike('Canceled commission');
+//
+//        CommissionEvent::create(
+//            [
+//                'commission_id' => $this->id,
+//                'title' => 'Expired', 'color' => 'red-500', 'status' => 'Canceled'
+//            ]
+//        );
+//    }
+
     public function expire()
     {
+        // TODO: send emails and notifications
         $this->status = 'Expired';
         $this->save();
         $stripe = new StripeClient(config('stripe.secret'));
@@ -331,7 +371,6 @@ class Commission extends Model
             'charge' => $invoice->charge->id,
             'reason' => 'requested_by_customer'
         ]);
-        // TODO: Send email
         CommissionEvent::create(
             [
                 'commission_id' => $this->id,
@@ -341,6 +380,7 @@ class Commission extends Model
     }
     public function refund()
     {
+        // TODO: send emails and notifications
         $this->status = 'Refunded';
         $this->save();
         $stripe = new StripeClient(config('stripe.secret'));
@@ -348,7 +388,6 @@ class Commission extends Model
         $stripe->refunds->create([
             'charge' => $invoice->charge->id
         ]);
-        // TODO: Send email
         CommissionEvent::create(
             [
                 'commission_id' => $this->id,
@@ -358,7 +397,7 @@ class Commission extends Model
     }
     public function resolve()
     {
-        // TODO: Send a resolution letter
+        // TODO: send emails and notifications
         CommissionEvent::create(
             [
                 'commission_id' => $this->id,
@@ -371,7 +410,7 @@ class Commission extends Model
     {
         $this->status = 'Archived';
         $this->save();
-        // TODO: payout the creator
+        // TODO: send emails and notifications to creator
         $stripe = new StripeClient(config('stripe.secret'));
         $invoice = $stripe->invoices->retrieve($this->invoice_id, ['expand' => ['charge']]);
 
