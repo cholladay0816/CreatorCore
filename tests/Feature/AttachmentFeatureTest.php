@@ -67,14 +67,15 @@ class AttachmentFeatureTest extends TestCase
         $commission = Commission::factory()->create(['creator_id' => $user->id, 'status' => 'Active']);
         $commission = $commission->fresh();
 
+        $this->actingAs($user);
+
         // Create a dummy image
         $file = UploadedFile::fake()->image('test.png', '64', '64');
         // Attempt to upload this image as an attachment
-        $this->actingAs($user);
-        Livewire::test('commission.attachments', ['commission' => $commission])
+
+        $res = Livewire::test('commission.attachments', ['commission' => $commission])
             ->set('file', $file)
             ->assertHasNoErrors();
-
         $commission = $commission->fresh();
 
         // Assert we have exactly one commission attachment
