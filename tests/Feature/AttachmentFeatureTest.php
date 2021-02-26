@@ -75,7 +75,7 @@ class AttachmentFeatureTest extends TestCase
 
         $res = Livewire::test('commission.attachments', ['commission' => $commission])
             ->set('file', $file);
-        dd($res);
+        dd($res->lastErrorBag);
         $commission = $commission->fresh();
 
         // Assert we have exactly one commission attachment
