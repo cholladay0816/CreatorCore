@@ -73,9 +73,10 @@ class AttachmentFeatureTest extends TestCase
         $file = UploadedFile::fake()->image('test.png', '64', '64');
         // Attempt to upload this image as an attachment
 
-        $res = Livewire::test('commission.attachments', ['commission' => $commission])
-            ->set('file', $file);
-        dd($res->lastErrorBag);
+        Livewire::test('commission.attachments', ['commission' => $commission])
+            ->set('file', $file)
+            ->assertHasNoErrors()
+            ->assertRedirect(route('commissions.show', $commission));
         $commission = $commission->fresh();
 
         // Assert we have exactly one commission attachment
