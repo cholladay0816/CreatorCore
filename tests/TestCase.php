@@ -24,9 +24,6 @@ abstract class TestCase extends BaseTestCase
                 $stripe->accounts->delete($user->stripe_account_id);
             }
         }
-        Commission::all()->map(function ($commission) {
-            $commission->delete();
-        });
 
         parent::tearDown();
     }
