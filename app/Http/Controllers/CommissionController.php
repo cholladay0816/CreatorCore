@@ -184,10 +184,9 @@ class CommissionController extends Controller
         } elseif ($commission->status == 'Active') {
             if (!$commission->isBuyer()) {
                 // if (!$commission->isCreator()) {
-                    abort(401);
+                abort(401);
                 // }
                 // $commission->cancel();
-
             }
             if ($commission->expiration_date > now()) {
                 abort(401);
