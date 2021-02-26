@@ -73,7 +73,7 @@ class AttachmentFeatureTest extends TestCase
         $this->actingAs($user);
         Livewire::test('commission.attachments', ['commission' => $commission])
             ->set('file', $file)
-            ->assertRedirect(route('commissions.show', $commission));
+            ->assertHasNoErrors();
 
         $commission = $commission->fresh();
 
