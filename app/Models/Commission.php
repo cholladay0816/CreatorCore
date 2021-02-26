@@ -228,7 +228,7 @@ class Commission extends Model
         CommissionEvent::create(
             [
                 'commission_id' => $this->id,
-                'title' => 'Accepted by ' . $this->buyer->name, 'color' => 'green-500', 'status' => 'Active'
+                'title' => 'Accepted by ' . $this->creator->name, 'color' => 'green-500', 'status' => 'Active'
             ]
         );
     }
