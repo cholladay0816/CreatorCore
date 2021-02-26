@@ -14,7 +14,7 @@ class Attachments extends Component
     public $commission;
     public $hasErrors = false;
     protected $rules = [
-        'file' => 'file|image|max:4096'
+        'file' => 'required|file|image|max:4096'
     ];
 
     public function render()
@@ -26,7 +26,14 @@ class Attachments extends Component
     public function updatedFile()
     {
         $this->validate();
-
+        if (!$this->commission->isCreator()) {
+            $this->addError('file', 'You are not the creator of this commission.');
+            return null;
+        }
+        if (!in_array($this->commission->status, ['Active', 'Overdue'])) {
+            $this->addError('file', 'This commission is no longer open for changes.');
+            return null;
+        }
         $path = $this->file->store('attachments');
         $attachment = new Attachment();
         $attachment->user_id = auth()->id();
