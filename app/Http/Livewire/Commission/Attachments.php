@@ -28,9 +28,11 @@ class Attachments extends Component
         $this->validate();
         if (!$this->commission->isCreator()) {
             $this->addError('file', 'You are not the creator of this commission.');
+            return null;
         }
         if (!in_array($this->commission->status, ['Active', 'Overdue'])) {
             $this->addError('file', 'This commission is no longer open for changes.');
+            return null;
         }
         $path = $this->file->store('attachments');
         $attachment = new Attachment();
@@ -47,6 +49,7 @@ class Attachments extends Component
         $attachment = Attachment::find($id);
         if (!$attachment->canEdit()) {
             $this->addError('file', 'This commission is no longer open for changes.');
+            return null;
         }
         $attachment->delete();
     }
