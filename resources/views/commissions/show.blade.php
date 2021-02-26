@@ -139,7 +139,7 @@
                                                         <p class="text-sm text-gray-500">{{$event->title}}</p>
                                                     </div>
                                                     <div class="text-right text-sm whitespace-nowrap text-gray-500">
-                                                        <time datetime="{{$event->created_at}}">{{$event->created_at->format("M d")}}</time>
+                                                        <time datetime="{{$event->created_at}}">{{$event->created_at->timezone('America/Chicago')->format("M d [h:i A]")}}</time>
                                                     </div>
                                                 </div>
                                             </div>
