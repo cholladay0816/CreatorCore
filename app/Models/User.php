@@ -82,6 +82,31 @@ class User extends Authenticatable
         return $this->hasMany(Commission::class, 'creator_id')
             ->whereIn('status', Commission::statusesCommissions());
     }
+
+    public function suspension()
+    {
+        return $this->hasMany(Suspension::class);
+    }
+
+    public function suspend(string $reason = 'No reason provided.', int $days = 7)
+    {
+        Suspension::create(['user_id' => $this->id, 'reason' => $reason, 'expires_at' => now()->addDays($days)]);
+
+        //TODO: send out emails, notifications, and restrict access
+    }
+
+    public function strikes()
+    {
+        return $this->hasMany(Strike::class)->where('created_at', '>', now()->addDays(-7));
+    }
+
+    public function addStrike($reason = 'No reason provided.')
+    {
+        Strike::create(['user_id' => $this->id]);
+        //TODO: send out emails, notifications
+        //TODO: check for three, then suspend
+    }
+
     public function orders()
     {
         return $this->hasMany(Commission::class, 'buyer_id');
