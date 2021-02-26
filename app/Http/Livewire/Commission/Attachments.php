@@ -33,7 +33,6 @@ class Attachments extends Component
             $this->addError('file', 'This commission is no longer open for changes.');
         }
         $path = $this->file->store('attachments');
-        // $this->file->delete();
         $attachment = new Attachment();
         $attachment->user_id = auth()->id();
         $attachment->commission_id = $this->commission->id;
