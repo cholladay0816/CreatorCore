@@ -1,37 +1,39 @@
 <div x-data="{ isUploading: false, hasErrors: @entangle('hasErrors')}" x-on:livewire-upload-start="isUploading = true" class="mt-1 sm:mt-0 sm:col-span-2">
-    <div class="flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md relative">
-        <input
-            wire:model="file"
-            id="file-upload" name="file-upload" type="file" class="absolute inset-0 z-50 m-0 p-0 w-full h-full outline-none opacity-0"
-        >
+    @if($commission->canEdit())
+        <div class="flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md relative">
+            <input
+                wire:model="file"
+                id="file-upload" name="file-upload" type="file" class="absolute inset-0 z-50 m-0 p-0 w-full h-full outline-none opacity-0"
+            >
 
-        <div class="space-y-1 text-center" x-show="!isUploading || hasErrors" >
-            <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
-                <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg>
-            <div class="flex text-sm text-gray-600">
-                <label for="file-upload" class="relative cursor-pointer bg-white rounded-md font-medium text-lightBlue-600 hover:text-lightBlue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-lightBlue-500">
-                    <span>Upload a file</span>
-                    </label>
-                <p class="pl-1">or drag and drop</p>
+            <div class="space-y-1 text-center" x-show="!isUploading || hasErrors" >
+                <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                    <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                <div class="flex text-sm text-gray-600">
+                    <label for="file-upload" class="relative cursor-pointer bg-white rounded-md font-medium text-lightBlue-600 hover:text-lightBlue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-lightBlue-500">
+                        <span>Upload a file</span>
+                        </label>
+                    <p class="pl-1">or drag and drop</p>
+                </div>
+                <p class="text-xs text-gray-500">
+                    PNG, JPG, GIF up to 4MB
+                </p>
             </div>
-            <p class="text-xs text-gray-500">
-                PNG, JPG, GIF up to 4MB
-            </p>
-        </div>
-        <div class="space-y-1 text-center" x-show="isUploading && !hasErrors">
-            <div>
-                <span class="text-lightBlue-400 inline-flex items-center border border-transparent text-base leading-6 font-medium rounded-md transition ease-in-out duration-150">
-                    File uploading...
-                </span>
+            <div class="space-y-1 text-center" x-show="isUploading && !hasErrors">
+                <div>
+                    <span class="text-lightBlue-400 inline-flex items-center border border-transparent text-base leading-6 font-medium rounded-md transition ease-in-out duration-150">
+                        File uploading...
+                    </span>
+                </div>
             </div>
         </div>
-    </div>
-    @error('file')
-    <p class="text-sm text-red-500">
-        {{$message}}
-    </p>
-    @enderror
+        @error('file')
+        <p class="text-sm text-red-500">
+            {{$message}}
+        </p>
+        @enderror
+    @endif
     @if(count($commission->attachments))
     <dt class="pt-4 text-sm font-medium text-gray-500">
         Attachments
