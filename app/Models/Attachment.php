@@ -43,12 +43,7 @@ class Attachment extends Model
         if (Gate::allows('manage-content')) {
             return true;
         }
-        if ($this->commission->isCreator()) {
-            if (in_array($this->commission->status, ['Active', 'Overdue'])) {
-                return true;
-            }
-        }
-        return false;
+        return $this->commission->isCreator() && in_array($this->commission->status, ['Active', 'Overdue']);
     }
 
     public function user()
