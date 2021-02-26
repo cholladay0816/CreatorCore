@@ -127,7 +127,7 @@
                                                     <span class="h-8 w-8 rounded-full bg-{{$event->color}} flex items-center justify-center ring-8 ring-white">
                                                       <!-- Heroicon name: solid/user -->
                                                       <svg class="h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                                                          {!! \App\Helpers\CommissionHelper::getSVG($event->status)!!}
                                                       </svg>
                                                     </span>
                                                 </div>
