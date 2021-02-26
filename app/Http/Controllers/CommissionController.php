@@ -183,7 +183,11 @@ class CommissionController extends Controller
                 ->with(['success' => 'Commission declined']);
         } elseif ($commission->status == 'Active') {
             if (!$commission->isBuyer()) {
-                abort(401);
+                // if (!$commission->isCreator()) {
+                    abort(401);
+                // }
+                // $commission->cancel();
+
             }
             if ($commission->expiration_date > now()) {
                 abort(401);
