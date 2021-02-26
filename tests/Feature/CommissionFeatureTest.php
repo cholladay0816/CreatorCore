@@ -252,10 +252,10 @@ class CommissionFeatureTest extends TestCase
         ]);
         $this->actingAs($seller)
             ->put(route('commissions.update', $commission->fresh()))
-            ->assertSessionHas('success', 'Commission accepted')
-            ->assertRedirect(route('commissions.index'));
+            ->assertRedirect(route('commissions.show', $commission))
+            ->assertSessionHas('success', 'Commission accepted');
 
-        $this->assertEquals('Purchasing', $commission->fresh()->status);
+        $this->assertEquals('Active', $commission->fresh()->status);
     }
 
     /** @test */
