@@ -31,6 +31,17 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Layout
+    |--------------------------------------------------------------------------
+    | The default layout view that will be used when rendering a component via
+    | Route::get('/some-endpoint', SomeComponent::class);. In this case the
+    | the view returned by SomeComponent will be wrapped in "layouts.app"
+    |
+    */
+    'layout' => 'layouts.app',
+
+    /*
+    |--------------------------------------------------------------------------
     | Livewire Assets URL
     |--------------------------------------------------------------------------
     |
@@ -42,7 +53,7 @@ return [
     |
     */
 
-    'asset_url'  => null,
+    'asset_url' => null,
 
     /*
     |--------------------------------------------------------------------------
@@ -55,7 +66,7 @@ return [
     |
     */
 
-    'middleware_group'  => 'web',
+    'middleware_group' => 'web',
 
     /*
     |--------------------------------------------------------------------------
@@ -71,13 +82,15 @@ return [
 
     'temporary_file_upload' => [
         'disk' => null,        // Example: 'local', 's3'              Default: 'default'
-        'rules' => null,       // Example: ['file', 'mimes:png,jpg']  Default: ['required', 'file', 'max:12288'] (12MB)
+        'rules' => ['file', 'mimes:png,jpg,jpeg,gif,bmp,svg', 'max:' . config('commission.max_file_size')],       // Example: ['file', 'mimes:png,jpg']  Default: ['required', 'file', 'max:12288'] (12MB)
         'directory' => null,   // Example: 'tmp'                      Default  'livewire-tmp'
-        'middleware' => null,  // Example: 'throttle:5,1'             Default: 'throttle:60,1'
+        'middleware' => 'throttle:3,1',
         'preview_mimes' => [   // Supported file types for temporary pre-signed file URLs.
-            'png', 'gif',
-            'jpeg',
+            'png', 'gif', 'bmp', 'svg', 'wav', 'mp4',
+            'mov', 'avi', 'wmv', 'mp3', 'm4a',
+            'jpg', 'jpeg', 'mpga', 'webp', 'wma',
         ],
+        'max_upload_time' => 2, // Max duration (in minutes) before an upload gets invalidated.
     ],
 
     /*

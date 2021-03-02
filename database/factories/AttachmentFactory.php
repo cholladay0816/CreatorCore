@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Attachment;
+use App\Models\Commission;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AttachmentFactory extends Factory
@@ -22,7 +24,11 @@ class AttachmentFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'user_id' => ($user = User::factory()->create())->id,
+            'commission_id' => Commission::factory()->create(['creator_id'=>$user->id])->id,
+            'size' => $this->faker->numberBetween(1, 1024),
+            'path' => 'attachments/' . $this->faker->imageUrl(),
+            'type' => 'image/png',
         ];
     }
 }

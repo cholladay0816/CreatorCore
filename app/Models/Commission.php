@@ -2,209 +2,433 @@
 
 namespace App\Models;
 
-use DateTimeZone;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Str;
+use Stripe\StripeClient;
 
 class Commission extends Model
 {
     use HasFactory;
 
-    protected $dates = ['created_at', 'updated_at', 'expiration_date'];
+    protected $guarded = [];
 
-    public function earnings()
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'expires_at',
+    ];
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
     {
-        return $this->price * ($this->isBuyer()?-1:1);
+        return 'slug';
     }
 
-    public function buyer()
+    public static function statuses()
+    {
+        return [
+            'Unpaid'=>'Unpaid',
+            'Pending'=>'Pending',
+            'Declined'=>'Declined',
+            'Purchasing'=>'Purchasing',
+            'Failed'=>'Failed',
+            'Active'=>'Active',
+            'Overdue'=>'Overdue',
+            'Expired'=>'Expired',
+            'Completed'=>'Completed',
+            'Disputed'=>'Disputed',
+            'Refunded'=>'Refunded',
+            'Archived'=>'Archived',
+        ];
+    }
+    public static function statusesCommissions()
+    {
+        return [
+            'Pending'=>'Pending',
+            'Active'=>'Active',
+            'Overdue'=>'Overdue',
+            'Expired'=>'Expired',
+            'Completed'=>'Completed',
+            'Disputed'=>'Disputed',
+            'Refunded'=>'Refunded',
+            'Archived'=>'Archived',
+        ];
+    }
+    public static function statusPriorityCommissions()
+    {
+        return [
+            'Overdue' => 0,
+            'Active' => 1,
+            'Pending' => 2,
+            'Disputed' => 3,
+            'Completed' => 4,
+            'Archived' => 5,
+            'Refunded' => 6,
+            'Expired' => 7,
+            'Purchasing' => 11,
+            'Declined' => 11,
+            'Unpaid' => 11,
+            'Failed' => 11,
+        ];
+    }
+    public static function statusPriorityOrders()
+    {
+        return [
+            'Unpaid' => 0,
+            'Failed' => 1,
+            'Pending' => 2,
+            'Overdue' => 3,
+            'Active' => 4,
+            'Disputed' => 5,
+            'Completed' => 6,
+            'Purchasing' => 7,
+            'Archived' => 8,
+            'Refunded' => 9,
+            'Expired' => 10,
+            'Declined' => 11
+        ];
+    }
+
+    public function displayTitle()
+    {
+        return '[$' . $this->price . '] ' . $this->title;
+    }
+    public function getDisplayTitleAttribute()
+    {
+        return $this->displayTitle();
+    }
+
+    public function canView()
+    {
+        if (Gate::allows('manage-content')) {
+            return true;
+        }
+        if (auth()->guest()) {
+            return false;
+        }
+        if (!$this->isBuyer() && !$this->isCreator()) {
+            return false;
+        }
+
+        return true;
+    }
+    public function canEdit()
+    {
+        if (Gate::allows('manage-content')) {
+            return true;
+        }
+        if ($this->isCreator() && in_array($this->status, ['Active', 'Overdue'])) {
+            return true;
+        }
+        return false;
+    }
+    public function isBuyer()
+    {
+        if (auth()->guest()) {
+            return false;
+        }
+        return auth()->id() == $this->buyer_id;
+    }
+    public function isCreator()
+    {
+        if (auth()->guest()) {
+            return false;
+        }
+        return auth()->id() == $this->creator_id;
+    }
+    public function partner()
+    {
+        return $this->isCreator()?$this->buyer:$this->creator;
+    }
+    public function getPartnerAttribute()
+    {
+        return $this->partner();
+    }
+
+    public function events(): HasMany
+    {
+        return $this->hasMany(CommissionEvent::class);
+    }
+
+    public function buyer(): BelongsTo
     {
         return $this->belongsTo(User::class, 'buyer_id');
     }
-    public function creator()
+    public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'creator_id');
     }
-    public function preset()
+    public function preset(): BelongsTo
     {
-        return $this->belongsTo(CommissionPreset::class, 'preset_id');
+        return $this->belongsTo(CommissionPreset::class, 'commission_preset_id');
     }
     public function attachments()
     {
         return $this->hasMany(Attachment::class, 'commission_id');
     }
-    public function isBuyer()
+
+    public function getSlug()
     {
-        return auth()->user()->id == $this->buyer_id;
+        return Str::slug(($this->id??(Commission::count() + 1)) . '-' . $this->title);
     }
-    public function isCreator()
+
+    protected static function boot()
     {
-        return auth()->user()->id == $this->creator_id;
-    }
-    public function isExpired()
-    {
-        return $this->expiration_date < now();
-    }
-    public function getTip()
-    {
-        if($this->preset == null)
-            return 0;
-        if($this->price > $this->preset->value)
-            return $this->price - $this->preset->value;
-        return 0;
-    }
-    public function taxPrice()
-    {
-        return ceil($this->price * 100 + ($this->price * 100 * env('COMMISSION_SALES_TAX')))/100;
-    }
-    public function truePrice()
-    {
-        return 0.01*(($this->taxPrice()*100) + env('STRIPE_FLAT_TAX') + ceil((($this->taxPrice()*100) + env('STRIPE_FLAT_TAX')) * env('STRIPE_SALES_TAX')));
-    }
-    public function hoursleft()
-    {
-        if($this->isExpired())
-            return 0;
-        $d1 = new \DateTime(now());
-        $d2 = new \DateTime($this->expiration_date);
-        $diff = $d1->diff($d2);
-        return ($diff->days*24 + $diff->h);
-    }
-    public function delivery_date()
-    {
-        if($this->status == 'Pending')
-        {
-            $date = new \DateTime($this->expiration_date);
-            $date->add(new \DateInterval('P' . $this->days_to_complete . 'D'));
-        }
-        else if($this->status == 'Active')
-        {
-            $date = new \DateTime($this->expiration_date);
-        }
-        return $date;
-    }
-    public function delivery_days()
-    {
-        $d1 = new \DateTime(now());
-        $d2 = $this->delivery_date();
-        $diff = $d1->diff($d2);
-        return $diff->days;
-    }
-    public function processing_date()
-    {
-        $date = $this->delivery_date();
-        $date->add(new \DateInterval('P7D'));
-        return $date;
-    }
-    public function processing_days()
-    {
-        return 7;
-    }
-    public function getLocalExpiration()
-    {
-        return $this->expiration_date->diffForHumans();
-    }
-    public function removeAttachments()
-    {
-        $this->attachments->each(function($attachment){
-            $attachment->remove();
+        self::creating(function ($commission) {
+            if ($commission->commission_preset_id != null) {
+                $preset = $commission->preset;
+                $commission->title = $preset->title;
+                $commission->description = $preset->description;
+                $commission->price = $preset->price;
+                $commission->days_to_complete = $preset->days_to_complete;
+            }
+            $commission->slug = $commission->getSlug();
         });
-    }
-    public function lockAttachments()
-    {
-        $this->attachments->each(function($attachment){
-            $attachment->lock();
+        self::created(function ($commission) {
+            $commission->slug = $commission->getSlug();
+            CommissionEvent::create(
+                [
+                    'commission_id' => $commission->id,
+                    'title' => 'Created Commission', 'color' => 'gray-400', 'status' => 'Unpaid'
+                ]
+            );
         });
-    }
-    public function unlistAttachments()
-    {
-        $this->attachments->each(function($att){
-            $att->unlist();
+        self::factory(function ($commission) {
+            $commission->slug = $commission->getSlug();
         });
-    }
-    public function accept()
-    {
-        //Send notification to Buyer
-        $this->status = 'Unpaid';
-        $this->expiration_date = new \DateTime('now + 3 day',new DateTimeZone('America/Chicago'));
-        return $this->save();
+
+        parent::boot();
     }
     public function decline()
     {
-        //Send notification to Buyer
-        //Refund payment
+        // TODO: send emails and notifications
         $this->status = 'Declined';
-        $this->expiration_date = now()->toString();
-        return $this->save();
+        $this->save();
+        CommissionEvent::create(
+            [
+                'commission_id' => $this->id,
+                'title' => 'Declined by ' . $this->buyer->name, 'color' => 'red-500', 'status' => 'Declined'
+            ]
+        );
     }
-    public function pay()
+    public function accept()
     {
-        if($this->status != 'Unpaid')
-        {
+        // TODO: send emails and notifications
+        $this->status = 'Active';
+        $this->expires_at = now()->addDays($this->days_to_complete);
+        $this->save();
+        CommissionEvent::create(
+            [
+                'commission_id' => $this->id,
+                'title' => 'Accepted by ' . $this->creator->name, 'color' => 'green-500', 'status' => 'Active'
+            ]
+        );
+    }
+    public function attemptCharge()
+    {
+        if ($this->invoice_id) {
             return null;
         }
-        $this->status = 'Active';
-        //Send Notification to Creator
-        $this->expiration_date = new \DateTime('now + '.$this->days_to_complete.' day',new DateTimeZone('America/Chicago'));
-        return $this->save();
+
+        $this->buyer->createOrGetStripeCustomer();
+        if ($this->buyer->hasPaymentMethod()) {
+            try {
+                $amount = $this->price * 100;
+                $total = $amount + 30;
+                $total += ceil(($this->price * 0.06) * 100);
+
+                $invoice = $this->buyer->invoiceFor($this->displayTitle(), $total);
+                $this->invoice_id = $invoice->id;
+                $this->status = 'Purchasing';
+                $this->save();
+                return $invoice;
+            } catch (\Exception $e) {
+                return $e;
+            }
+        }
+        return null;
     }
-    public function cancel()
+
+    public function checkInvoiceStatus()
     {
-        $this->removeAttachments();
-        $this->rebate();
-        //Send notification to Buyer
-        //Give strike to Creator
-        $this->status = 'Canceled';
-        $this->expiration_date = now();
-        return $this->save();
+        $stripe = new \Stripe\StripeClient(
+            config('stripe.secret'),
+        );
+        $invoice = $stripe->invoices->retrieve(
+            $this->invoice_id,
+        );
+        if ($invoice->status == 'paid') {
+            $this->chargeSuccess();
+        }
     }
-    public function expire()
+
+    public function chargeSuccess()
     {
-        $this->removeAttachments();
-        $this->rebate();
-        //Send notification to Creator
-        $this->status = 'Expired';
-        $this->expiration_date = now();
-        return $this->save();
+        // TODO: send emails and notifications
+        $this->status = 'Pending';
+        $this->save();
+
+        CommissionEvent::create(
+            [
+                'commission_id' => $this->id,
+                'title' => 'Commission paid', 'color' => 'green-500', 'status' => 'Pending'
+            ]
+        );
     }
+
+    public function overdue()
+    {
+        // TODO: send emails and notifications
+        $this->status = 'Overdue';
+        $this->save();
+
+        CommissionEvent::create(
+            [
+                'commission_id' => $this->id,
+                'title' => 'Commission passed due date', 'color' => 'yellow-500', 'status' => 'Overdue'
+            ]
+        );
+    }
+
+    public function chargeFail()
+    {
+        $this->status = 'Failed';
+        $this->invoice_id = null;
+        $this->save();
+        // TODO: send emails and notifications
+
+        CommissionEvent::create(
+            [
+                'commission_id' => $this->id,
+                'title' => 'Payment failed', 'color' => 'red-500', 'status' => 'Failed'
+            ]
+        );
+    }
+
     public function complete()
     {
-        if($this->attachments->count() <= 0)
-            return false;
-        //Send a notification to the Buyer
-        $this->lockAttachments();
         $this->status = 'Completed';
-        $this->expiration_date = new \DateTime('now + '.env('COMMISSION_AUTO_ARCHIVE').' day',new DateTimeZone('America/Chicago'));
-        return $this->save();
-    }
-    public function archive()
-    {
-        $this->creator->addFunds($this->price);
-        //Send a notification to the Creator, payment ready
-        $this->status = 'Archived';
-        return $this->save();
+        $this->save();
+        // TODO: send emails and notifications
+        CommissionEvent::create(
+            [
+                'commission_id' => $this->id,
+                'title' => 'Order completed', 'color' => 'lightBlue-500', 'status' => 'Completed'
+            ]
+        );
     }
     public function dispute()
     {
-        //Send a notification to the Creator, dispute underway
-        //Create a case?
         $this->status = 'Disputed';
-        return $this->save();
+        $this->save();
+        // TODO: send emails and notifications
+        CommissionEvent::create(
+            [
+                'commission_id' => $this->id,
+                'title' => 'Disputed by ' . $this->buyer->name, 'color' => 'red-500', 'status' => 'Disputed'
+            ]
+        );
+    }
+
+//    public function cancel()
+//    {
+//        // TODO: send emails and notifications
+//        $this->status = 'Canceled';
+//        $this->save();
+//        $stripe = new StripeClient(config('stripe.secret'));
+//        $invoice = $stripe->invoices->retrieve($this->invoice_id, ['expand' => ['charge']]);
+//        $stripe->refunds->create([
+//            'charge' => $invoice->charge->id,
+//            'reason' => 'requested_by_customer'
+//        ]);
+//
+//        $this->creator->addStrike('Canceled commission');
+//
+//        CommissionEvent::create(
+//            [
+//                'commission_id' => $this->id,
+//                'title' => 'Expired', 'color' => 'red-500', 'status' => 'Canceled'
+//            ]
+//        );
+//    }
+
+    public function expire()
+    {
+        // TODO: send emails and notifications
+        $this->status = 'Expired';
+        $this->save();
+        $stripe = new StripeClient(config('stripe.secret'));
+        $invoice = $stripe->invoices->retrieve($this->invoice_id, ['expand' => ['charge']]);
+        $stripe->refunds->create([
+            'charge' => $invoice->charge->id,
+            'reason' => 'requested_by_customer'
+        ]);
+        CommissionEvent::create(
+            [
+                'commission_id' => $this->id,
+                'title' => 'Expired', 'color' => 'red-500', 'status' => 'Expired'
+            ]
+        );
     }
     public function refund()
     {
-        $this->rebate();
-        //Send a notification to both parties, refund payment
+        // TODO: send emails and notifications
         $this->status = 'Refunded';
-        return $this->save();
+        $this->save();
+        $stripe = new StripeClient(config('stripe.secret'));
+        $invoice = $stripe->invoices->retrieve($this->invoice_id, ['expand' => ['charge']]);
+        $stripe->refunds->create([
+            'charge' => $invoice->charge->id
+        ]);
+        CommissionEvent::create(
+            [
+                'commission_id' => $this->id,
+                'title' => 'Order refunded', 'color' => 'red-500', 'status' => 'Refunded'
+            ]
+        );
     }
-    public function rebate()
+    public function resolve()
     {
-        //Fully reimburse customer
-        $payment = Payment::where('commission_id','=',$this->id)->first();
-        $this->buyer->refund($payment->invoice_id);
-        //Deduct sales tax from creator
-        $this->creator->addFunds(($this->taxPrice() - $this->truePrice())*100);
+        // TODO: send emails and notifications
+        CommissionEvent::create(
+            [
+                'commission_id' => $this->id,
+                'title' => 'Dispute resolved', 'color' => 'yellow-500', 'status' => 'Resolved'
+            ]
+        );
+        $this->archive();
+    }
+    public function archive()
+    {
+        $this->status = 'Archived';
+        $this->save();
+        // TODO: send emails and notifications to creator
+        $stripe = new StripeClient(config('stripe.secret'));
+        $invoice = $stripe->invoices->retrieve($this->invoice_id, ['expand' => ['charge']]);
+
+        $transfer = $stripe->transfers->create(
+            [
+                'amount' => $this->price * 100,
+                'currency' => 'usd',
+                'source_transaction' => $invoice->charge->id,
+                'destination' => $this->creator->stripe_account_id,
+                'transfer_group' => $this->slug,
+            ]
+        );
+
+        CommissionEvent::create(
+            [
+                'commission_id' => $this->id,
+                'title' => 'Order archived', 'color' => 'green-500', 'status' => 'Archived'
+            ]
+        );
     }
 }

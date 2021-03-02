@@ -2,6 +2,15 @@
 
 namespace App\Providers;
 
+use App\Models\Ability;
+use App\Models\Commission;
+use App\Models\Team;
+use App\Models\User;
+use App\Nova\Role;
+use App\Policies\AbilityPolicy;
+use App\Policies\CommissionPolicy;
+use App\Policies\RolePolicy;
+use App\Policies\TeamPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -13,7 +22,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        Team::class => TeamPolicy::class,
     ];
 
     /**
@@ -25,15 +34,10 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::before(function ($user, $ability) {
-            if($user->hasAbility($ability))
-            {
+        Gate::before(function (User $user, $ability) {
+            if ($user->hasAbility($ability)) {
                 return true;
             }
-        });
-
-        Gate::define('view-as-creator', function ($user) {
-            return isset( $user->creator );
         });
     }
 }

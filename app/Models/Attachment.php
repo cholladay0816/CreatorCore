@@ -4,62 +4,82 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
-use App\Events\AttachmentDeleted;
+use Illuminate\Support\Str;
 
 class Attachment extends Model
 {
     use HasFactory;
 
-    protected $dispatchesEvents = [
-        'deleted' => AttachmentDeleted::class
-    ];
+    protected $guarded = [];
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
     public function canView()
     {
-        if($this->is_visible == 1)
+        if (Gate::allows('manage-content')) {
             return true;
-        if(!auth()->user())
-            return false;
-        return $this->commission->buyer_id == auth()->user()->id || $this->commission->creator_id == auth()->user()->id;
-
+        }
+        if ($this->review != null) {
+            return true;
+        }
+        if ($this->commission->isCreator()) {
+            return true;
+        }
+        if ($this->commission->isBuyer()) {
+            if (in_array($this->commission->status, ['Completed', 'Archived'])) {
+                return true;
+            }
+        }
+        return false;
     }
+
+    public function canEdit()
+    {
+        if (Gate::allows('manage-content')) {
+            return true;
+        }
+        return $this->commission->isCreator() && in_array($this->commission->status, ['Active', 'Overdue']);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     public function commission()
     {
         return $this->belongsTo(Commission::class, 'commission_id');
     }
-    public function remove()
+    public function review(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
-        if($this->locked==1)
-            return null;
-        Storage::delete($this->content);
-        return $this->delete();
-    }
-    public function showcase()
-    {
-        $this->visible = 1;
-        return $this->save();
-    }
-    public function unlist()
-    {
-        $this->visible = 0;
-        return $this->save();
-    }
-    public function lock()
-    {
-        $this->is_locked = 1;
-        return $this->save();
+        return $this->hasOne(Review::class);
     }
 
-    // TODO: Enable Copyright Functionality
-    public function claims()
+    public function getSlug()
     {
-        return null;
+        return Str::slug($this->id . '-' . str_replace('attachments/', '', $this->path));
     }
 
-    public function activeClaims()
+    public static function booted()
     {
-        return null;
-    }
+        static::creating(function ($attachment) {
+            $attachment->slug = str_replace('attachments/', '', $attachment->path);
+        });
+        static::created(function ($attachment) {
+            $attachment->slug = $attachment->getSlug();
+        });
+        static::factory(function ($attachment) {
+            $attachment->slug = str_replace('attachments/', '', $attachment->path);
+        });
 
+        //If the object is being deleted, remove the saved attachment.
+        static::deleting(function ($attachment) {
+            Storage::delete($attachment->path);
+        });
+    }
 }

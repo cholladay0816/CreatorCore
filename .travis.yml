@@ -1,0 +1,20 @@
+language: php
+
+php:
+  - 7.4
+
+before_script:
+  - cp .env.travis .env
+  - composer self-update
+  - composer install --no-interaction
+
+install:
+  - echo "{\"http-basic\":{\"nova.laravel.com\":{\"username\":\"${NOVA_USERNAME}\",\"password\":\"${NOVA_PASSWORD}\"}}}" > auth.json
+
+script:
+  - php artisan key:generate
+  - php artisan test -c phpunit.xml
+
+cache:
+  directories:
+    - vendor

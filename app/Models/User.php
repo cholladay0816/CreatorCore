@@ -6,28 +6,30 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Cashier\Billable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
+use Laravel\Jetstream\HasTeams;
+use Laravel\Nova\Actions\Actionable;
 use Laravel\Sanctum\HasApiTokens;
-use Laravel\Cashier\Billable;
 
 class User extends Authenticatable
 {
     use HasApiTokens;
     use HasFactory;
     use HasProfilePhoto;
+    use HasTeams;
     use Notifiable;
     use TwoFactorAuthenticatable;
     use Billable;
+    use Actionable;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'name', 'email', 'password',
     ];
 
     /**
@@ -60,45 +62,132 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function addFunds($amount)
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
     {
-        $balance = $this->asStripeCustomer()->balance;
-        $newbalance = $balance - ($amount * 100);
-        $this->updateStripeCustomer(['balance' => $newbalance]);
+        return 'name';
     }
 
-    public function gallery()
-    {
-        return $this->hasMany(Gallery::class);
-    }
-    public function presets()
+    public function commissionPresets()
     {
         return $this->hasMany(CommissionPreset::class);
     }
-    public function reviews()
+
+    public function commissions()
     {
-        return $this->hasMany(Review::class);
-    }
-    public function creator()
-    {
-        return $this->hasOne(Creator::class, 'user_id');
+        return $this->hasMany(Commission::class, 'creator_id')
+            ->whereIn('status', Commission::statusesCommissions());
     }
 
-    public function administrator()
+    public function suspension()
     {
-        return $this->hasOne(Administrator::class, 'user_id', 'id');
+        return $this->hasMany(Suspension::class);
     }
 
-    public function isAdministrator()
+    public function suspend(string $reason = 'No reason provided.', int $days = 7)
     {
-        return !is_null($this->administrator);
+        Suspension::create(['user_id' => $this->id, 'reason' => $reason, 'expires_at' => now()->addDays($days)]);
+
+        //TODO: send out emails, notifications, and restrict access
     }
 
-    public function hasAbility($ability)
+    public function strikes()
     {
-        if(!$this->isAdministrator()) {
-            return false;
+        return $this->hasMany(Strike::class)->where('created_at', '>', now()->addDays(-7));
+    }
+
+    public function addStrike($reason = 'No reason provided.')
+    {
+        Strike::create(['user_id' => $this->id]);
+        //TODO: send out emails, notifications
+        //TODO: check for three, then suspend
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Commission::class, 'buyer_id');
+    }
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+    public function notifications(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Notification::class);
+    }
+    public function abilities()
+    {
+        return $this->roles->map->abilities->flatten();
+    }
+    public function getAbilitiesAttribute()
+    {
+        return $this->abilities();
+    }
+
+    public function hasAbility($slug)
+    {
+        return $this->abilities->where('slug', $slug)->count() > 0;
+    }
+
+    public function canAcceptPayments()
+    {
+        if (config('app.env') == 'testing') {
+            return true;
         }
-        return $this->administrator->abilities()->contains($ability);
+        $account = $this->fetchStripeAccount();
+        return (count($account->requirements->currently_due) == 0);
+    }
+
+    public function isOnboarded()
+    {
+        $account = $this->fetchStripeAccount();
+        return $account->details_submitted;
+    }
+
+    public function fetchStripeAccount()
+    {
+        \Stripe\Stripe::setApiKey(config('stripe.secret'));
+        if (!$this->stripe_account_id) {
+            $account = \Stripe\Account::create([
+                'country' => 'US',
+                'type' => 'express',
+            ]);
+            $this->stripe_account_id = $account->id;
+            $this->save();
+        } else {
+            $account = \Stripe\Account::retrieve($this->stripe_account_id);
+            if (!$account) {
+                $account = \Stripe\Account::create([
+                        'country' => 'US',
+                        'type' => 'express',
+                    ]);
+            }
+            $this->stripe_account_id = $account->id;
+            $this->save();
+        }
+        return $account;
+    }
+
+    protected static function boot()
+    {
+        self::created(function ($user) {
+            // $user->createOrGetStripeCustomer();
+        });
+
+        self::deleting(function ($user) {
+            $stripe = new \Stripe\StripeClient(
+                config('stripe.secret')
+            );
+            if ($user->stripe_id) {
+                $stripe->customers->delete($user->stripe_id);
+            }
+        });
+
+
+        parent::boot();
     }
 }
