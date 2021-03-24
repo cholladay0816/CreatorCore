@@ -341,7 +341,7 @@
                                 </div>
                                 <div class="mt-6">
                                     <h2 class="text-3xl font-extrabold tracking-tight text-gray-900">
-                                        Stay on top of customer support
+                                        Stay on top of commissions
                                     </h2>
                                     <p class="mt-4 text-lg text-gray-500">
                                         Semper curabitur ullamcorper posuere nunc sed. Ornare iaculis bibendum malesuada faucibus lacinia porttitor. Pulvinar laoreet sagittis viverra duis. In venenatis sem arcu pretium pharetra at. Lectus viverra dui tellus ornare pharetra.
