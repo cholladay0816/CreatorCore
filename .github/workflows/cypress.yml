@@ -25,6 +25,11 @@ jobs:
         run: |
           mkdir -p database
           touch database/database.sqlite
+      - name: Migrate DB
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: database/database.sqlite
+        run: php artisan migrate --seed
       - name: Cypress run
         uses: cypress-io/github-action@v2
         env:
