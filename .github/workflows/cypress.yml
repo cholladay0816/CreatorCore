@@ -25,7 +25,8 @@ jobs:
         run: |
           mkdir -p database
           touch database/database.sqlite
-      - name: Execute tests (Unit and Feature tests) via PHPUnit
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
         env:
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
@@ -34,8 +35,6 @@ jobs:
           PLAID_CLIENT_ID: ${{ secrets.PLAID_CLIENT_ID }}
           PLAID_KEY: ${{ secrets.PLAID_KEY }}
           PLAID_SECRET: ${{ secrets.PLAID_SECRET }}
-      - name: Cypress run
-        uses: cypress-io/github-action@v2
         with:
           start: php artisan serve
           wait-on: 'http://localhost:8000'
