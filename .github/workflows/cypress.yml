@@ -1,4 +1,4 @@
-name: With server
+name: Cypress
 on: [push, pull_request]
 jobs:
   cypress-run:
@@ -9,7 +9,9 @@ jobs:
           php-version: '8.0'
       - uses: actions/checkout@v2
       - name: Copy .env
-        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+        run: |
+          php -r "file_exists('.env') || copy('.env.example', '.env');"
+          php -r "file_exists('.env.cypress') || copy('.env.example', '.env.cypress');"
       - name: Login to Laravel Nova
         run: composer config http-basic.nova.laravel.com ${NOVA_USERNAME} ${NOVA_PASSWORD}
         env:
@@ -25,7 +27,13 @@ jobs:
         run: |
           mkdir -p database
           touch database/database.sqlite
-      - name: Execute tests (Unit and Feature tests) via PHPUnit
+      - name: Migrate DB
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: database/database.sqlite
+        run: php artisan migrate --seed
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
         env:
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
@@ -34,8 +42,11 @@ jobs:
           PLAID_CLIENT_ID: ${{ secrets.PLAID_CLIENT_ID }}
           PLAID_KEY: ${{ secrets.PLAID_KEY }}
           PLAID_SECRET: ${{ secrets.PLAID_SECRET }}
-      - name: Cypress run
-        uses: cypress-io/github-action@v2
         with:
           start: php artisan serve
           wait-on: 'http://localhost:8000'
+      - uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots

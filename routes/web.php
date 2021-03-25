@@ -3,6 +3,7 @@
 use App\Http\Controllers\AttachmentController;
 use App\Http\Controllers\CashierWebhookController;
 use App\Http\Controllers\CommissionController;
+use App\Http\Controllers\ExploreController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\SourceController;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,9 @@ Route::post(
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/explore', [ExploreController::class, 'index'])
+->name('explore');
 
 Route::get('/attachments/{attachment}', [AttachmentController::class, 'show'])
     ->middleware('attachments.canview')

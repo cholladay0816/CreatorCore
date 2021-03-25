@@ -39,7 +39,7 @@ describe('Commissions', function () {
             .window()
             .contains('$543.21')
             .window()
-            .contains('5 days')
+            .contains('5')
         });
     });
 });
