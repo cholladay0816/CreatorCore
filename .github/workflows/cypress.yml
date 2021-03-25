@@ -10,8 +10,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: Copy .env
         run: |
-          - php -r "file_exists('.env') || copy('.env.example', '.env');"
-          - php -r "file_exists('.env.cypress') || copy('.env.example', '.env.cypress');"
+          php -r "file_exists('.env') || copy('.env.example', '.env');"
+          php -r "file_exists('.env.cypress') || copy('.env.example', '.env.cypress');"
       - name: Login to Laravel Nova
         run: composer config http-basic.nova.laravel.com ${NOVA_USERNAME} ${NOVA_PASSWORD}
         env:
