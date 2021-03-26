@@ -1,7 +1,7 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
-<a href="https://www.travis-ci.com/cholladay0816/CreatorCore"><img src="https://www.travis-ci.com/cholladay0816/CreatorCore.svg" alt="Build Status"></a>
+<a href="https://github.com/cholladay0816/CreatorCore"><img src="https://github.com/cholladay0816/CreatorCore/actions/workflows/phpunit.yml/badge.svg" alt="Build Status"></a>
 </p>
 <p align="center">
 <a href="https://forthebadge.com"><img height="40px" src="https://forthebadge.com/images/badges/works-on-my-machine.svg"/></a>
