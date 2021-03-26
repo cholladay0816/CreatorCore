@@ -4,7 +4,7 @@
 <a href="https://www.travis-ci.com/cholladay0816/CreatorCore"><img src="https://www.travis-ci.com/cholladay0816/CreatorCore.svg" alt="Build Status"></a>
 </p>
 <p align="center">
-<a href="https://forthebadge.com"><img src="https://forthebadge.com/images/badges/works-on-my-machine.svg"/></a>
+<a href="https://forthebadge.com"><img height="40px" src="https://forthebadge.com/images/badges/works-on-my-machine.svg"/></a>
 </p>
 <p align="center">
 <a href="https://forthebadge.com"><img src="https://forthebadge.com/images/badges/for-you.svg"/></a>
