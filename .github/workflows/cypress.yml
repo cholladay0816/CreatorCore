@@ -22,9 +22,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
-      - name: Lint
-        uses: overtrue/phplint@master
-
       - name: Copy ENV Laravel Configuration for CI
         env:
           MYSQL_DATABASE: forge
@@ -41,11 +38,11 @@ jobs:
         run: |
           php -r "file_exists('.env') || copy('.env.ci', '.env');"
           echo 'STRIPE_KEY=${STRIPE_KEY}' >> .env
+          echo 'STRIPE_SECRET=${STRIPE_SECRET}' >> .env
+          echo 'PLAID_CLIENT_ID=${PLAID_CLIENT_ID}' >> .env
+          echo 'PLAID_KEY=${PLAID_KEY}' >> .env
+          echo 'PLAID_SECRET=${PLAID_SECRET}' >> .env
 
-      - name: Use Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
       - name: Login to Laravel Nova
         run: composer config http-basic.nova.laravel.com ${NOVA_USERNAME} ${NOVA_PASSWORD}
         env:
@@ -56,9 +53,6 @@ jobs:
 
       - name: Generate key
         run: php artisan key:generate
-
-      - name: Build site
-        run: npm run dev
 
       - name: Migrate MySQL DB
         env:
