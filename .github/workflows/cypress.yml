@@ -1,52 +1,88 @@
 name: Cypress
 on: [push, pull_request]
 jobs:
-  cypress-run:
+  build-and-run-tests:
     runs-on: ubuntu-16.04
+
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: forge
+          MYSQL_DATABASE: forge
+          DB_HOST: 127.0.0.1
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
     steps:
-      - uses: shivammathur/setup-php@b7d1d9c9a92d8d8463ce36d7f60da34d461724f8
-        with:
-          php-version: '8.0'
-      - uses: actions/checkout@v2
-      - name: Copy .env
-        run: |
-          php -r "file_exists('.env') || copy('.env.example', '.env');"
-          php -r "file_exists('.env.cypress') || copy('.env.example', '.env.cypress');"
-      - name: Login to Laravel Nova
-        run: composer config http-basic.nova.laravel.com ${NOVA_USERNAME} ${NOVA_PASSWORD}
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Copy ENV Laravel Configuration for CI
         env:
-          NOVA_PASSWORD: ${{ secrets.NOVA_PASSWORD }}
-          NOVA_USERNAME: ${{ secrets.NOVA_USERNAME }}
-      - name: Install Dependencies
-        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-      - name: Generate key
-        run: php artisan key:generate
-      - name: Directory Permissions
-        run: chmod -R 777 storage bootstrap/cache
-      - name: Create Database
-        run: |
-          mkdir -p database
-          touch database/database.sqlite
-      - name: Migrate DB
-        env:
-          DB_CONNECTION: sqlite
-          DB_DATABASE: database/database.sqlite
-        run: php artisan migrate --seed
-      - name: Cypress run
-        uses: cypress-io/github-action@v2
-        env:
-          DB_CONNECTION: sqlite
-          DB_DATABASE: database/database.sqlite
+          MYSQL_DATABASE: forge
+          DB_CONNECTION: mysql
+          DB_DATABASE: forge
+          DB_PORT: 3306
+          DB_USERNAME: root
+          DB_PASSWORD: forge
           STRIPE_KEY: ${{ secrets.STRIPE_KEY }}
           STRIPE_SECRET: ${{ secrets.STRIPE_SECRET }}
           PLAID_CLIENT_ID: ${{ secrets.PLAID_CLIENT_ID }}
           PLAID_KEY: ${{ secrets.PLAID_KEY }}
           PLAID_SECRET: ${{ secrets.PLAID_SECRET }}
+        run: |
+          php -r "file_exists('.env') || copy('.env.ci', '.env');"
+          echo 'STRIPE_KEY=${STRIPE_KEY}' >> .env
+          echo 'STRIPE_SECRET=${STRIPE_SECRET}' >> .env
+          echo 'PLAID_CLIENT_ID=${PLAID_CLIENT_ID}' >> .env
+          echo 'PLAID_KEY=${PLAID_KEY}' >> .env
+          echo 'PLAID_SECRET=${PLAID_SECRET}' >> .env
+
+      - name: Login to Laravel Nova
+        run: composer config http-basic.nova.laravel.com ${NOVA_USERNAME} ${NOVA_PASSWORD}
+        env:
+          NOVA_PASSWORD: ${{ secrets.NOVA_PASSWORD }}
+          NOVA_USERNAME: ${{ secrets.NOVA_USERNAME }}
+      - name: Install Dependencies (PHP vendors)
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist && npm ci
+
+      - name: Generate key
+        run: php artisan key:generate
+
+      - name: Migrate MySQL DB
+        env:
+          MYSQL_DATABASE: forge
+          DB_CONNECTION: mysql
+          DB_DATABASE: forge
+          DB_PORT: 3306
+          DB_USERNAME: root
+          DB_PASSWORD: forge
+        run: php artisan migrate:fresh --seed
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
         with:
+          browser: chrome
+          install: false
           start: php artisan serve
-          wait-on: 'http://localhost:8000'
-      - uses: actions/upload-artifact@v1
+          wait-on: http://localhost:8000
+          config-file: cypress.json
+
+      - uses: actions/upload-artifact@master
+        # there might be no screenshots created when:
+        # - there are no test failures
+        # so only upload screenshots if previous step has failed
         if: failure()
         with:
-          name: cypress-screenshots
+          name: screenshots
           path: cypress/screenshots
+      # video should always be generated
+      - uses: actions/upload-artifact@master
+        with:
+          name: videos
+          path: cypress/videos

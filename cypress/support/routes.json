@@ -121,13 +121,14 @@
       "HEAD"
     ]
   },
-  "cashier.webhook": {
-    "name": "cashier.webhook",
+  "": {
+    "name": null,
     "domain": null,
-    "action": "Laravel\\Cashier\\Http\\Controllers\\WebhookController@handleWebhook",
-    "uri": "stripe/webhook",
+    "action": "Closure",
+    "uri": "/",
     "method": [
-      "POST"
+      "GET",
+      "HEAD"
     ]
   },
   "login": {
@@ -135,16 +136,6 @@
     "domain": null,
     "action": "Laravel\\Fortify\\Http\\Controllers\\AuthenticatedSessionController@create",
     "uri": "login",
-    "method": [
-      "GET",
-      "HEAD"
-    ]
-  },
-  "": {
-    "name": null,
-    "domain": null,
-    "action": "Closure",
-    "uri": "/",
     "method": [
       "GET",
       "HEAD"
@@ -205,6 +196,35 @@
     "method": [
       "GET",
       "HEAD"
+    ]
+  },
+  "verification.notice": {
+    "name": "verification.notice",
+    "domain": null,
+    "action": "Laravel\\Fortify\\Http\\Controllers\\EmailVerificationPromptController@__invoke",
+    "uri": "email/verify",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "verification.verify": {
+    "name": "verification.verify",
+    "domain": null,
+    "action": "Laravel\\Fortify\\Http\\Controllers\\VerifyEmailController@__invoke",
+    "uri": "email/verify/{id}/{hash}",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "verification.send": {
+    "name": "verification.send",
+    "domain": null,
+    "action": "Laravel\\Fortify\\Http\\Controllers\\EmailVerificationNotificationController@store",
+    "uri": "email/verification-notification",
+    "method": [
+      "POST"
     ]
   },
   "user-profile-information.update": {
@@ -361,6 +381,94 @@
       "HEAD"
     ]
   },
+  "explore": {
+    "name": "explore",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\ExploreController@index",
+    "uri": "explore",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "attachments.show": {
+    "name": "attachments.show",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\AttachmentController@show",
+    "uri": "attachments/{attachment}",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "notifications.index": {
+    "name": "notifications.index",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\NotificationController@index",
+    "uri": "notifications",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "notifications.create": {
+    "name": "notifications.create",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\NotificationController@create",
+    "uri": "notifications/create",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "notifications.store": {
+    "name": "notifications.store",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\NotificationController@store",
+    "uri": "notifications",
+    "method": [
+      "POST"
+    ]
+  },
+  "notifications.show": {
+    "name": "notifications.show",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\NotificationController@show",
+    "uri": "notifications/{notification}",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "notifications.edit": {
+    "name": "notifications.edit",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\NotificationController@edit",
+    "uri": "notifications/{notification}/edit",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "notifications.update": {
+    "name": "notifications.update",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\NotificationController@update",
+    "uri": "notifications/{notification}",
+    "method": [
+      "PUT",
+      "PATCH"
+    ]
+  },
+  "notifications.destroy": {
+    "name": "notifications.destroy",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\NotificationController@destroy",
+    "uri": "notifications/{notification}",
+    "method": [
+      "DELETE"
+    ]
+  },
   "dashboard": {
     "name": "dashboard",
     "domain": null,
@@ -369,43 +477,6 @@
     "method": [
       "GET",
       "HEAD"
-    ]
-  },
-  "source.create": {
-    "name": "source.create",
-    "domain": null,
-    "action": "App\\Http\\Controllers\\SourceController@create",
-    "uri": "source/new",
-    "method": [
-      "GET",
-      "HEAD"
-    ]
-  },
-  "source.store": {
-    "name": "source.store",
-    "domain": null,
-    "action": "App\\Http\\Controllers\\SourceController@store",
-    "uri": "source/new",
-    "method": [
-      "POST"
-    ]
-  },
-  "attachments.store": {
-    "name": "attachments.store",
-    "domain": null,
-    "action": "App\\Http\\Controllers\\AttachmentController@store",
-    "uri": "attachments/new/{commission}",
-    "method": [
-      "POST"
-    ]
-  },
-  "attachments.destroy": {
-    "name": "attachments.destroy",
-    "domain": null,
-    "action": "App\\Http\\Controllers\\AttachmentController@destroy",
-    "uri": "attachments/{attachment}",
-    "method": [
-      "DELETE"
     ]
   },
   "commissions.create": {
@@ -473,73 +544,6 @@
     "method": [
       "GET",
       "HEAD"
-    ]
-  },
-  "bankaccount.list": {
-    "name": "bankaccount.list",
-    "domain": null,
-    "action": "App\\Http\\Controllers\\BankAccountController@index",
-    "uri": "bankaccount",
-    "method": [
-      "GET",
-      "HEAD"
-    ]
-  },
-  "bankaccount.create": {
-    "name": "bankaccount.create",
-    "domain": null,
-    "action": "App\\Http\\Controllers\\BankAccountController@create",
-    "uri": "bankaccount/create",
-    "method": [
-      "GET",
-      "HEAD"
-    ]
-  },
-  "bankaccount.store": {
-    "name": "bankaccount.store",
-    "domain": null,
-    "action": "App\\Http\\Controllers\\BankAccountController@store",
-    "uri": "bankaccount/create",
-    "method": [
-      "POST"
-    ]
-  },
-  "bankaccount.verify": {
-    "name": "bankaccount.verify",
-    "domain": null,
-    "action": "App\\Http\\Controllers\\BankAccountController@verify",
-    "uri": "bankaccount/{source}/verify",
-    "method": [
-      "GET",
-      "HEAD"
-    ]
-  },
-  "bankaccount.sendVerification": {
-    "name": "bankaccount.sendVerification",
-    "domain": null,
-    "action": "App\\Http\\Controllers\\BankAccountController@sendVerification",
-    "uri": "bankaccount/{source}/verify",
-    "method": [
-      "PUT"
-    ]
-  },
-  "bankaccount.edit": {
-    "name": "bankaccount.edit",
-    "domain": null,
-    "action": "App\\Http\\Controllers\\BankAccountController@edit",
-    "uri": "bankaccount/{source}",
-    "method": [
-      "GET",
-      "HEAD"
-    ]
-  },
-  "bankaccount.update": {
-    "name": "bankaccount.update",
-    "domain": null,
-    "action": "App\\Http\\Controllers\\BankAccountController@update",
-    "uri": "bankaccount/{source}",
-    "method": [
-      "PUT"
     ]
   }
 }
