@@ -40,6 +40,6 @@ describe('Commissions', function () {
             .contains('$543.21')
             .window()
             .contains('5')
-        });
+        }).skip();
     });
 });
