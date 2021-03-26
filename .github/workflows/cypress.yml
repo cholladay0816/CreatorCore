@@ -26,7 +26,21 @@ jobs:
         uses: overtrue/phplint@master
 
       - name: Copy ENV Laravel Configuration for CI
-        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+        env:
+          MYSQL_DATABASE: forge
+          DB_CONNECTION: mysql
+          DB_DATABASE: forge
+          DB_PORT: 3306
+          DB_USERNAME: root
+          DB_PASSWORD: forge
+          STRIPE_KEY: ${{ secrets.STRIPE_KEY }}
+          STRIPE_SECRET: ${{ secrets.STRIPE_SECRET }}
+          PLAID_CLIENT_ID: ${{ secrets.PLAID_CLIENT_ID }}
+          PLAID_KEY: ${{ secrets.PLAID_KEY }}
+          PLAID_SECRET: ${{ secrets.PLAID_SECRET }}
+        run: |
+          php -r "file_exists('.env') || copy('.env.example', '.env');"
+          php -r "echo 'STRIPE_KEY=${STRIPE_KEY}\n' >> .env"
 
       - name: Use Node.js
         uses: actions/setup-node@v1
@@ -61,13 +75,6 @@ jobs:
         with:
           browser: chrome
           install: false
-          env:
-            MYSQL_DATABASE: forge
-            DB_CONNECTION: mysql
-            DB_DATABASE: forge
-            DB_PORT: 3306
-            DB_USERNAME: root
-            DB_PASSWORD: forge
           start: php artisan serve
           wait-on: http://localhost:8000
           config-file: cypress.json
