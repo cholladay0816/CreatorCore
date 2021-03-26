@@ -61,10 +61,11 @@ jobs:
 
       - name: Migrate MySQL DB
         env:
+          MYSQL_DATABASE: forge
           DB_CONNECTION: mysql
           DB_DATABASE: forge
           DB_PORT: 3306
-          DB_USER: root
+          DB_USERNAME: root
           DB_PASSWORD: forge
         run: php artisan migrate:fresh --seed
 
