@@ -8,22 +8,15 @@ on:
 
 jobs:
 
-  pre-ci:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - name: 'Block Concurrent Executions'
-        uses: softprops/turnstyle@v1
-        with:
-          poll-interval-seconds: 30
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
   laravel-tests:
-    needs: pre-ci
     runs-on: ubuntu-latest
 
     steps:
+      - name: Disallow Concurrent Runs
+        uses: byu-oit/github-action-disallow-concurrent-runs@v2
+        with:
+          token: ${{ github.token }}
+          
       - uses: shivammathur/setup-php@b7d1d9c9a92d8d8463ce36d7f60da34d461724f8
         with:
           php-version: '8.0'
