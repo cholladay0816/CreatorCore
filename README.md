@@ -21,11 +21,11 @@ CreatorCore is a web application designed to streamline and simplify the commiss
 
 ## Contributing
 
-Thank you for considering contributing to CreatorCore! The contribution guide can be found [Here](https://laravel.com/docs/contributions).
+Thank you for considering contributing to CreatorCore! The contribution guide can be found [Here](https://github.com/cholladay0816/CreatorCore/blob/main/CONTRIBUTING.md).
 
 ## Code of Conduct
 
-In order to ensure that CreatorCore is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+In order to ensure that CreatorCore is welcoming to all, please review and abide by the [Code of Conduct](https://github.com/cholladay0816/CreatorCore/blob/main/CODE_OF_CONDUCT.md).
 
 ## Security Vulnerabilities
 
