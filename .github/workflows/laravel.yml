@@ -7,6 +7,18 @@ on:
     branches: [ '*' ]
 
 jobs:
+
+  pre-ci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: 'Block Concurrent Executions'
+        uses: softprops/turnstyle@v1
+        with:
+          poll-interval-seconds: 30
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   laravel-tests:
 
     runs-on: ubuntu-latest
