@@ -10,7 +10,7 @@ jobs:
 
   pre-ci:
     runs-on: ubuntu-latest
-    timeout-minutes: 3
+    timeout-minutes: 2
     steps:
       - name: 'Block Concurrent Executions'
         uses: softprops/turnstyle@v1
