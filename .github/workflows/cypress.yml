@@ -1,11 +1,9 @@
 name: Cypress
 on:
   push:
-    branches: ['*']
+    branches: [ '*' ]
   pull_request:
-    types:
-      - opened
-      - synchronize
+    branches: [ '*' ]
 jobs:
   build-and-run-tests:
     runs-on: ubuntu-16.04
