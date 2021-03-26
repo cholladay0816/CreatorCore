@@ -1,5 +1,11 @@
 name: Cypress
-on: [push, pull_request]
+on:
+  push:
+    branches: ['*']
+  pull_request:
+    types:
+      - opened
+      - synchronize
 jobs:
   build-and-run-tests:
     runs-on: ubuntu-16.04
