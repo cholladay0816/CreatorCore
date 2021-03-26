@@ -8,10 +8,10 @@
 </p>
 <p align="center">
 <a href="https://forthebadge.com"><img src="https://forthebadge.com/images/badges/for-you.svg"/></a>
-<a href="https://forthebadge.com"><img src="https://forthebadge.com/images/badges/no-ragrets.svg"/></a>
+<a href="https://forthebadge.com"><img src="https://forthebadge.com/images/badges/as-seen-on-tv.svg"/></a>
 </p>
 <p align="center">
-<a href="https://forthebadge.com"><img src="https://forthebadge.com/images/badges/mom-made-pizza-rolls.svg"/></a>
+<a href="https://forthebadge.com"><img src="https://forthebadge.com/images/badges/powered-by-electricity.svg"/></a>
 <a href="https://forthebadge.com"><img src="https://forthebadge.com/images/badges/uses-badges.svg"/></a>
 </p>
 
