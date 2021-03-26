@@ -58,16 +58,16 @@ jobs:
 
       - name: Cypress run
         uses: cypress-io/github-action@v1
-        env:
-          MYSQL_DATABASE: forge
-          DB_CONNECTION: mysql
-          DB_DATABASE: forge
-          DB_PORT: 3306
-          DB_USERNAME: root
-          DB_PASSWORD: forge
         with:
           browser: chrome
           install: false
+          env:
+            MYSQL_DATABASE: forge
+            DB_CONNECTION: mysql
+            DB_DATABASE: forge
+            DB_PORT: 3306
+            DB_USERNAME: root
+            DB_PASSWORD: forge
           start: php artisan serve
           wait-on: http://localhost:8000
           config-file: cypress.json
