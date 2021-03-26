@@ -1,7 +1,7 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
-<a href="https://www.travis-ci.com/cholladay0816/CreatorCore"><img src="https://www.travis-ci.com/cholladay0816/CreatorCore.svg" alt="Build Status"></a>
+<a href="https://github.com/cholladay0816/CreatorCore"><img src="https://github.com/cholladay0816/CreatorCore/actions/workflows/phpunit.yml/badge.svg" alt="Build Status"></a>
 </p>
 <p align="center">
 <a href="https://forthebadge.com"><img height="40px" src="https://forthebadge.com/images/badges/works-on-my-machine.svg"/></a>
@@ -21,11 +21,11 @@ CreatorCore is a web application designed to streamline and simplify the commiss
 
 ## Contributing
 
-Thank you for considering contributing to CreatorCore! The contribution guide can be found [Here](https://laravel.com/docs/contributions).
+Thank you for considering contributing to CreatorCore! The contribution guide can be found [Here](https://github.com/cholladay0816/CreatorCore/blob/main/CONTRIBUTING.md).
 
 ## Code of Conduct
 
-In order to ensure that CreatorCore is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+In order to ensure that CreatorCore is welcoming to all, please review and abide by the [Code of Conduct](https://github.com/cholladay0816/CreatorCore/blob/main/CODE_OF_CONDUCT.md).
 
 ## Security Vulnerabilities
 
