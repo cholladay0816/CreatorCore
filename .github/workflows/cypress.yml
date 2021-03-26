@@ -40,7 +40,7 @@ jobs:
           PLAID_SECRET: ${{ secrets.PLAID_SECRET }}
         run: |
           php -r "file_exists('.env') || copy('.env.ci', '.env');"
-          php -r "echo 'STRIPE_KEY=${STRIPE_KEY}\n' >> .env"
+          php -r "echo 'STRIPE_KEY=${STRIPE_KEY}\n' >> '.env';"
 
       - name: Use Node.js
         uses: actions/setup-node@v1
