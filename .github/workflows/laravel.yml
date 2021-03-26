@@ -8,7 +8,7 @@ on:
 
 jobs:
   laravel-tests:
-    timeout-minutes: 5
+    timeout-minutes: 6
     runs-on: ubuntu-latest
     steps:
       - uses: shivammathur/setup-php@b7d1d9c9a92d8d8463ce36d7f60da34d461724f8
@@ -18,7 +18,8 @@ jobs:
       - name: Turnstyle
         uses: softprops/turnstyle@v1
         with:
-          continue-after-seconds: 180
+          poll-interval-seconds: 20
+          continue-after-seconds: 240
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Copy .env
