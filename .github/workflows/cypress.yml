@@ -1,5 +1,11 @@
 name: Cypress
-on: [push, pull_request]
+on:
+  push:
+    branches: ['*']
+  pull_request:
+    types:
+      - opened
+      - synchronize
 jobs:
   build-and-run-tests:
     runs-on: ubuntu-16.04
@@ -19,14 +25,6 @@ jobs:
           --health-timeout=5s
           --health-retries=3
     steps:
-      - name: Wait on tests
-        uses: lewagon/wait-on-check-action@master
-        with:
-          ref: ${{ github.ref }}
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          wait-interval: 10
-          running-workflow-name: 'deploy'
-          allowed-conclusions: success,skipped,cancelled
       - name: Checkout
         uses: actions/checkout@v1
 
