@@ -46,19 +46,6 @@ jobs:
       - name: Build site
         run: npm run dev
 
-      - name: Execute unit tests via PHPUnit
-        run: vendor/bin/phpunit
-        env:
-          MYSQL_DATABASE: forge
-          DB_USERNAME: root
-          DB_PASSWORD: forge
-          DB_PORT: ${{ job.services.mysql.ports[3306] }}
-          STRIPE_KEY: ${{ secrets.STRIPE_KEY }}
-          STRIPE_SECRET: ${{ secrets.STRIPE_SECRET }}
-          PLAID_CLIENT_ID: ${{ secrets.PLAID_CLIENT_ID }}
-          PLAID_KEY: ${{ secrets.PLAID_KEY }}
-          PLAID_SECRET: ${{ secrets.PLAID_SECRET }}
-
       - name: Migrate MySQL DB
         env:
           MYSQL_DATABASE: forge
@@ -74,7 +61,7 @@ jobs:
         with:
           browser: chrome
           install: false
-          start: npm start
+          start: php artisan serve
           wait-on: http://localhost:8000
           config-file: cypress.json
           spec: cypress/integration/laragram/laragram.spec.js
