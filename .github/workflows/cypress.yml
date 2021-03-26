@@ -1,4 +1,4 @@
-name: CI
+name: Cypress
 on: [push, pull_request]
 jobs:
   build-and-run-tests:
@@ -53,6 +53,11 @@ jobs:
           DB_USERNAME: root
           DB_PASSWORD: forge
           DB_PORT: ${{ job.services.mysql.ports[3306] }}
+          STRIPE_KEY: ${{ secrets.STRIPE_KEY }}
+          STRIPE_SECRET: ${{ secrets.STRIPE_SECRET }}
+          PLAID_CLIENT_ID: ${{ secrets.PLAID_CLIENT_ID }}
+          PLAID_KEY: ${{ secrets.PLAID_KEY }}
+          PLAID_SECRET: ${{ secrets.PLAID_SECRET }}
 
       - name: Migrate MySQL DB
         env:
