@@ -70,7 +70,7 @@
                                 Order Due
                             </dt>
                             <dd class="mt-1 text-sm text-gray-900">
-                                {{$commission->expires_at->diffForHumans()}}
+                                {{$commission->expires_at->diffForHumans(null, false, false, 2)}} [ {{$commission->expires_at->format('M-d-Y ')}} ]
                             </dd>
                         </div>
                         @else
@@ -127,7 +127,7 @@
                                             @endif
                                             <div class="relative flex space-x-3">
                                                 <div>
-                                                    <span class="h-8 w-8 rounded-full bg-{{$event->color}} flex items-center justify-center ring-8 ring-white">
+                                                    <span class="h-8 w-8 rounded-full {{$event->color}} flex items-center justify-center ring-8 ring-white">
                                                       <!-- Heroicon name: solid/user -->
                                                       <svg class="h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                                           {!! \App\Helpers\CommissionHelper::getSVG($event->status)!!}
