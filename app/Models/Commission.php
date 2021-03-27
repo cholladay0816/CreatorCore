@@ -197,7 +197,7 @@ class Commission extends Model
             CommissionEvent::create(
                 [
                     'commission_id' => $commission->id,
-                    'title' => 'Created Commission', 'color' => 'gray-400', 'status' => 'Unpaid'
+                    'title' => 'Created Commission', 'color' => 'bg-gray-400', 'status' => 'Unpaid'
                 ]
             );
         });
@@ -215,7 +215,7 @@ class Commission extends Model
         CommissionEvent::create(
             [
                 'commission_id' => $this->id,
-                'title' => 'Declined by ' . $this->buyer->name, 'color' => 'red-500', 'status' => 'Declined'
+                'title' => 'Declined by ' . $this->buyer->name, 'color' => 'bg-red-500', 'status' => 'Declined'
             ]
         );
     }
@@ -228,7 +228,7 @@ class Commission extends Model
         CommissionEvent::create(
             [
                 'commission_id' => $this->id,
-                'title' => 'Accepted by ' . $this->creator->name, 'color' => 'green-500', 'status' => 'Active'
+                'title' => 'Accepted by ' . $this->creator->name, 'color' => 'bg-green-500', 'status' => 'Active'
             ]
         );
     }
@@ -279,7 +279,7 @@ class Commission extends Model
         CommissionEvent::create(
             [
                 'commission_id' => $this->id,
-                'title' => 'Commission paid', 'color' => 'green-500', 'status' => 'Pending'
+                'title' => 'Commission paid', 'color' => 'bg-green-500', 'status' => 'Pending'
             ]
         );
     }
@@ -293,7 +293,7 @@ class Commission extends Model
         CommissionEvent::create(
             [
                 'commission_id' => $this->id,
-                'title' => 'Commission passed due date', 'color' => 'yellow-500', 'status' => 'Overdue'
+                'title' => 'Commission passed due date', 'color' => 'bg-yellow-500', 'status' => 'Overdue'
             ]
         );
     }
@@ -308,7 +308,7 @@ class Commission extends Model
         CommissionEvent::create(
             [
                 'commission_id' => $this->id,
-                'title' => 'Payment failed', 'color' => 'red-500', 'status' => 'Failed'
+                'title' => 'Payment failed', 'color' => 'bg-red-500', 'status' => 'Failed'
             ]
         );
     }
@@ -321,7 +321,7 @@ class Commission extends Model
         CommissionEvent::create(
             [
                 'commission_id' => $this->id,
-                'title' => 'Order completed', 'color' => 'lightBlue-500', 'status' => 'Completed'
+                'title' => 'Order completed', 'color' => 'bg-lightBlue-500', 'status' => 'Completed'
             ]
         );
     }
@@ -333,7 +333,7 @@ class Commission extends Model
         CommissionEvent::create(
             [
                 'commission_id' => $this->id,
-                'title' => 'Disputed by ' . $this->buyer->name, 'color' => 'red-500', 'status' => 'Disputed'
+                'title' => 'Disputed by ' . $this->buyer->name, 'color' => 'bg-red-500', 'status' => 'Disputed'
             ]
         );
     }
@@ -355,7 +355,7 @@ class Commission extends Model
 //        CommissionEvent::create(
 //            [
 //                'commission_id' => $this->id,
-//                'title' => 'Expired', 'color' => 'red-500', 'status' => 'Canceled'
+//                'title' => 'Expired', 'color' => 'bg-red-500', 'status' => 'Canceled'
 //            ]
 //        );
 //    }
@@ -374,7 +374,7 @@ class Commission extends Model
         CommissionEvent::create(
             [
                 'commission_id' => $this->id,
-                'title' => 'Expired', 'color' => 'red-500', 'status' => 'Expired'
+                'title' => 'Expired', 'color' => 'bg-red-500', 'status' => 'Expired'
             ]
         );
     }
@@ -391,7 +391,7 @@ class Commission extends Model
         CommissionEvent::create(
             [
                 'commission_id' => $this->id,
-                'title' => 'Order refunded', 'color' => 'red-500', 'status' => 'Refunded'
+                'title' => 'Order refunded', 'color' => 'bg-red-500', 'status' => 'Refunded'
             ]
         );
     }
@@ -401,7 +401,7 @@ class Commission extends Model
         CommissionEvent::create(
             [
                 'commission_id' => $this->id,
-                'title' => 'Dispute resolved', 'color' => 'yellow-500', 'status' => 'Resolved'
+                'title' => 'Dispute resolved', 'color' => 'bg-yellow-500', 'status' => 'Resolved'
             ]
         );
         $this->archive();
@@ -427,7 +427,7 @@ class Commission extends Model
         CommissionEvent::create(
             [
                 'commission_id' => $this->id,
-                'title' => 'Order archived', 'color' => 'green-500', 'status' => 'Archived'
+                'title' => 'Order archived', 'color' => 'bg-green-500', 'status' => 'Archived'
             ]
         );
     }
