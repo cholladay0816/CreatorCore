@@ -27,8 +27,7 @@ class CommissionFactory extends Factory
         return [
             'buyer_id' => User::factory()->create()->id,
             'creator_id' => ($creator = User::factory()->create())->id,
-            'commission_preset_id' => ($preset = CommissionPreset::factory()
-                ->create(['user_id' => $creator->id]))->id,
+            'commission_preset_id' => null,
             'title' => $preset->title??$this->faker->sentence(5),
             'description' => $preset->description??$this->faker->paragraph(2),
             'memo' => $this->faker->paragraph(3),
