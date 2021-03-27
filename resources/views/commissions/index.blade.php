@@ -38,7 +38,7 @@
                                             </svg>
                                             <p>
                                                 Due
-                                                <time datetime="{{$commission->expires_at->format("Y-m-d")}}">{{$commission->expires_at->diffForHumans()}}</time>
+                                                <time datetime="{{$commission->expires_at->format("Y-m-d")}}">{{$commission->expires_at->diffForHumans(null, false, true, 2)}}</time>
                                             </p>
                                         </div>
                                     @else
