@@ -19,6 +19,8 @@ class CreateCreatorsTable extends Migration
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->string('title');
             $table->string('headline');
+            $table->tinyInteger('allows_custom_commissions')->default(0);
+            $table->tinyInteger('open')->default(0);
             $table->timestamps();
         });
     }
