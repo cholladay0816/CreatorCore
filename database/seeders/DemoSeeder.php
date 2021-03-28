@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use App\Models\Commission;
 use App\Models\CommissionEvent;
 use App\Models\Creator;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -19,8 +20,17 @@ class DemoSeeder extends Seeder
      */
     public function run()
     {
-        $buyer = User::factory()->create(['name' => 'Buyer', 'email' => 'buyer@creator-core.com']);
-        $creator = User::factory()->create(['name' => 'Creator', 'email' => 'creator@creator-core.com']);
+        $this->call([
+            DatabaseSeeder::class,
+        ]);
+
+        $admin = User::factory()->create(['name' => 'Admin', 'email' => 'admin@creator-core.com']);
+
+        $adminRole = Role::where('title', 'Administrator')->first();
+        $admin->roles()->attach($adminRole);
+
+        $buyer = User::factory()->create(['email' => 'buyer@creator-core.com']);
+        $creator = User::factory()->create(['email' => 'creator@creator-core.com']);
         Creator::factory()->create(['user_id' => $buyer->id]);
         Creator::factory()->create(['user_id' => $creator->id]);
 
