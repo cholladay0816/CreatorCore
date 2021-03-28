@@ -26,6 +26,7 @@ class CreatorFactory extends Factory
             'user_id' => ($user = User::factory()->create())->id,
             'title' => $this->faker->title,
             'headline' => $this->faker->sentence,
+            'open' => 1,
         ];
     }
 }
