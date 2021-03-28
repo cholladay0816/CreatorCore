@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
+use JamesMills\LaravelTimezone\Facades\Timezone;
 use Stripe\StripeClient;
 
 class Commission extends Model
@@ -179,7 +181,10 @@ class Commission extends Model
     {
         return Str::slug(($this->id??(Commission::count() + 1)) . '-' . $this->title);
     }
-
+    public function getExpiresAtLocalAttribute()
+    {
+        return $this->expires_at->setTimezone('America/Chicago');
+    }
     protected static function boot()
     {
         self::creating(function ($commission) {
