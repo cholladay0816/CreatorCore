@@ -41,4 +41,58 @@ class ReviewTest extends TestCase
 
         $this->assertNull($review->fresh()->attachment);
     }
+
+    /** @test */
+    public function a_user_can_have_reviews()
+    {
+        $creator = User::factory()->create();
+        $buyer = User::factory()->create();
+        $commission = Commission::factory()->create(
+            [
+                'status' => 'Archived',
+                'buyer_id' => $buyer->id,
+                'creator_id' => $creator
+            ]
+        );
+        $review = Review::factory()->create(['commission_id' => $commission->id, 'user_id' => $buyer->id, 'positive' => 1]);
+
+        $this->assertCount(1, $creator->ratings);
+    }
+    /** @test */
+    public function a_user_can_have_a_rating()
+    {
+        $creator = User::factory()->create();
+        $buyer = User::factory()->create();
+        $commission = Commission::factory()->create(
+            [
+                'status' => 'Archived',
+                'buyer_id' => $buyer->id,
+                'creator_id' => $creator
+            ]
+        );
+        $review = Review::factory()->create(['commission_id' => $commission->id, 'user_id' => $buyer->id, 'positive' => 1]);
+        $review = Review::factory()->create(['commission_id' => $commission->id, 'user_id' => $buyer->id, 'positive' => 1]);
+        $review = Review::factory()->create(['commission_id' => $commission->id, 'user_id' => $buyer->id, 'positive' => 1]);
+        $review = Review::factory()->create(['commission_id' => $commission->id, 'user_id' => $buyer->id, 'positive' => 0]);
+
+        $this->assertEquals(0.75, $creator->rating);
+    }
+
+    /** @test */
+    public function a_user_can_have_a_star_rating()
+    {
+        $creator = User::factory()->create();
+        $buyer = User::factory()->create();
+        $commission = Commission::factory()->create(
+            [
+                'status' => 'Archived',
+                'buyer_id' => $buyer->id,
+                'creator_id' => $creator
+            ]
+        );
+        Review::factory(3)->create(['commission_id' => $commission->id, 'user_id' => $buyer->id, 'positive' => 1]);
+        $this->assertEquals(5.0, $creator->fresh()->stars);
+        Review::factory(2)->create(['commission_id' => $commission->id, 'user_id' => $buyer->id, 'positive' => 0]);
+        $this->assertEquals(3.0, $creator->fresh()->stars);
+    }
 }
