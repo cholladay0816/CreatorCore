@@ -67,19 +67,19 @@
                                 <div class="mr-4 p-3 text-center">
                       <span
                           class="text-xl font-bold block uppercase tracking-wide text-gray-700"
-                      >{{$creator->reviewCount()}}</span
+                      >{{$user->ratings->count()}}</span
                       ><span class="text-sm text-gray-500">Reviews</span>
                                 </div>
                                 <div class="mr-4 p-3 text-center">
                       <span
                           class="text-xl font-bold block uppercase tracking-wide text-gray-700"
-                      >{{$creator->galleryCount()}}</span
+                      >{{$user->galleryCount()}}</span
                       ><span class="text-sm text-gray-500">Photos</span>
                                 </div>
                                 <div class="lg:mr-4 p-3 text-center">
                       <span
                           class="text-xl font-bold block uppercase tracking-wide text-gray-700"
-                      >{{$creator->commissionCount()}}</span
+                      >{{$user->commissionPresets->count()}}</span
                       ><span class="text-sm text-gray-500">Commissions</span>
                                 </div>
                             </div>
@@ -146,11 +146,11 @@
                         <div class="flex flex-wrap justify-center">
                             <div class="w-full lg:w-10/12 px-1">
                                 @if($page=='gallery')
-                                    @livewire('components.gallery', ['creator'=>$creator])
+                                    @livewire('components.gallery', ['user'=>$user])
                                 @elseif($page=='commissions')
-                                    @livewire('components.commissions', ['creator'=>$creator])
+                                    @livewire('components.commissions', ['user'=>$user])
                                 @else
-                                    @livewire('components.about', ['creator'=>$creator])
+                                    @livewire('components.about', ['user'=>$user])
                                 @endif
                             </div>
                         </div>
