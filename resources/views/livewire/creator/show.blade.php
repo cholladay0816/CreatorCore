@@ -42,7 +42,7 @@
                             <div class="relative">
                                 <img
                                     alt="Profile Picture"
-                                    src="{{$creator->user->getProfilePhotoUrlAttribute()}}"
+                                    src="{{ $user->profile_photo_url }}"
                                     class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16"
                                     style="width:150px;max-width: 150px;"
                                 />
@@ -56,7 +56,7 @@
                                     class="bg-indigo-500 active:bg-indigo-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1"
                                     type="button"
                                     style="transition: all 0.15s ease 0s;"
-                                    href="{{url('/'.$creator->displayname.'/commissions')}}"
+                                    href="{{url('/'.$user->name.'/commissions')}}"
                                 >
                                     Commission
                                 </a>
