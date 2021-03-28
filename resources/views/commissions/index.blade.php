@@ -1,6 +1,5 @@
 <x-app-layout>
-
-    <!-- This example requires Tailwind CSS v2.0+ -->
+    @if($commissions->count() > 0)
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 my-4">
         <div class="bg-white shadow overflow-hidden sm:rounded-md">
             <ul class="divide-y divide-gray-200">
@@ -61,5 +60,14 @@
             </ul>
         </div>
     </div>
+    @else
+        <div class="w-full min-h-screen flex">
+            <div class="flex mx-auto my-auto ">
+                <span class="text-gray-400">
+                No orders yet, would you like to  <a href="{{ route('explore') }}" class="text-lightBlue-400"> explore creators</a>?
+                </span>
+            </div>
+        </div>
+    @endif
 
 </x-app-layout>
