@@ -1,28 +1,12 @@
 <x-guest-layout>
-    <!--
-  This example requires Tailwind CSS v2.0+
-
-  This example requires some changes to your config:
-
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ]
-  }
-  ```
--->
     <div class="bg-white" x-data="{ solutions:false, open:false }">
         <header>
             <div class="relative bg-white">
                 <div class="flex justify-between items-center max-w-7xl mx-auto px-4 py-6 sm:px-6 md:justify-start md:space-x-10 lg:px-8">
                     <div class="flex justify-start lg:w-0 lg:flex-1">
-                        <a href="#">
-                            <span class="sr-only">Workflow</span>
-                            <img class="h-8 w-auto sm:h-10" src="https://tailwindui.com/img/logos/workflow-mark-purple-600-to-indigo-600.svg" alt="">
+                        <a href="{{ url('/') }}">
+                            <span class="sr-only">CreatorCore</span>
+                            <img class="h-8 w-auto sm:h-10" src="{{ asset('img/logos/primary-logo.svg') }}" alt="">
                         </a>
                     </div>
                     <div class="-mr-2 -my-2 md:hidden">
@@ -278,7 +262,7 @@
                         <div class="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
                             <h1 class="text-center text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
                                 <span class="block text-white">Your all-in-one</span>
-                                <span class="block text-indigo-200">commissioing platform</span>
+                                <span class="block text-indigo-200">commissioning platform</span>
                             </h1>
                             <p class="mt-6 max-w-lg mx-auto text-center text-xl text-indigo-200 sm:max-w-3xl">
                                 CreatorCore is a commission-based service for digital artists to make money doing what they love.
@@ -344,10 +328,10 @@
                                         Stay on top of commissions
                                     </h2>
                                     <p class="mt-4 text-lg text-gray-500">
-                                        Semper curabitur ullamcorper posuere nunc sed. Ornare iaculis bibendum malesuada faucibus lacinia porttitor. Pulvinar laoreet sagittis viverra duis. In venenatis sem arcu pretium pharetra at. Lectus viverra dui tellus ornare pharetra.
+                                        Our tools will help you track and coordinate your commissions, so you always know what's next.
                                     </p>
                                     <div class="mt-6">
-                                        <a href="#" class="inline-flex px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700">
+                                        <a href="{{ route('register') }}" class="inline-flex px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700">
                                             Get started
                                         </a>
                                     </div>
@@ -357,7 +341,7 @@
                                 <blockquote>
                                     <div>
                                         <p class="text-base text-gray-500">
-                                            &ldquo;Cras velit quis eros eget rhoncus lacus ultrices sed diam. Sit orci risus aenean curabitur donec aliquet. Mi venenatis in euismod ut.&rdquo;
+                                            &ldquo;CreatorCore is incredibly effective for tracking my commissions, and it doesn't cost me a cent!&rdquo;
                                         </p>
                                     </div>
                                     <footer class="mt-3">
@@ -385,23 +369,26 @@
                         <div class="px-4 max-w-xl mx-auto sm:px-6 lg:py-32 lg:max-w-none lg:mx-0 lg:px-0 lg:col-start-2">
                             <div>
                                 <div>
-                <span class="h-12 w-12 rounded-md flex items-center justify-center bg-gradient-to-r from-purple-600 to-indigo-600">
-                  <!-- Heroicon name: outline/sparkles -->
-                  <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-                  </svg>
-                </span>
+                                    <span class="h-12 w-12 rounded-md flex items-center justify-center bg-gradient-to-r from-blue-500 to-lightBlue-400">
+                                      <!-- Heroicon name: outline/sparkles -->
+                                      <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                                      </svg>
+                                    </span>
                                 </div>
                                 <div class="mt-6">
                                     <h2 class="text-3xl font-extrabold tracking-tight text-gray-900">
-                                        Better understand your customers
+                                        Commission comfortably and safely
                                     </h2>
                                     <p class="mt-4 text-lg text-gray-500">
-                                        Semper curabitur ullamcorper posuere nunc sed. Ornare iaculis bibendum malesuada faucibus lacinia porttitor. Pulvinar laoreet sagittis viverra duis. In venenatis sem arcu pretium pharetra at. Lectus viverra dui tellus ornare pharetra.
+                                        We offer an incredibly flexible commission process,
+                                        which allows you to name your price and deadline.
+                                        We have many safeguards in place to prevent unfair play on both sides,
+                                        meaning you never have to worry about wasting your time and money.
                                     </p>
                                     <div class="mt-6">
-                                        <a href="#" class="inline-flex px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700">
-                                            Get started
+                                        <a href="{{ route('explore') }}" class="inline-flex px-4 py-2 text-base font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-blue-500 to-lightBlue-400 hover:from-blue-700 hover:to-lightBlue-600">
+                                            Find a Creator
                                         </a>
                                     </div>
                                 </div>
@@ -417,28 +404,29 @@
             </div>
 
             <!-- Gradient Feature Section -->
-            <div class="bg-gradient-to-r from-purple-800 to-indigo-700">
+            <div class="bg-gradient-to-r from-lightBlue-600 to-lightBlue-800">
                 <div class="max-w-4xl mx-auto px-4 py-16 sm:px-6 sm:pt-20 sm:pb-24 lg:max-w-7xl lg:pt-24 lg:px-8">
                     <h2 class="text-3xl font-extrabold text-white tracking-tight">
-                        Inbox support built for efficiency
+                        How CreatorCore benefits you
                     </h2>
                     <p class="mt-4 max-w-3xl text-lg text-purple-200">
-                        Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis. Blandit aliquam sit nisl euismod mattis in.
+                        CreatorCore is the first truly creator-first platform, designed as a powerful tool for creators to
+                        succeed.  Learn more about how we achieve this below:
                     </p>
                     <div class="mt-12 grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-16">
                         <div>
                             <div>
-              <span class="flex items-center justify-center h-12 w-12 rounded-md bg-white bg-opacity-10">
-                <!-- Heroicon name: outline/inbox -->
-                <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
-                </svg>
-              </span>
+                              <span class="flex items-center justify-center h-12 w-12 rounded-md bg-white bg-opacity-10">
+                                <!-- Heroicon name: outline/inbox -->
+                                <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                                </svg>
+                              </span>
                             </div>
                             <div class="mt-6">
-                                <h3 class="text-lg font-medium text-white">Unlimited Inboxes</h3>
+                                <h3 class="text-lg font-medium text-white">Unlimited Commissions</h3>
                                 <p class="mt-2 text-base text-purple-200">
-                                    Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.
+
                                 </p>
                             </div>
                         </div>
@@ -453,7 +441,7 @@
               </span>
                             </div>
                             <div class="mt-6">
-                                <h3 class="text-lg font-medium text-white">Manage Team Members</h3>
+                                <h3 class="text-lg font-medium text-white">Messaging</h3>
                                 <p class="mt-2 text-base text-purple-200">
                                     Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.
                                 </p>
@@ -470,7 +458,7 @@
               </span>
                             </div>
                             <div class="mt-6">
-                                <h3 class="text-lg font-medium text-white">Spam Report</h3>
+                                <h3 class="text-lg font-medium text-white">Dispute System</h3>
                                 <p class="mt-2 text-base text-purple-200">
                                     Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.
                                 </p>
@@ -479,15 +467,15 @@
 
                         <div>
                             <div>
-              <span class="flex items-center justify-center h-12 w-12 rounded-md bg-white bg-opacity-10">
-                <!-- Heroicon name: outline/pencil-alt -->
-                <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                </svg>
-              </span>
+                              <span class="flex items-center justify-center h-12 w-12 rounded-md bg-white bg-opacity-10">
+                                <!-- Heroicon name: outline/pencil-alt -->
+                                <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                </svg>
+                              </span>
                             </div>
                             <div class="mt-6">
-                                <h3 class="text-lg font-medium text-white">Compose in Markdown</h3>
+                                <h3 class="text-lg font-medium text-white">Reviews</h3>
                                 <p class="mt-2 text-base text-purple-200">
                                     Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.
                                 </p>
@@ -496,46 +484,49 @@
 
                         <div>
                             <div>
-              <span class="flex items-center justify-center h-12 w-12 rounded-md bg-white bg-opacity-10">
-                <!-- Heroicon name: outline/document-report -->
-                <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-              </span>
+                              <span class="flex items-center justify-center h-12 w-12 rounded-md bg-white bg-opacity-10">
+                                <!-- Heroicon name: outline/document-report -->
+                                <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                              </span>
                             </div>
                             <div class="mt-6">
-                                <h3 class="text-lg font-medium text-white">Team Reporting</h3>
+                                <h3 class="text-lg font-medium text-white">$0 Commission Fee</h3>
                                 <p class="mt-2 text-base text-purple-200">
-                                    Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.
+                                    We promise to never take a single cent of your hard earned money.  All our expenses are paid upfront as a
+                                    6% sales tax, meaning our creators never foot the bill.
                                 </p>
                             </div>
                         </div>
 
                         <div>
                             <div>
-              <span class="flex items-center justify-center h-12 w-12 rounded-md bg-white bg-opacity-10">
-                <!-- Heroicon name: outline/reply -->
-                <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
-                </svg>
-              </span>
+                              <span class="flex items-center justify-center h-12 w-12 rounded-md bg-white bg-opacity-10">
+                                <!-- Heroicon name: outline/reply -->
+                                <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
+                                </svg>
+                              </span>
                             </div>
                             <div class="mt-6">
-                                <h3 class="text-lg font-medium text-white">Saved Replies</h3>
+                                <h3 class="text-lg font-medium text-white">Easy-to-use Dashboard</h3>
                                 <p class="mt-2 text-base text-purple-200">
-                                    Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.
+                                    Our platform makes it easy to read, access, and interact with your orders.
+                                    We extensively iterated the layout to make it as easy as possible to interact
+                                    with your clients.
                                 </p>
                             </div>
                         </div>
 
                         <div>
                             <div>
-              <span class="flex items-center justify-center h-12 w-12 rounded-md bg-white bg-opacity-10">
-                <!-- Heroicon name: outline/chat-alt -->
-                <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-                </svg>
-              </span>
+                              <span class="flex items-center justify-center h-12 w-12 rounded-md bg-white bg-opacity-10">
+                                <!-- Heroicon name: outline/chat-alt -->
+                                <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                                </svg>
+                              </span>
                             </div>
                             <div class="mt-6">
                                 <h3 class="text-lg font-medium text-white">Email Commenting</h3>
@@ -547,12 +538,12 @@
 
                         <div>
                             <div>
-              <span class="flex items-center justify-center h-12 w-12 rounded-md bg-white bg-opacity-10">
-                <!-- Heroicon name: outline/heart -->
-                <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                </svg>
-              </span>
+                              <span class="flex items-center justify-center h-12 w-12 rounded-md bg-white bg-opacity-10">
+                                <!-- Heroicon name: outline/heart -->
+                                <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                </svg>
+                              </span>
                             </div>
                             <div class="mt-6">
                                 <h3 class="text-lg font-medium text-white">Connect with Customers</h3>
