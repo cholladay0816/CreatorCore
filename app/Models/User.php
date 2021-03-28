@@ -133,6 +133,15 @@ class User extends Authenticatable
         return $this->abilities->where('slug', $slug)->count() > 0;
     }
 
+    public function creator()
+    {
+        return $this->hasOne(Creator::class);
+    }
+    public function isValidCreator()
+    {
+        return $this->creator != null;
+    }
+
     public function canAcceptPayments()
     {
         if (config('app.env') == 'testing') {
