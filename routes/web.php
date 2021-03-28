@@ -26,10 +26,13 @@ Route::post(
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Route::get('/explore', [ExploreController::class, 'index'])
 ->name('explore');
+
+Route::get('/creator/{user:name}', [\App\Http\Controllers\CreatorController::class, 'show'])
+    ->name('creator.show');
 
 Route::get('/attachments/{attachment}', [AttachmentController::class, 'show'])
     ->middleware('attachments.canview')
