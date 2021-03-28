@@ -31,7 +31,6 @@ class DemoSeeder extends Seeder
 
         $buyer = User::factory()->create(['email' => 'buyer@creator-core.com']);
         $creator = User::factory()->create(['email' => 'creator@creator-core.com']);
-        Creator::factory()->create(['user_id' => $buyer->id]);
         Creator::factory()->create(['user_id' => $creator->id]);
 
         $commission = Commission::factory()->create(
