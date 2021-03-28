@@ -106,6 +106,33 @@ class User extends Authenticatable
         //TODO: send out emails, notifications
         //TODO: check for three, then suspend
     }
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function ratings()
+    {
+        return $this->hasManyThrough(Review::class, Commission::class, 'creator_id', 'commission_id');
+    }
+
+    public function rating()
+    {
+        $ratings = $this->ratings;
+        return number_format(floatval($ratings->sum('positive')) / floatval($ratings->count()), 2);
+    }
+    public function getRatingAttribute()
+    {
+        return $this->rating();
+    }
+    public function stars()
+    {
+        return number_format(($this->rating * 5), 1);
+    }
+    public function getStarsAttribute()
+    {
+        return $this->stars();
+    }
 
     public function orders()
     {
