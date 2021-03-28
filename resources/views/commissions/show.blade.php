@@ -70,7 +70,7 @@
                                 Order Due
                             </dt>
                             <dd class="mt-1 text-sm text-gray-900">
-                                {{$commission->expires_at->diffForHumans(null, false, false, 2)}} [ {{$commission->expires_at->format('M-d-Y ')}} ]
+                                {{$commission->expires_at->diffForHumans(null, false, false, 2)}} [ {{ $commission->expires_at_local->format('M-d-Y h:i T') }} ]
                             </dd>
                         </div>
                         @else
