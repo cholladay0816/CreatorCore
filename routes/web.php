@@ -3,6 +3,8 @@
 use App\Http\Controllers\AttachmentController;
 use App\Http\Controllers\CashierWebhookController;
 use App\Http\Controllers\CommissionController;
+use App\Http\Controllers\CommissionPresetController;
+use App\Http\Controllers\CreatorController;
 use App\Http\Controllers\ExploreController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\SourceController;
@@ -31,7 +33,7 @@ Route::get('/', function () {
 Route::get('/explore', [ExploreController::class, 'index'])
 ->name('explore');
 
-Route::get('/creator/{user:name}/{page?}', [\App\Http\Controllers\CreatorController::class, 'show'])
+Route::get('/creator/{user:name}/{page?}', [CreatorController::class, 'show'])
     ->name('creator.show');
 
 Route::get('/attachments/{attachment}', [AttachmentController::class, 'show'])
@@ -39,6 +41,9 @@ Route::get('/attachments/{attachment}', [AttachmentController::class, 'show'])
     ->name('attachments.show');
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+
+    Route::resource('/commissionpresets', CommissionPresetController::class);
+
     Route::resource('/notifications', NotificationController::class, ['index'])
         ->names(['notifications.index']);
 
@@ -47,13 +52,20 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     })->name('dashboard');
 
     Route::prefix('commissions')->group(function () {
-        Route::middleware(['verified.payment'])->group(function () {
-            Route::get('/new/{user}/{commissionpreset?}', [CommissionController::class, 'create'])
-                ->name('commissions.create');
-            Route::post('/new/{user}/{commissionpreset?}', [CommissionController::class, 'store'])
-                ->name('commissions.store');
-        });
 
+        Route::get('/new/{user}/{commissionpreset?}', [CommissionController::class, 'create'])
+            ->name('commissions.create');
+        Route::post('/new/{user}/{commissionpreset?}', [CommissionController::class, 'store'])
+            ->name('commissions.store');
+//        Route::middleware(['verified.payment'])->group(function () {
+//            Route::get('/new/{user}/{commissionpreset?}', [CommissionController::class, 'create'])
+//                ->name('commissions.create');
+//            Route::post('/new/{user}/{commissionpreset?}', [CommissionController::class, 'store'])
+//                ->name('commissions.store');
+//        });
+        Route::get('/{commission}/checkout', [CommissionController::class, 'checkout'])
+            ->middleware('commissions.canview')
+            ->name('commissions.checkout');
         Route::get('/{commission}', [CommissionController::class, 'show'])
             ->middleware('commissions.canview')
             ->name('commissions.show');
