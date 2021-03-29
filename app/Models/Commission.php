@@ -25,10 +25,6 @@ class Commission extends Model
         'updated_at',
         'expires_at',
     ];
-    /**
-     * @var mixed
-     */
-    private $attachments;
 
     /**
      * Get the route key for the model.
@@ -256,7 +252,7 @@ class Commission extends Model
         $stripe->invoices->finalizeInvoice(
             $this->invoice_id
         );
-        $stripe->invoices->pay(
+        return $stripe->invoices->pay(
             $this->invoice_id,
             [
                 'forgive' => 'false'
