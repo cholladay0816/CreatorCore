@@ -24,7 +24,9 @@ class CommissionController extends Controller
     {
         return view('commissions.index', [
             'title' => 'Commissions',
-            'commissions' => auth()->user()->commissions,
+            'commissions' => auth()->user()->commissions->sortBy(function ($commission) {
+                return Commission::statusPriorityCommissions()[$commission->status];
+            }),
         ]);
     }
     /**
@@ -36,7 +38,9 @@ class CommissionController extends Controller
     {
         return view('commissions.index', [
             'title' => 'Orders',
-            'commissions' => auth()->user()->orders,
+            'commissions' => auth()->user()->orders->sortBy(function ($commission) {
+                return Commission::statusPriorityOrders()[$commission->status];
+            }),
         ]);
     }
 
@@ -94,6 +98,20 @@ class CommissionController extends Controller
     public function show(Commission $commission)
     {
         return view('commissions.show', ['commission' => $commission]);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param Commission $commission
+     * @return Application|Factory|View|RedirectResponse|Response|void
+     */
+    public function checkout(Commission $commission)
+    {
+        if ($commission->invoice_id != null) {
+            return redirect()->to(route('commissions.orders'))->with(['success' => 'This order is already paid.']);
+        }
+        return view('commissions.checkout', ['commission' => $commission]);
     }
 
     /**
