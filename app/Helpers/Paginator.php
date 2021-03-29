@@ -3,7 +3,6 @@
 
 namespace App\Helpers;
 
-
 use Illuminate\Support\Collection;
 
 class Paginator
