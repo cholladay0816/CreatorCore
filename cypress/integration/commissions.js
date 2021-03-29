@@ -1,14 +1,7 @@
 describe('Commissions', function () {
-    beforeEach(() => {
-        cy.refreshDatabase();
-        cy.create('App\\Models\\User', {
-            name: 'test',
-            email: 'test@test.com',
-        })
-    })
     describe('Create / Store', function () {
         it('creates a Commission', function () {
-            cy.login({'email': 'test@test.com'}).visit('/commissions/new/test')
+            cy.login({'email': 'buyer@creator-core.com'}).visit('/commissions/new/creator')
                 .get('[name="title"]').type('Test Title')
                 .get('[name="description"]').type('Test Description')
                 .get('[name="memo"]').type('Test Memo')
@@ -16,13 +9,13 @@ describe('Commissions', function () {
                 .get('[name="days_to_complete"]').type('12')
                 .get('[type="submit"]').click()
                 .assertRedirect('/commissions/' + '1-test-title')
-        }).skip();
+        });
     });
     describe('Show', function () {
         it('can show a commission', function () {
             cy.create('App\\Models\\Commission', {
                 buyer_id: 1,
-                creator_id: 1,
+                creator_id: 2,
                 commission_preset_id: null,
                 title: 'Test Title',
                 description: 'Test Description',
@@ -40,6 +33,6 @@ describe('Commissions', function () {
             .contains('$543.21')
             .window()
             .contains('5')
-        }).skip();
+        });
     });
 });
