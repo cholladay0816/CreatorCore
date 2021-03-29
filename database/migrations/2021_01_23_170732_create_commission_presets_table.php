@@ -25,7 +25,7 @@ class CreateCommissionPresetsTable extends Migration
             $table->integer('days_to_complete')
                 ->unsigned()
                 ->default(7);
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->timestamps();
         });
     }
