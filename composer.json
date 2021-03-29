@@ -27,7 +27,7 @@
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
         "phpunit/phpunit": "^9.3.3",
-        "stripe/stripe-php": "^7.68"
+        "stripe/stripe-php": "^7.76"
     },
     "require-dev": {
         "brianium/paratest": "^6.1",
