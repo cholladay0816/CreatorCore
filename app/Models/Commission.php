@@ -10,7 +10,9 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use JamesMills\LaravelTimezone\Facades\Timezone;
+use Stripe\Customer;
 use Stripe\StripeClient;
+use Stripe\Token;
 
 class Commission extends Model
 {
@@ -23,6 +25,10 @@ class Commission extends Model
         'updated_at',
         'expires_at',
     ];
+    /**
+     * @var mixed
+     */
+    private $attachments;
 
     /**
      * Get the route key for the model.
@@ -223,11 +229,21 @@ class Commission extends Model
                 'title' => 'Declined by ' . $this->buyer->name, 'color' => 'bg-red-500', 'status' => 'Declined'
             ]
         );
+        $stripe = new StripeClient(config('stripe.secret'));
+
+        $invoice = $stripe->invoices->retrieve($this->invoice_id);
+        if ($invoice->status == 'paid') {
+            $stripe->refunds->create([
+                'charge' => $invoice->charge,
+            ]);
+        } else {
+            $stripe->invoices->delete($invoice->id);
+        }
     }
     public function accept()
     {
         // TODO: send emails and notifications
-        $this->status = 'Active';
+        $this->status = 'Purchasing';
         $this->expires_at = now()->addDays($this->days_to_complete);
         $this->save();
         CommissionEvent::create(
@@ -236,23 +252,79 @@ class Commission extends Model
                 'title' => 'Accepted by ' . $this->creator->name, 'color' => 'bg-green-500', 'status' => 'Active'
             ]
         );
+        $stripe = new StripeClient(config('stripe.secret'));
+        $stripe->invoices->finalizeInvoice(
+            $this->invoice_id
+        );
+        $stripe->invoices->pay(
+            $this->invoice_id,
+            [
+                'forgive' => 'false'
+            ]
+        );
     }
-    public function attemptCharge()
+
+    public function fees()
+    {
+        $amount = $this->price * 100;
+        $total = $amount + 30;
+        $total += ceil(($this->price * 0.06) * 100);
+        return floatval($total - $amount) / 100;
+    }
+    public function getFeesAttribute()
+    {
+        return $this->fees();
+    }
+    public function total()
+    {
+        $amount = $this->price * 100;
+        $total = $amount + 30;
+        $total += ceil(($this->price * 0.06) * 100);
+        return floatval($total) / 100;
+    }
+    public function getTotalAttribute()
+    {
+        return $this->total();
+    }
+
+
+    public function attemptCharge($token = null)
     {
         if ($this->invoice_id) {
             return null;
         }
 
-        $this->buyer->createOrGetStripeCustomer();
+        $customer = $this->buyer->createOrGetStripeCustomer();
+        $source = null;
+        $stripe = new StripeClient(config('stripe.secret'));
+        if ($token != null) {
+            $source = $stripe->customers->createSource(
+                $customer->id,
+                [
+                    'source' => $token,
+                ]
+            );
+        }
+
         if ($this->buyer->hasPaymentMethod()) {
             try {
-                $amount = $this->price * 100;
-                $total = $amount + 30;
-                $total += ceil(($this->price * 0.06) * 100);
-
-                $invoice = $this->buyer->invoiceFor($this->displayTitle(), $total);
+                $stripe->invoiceItems->create([
+                    'customer' => $customer->id,
+                    'description' => $this->displayTitle(),
+                    'amount' => ($this->total * 100),
+                    'currency' => 'usd'
+                ]);
+                $invoiceData = [
+                    'customer' => $customer->id,
+                    'collection_method' => 'charge_automatically',
+                ];
+                if ($source != null) {
+                    $invoiceData['default_source'] = $source->id;
+                }
+                $invoice = $stripe->invoices->create($invoiceData);
+                //$invoice = $this->buyer->invoiceFor($this->displayTitle(), $total);
                 $this->invoice_id = $invoice->id;
-                $this->status = 'Purchasing';
+                $this->status = 'Pending';
                 $this->save();
                 return $invoice;
             } catch (\Exception $e) {
@@ -261,9 +333,12 @@ class Commission extends Model
         }
         return null;
     }
-
+    // For testing only, verification handled by webhooks.
     public function checkInvoiceStatus()
     {
+//        if ($this->invoice_id == null) {
+//            return $this->chargeFail();
+//        }
         $stripe = new \Stripe\StripeClient(
             config('stripe.secret'),
         );
@@ -278,13 +353,13 @@ class Commission extends Model
     public function chargeSuccess()
     {
         // TODO: send emails and notifications
-        $this->status = 'Pending';
+        $this->status = 'Active';
         $this->save();
 
         CommissionEvent::create(
             [
                 'commission_id' => $this->id,
-                'title' => 'Commission paid', 'color' => 'bg-green-500', 'status' => 'Pending'
+                'title' => 'Commission paid', 'color' => 'bg-green-500', 'status' => 'Active'
             ]
         );
     }
@@ -373,7 +448,7 @@ class Commission extends Model
         $stripe = new StripeClient(config('stripe.secret'));
         $invoice = $stripe->invoices->retrieve($this->invoice_id, ['expand' => ['charge']]);
         $stripe->refunds->create([
-            'charge' => $invoice->charge->id,
+            'charge' => $invoice->charge,
             'reason' => 'requested_by_customer'
         ]);
         CommissionEvent::create(
@@ -382,6 +457,9 @@ class Commission extends Model
                 'title' => 'Expired', 'color' => 'bg-red-500', 'status' => 'Expired'
             ]
         );
+        foreach ($this->attachments as $attachment) {
+            $attachment->delete();
+        }
     }
     public function refund()
     {
@@ -391,7 +469,7 @@ class Commission extends Model
         $stripe = new StripeClient(config('stripe.secret'));
         $invoice = $stripe->invoices->retrieve($this->invoice_id, ['expand' => ['charge']]);
         $stripe->refunds->create([
-            'charge' => $invoice->charge->id
+            'charge' => $invoice->charge
         ]);
         CommissionEvent::create(
             [
@@ -399,6 +477,9 @@ class Commission extends Model
                 'title' => 'Order refunded', 'color' => 'bg-red-500', 'status' => 'Refunded'
             ]
         );
+        foreach ($this->attachments as $attachment) {
+            $attachment->delete();
+        }
     }
     public function resolve()
     {
