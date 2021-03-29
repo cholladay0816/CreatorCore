@@ -1,3 +1,4 @@
+<x-agnostic-layout>
 <div class="profile-page">
     <section class="relative block" style="height: 500px;">
         <div
@@ -56,7 +57,7 @@
                                     class="bg-indigo-500 active:bg-indigo-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1"
                                     type="button"
                                     style="transition: all 0.15s ease 0s;"
-                                    href="{{url('/'.$user->name.'/commissions')}}"
+                                    href="{{ route('creator.show', [$user, 'commissions']) }}"
                                 >
                                     Commission
                                 </a>
@@ -73,7 +74,7 @@
                                 <div class="mr-4 p-3 text-center">
                       <span
                           class="text-xl font-bold block uppercase tracking-wide text-gray-700"
-                      >{{$user->galleryCount()}}</span
+                      >{{$user->gallery->count()}}</span
                       ><span class="text-sm text-gray-500">Photos</span>
                                 </div>
                                 <div class="lg:mr-4 p-3 text-center">
@@ -87,33 +88,10 @@
                     </div>
                     <div class="text-center mt-12">
                         <h3 id="displayNameHeader"
-                            @if($creator->canBeEdited())
-                            ondblclick="openNameEditor()"
-                            @endif
                             class="text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
                         >
-                            {{$creator->displayname}}
+                            {{$user->name}}
                         </h3>
-                        @if($creator->canBeEdited())
-                            <form id="editNameForm" method="POST" action="{{url('/creator/edit/'.$creator->displayname)}}" class="hidden">
-                                @csrf
-                                @method('PUT')
-                                <div>
-                                    <input required
-                                           class=" bg-gray-300 rounded text-center font-semibold sm:text-4xl"
-                                           type="text" name="displayname" value="{{old('displayname')??$creator->displayname}}"
-                                    />
-                                    @error('displayname')
-                                    <div class="flex mx-auto">
-                                        <span class="text-red-500 mx-auto">{{$message}}</span>
-                                    </div>
-                                    @enderror
-                                    <div class="py-4">
-                                        <input class="w-40 sm:py-3 sm:px-2 bg-indigo-500 rounded text-white sm:text-2xl" type="submit" value="Change"/>
-                                    </div>
-                                </div>
-                            </form>
-                        @endif
                         <div
                             class="text-sm leading-normal mt-0 mb-2 text-gray-500 font-bold uppercase"
                         >
@@ -132,25 +110,25 @@
                         </div>
                     </div>
                     <ul class="flex border-b mt-24 mx-auto">
-                        <li class="flex flex-1 {{$page=='details'?'-mb-px':''}}">
-                            <a class="bg-white inline-block py-2 px-2 sm:px-6 lg:px-24 mx-auto {{$page=='details'?'border-l border-t border-r rounded-t text-blue-700':'text-blue-500 hover:text-blue-800'}} font-semibold" href="{{url('/'.$creator->displayname.'/')}}">Details</a>
+                        <li class="flex flex-1 {{$page=='about'?'-mb-px':''}}">
+                            <a class="bg-white inline-block py-2 px-2 sm:px-6 lg:px-24 mx-auto {{$page=='about'?'border-l border-t border-r rounded-t text-blue-700':'text-blue-500 hover:text-blue-800'}} font-semibold" href="{{ route('creator.show', $user) }}">Details</a>
                         </li>
                         <li class="flex flex-1 {{$page=='gallery'?'-mb-px':''}}">
-                            <a class="bg-white inline-block py-2 px-2 sm:px-6 lg:px-24 mx-auto {{$page=='gallery'?'border-l border-t border-r rounded-t text-blue-700':'text-blue-500 hover:text-blue-800'}} font-semibold" href="{{url('/'.$creator->displayname.'/gallery')}}">Gallery</a>
+                            <a class="bg-white inline-block py-2 px-2 sm:px-6 lg:px-24 mx-auto {{$page=='gallery'?'border-l border-t border-r rounded-t text-blue-700':'text-blue-500 hover:text-blue-800'}} font-semibold" href="{{ route('creator.show', [$user, 'gallery']) }}">Gallery</a>
                         </li>
                         <li class="flex flex-1 {{$page=='commissions'?'-mb-px':''}}">
-                            <a class="bg-white inline-block py-2 px-2 sm:px-6 lg:px-24 mx-auto {{$page=='commissions'?'border-l border-t border-r rounded-t text-blue-700':'text-blue-500 hover:text-blue-800'}} font-semibold" href="{{url('/'.$creator->displayname.'/commissions')}}">Commissions</a>
+                            <a class="bg-white inline-block py-2 px-2 sm:px-6 lg:px-24 mx-auto {{$page=='commissions'?'border-l border-t border-r rounded-t text-blue-700':'text-blue-500 hover:text-blue-800'}} font-semibold" href="{{ route('creator.show', [$user, 'commissions']) }}">Commissions</a>
                         </li>
                     </ul>
                     <div class="mt-10 py-10 text-center">
                         <div class="flex flex-wrap justify-center">
                             <div class="w-full lg:w-10/12 px-1">
-                                @if($page=='gallery')
-                                    @livewire('components.gallery', ['user'=>$user])
-                                @elseif($page=='commissions')
-                                    @livewire('components.commissions', ['user'=>$user])
+                                @if($page == 'gallery')
+                                    @livewire('creator.gallery', ['user' => $user])
+                                @elseif($page == 'commissions')
+                                    @livewire('creator.commissions', ['user' => $user])
                                 @else
-                                    @livewire('components.about', ['user'=>$user])
+                                    @livewire('creator.about', ['user' => $user])
                                 @endif
                             </div>
                         </div>
@@ -160,3 +138,4 @@
         </div>
     </section>
 </div>
+</x-agnostic-layout>
