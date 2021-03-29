@@ -41,7 +41,6 @@ Route::get('/attachments/{attachment}', [AttachmentController::class, 'show'])
     ->name('attachments.show');
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-
     Route::resource('/commissionpresets', CommissionPresetController::class);
 
     Route::resource('/notifications', NotificationController::class, ['index'])
@@ -52,7 +51,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     })->name('dashboard');
 
     Route::prefix('commissions')->group(function () {
-
         Route::get('/new/{user}/{commissionpreset?}', [CommissionController::class, 'create'])
             ->name('commissions.create');
         Route::post('/new/{user}/{commissionpreset?}', [CommissionController::class, 'store'])

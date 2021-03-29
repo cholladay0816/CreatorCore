@@ -19,5 +19,4 @@ class GalleryTest extends TestCase
 
         $this->assertEquals($user->id, $gallery->user->id);
     }
-
 }

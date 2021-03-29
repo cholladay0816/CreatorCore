@@ -3,7 +3,6 @@
 
 namespace Database\Seeders;
 
-
 use App\Models\Commission;
 use App\Models\CommissionEvent;
 use App\Models\Creator;
@@ -55,6 +54,5 @@ class DemoSeeder extends Seeder
                 'created_at' => now()->addDays(2),
             ]
         );
-
     }
 }
