@@ -1,6 +1,6 @@
 <div class="max-w-sm rounded overflow-hidden mx-auto">
     <a target="_blank" href="{{url('/gallery/'.$gallery->id)}}" class="relative w-100">
-        @if($gallery->canBeEdited())
+        @if($gallery->user_id == auth()->user())
             <form method="POST" action="{{url('/gallery/'.$gallery->id)}}">
                 @csrf
                 @method('DELETE')
