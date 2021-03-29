@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Paginator;
 use App\Models\Commission;
 use App\Models\CommissionPreset;
 use App\Models\User;
@@ -24,9 +25,9 @@ class CommissionController extends Controller
     {
         return view('commissions.index', [
             'title' => 'Commissions',
-            'commissions' => auth()->user()->commissions->sortBy(function ($commission) {
+            'commissions' => Paginator::paginate(auth()->user()->commissions->sortBy(function ($commission) {
                 return Commission::statusPriorityCommissions()[$commission->status];
-            }),
+            }), 10),
         ]);
     }
     /**
@@ -38,9 +39,9 @@ class CommissionController extends Controller
     {
         return view('commissions.index', [
             'title' => 'Orders',
-            'commissions' => auth()->user()->orders->sortBy(function ($commission) {
+            'commissions' => Paginator::paginate(auth()->user()->orders->sortBy(function ($commission) {
                 return Commission::statusPriorityOrders()[$commission->status];
-            }),
+            }), 10),
         ]);
     }
 
