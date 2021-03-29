@@ -9,6 +9,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Livewire\Livewire;
 
 class CreatorController extends Controller
 {
@@ -52,8 +53,7 @@ class CreatorController extends Controller
     public function show(User $user, $page = 'about')
     {
         abort_if(!$user->isValidCreator(), 404);
-
-        return view('livewire.creator.show', ['user' => $user]);
+        return view('livewire.creator.show', ['user' => $user, 'page' => $page]);
     }
 
     /**
