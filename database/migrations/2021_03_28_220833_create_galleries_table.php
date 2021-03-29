@@ -17,8 +17,8 @@ class CreateGalleriesTable extends Migration
         Schema::create('galleries', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
-            $table->string('path');
-            $table->string('slug');
+            $table->string('path')->unique();
+            $table->string('slug')->unique();
             $table->string('type');
             $table->bigInteger('size')->unsigned();
             $table->string('comment')->nullable();
