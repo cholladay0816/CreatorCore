@@ -201,15 +201,14 @@ class CommissionController extends Controller
                 ->with(['success' => 'Commission declined']);
         } elseif ($commission->status == 'Active') {
             if (!$commission->isBuyer()) {
-                // if (!$commission->isCreator()) {
-                abort(401);
-                // }
-                // $commission->cancel();
-            }
-            if ($commission->expiration_date > now()) {
                 abort(401);
             }
+            if ($commission->expires_at > now()) {
+                abort(401);
+            }
+
             $commission->expire();
+
             return redirect()
                 ->to(route('commissions.orders'))
                 ->with(['success' => 'Commission canceled']);
