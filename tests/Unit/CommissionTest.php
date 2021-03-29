@@ -174,10 +174,13 @@ class CommissionTest extends TestCase
                 ],
             ],
         );
-        // We know this card will fail, so we expect an exception message.
         // Attempt to charge the customer with an invoice.
-        $invoice = $commission->attemptCharge();
+        $commission->attemptCharge();
 
-        $this->assertEquals(CardException::class, get_class($invoice));
+        // We know this card will fail, so we expect an exception message.
+        $this->expectException(CardException::class);
+
+        // Finalize the invoice and charge the invalid card.
+        $commission->accept();
     }
 }
