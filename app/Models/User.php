@@ -106,6 +106,12 @@ class User extends Authenticatable
         //TODO: send out emails, notifications
         //TODO: check for three, then suspend
     }
+
+    public function gallery()
+    {
+        return $this->hasMany(Gallery::class);
+    }
+
     public function reviews()
     {
         return $this->hasMany(Review::class);
@@ -167,6 +173,15 @@ class User extends Authenticatable
     public function isValidCreator()
     {
         return $this->creator != null;
+    }
+    public function attachments()
+    {
+        return $this->hasManyThrough(Attachment::class, Commission::class, 'creator_id', 'user_id');
+    }
+
+    public function bytesUsed()
+    {
+        return $this->attachments->sum('size') + $this->gallery->sum('size');
     }
 
     public function canAcceptPayments()
