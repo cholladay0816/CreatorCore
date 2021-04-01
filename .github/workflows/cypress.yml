@@ -67,8 +67,8 @@ jobs:
           DB_USERNAME: root
           DB_PASSWORD: forge
         run: |
-        php artisan migrate:fresh
-        php artisan db:seed --class=CypressSeeder
+          php artisan migrate:fresh
+          php artisan db:seed --class=CypressSeeder
 
       - name: Cypress run
         uses: cypress-io/github-action@v2
