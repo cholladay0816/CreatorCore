@@ -12,7 +12,7 @@ describe('Login', function () {
     });
 
     it('works', function () {
-        cy.visit('/login').get('[type="email"]').type('test@test.com')
+        cy.visit('/login').get('[type="email"]').type('buyer@creator-core.com')
             .get('[type="password"]').type('password')
             .get('[type="submit"]').click()
             .assertRedirect('/dashboard')
