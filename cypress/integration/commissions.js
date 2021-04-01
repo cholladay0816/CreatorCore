@@ -5,7 +5,7 @@ describe('Commissions', function () {
                 .get('[name="title"]').type('Test Title')
                 .get('[name="description"]').type('Test Description')
                 .get('[name="memo"]').type('Test Memo')
-                .get('[name="price"]').type('6')
+                .get('[name="price"]').type('543.21')
                 .get('[name="days_to_complete"]').type('12')
                 .get('[type="submit"]').click()
                 .assertRedirect('/commissions/' + '1-test-title')
@@ -13,18 +13,7 @@ describe('Commissions', function () {
     });
     describe('Show', function () {
         it('can show a commission', function () {
-            cy.create('App\\Models\\Commission', {
-                buyer_id: 1,
-                creator_id: 2,
-                commission_preset_id: null,
-                title: 'Test Title',
-                description: 'Test Description',
-                memo: 'Test Memo',
-                price: '543.21',
-                days_to_complete: 5,
-
-            })
-            .login({ email: 'test@test.com'})
+            cy.login({ email: 'buyer@creator-core.com'})
             .visit('/commissions/' + '1-test-title')
             .contains('Test Title')
             .window()
