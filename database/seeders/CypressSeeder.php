@@ -20,13 +20,14 @@ class CypressSeeder extends Seeder
             DatabaseSeeder::class,
         ]);
 
+
+        $buyer = User::factory()->create(['email' => 'buyer@creator-core.com', 'name' => 'buyer']);
+        $creator = User::factory()->create(['email' => 'creator@creator-core.com', 'name' => 'creator']);
+        Creator::factory()->create(['user_id' => $creator->id]);
+
         $admin = User::factory()->create(['name' => 'Admin', 'email' => 'admin@creator-core.com']);
 
         $adminRole = Role::where('title', 'Administrator')->first();
         $admin->roles()->attach($adminRole);
-
-        $buyer = User::factory()->create(['email' => 'buyer@creator-core.com']);
-        $creator = User::factory()->create(['email' => 'creator@creator-core.com']);
-        Creator::factory()->create(['user_id' => $creator->id]);
     }
 }
