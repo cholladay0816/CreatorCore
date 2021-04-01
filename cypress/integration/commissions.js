@@ -5,7 +5,7 @@ describe('Commissions', function () {
                 .get('[name="title"]').type('Test Title')
                 .get('[name="description"]').type('Test Description')
                 .get('[name="memo"]').type('Test Memo')
-                .get('[name="price"]').type('543.21')
+                .get('[name="price"]').type('43.21')
                 .get('[name="days_to_complete"]').type('12')
                 .get('[type="submit"]').click()
                 .assertRedirect('/commissions/' + '1-test-title')
