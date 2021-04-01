@@ -1,12 +1,4 @@
 describe('Login', function () {
-    before(() => {
-        cy.refreshDatabase();
-        cy.create('App\\Models\\User', {
-            name: 'test',
-            email: 'test@test.com',
-        })
-    })
-
     it('can be viewed', function () {
         cy.visit('/login')
     });
