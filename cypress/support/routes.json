@@ -125,7 +125,7 @@
     "name": null,
     "domain": null,
     "action": "Closure",
-    "uri": "/",
+    "uri": "api/user",
     "method": [
       "GET",
       "HEAD"
@@ -381,11 +381,31 @@
       "HEAD"
     ]
   },
+  "welcome": {
+    "name": "welcome",
+    "domain": null,
+    "action": "Closure",
+    "uri": "/",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
   "explore": {
     "name": "explore",
     "domain": null,
     "action": "App\\Http\\Controllers\\ExploreController@index",
     "uri": "explore",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "creator.show": {
+    "name": "creator.show",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\CreatorController@show",
+    "uri": "creator/{user}/{page?}",
     "method": [
       "GET",
       "HEAD"
@@ -399,6 +419,74 @@
     "method": [
       "GET",
       "HEAD"
+    ]
+  },
+  "commissionpresets.index": {
+    "name": "commissionpresets.index",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\CommissionPresetController@index",
+    "uri": "commissionpresets",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "commissionpresets.create": {
+    "name": "commissionpresets.create",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\CommissionPresetController@create",
+    "uri": "commissionpresets/create",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "commissionpresets.store": {
+    "name": "commissionpresets.store",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\CommissionPresetController@store",
+    "uri": "commissionpresets",
+    "method": [
+      "POST"
+    ]
+  },
+  "commissionpresets.show": {
+    "name": "commissionpresets.show",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\CommissionPresetController@show",
+    "uri": "commissionpresets/{commissionpreset}",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "commissionpresets.edit": {
+    "name": "commissionpresets.edit",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\CommissionPresetController@edit",
+    "uri": "commissionpresets/{commissionpreset}/edit",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "commissionpresets.update": {
+    "name": "commissionpresets.update",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\CommissionPresetController@update",
+    "uri": "commissionpresets/{commissionpreset}",
+    "method": [
+      "PUT",
+      "PATCH"
+    ]
+  },
+  "commissionpresets.destroy": {
+    "name": "commissionpresets.destroy",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\CommissionPresetController@destroy",
+    "uri": "commissionpresets/{commissionpreset}",
+    "method": [
+      "DELETE"
     ]
   },
   "notifications.index": {
@@ -496,6 +584,16 @@
     "uri": "commissions/new/{user}/{commissionpreset?}",
     "method": [
       "POST"
+    ]
+  },
+  "commissions.checkout": {
+    "name": "commissions.checkout",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\CommissionController@checkout",
+    "uri": "commissions/{commission}/checkout",
+    "method": [
+      "GET",
+      "HEAD"
     ]
   },
   "commissions.show": {
