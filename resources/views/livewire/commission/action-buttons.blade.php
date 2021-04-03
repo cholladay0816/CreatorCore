@@ -1,16 +1,14 @@
 <div>
         @if($commission->status == 'Unpaid' && $commission->buyer_id == auth()->id())
-        <form class="inline-flex items-center" method="POST" action="{{route('commissions.update', $commission)}}">
-            @csrf
-            @method('PUT')
-            <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-lightBlue-500 hover:bg-lightBlue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lightBlue-400">
+        <div class="inline-flex items-center">
+            <a href="{{ route('commissions.checkout', $commission) }}" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-lightBlue-500 hover:bg-lightBlue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lightBlue-400">
                 <svg class="-ml-1 mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
                     <path fill-rule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd" />
                 </svg>
                 Pay
-            </button>
-        </form>
+            </a>
+        </div>
         <form class="inline-flex items-center" method="POST" action="{{route('commissions.destroy', $commission)}}">
             @csrf
             @method('DELETE')

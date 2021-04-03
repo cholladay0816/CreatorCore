@@ -6,7 +6,7 @@ use App\Models\Commission;
 use App\Models\CommissionPreset;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Laravel\Cashier\Exceptions\PaymentFailure;
+use Stripe\Exception\CardException;
 use Tests\TestCase;
 
 class CommissionTest extends TestCase
@@ -174,10 +174,13 @@ class CommissionTest extends TestCase
                 ],
             ],
         );
-        // We know this card will fail, so we expect an exception message.
         // Attempt to charge the customer with an invoice.
-        $invoice = $commission->attemptCharge();
+        $commission->attemptCharge();
 
-        $this->assertEquals(PaymentFailure::class, get_class($invoice));
+        // We know this card will fail, so we expect an exception message.
+        $this->expectException(CardException::class);
+
+        // Finalize the invoice and charge the invalid card.
+        $commission->accept();
     }
 }

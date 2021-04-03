@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Paginator;
 use App\Models\Commission;
 use App\Models\CommissionPreset;
 use App\Models\User;
@@ -24,7 +25,9 @@ class CommissionController extends Controller
     {
         return view('commissions.index', [
             'title' => 'Commissions',
-            'commissions' => auth()->user()->commissions,
+            'commissions' => Paginator::paginate(auth()->user()->commissions->sortBy(function ($commission) {
+                return Commission::statusPriorityCommissions()[$commission->status];
+            }), 10),
         ]);
     }
     /**
@@ -36,7 +39,9 @@ class CommissionController extends Controller
     {
         return view('commissions.index', [
             'title' => 'Orders',
-            'commissions' => auth()->user()->orders,
+            'commissions' => Paginator::paginate(auth()->user()->orders->sortBy(function ($commission) {
+                return Commission::statusPriorityOrders()[$commission->status];
+            }), 10),
         ]);
     }
 
@@ -94,6 +99,20 @@ class CommissionController extends Controller
     public function show(Commission $commission)
     {
         return view('commissions.show', ['commission' => $commission]);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param Commission $commission
+     * @return Application|Factory|View|RedirectResponse|Response|void
+     */
+    public function checkout(Commission $commission)
+    {
+        if ($commission->invoice_id != null) {
+            return redirect()->to(route('commissions.orders'))->with(['success' => 'This order is already paid.']);
+        }
+        return view('commissions.checkout', ['commission' => $commission]);
     }
 
     /**
@@ -183,15 +202,14 @@ class CommissionController extends Controller
                 ->with(['success' => 'Commission declined']);
         } elseif ($commission->status == 'Active') {
             if (!$commission->isBuyer()) {
-                // if (!$commission->isCreator()) {
-                abort(401);
-                // }
-                // $commission->cancel();
-            }
-            if ($commission->expiration_date > now()) {
                 abort(401);
             }
+            if ($commission->expires_at > now()) {
+                abort(401);
+            }
+
             $commission->expire();
+
             return redirect()
                 ->to(route('commissions.orders'))
                 ->with(['success' => 'Commission canceled']);

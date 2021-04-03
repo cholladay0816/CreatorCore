@@ -6,9 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
+use JamesMills\LaravelTimezone\Facades\Timezone;
+use Stripe\Customer;
 use Stripe\StripeClient;
+use Stripe\Token;
 
 class Commission extends Model
 {
@@ -179,7 +183,10 @@ class Commission extends Model
     {
         return Str::slug(($this->id??(Commission::count() + 1)) . '-' . $this->title);
     }
-
+    public function getExpiresAtLocalAttribute()
+    {
+        return $this->expires_at->setTimezone('America/Chicago');
+    }
     protected static function boot()
     {
         self::creating(function ($commission) {
@@ -197,7 +204,7 @@ class Commission extends Model
             CommissionEvent::create(
                 [
                     'commission_id' => $commission->id,
-                    'title' => 'Created Commission', 'color' => 'gray-400', 'status' => 'Unpaid'
+                    'title' => 'Created Commission', 'color' => 'bg-gray-400', 'status' => 'Unpaid'
                 ]
             );
         });
@@ -215,39 +222,105 @@ class Commission extends Model
         CommissionEvent::create(
             [
                 'commission_id' => $this->id,
-                'title' => 'Declined by ' . $this->buyer->name, 'color' => 'red-500', 'status' => 'Declined'
+                'title' => 'Declined by ' . $this->buyer->name, 'color' => 'bg-red-500', 'status' => 'Declined'
             ]
         );
+        $stripe = new StripeClient(config('stripe.secret'));
+
+        $invoice = $stripe->invoices->retrieve($this->invoice_id);
+        if ($invoice->status == 'paid') {
+            $stripe->refunds->create([
+                'charge' => $invoice->charge,
+            ]);
+        } else {
+            $stripe->invoices->delete($invoice->id);
+        }
     }
     public function accept()
     {
         // TODO: send emails and notifications
-        $this->status = 'Active';
+        $this->status = 'Purchasing';
         $this->expires_at = now()->addDays($this->days_to_complete);
         $this->save();
         CommissionEvent::create(
             [
                 'commission_id' => $this->id,
-                'title' => 'Accepted by ' . $this->creator->name, 'color' => 'green-500', 'status' => 'Active'
+                'title' => 'Accepted by ' . $this->creator->name, 'color' => 'bg-green-500', 'status' => 'Active'
+            ]
+        );
+        $stripe = new StripeClient(config('stripe.secret'));
+        $stripe->invoices->finalizeInvoice(
+            $this->invoice_id
+        );
+        return $stripe->invoices->pay(
+            $this->invoice_id,
+            [
+                'forgive' => 'false'
             ]
         );
     }
-    public function attemptCharge()
+
+    public function fees()
+    {
+        $amount = $this->price * 100;
+        $total = $amount + 30;
+        $total += ceil(($this->price * 0.06) * 100);
+        return floatval($total - $amount) / 100;
+    }
+    public function getFeesAttribute()
+    {
+        return $this->fees();
+    }
+    public function total()
+    {
+        $amount = $this->price * 100;
+        $total = $amount + 30;
+        $total += ceil(($this->price * 0.06) * 100);
+        return floatval($total) / 100;
+    }
+    public function getTotalAttribute()
+    {
+        return $this->total();
+    }
+
+
+    public function attemptCharge($token = null)
     {
         if ($this->invoice_id) {
             return null;
         }
 
-        $this->buyer->createOrGetStripeCustomer();
+        $customer = $this->buyer->createOrGetStripeCustomer();
+        $source = null;
+        $stripe = new StripeClient(config('stripe.secret'));
+        if ($token != null) {
+            $source = $stripe->customers->createSource(
+                $customer->id,
+                [
+                    'source' => $token,
+                ]
+            );
+        }
+
         if ($this->buyer->hasPaymentMethod()) {
             try {
-                $amount = $this->price * 100;
-                $total = $amount + 30;
-                $total += ceil(($this->price * 0.06) * 100);
-
-                $invoice = $this->buyer->invoiceFor($this->displayTitle(), $total);
+                $stripe->invoiceItems->create([
+                    'customer' => $customer->id,
+                    'description' => $this->displayTitle(),
+                    'amount' => ($this->total * 100),
+                    'currency' => 'usd'
+                ]);
+                $invoiceData = [
+                    'customer' => $customer->id,
+                    'collection_method' => 'charge_automatically',
+                ];
+                if ($source != null) {
+                    $invoiceData['default_source'] = $source->id;
+                }
+                $invoice = $stripe->invoices->create($invoiceData);
+                //$invoice = $this->buyer->invoiceFor($this->displayTitle(), $total);
                 $this->invoice_id = $invoice->id;
-                $this->status = 'Purchasing';
+                $this->status = 'Pending';
                 $this->save();
                 return $invoice;
             } catch (\Exception $e) {
@@ -256,9 +329,12 @@ class Commission extends Model
         }
         return null;
     }
-
+    // For testing only, verification handled by webhooks.
     public function checkInvoiceStatus()
     {
+//        if ($this->invoice_id == null) {
+//            return $this->chargeFail();
+//        }
         $stripe = new \Stripe\StripeClient(
             config('stripe.secret'),
         );
@@ -273,13 +349,13 @@ class Commission extends Model
     public function chargeSuccess()
     {
         // TODO: send emails and notifications
-        $this->status = 'Pending';
+        $this->status = 'Active';
         $this->save();
 
         CommissionEvent::create(
             [
                 'commission_id' => $this->id,
-                'title' => 'Commission paid', 'color' => 'green-500', 'status' => 'Pending'
+                'title' => 'Commission paid', 'color' => 'bg-green-500', 'status' => 'Active'
             ]
         );
     }
@@ -293,7 +369,7 @@ class Commission extends Model
         CommissionEvent::create(
             [
                 'commission_id' => $this->id,
-                'title' => 'Commission passed due date', 'color' => 'yellow-500', 'status' => 'Overdue'
+                'title' => 'Commission passed due date', 'color' => 'bg-yellow-500', 'status' => 'Overdue'
             ]
         );
     }
@@ -308,7 +384,7 @@ class Commission extends Model
         CommissionEvent::create(
             [
                 'commission_id' => $this->id,
-                'title' => 'Payment failed', 'color' => 'red-500', 'status' => 'Failed'
+                'title' => 'Payment failed', 'color' => 'bg-red-500', 'status' => 'Failed'
             ]
         );
     }
@@ -321,7 +397,7 @@ class Commission extends Model
         CommissionEvent::create(
             [
                 'commission_id' => $this->id,
-                'title' => 'Order completed', 'color' => 'lightBlue-500', 'status' => 'Completed'
+                'title' => 'Order completed', 'color' => 'bg-lightBlue-500', 'status' => 'Completed'
             ]
         );
     }
@@ -333,7 +409,7 @@ class Commission extends Model
         CommissionEvent::create(
             [
                 'commission_id' => $this->id,
-                'title' => 'Disputed by ' . $this->buyer->name, 'color' => 'red-500', 'status' => 'Disputed'
+                'title' => 'Disputed by ' . $this->buyer->name, 'color' => 'bg-red-500', 'status' => 'Disputed'
             ]
         );
     }
@@ -355,7 +431,7 @@ class Commission extends Model
 //        CommissionEvent::create(
 //            [
 //                'commission_id' => $this->id,
-//                'title' => 'Expired', 'color' => 'red-500', 'status' => 'Canceled'
+//                'title' => 'Expired', 'color' => 'bg-red-500', 'status' => 'Canceled'
 //            ]
 //        );
 //    }
@@ -368,15 +444,18 @@ class Commission extends Model
         $stripe = new StripeClient(config('stripe.secret'));
         $invoice = $stripe->invoices->retrieve($this->invoice_id, ['expand' => ['charge']]);
         $stripe->refunds->create([
-            'charge' => $invoice->charge->id,
+            'charge' => $invoice->charge,
             'reason' => 'requested_by_customer'
         ]);
         CommissionEvent::create(
             [
                 'commission_id' => $this->id,
-                'title' => 'Expired', 'color' => 'red-500', 'status' => 'Expired'
+                'title' => 'Expired', 'color' => 'bg-red-500', 'status' => 'Expired'
             ]
         );
+        foreach ($this->attachments as $attachment) {
+            $attachment->delete();
+        }
     }
     public function refund()
     {
@@ -386,14 +465,17 @@ class Commission extends Model
         $stripe = new StripeClient(config('stripe.secret'));
         $invoice = $stripe->invoices->retrieve($this->invoice_id, ['expand' => ['charge']]);
         $stripe->refunds->create([
-            'charge' => $invoice->charge->id
+            'charge' => $invoice->charge
         ]);
         CommissionEvent::create(
             [
                 'commission_id' => $this->id,
-                'title' => 'Order refunded', 'color' => 'red-500', 'status' => 'Refunded'
+                'title' => 'Order refunded', 'color' => 'bg-red-500', 'status' => 'Refunded'
             ]
         );
+        foreach ($this->attachments as $attachment) {
+            $attachment->delete();
+        }
     }
     public function resolve()
     {
@@ -401,7 +483,7 @@ class Commission extends Model
         CommissionEvent::create(
             [
                 'commission_id' => $this->id,
-                'title' => 'Dispute resolved', 'color' => 'yellow-500', 'status' => 'Resolved'
+                'title' => 'Dispute resolved', 'color' => 'bg-yellow-500', 'status' => 'Resolved'
             ]
         );
         $this->archive();
@@ -427,7 +509,7 @@ class Commission extends Model
         CommissionEvent::create(
             [
                 'commission_id' => $this->id,
-                'title' => 'Order archived', 'color' => 'green-500', 'status' => 'Archived'
+                'title' => 'Order archived', 'color' => 'bg-green-500', 'status' => 'Archived'
             ]
         );
     }

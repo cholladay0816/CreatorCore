@@ -29,7 +29,7 @@ class CommissionFeatureTest extends TestCase
     }
     public function getChargedCommission($buyer, User $seller)
     {
-        $buyer->createAsStripeCustomer();
+        $buyer->createOrGetStripeCustomer();
 
         $stripe = new StripeClient(config('stripe.secret'));
 
@@ -120,8 +120,7 @@ class CommissionFeatureTest extends TestCase
             ],
         );
         // Attempt to charge the customer with an invoice.
-        $invoice = $commission->attemptCharge();
-        $commission->checkInvoiceStatus();
+        $commission->attemptCharge();
 
         return $commission->fresh();
     }
@@ -131,35 +130,6 @@ class CommissionFeatureTest extends TestCase
     {
         // Generate a buyer and seller
         [$buyer, $seller] = $this->createBuyerAndSeller();
-
-        $buyer->createOrGetStripeCustomer();
-
-        $stripe = new StripeClient(config('stripe.secret'));
-
-        // Create a payment method
-        $paymentmethod = $stripe->paymentMethods->create([
-            'type' => 'card',
-            'card' => [
-                'number' => '4242424242424242',
-                'exp_month' => 2,
-                'exp_year' => 2022,
-                'cvc' => '123',
-            ],
-        ]);
-        // Attach it to the customer
-        $stripe->paymentMethods->attach(
-            $paymentmethod->id,
-            ['customer' => $buyer->stripe_id],
-        );
-        // Make this payment method their default
-        $stripe->customers->update(
-            $buyer->stripe_id,
-            [
-                'invoice_settings' => [
-                    'default_payment_method' => $paymentmethod->id,
-                ],
-            ],
-        );
 
         // Make a working commission
         $commission = Commission::factory()->make([
@@ -228,11 +198,7 @@ class CommissionFeatureTest extends TestCase
     public function a_commission_can_be_declined()
     {
         [$buyer, $seller] = $this->createBuyerAndSeller();
-        $commission = Commission::factory()->create([
-            'buyer_id' => $buyer->id,
-            'creator_id' => $seller->id,
-            'status' => 'Pending'
-        ]);
+        $commission = $this->getChargedCommission($buyer, $seller);
         $this->actingAs($seller)
             ->delete(route('commissions.destroy', $commission->fresh()))
             ->assertSessionHas('success', 'Commission declined')
@@ -245,15 +211,14 @@ class CommissionFeatureTest extends TestCase
     public function a_commission_can_be_accepted()
     {
         [$buyer, $seller] = $this->createBuyerAndSeller();
-        $commission = Commission::factory()->create([
-            'buyer_id' => $buyer->id,
-            'creator_id' => $seller->id,
-            'status' => 'Pending'
-        ]);
+        $commission = $this->getChargedCommission($buyer, $seller);
+
         $this->actingAs($seller)
             ->put(route('commissions.update', $commission->fresh()))
             ->assertRedirect(route('commissions.show', $commission))
             ->assertSessionHas('success', 'Commission accepted');
+        // Check the invoice is paid (test only, skips webhook)
+        $commission->checkInvoiceStatus();
 
         $this->assertEquals('Active', $commission->fresh()->status);
     }
@@ -280,11 +245,10 @@ class CommissionFeatureTest extends TestCase
     {
         [$buyer, $seller] = $this->createBuyerAndSeller();
         // Create an active commission
-        $commission = Commission::factory()->create([
-            'buyer_id' => $buyer->id,
-            'creator_id' => $seller->id,
-            'status' => 'Active'
-        ]);
+        $commission = $this->getChargedCommission($buyer, $seller);
+        $commission->accept();
+        $commission->checkInvoiceStatus();
+
         // Create an attachment, one is needed to complete the order
         Attachment::factory()->create([
             'commission_id' => $commission->id,
@@ -306,11 +270,11 @@ class CommissionFeatureTest extends TestCase
     public function a_commission_can_be_disputed()
     {
         [$buyer, $seller] = $this->createBuyerAndSeller();
-        $commission = Commission::factory()->create([
-            'buyer_id' => $buyer->id,
-            'creator_id' => $seller->id,
-            'status' => 'Completed'
-        ]);
+        $commission = $this->getChargedCommission($buyer, $seller);
+        $commission->accept();
+        $commission->checkInvoiceStatus();
+        $commission->complete();
+
         $this->actingAs($buyer)
             ->delete(route('commissions.destroy', $commission->fresh()))
             ->assertSessionHas('success', 'Commission disputed')
@@ -328,11 +292,11 @@ class CommissionFeatureTest extends TestCase
         $admin->users()->attach($administrator->id);
 
         [$buyer, $seller] = $this->createBuyerAndSeller();
-        $commission = Commission::factory()->create([
-            'buyer_id' => $buyer->id,
-            'creator_id' => $seller->id,
-            'status' => 'Disputed'
-        ]);
+        $commission = $this->getChargedCommission($buyer, $seller);
+        $commission->accept();
+        $commission->checkInvoiceStatus();
+        $commission->complete();
+        $commission->dispute();
         $this->actingAs($administrator)
             ->put(route('commissions.update', $commission->fresh()));
 
@@ -349,11 +313,11 @@ class CommissionFeatureTest extends TestCase
 
         [$buyer, $seller] = $this->createBuyerAndSeller();
         $commission = $this->getChargedCommission($buyer, $seller);
-        $commission->update(
-            [
-            'status' => 'Disputed'
-            ]
-        );
+        $commission->accept();
+        $commission->checkInvoiceStatus();
+        $commission->complete();
+        $commission->dispute();
+
         $this->actingAs($administrator)
             ->delete(route('commissions.destroy', $commission->fresh()));
 
@@ -365,16 +329,16 @@ class CommissionFeatureTest extends TestCase
     {
         [$buyer, $seller] = $this->createBuyerAndSeller();
         $commission = $this->getChargedCommission($buyer, $seller);
-        $commission->update(
-            [
-                'status' => 'Active',
-                'expires_at' => now()
-            ]
-        );
+        $commission->accept();
+        $commission->checkInvoiceStatus();
+
+        // Make sure the commission is overdue
+        $commission->expires_at = now()->addDays(-1);
+        $commission->save();
         $this->actingAs($buyer)
             ->delete(route('commissions.destroy', $commission->fresh()))
-            ->assertSessionHas('success', 'Commission canceled')
-            ->assertRedirect(route('commissions.orders'));
+            ->assertRedirect(route('commissions.orders'))
+            ->assertSessionHas('success', 'Commission canceled');
 
         $this->assertEquals('Expired', $commission->fresh()->status);
     }
@@ -384,8 +348,10 @@ class CommissionFeatureTest extends TestCase
     {
         [$buyer, $seller] = $this->createBuyerAndSeller();
         $commission = $this->getChargedCommission($buyer, $seller);
-        $commission->status = 'Completed';
-        $commission->save();
+        $commission->accept();
+        $commission->checkInvoiceStatus();
+        $commission->complete();
+
         $res = $this->actingAs($buyer)
             ->put(route('commissions.update', $commission->fresh()));
         $res->assertSessionHas('success', 'Commission archived')

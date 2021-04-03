@@ -107,6 +107,39 @@ class User extends Authenticatable
         //TODO: check for three, then suspend
     }
 
+    public function gallery()
+    {
+        return $this->hasMany(Gallery::class);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function ratings()
+    {
+        return $this->hasManyThrough(Review::class, Commission::class, 'creator_id', 'commission_id');
+    }
+
+    public function rating()
+    {
+        $ratings = $this->ratings;
+        return number_format(floatval($ratings->sum('positive')) / floatval($ratings->count()), 2);
+    }
+    public function getRatingAttribute()
+    {
+        return $this->rating();
+    }
+    public function stars()
+    {
+        return number_format(($this->rating * 5), 1);
+    }
+    public function getStarsAttribute()
+    {
+        return $this->stars();
+    }
+
     public function orders()
     {
         return $this->hasMany(Commission::class, 'buyer_id');
@@ -131,6 +164,24 @@ class User extends Authenticatable
     public function hasAbility($slug)
     {
         return $this->abilities->where('slug', $slug)->count() > 0;
+    }
+
+    public function creator()
+    {
+        return $this->hasOne(Creator::class);
+    }
+    public function isValidCreator()
+    {
+        return $this->creator != null;
+    }
+    public function attachments()
+    {
+        return $this->hasManyThrough(Attachment::class, Commission::class, 'creator_id', 'user_id');
+    }
+
+    public function bytesUsed()
+    {
+        return $this->attachments->sum('size') + $this->gallery->sum('size');
     }
 
     public function canAcceptPayments()

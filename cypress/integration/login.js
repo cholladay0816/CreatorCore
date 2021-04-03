@@ -1,12 +1,4 @@
 describe('Login', function () {
-    before(() => {
-        cy.refreshDatabase();
-        cy.create('App\\Models\\User', {
-            name: 'test',
-            email: 'test@test.com',
-        })
-    })
-
     it('can be viewed', function () {
         cy.visit('/login')
     });
@@ -20,7 +12,7 @@ describe('Login', function () {
     });
 
     it('works', function () {
-        cy.visit('/login').get('[type="email"]').type('test@test.com')
+        cy.visit('/login').get('[type="email"]').type('buyer@creator-core.com')
             .get('[type="password"]').type('password')
             .get('[type="submit"]').click()
             .assertRedirect('/dashboard')
