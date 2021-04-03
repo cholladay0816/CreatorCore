@@ -133,7 +133,7 @@
                         <a href="{{route('login')}}" class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
                             Sign in
                         </a>
-                        <a href="{{route('register')}}" class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700">
+                        <a href="{{route('register')}}" class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2  rounded-md shadow-sm text-base font-medium text-white bg-gradient-to-r from-lightBlue-400 to-blue-600 hover:from-lightBlue-600 hover:to-blue-700">
                             Sign up
                         </a>
                     </div>
@@ -256,7 +256,7 @@
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div class="relative shadow-xl sm:rounded-2xl sm:overflow-hidden z-10">
                         <div class="absolute inset-0">
-                            <div class="absolute inset-0 bg-gradient-to-r from-lightBlue-400 to-lightBlue-500" style="mix-blend-mode: multiply;"></div>
+                            <div class="absolute inset-0 bg-gradient-to-r from-lightBlue-400 to-lightBlue-500"></div>
                         </div>
                         <div class="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
                             <h1 class="text-center text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
@@ -601,7 +601,7 @@
             <div class="bg-white">
                 <div class="max-w-4xl mx-auto py-16 px-4 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8 lg:flex lg:items-center lg:justify-between">
                     <h2 class="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                        <span class="block">Ready to get started?</span>
+                        <span class="block">Ready to start earning?</span>
                         <span class="block bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">Get in touch or create an account.</span>
                     </h2>
                     <div class="mt-6 space-y-4 sm:space-y-0 sm:flex sm:space-x-5">
