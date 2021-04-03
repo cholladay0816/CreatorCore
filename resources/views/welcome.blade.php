@@ -423,9 +423,10 @@
                               </span>
                             </div>
                             <div class="mt-6">
-                                <h3 class="text-lg font-medium text-white">Unlimited Commissions</h3>
+                                <h3 class="text-lg font-medium text-white">Stay Notified</h3>
                                 <p class="mt-2 text-base text-purple-200">
-
+                                    Our services track the progress of your order and keep you updated with notifications and emails.
+                                    You'll always be able to check the status of your order and review your commission.
                                 </p>
                             </div>
                         </div>
@@ -459,7 +460,8 @@
                             <div class="mt-6">
                                 <h3 class="text-lg font-medium text-white">Dispute System</h3>
                                 <p class="mt-2 text-base text-purple-200">
-                                    Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.
+                                    If your order hasn't been completed properly, you can file a dispute to have a moderator review the order.
+                                    We take disputes very seriously and will take swift and decisive action.
                                 </p>
                             </div>
                         </div>
