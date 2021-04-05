@@ -15,7 +15,7 @@
 
         <div class="mt-5">
             <div>
-                <a href=" {{ $accountLink }} " class="bg-indigo-500 text-white px-5 py-3 rounded-lg"><span>Manage <span class="font-bold">Stripe</span></span></a>
+                <button wire:click.prevent="view" class="bg-indigo-500 text-white px-5 py-3 rounded-lg"><span>Manage <span class="font-bold">Stripe</span></span></button>
             </div>
         </div>
 
