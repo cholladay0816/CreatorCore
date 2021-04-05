@@ -4,12 +4,12 @@
     </x-slot>
 
     <x-slot name="description">
-        {{ __('Access your Stripe Creator Account.') }}
+        {{ __('Access your Stripe Creator account.') }}
     </x-slot>
 
     <x-slot name="content">
         <div class="max-w-xl text-sm text-gray-600">
-            {{ __('If you wish to edit your stripe credentials, verify your information, or initiate a payout,
+            {{ __('If you wish to edit your Stripe credentials, verify your information, or initiate a payout,
                     you may do so from the Stripe Account panel.') }}
         </div>
 

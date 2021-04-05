@@ -4,18 +4,17 @@
     </x-slot>
 
     <x-slot name="description">
-        {{ __('Connect your stripe account in order to receive payouts as a creator.') }}
+        {{ __('Use this panel to manage payment information and order history.') }}
     </x-slot>
 
     <x-slot name="content">
         <div class="max-w-xl text-sm text-gray-600">
-            {{ __('This option will create a Stripe account which we can send payouts to.
-                    Once verified, you will be able to use this panel to manage your Stripe customer profile.') }}
+            {{ __('As a customer, you can always visit your Stripe customer profile to view, manage, and configure your information at any time.') }}
         </div>
 
         <div class="mt-5">
             <div>
-                <a href=" {{ $customerLink }} " class="bg-indigo-500 text-white px-5 py-3 rounded-lg"><span>Billing Portal</span></a>
+                <button wire:click.prevent="portal" class="bg-indigo-500 text-white px-5 py-3 rounded-lg"><span>Billing Portal</span></button>
             </div>
         </div>
     </x-slot>
