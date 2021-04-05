@@ -6,11 +6,15 @@ use Livewire\Component;
 
 class PaymentDetails extends Component
 {
-    public $customerLink;
     public function render()
     {
-        auth()->user()->createOrGetStripeCustomer();
-        $this->customerLink = auth()->user()->billingPortalUrl(route('profile.show'));
         return view('livewire.profile.payment-details');
+    }
+    public function portal()
+    {
+        auth()->user()->createOrGetStripeCustomer();
+        $this->redirect(
+            auth()->user()->billingPortalUrl(route('profile.show'))
+        );
     }
 }
