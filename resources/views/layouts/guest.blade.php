@@ -9,7 +9,7 @@
         <meta property='og:site_name' content='{{ config('app.name', 'CreatorCore') }}'/>
         <meta property='og:type' content='website'/>
         <meta property='og:description' content='CreatorCore is a commission-based service for digital artists to make money doing what they love.'/>
-        <meta property='og:image' content='{{ asset('img/logos/primary-logo-white-medium-shadowed-text.svg') }}'/>
+        <meta property='og:image' content='{{ asset('img/logos/primary-logo.png') }}'/>
         <meta name="keywords" content="CreatorCore, creator-core, Commission, Artist, Art, Creator, Digital Art, Holladay Digital, Digital, Holladay">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
