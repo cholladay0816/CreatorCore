@@ -5,6 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="theme-color" content="#0ea5e9">
+        <meta property='og:title' content='{{ (isset($title)?$title . ' - ' : '') . config('app.name', 'CreatorCore') }}'/>
+        <meta property='og:site_name' content='{{ config('app.name', 'CreatorCore') }}'/>
+        <meta property='og:type' content='website'/>
+        <meta property='og:description' content='CreatorCore is a commission-based service for digital artists to make money doing what they love.'/>
+        <meta property='og:image' content='{{ asset('img/logos/primary-logo-white-medium-shadowed-text.svg') }}'/>
+        <meta name="keywords" content="CreatorCore, creator-core, Commission, Artist, Art, Creator, Digital Art, Holladay Digital, Digital, Holladay">
+
         <title>{{ (isset($title)?$title . ' - ' : '') . config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
@@ -60,7 +67,7 @@
                         </div>
                         <div class="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
                             <div class="flex-shrink-0 flex items-center px-4">
-                                <img class="h-8 w-auto" src="{{ asset('img/logos/primary-logo-white-meduim-shadowed-text.svg') }}" alt="Workflow">
+                                <img class="h-8 w-auto" src="{{ asset('img/logos/primary-logo-white-medium-shadowed-text.svg') }}" alt="Workflow">
                             </div>
                             <nav class="mt-5 px-2 space-y-1">
                                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
@@ -137,7 +144,7 @@
                     <div class="flex flex-col h-0 flex-1 bg-gray-800">
                         <div class="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
                             <div class="flex items-center flex-shrink-0 px-4">
-                                <img class="h-8 w-auto" src="{{ asset('img/logos/primary-logo-white-meduim-shadowed-text.svg') }}" alt="Workflow">
+                                <img class="h-8 w-auto" src="{{ asset('img/logos/primary-logo-white-medium-shadowed-text.svg') }}" alt="Workflow">
                             </div>
                             <nav class="mt-5 flex-1 px-2 bg-gray-800 space-y-1">
                                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
