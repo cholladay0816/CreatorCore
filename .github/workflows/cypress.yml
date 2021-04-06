@@ -7,21 +7,6 @@ on:
 jobs:
   build-and-run-tests:
     runs-on: ubuntu-16.04
-
-    services:
-      mysql:
-        image: mysql:5.7
-        env:
-          MYSQL_ROOT_PASSWORD: forge
-          MYSQL_DATABASE: forge
-          DB_HOST: 127.0.0.1
-        ports:
-          - 3306:3306
-        options: >-
-          --health-cmd="mysqladmin ping"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=3
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -43,9 +28,6 @@ jobs:
           php -r "file_exists('.env') || copy('.env.ci', '.env');"
           echo 'STRIPE_KEY=${STRIPE_KEY}' >> .env
           echo 'STRIPE_SECRET=${STRIPE_SECRET}' >> .env
-          echo 'PLAID_CLIENT_ID=${PLAID_CLIENT_ID}' >> .env
-          echo 'PLAID_KEY=${PLAID_KEY}' >> .env
-          echo 'PLAID_SECRET=${PLAID_SECRET}' >> .env
 
       - name: Login to Laravel Nova
         run: composer config http-basic.nova.laravel.com ${NOVA_USERNAME} ${NOVA_PASSWORD}
@@ -58,15 +40,9 @@ jobs:
       - name: Generate key
         run: php artisan key:generate
 
-      - name: Migrate MySQL DB
-        env:
-          MYSQL_DATABASE: forge
-          DB_CONNECTION: mysql
-          DB_DATABASE: forge
-          DB_PORT: 3306
-          DB_USERNAME: root
-          DB_PASSWORD: forge
+      - name: Create Database
         run: |
+          touch database/database.sqlite
           php artisan migrate:fresh
           php artisan db:seed --class=CypressSeeder
 

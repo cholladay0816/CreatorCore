@@ -16,7 +16,22 @@ class AttachmentFeatureTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function an_attachment_cannot_be_uploaded_if_it_is_too_large()
+    public function it_cannot_be_added_prematurely()
+    {
+        $user = User::factory()->create();
+        $commission = Commission::factory()->create(['creator_id' => $user->id, 'status' => 'Unpaid']);
+        $commission = $commission->fresh();
+        // Create a dummy image
+        $file = UploadedFile::fake()->image('test.png')->size(64);
+        // Attempt to upload this file as an attachment
+        $this->actingAs($user);
+        Livewire::test('commission.attachments', ['commission' => $commission])
+            ->set('file', $file)
+            ->assertHasErrors();
+    }
+
+    /** @test */
+    public function it_cannot_be_uploaded_if_it_is_too_large()
     {
         $user = User::factory()->create();
         $commission = Commission::factory()->create(['creator_id' => $user->id, 'status' => 'Active']);
@@ -30,7 +45,7 @@ class AttachmentFeatureTest extends TestCase
             ->assertHasErrors();
     }
     /** @test */
-    public function an_attachment_cannot_be_uploaded_if_it_is_not_an_image()
+    public function it_cannot_be_uploaded_if_it_is_not_an_image()
     {
         // Create a User and Commission
         $user = User::factory()->create();
@@ -60,7 +75,7 @@ class AttachmentFeatureTest extends TestCase
     }
 
     /** @test */
-    public function an_attachment_can_be_added_and_removed_from_commissions()
+    public function it_can_be_added_and_removed_from_commissions()
     {
         // Create a User and Commission
         $user = User::factory()->create();
@@ -93,7 +108,7 @@ class AttachmentFeatureTest extends TestCase
     }
 
     /** @test */
-    public function an_attachment_cannot_be_deleted_after_completion()
+    public function it_cannot_be_deleted_after_completion()
     {
         $user = User::factory()->create();
         $commission = Commission::factory()->create([
@@ -112,7 +127,7 @@ class AttachmentFeatureTest extends TestCase
     }
 
     /** @test */
-    public function an_attachment_cannot_be_deleted_by_a_third_party()
+    public function it_cannot_be_deleted_by_a_third_party()
     {
         $buyer = User::factory()->create();
         $seller = User::factory()->create();
@@ -133,7 +148,7 @@ class AttachmentFeatureTest extends TestCase
     }
 
     /** @test */
-    public function an_attachment_can_be_deleted_by_its_creator()
+    public function it_can_be_deleted_by_its_creator()
     {
         $user = User::factory()->create()->fresh();
         $commission = Commission::factory()->create([
