@@ -5,7 +5,7 @@
             <div class="relative">
                 <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gray-100"></div>
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div class="relative shadow-xl sm:rounded-2xl sm:overflow-hidden z-10">
+                    <div class="relative shadow-xl sm:rounded-2xl sm:overflow-hidden">
                         <div class="absolute inset-0">
                             <div class="absolute inset-0 bg-gradient-to-r from-lightBlue-400 to-lightBlue-500"></div>
                         </div>
