@@ -25,22 +25,26 @@ class ReviewController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @param Commission $commission
+     * @return Application|Factory|View|Response
      */
-    public function create()
+    public function create(Commission $commission)
     {
-        //
+        if ($commission->status != 'Archived' || !$commission->isBuyer()) {
+            abort(404);
+        }
+        return view('reviews.create', ['commission' => $commission]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Commission $commission, Request $request)
     {
-        if (!$commission->status == 'Archived' || !$commission->isBuyer()) {
+        if ($commission->status != 'Archived' || !$commission->isBuyer()) {
             abort(404);
         }
         $res = $request->validate([
@@ -52,6 +56,9 @@ class ReviewController extends Controller
         $review->commission_id = $commission->id;
         $review->user_id = auth()->id();
         $review->save();
+        return redirect()
+            ->to(route('reviews.show', $review->fresh()))
+            ->with('success', 'Review created');
     }
 
     /**
@@ -95,10 +102,16 @@ class ReviewController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Review $review
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Review $review)
     {
-        //
+        if ($review->user_id != auth()->id()) {
+            abort(404);
+        }
+        $review->delete();
+        return redirect()
+            ->to(route('commissions.orders'))
+            ->with('success', 'Review deleted');
     }
 }
