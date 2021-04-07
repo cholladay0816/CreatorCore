@@ -41,6 +41,9 @@ Route::get('/attachments/{attachment}', [AttachmentController::class, 'show'])
     ->name('attachments.show');
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+
+    Route::resource('/reviews', \App\Http\Controllers\ReviewController::class);
+
     Route::resource('/commissionpresets', CommissionPresetController::class);
 
     Route::resource('/notifications', NotificationController::class, ['index'])
