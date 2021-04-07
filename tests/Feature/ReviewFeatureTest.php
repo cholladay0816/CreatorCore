@@ -17,7 +17,7 @@ class ReviewFeatureTest extends TestCase
     public function they_are_visible()
     {
         $review = Review::factory()->create();
-        $this->get('/reviews/' . $review->id)
+        $this->get(route('reviews.show', $review))
             ->assertSuccessful();
     }
     /** @test */
@@ -26,15 +26,15 @@ class ReviewFeatureTest extends TestCase
         $buyer = User::factory()->create();
         $commission = Commission::factory()->create(['buyer_id' => $buyer->id, 'status' => 'Archived']);
         $this->actingAs($buyer)
-            ->get('/reviews/create/' . $commission->id)
+            ->get(route('reviews.create', $commission))
             ->assertSuccessful();
 
         $this->actingAs($buyer)
-            ->post('/reviews/create/' . $commission->id, [
+            ->post(route('reviews.store', $commission), [
                 'positive' => 1,
                 'anonymous' => 1
             ])
-            ->assertRedirect('/reviews/1')
+            ->assertRedirect(route('reviews.show', '1'))
             ->assertSessionHas('success');
 
         $this->assertDatabaseCount('reviews', 1);
