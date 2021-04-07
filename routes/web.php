@@ -40,9 +40,15 @@ Route::get('/attachments/{attachment}', [AttachmentController::class, 'show'])
     ->middleware('attachments.canview')
     ->name('attachments.show');
 
+Route::get('/reviews/:review', [\App\Http\Controllers\ReviewController::class, 'show'])
+    ->name('reviews.show');
+
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
-    Route::resource('/reviews', \App\Http\Controllers\ReviewController::class);
+    Route::get('/reviews/create/:commission', [\App\Http\Controllers\ReviewController::class, 'create'])
+        ->name('reviews.create');
+    Route::post('/reviews/create/:commission', [\App\Http\Controllers\ReviewController::class, 'store'])
+        ->name('reviews.store');
 
     Route::resource('/commissionpresets', CommissionPresetController::class);
 
