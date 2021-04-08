@@ -11,7 +11,6 @@ class StrikeTest extends TestCase
     /** @test */
     public function it_fails()
     {
-
         $this->fail('Not Implemented');
     }
 }
