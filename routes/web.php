@@ -44,7 +44,6 @@ Route::get('/reviews/{review}', [\App\Http\Controllers\ReviewController::class, 
     ->name('reviews.show');
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-
     Route::get('/reviews/create/{commission}', [\App\Http\Controllers\ReviewController::class, 'create'])
         ->name('reviews.create');
     Route::post('/reviews/create/{commission}', [\App\Http\Controllers\ReviewController::class, 'store'])
