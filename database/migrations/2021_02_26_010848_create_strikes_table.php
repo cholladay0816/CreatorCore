@@ -17,6 +17,7 @@ class CreateStrikesTable extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\User::class)->constrained()->cascadeOnDelete();
             $table->string('reason')->default('No reason provided.');
+            $table->dateTime('expires_at')->nullable()->default(now()->addDays(7));
             $table->timestamps();
         });
     }
