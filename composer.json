@@ -17,7 +17,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/cashier": "^12.6",
         "laravel/framework": "^8.12",
-        "laravel/jetstream": "^2.1",
+        "laravel/jetstream": "2.3.0",
         "laravel/nova": "~3.0",
         "laravel/sail": "^1.0.1",
         "laravel/sanctum": "^2.6",
