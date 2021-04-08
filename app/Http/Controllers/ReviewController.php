@@ -7,6 +7,7 @@ use App\Models\Review;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -30,17 +31,18 @@ class ReviewController extends Controller
      */
     public function create(Commission $commission)
     {
-        if ($commission->status != 'Archived' || !$commission->isBuyer()) {
-            abort(404);
+        if ($commission->status == 'Archived' && $commission->isBuyer()) {
+            return view('reviews.create', ['commission' => $commission]);
         }
-        return view('reviews.create', ['commission' => $commission]);
+        abort(404);
     }
 
     /**
      * Store a newly created resource in storage.
      *
+     * @param Commission $commission
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(Commission $commission, Request $request)
     {
@@ -48,8 +50,8 @@ class ReviewController extends Controller
             abort(404);
         }
         $res = $request->validate([
-            'positive' => 'required|boolean',
-            'anonymous' => 'required|boolean',
+            'positive' => 'required|min:0|max:1',
+            'anonymous' => 'required|min:0|max:1',
             'message' => 'max:2048',
         ]);
         $review = Review::make($res);
@@ -102,7 +104,7 @@ class ReviewController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Review $review
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function destroy(Review $review)
     {
