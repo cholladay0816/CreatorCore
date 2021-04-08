@@ -7,7 +7,6 @@ use App\Http\Controllers\CommissionPresetController;
 use App\Http\Controllers\CreatorController;
 use App\Http\Controllers\ExploreController;
 use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\SourceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,6 +43,7 @@ Route::get('/reviews/{review}', [\App\Http\Controllers\ReviewController::class, 
     ->name('reviews.show');
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+
     Route::get('/reviews/create/{commission}', [\App\Http\Controllers\ReviewController::class, 'create'])
         ->name('reviews.create');
     Route::post('/reviews/create/{commission}', [\App\Http\Controllers\ReviewController::class, 'store'])
@@ -63,12 +63,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
             ->name('commissions.create');
         Route::post('/new/{user}/{commissionpreset?}', [CommissionController::class, 'store'])
             ->name('commissions.store');
-//        Route::middleware(['verified.payment'])->group(function () {
-//            Route::get('/new/{user}/{commissionpreset?}', [CommissionController::class, 'create'])
-//                ->name('commissions.create');
-//            Route::post('/new/{user}/{commissionpreset?}', [CommissionController::class, 'store'])
-//                ->name('commissions.store');
-//        });
         Route::get('/{commission}/checkout', [CommissionController::class, 'checkout'])
             ->middleware('commissions.canview')
             ->name('commissions.checkout');
