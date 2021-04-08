@@ -13,8 +13,19 @@ class Suspension extends Model
 
     protected $dates = ['created_at', 'updated_at', 'expires_at'];
 
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+    public function expired(): bool
+    {
+        if (is_null($this->expires_at)) {
+            return false;
+        }
+        return $this->expires_at <= now();
+    }
+    public function getExpiredAttribute(): bool
+    {
+        return $this->expired();
     }
 }

@@ -83,14 +83,26 @@ class User extends Authenticatable
             ->whereIn('status', Commission::statusesCommissions());
     }
 
-    public function suspension()
+    public function suspensions()
     {
         return $this->hasMany(Suspension::class);
     }
-
-    public function suspend(string $reason = 'No reason provided.', int $days = 7)
+    public function suspended()
     {
-        Suspension::create(['user_id' => $this->id, 'reason' => $reason, 'expires_at' => now()->addDays($days)]);
+        return $this->suspensions->where('expired', '=', false)->count() > 0;
+    }
+    public function getSuspendedAttribute()
+    {
+        return $this->suspended();
+    }
+
+    public function suspend(int $days = 7, string $reason = 'No reason provided.')
+    {
+        Suspension::create([
+            'user_id' => $this->id,
+            'reason' => $reason,
+            'expires_at' => $days > 0 ? now()->addDays($days) : null,
+        ]);
 
         //TODO: send out emails, notifications, and restrict access
     }
