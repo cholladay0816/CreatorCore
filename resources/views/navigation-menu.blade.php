@@ -3,7 +3,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center">
-                    <a href="{{ url('/') }}" class="bg-gray-800 rounded-xl flex-shrink-0 p-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                    <a href="{{ url('/') }}" class="flex-shrink-0">
                         <img class="h-8 w-8" src="{{ asset('img/logos/primary-logo.svg') }}" alt="CreatorCore">
                     </a>
                     <div class="hidden md:block">
