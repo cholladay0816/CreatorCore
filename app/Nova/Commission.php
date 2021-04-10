@@ -10,6 +10,7 @@ use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
@@ -73,6 +74,7 @@ class Commission extends Resource
                 ->nullable()
                 ->hideWhenCreating(),
             HasMany::make('Attachments'),
+            HasOne::make('Review')->nullable(),
         ];
     }
 
