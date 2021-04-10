@@ -19,7 +19,7 @@ class ReviewTest extends TestCase
         $user = User::factory()->create();
         $review = Review::factory()->create(['user_id'=>$user->id]);
 
-        $this->assertEquals($review->owner->id, $user->id);
+        $this->assertEquals($review->user->id, $user->id);
     }
     /** @test */
     public function a_review_has_a_commission()
