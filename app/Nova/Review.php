@@ -3,7 +3,10 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Review extends Resource
@@ -41,6 +44,12 @@ class Review extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
+            BelongsTo::make('User'),
+            BelongsTo::make('Commission'),
+            Boolean::make('Positive')->required(),
+            Boolean::make('Anonymous')->required(),
+
+            Trix::make('Message'),
         ];
     }
 
