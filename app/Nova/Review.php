@@ -18,6 +18,8 @@ class Review extends Resource
      */
     public static $model = \App\Models\Review::class;
 
+    public static $group = 'orders';
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
