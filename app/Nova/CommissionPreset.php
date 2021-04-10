@@ -13,7 +13,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class CommissionPreset extends Resource
 {
-    public static $group = 'users';
+    public static $group = 'orders';
     /**
      * The model the resource corresponds to.
      *
@@ -47,16 +47,18 @@ class CommissionPreset extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            BelongsTo::make('Creator', 'user', '\App\Nova\User')->nullable(),
-            Text::make('Title'),
-            Trix::make('Description'),
+            BelongsTo::make('Creator', 'user', '\App\Nova\User')->required(),
+            Text::make('Title')->required(),
+            Trix::make('Description')->required(),
             Currency::make('Price')
                 ->min(5)
                 ->max(1000)
-                ->default(5),
+                ->default(5)
+                ->required(),
             Number::make('Days to Complete')
             ->default(7)
             ->min(1)
+            ->required()
         ];
     }
 
