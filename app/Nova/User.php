@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Gravatar;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\Text;
@@ -64,6 +65,11 @@ class User extends Resource
 
             Text::make('Stripe Customer ID', 'stripe_id'),
             Text::make('Stripe Account ID'),
+
+            HasMany::make('Roles', 'roles', 'App\Nova\Role'),
+            HasMany::make('Reports', 'reports', 'App\Nova\Report'),
+            HasMany::make('Strikes', 'strikes', 'App\Nova\Strike'),
+            HasMany::make('Suspensions', 'suspensions', 'App\Nova\Suspension'),
         ];
     }
 

@@ -161,7 +161,10 @@ class Commission extends Model
     {
         return $this->hasMany(CommissionEvent::class);
     }
-
+    public function review()
+    {
+        return $this->hasOne(Review::class);
+    }
     public function buyer(): BelongsTo
     {
         return $this->belongsTo(User::class, 'buyer_id');

@@ -15,10 +15,8 @@ class CreateReportsTable extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
+            $table->foreignIdFor(\App\Models\User::class)
+                ->constrained()
                 ->cascadeOnDelete();
             $table->string('model')
                 ->default(\App\Models\User::class);
@@ -26,13 +24,7 @@ class CreateReportsTable extends Migration
                 ->unsigned();
             $table->string('title', 128);
             $table->string('description', 2048);
-            $table->foreignId('administrator_id')
-                ->nullable();
-            $table->foreign('administrator_id')
-                ->references('id')
-                ->on('users')
-                ->nullOnDelete();
-            $table->enum('status', ['Submitted', 'Active', 'Resolved', 'Closed'])
+            $table->enum('status', ['Submitted', 'Resolved', 'Closed'])
                 ->default('Submitted');
             $table->string('action_description')
                 ->nullable();

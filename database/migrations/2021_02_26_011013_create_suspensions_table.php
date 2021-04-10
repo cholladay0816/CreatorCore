@@ -17,7 +17,7 @@ class CreateSuspensionsTable extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\User::class)->constrained()->cascadeOnDelete();
             $table->string('reason')->default('No reason provided.');
-            $table->dateTime('expires_at');
+            $table->dateTime('expires_at')->nullable();
             $table->timestamps();
         });
     }

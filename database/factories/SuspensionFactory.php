@@ -25,7 +25,7 @@ class SuspensionFactory extends Factory
         return [
             'user_id' => ($user = User::factory()->create())->id,
             'reason' => 'No reason provided.',
-            'days' => 7
+            'expires_at' => now()->addDays(7),
         ];
     }
 }

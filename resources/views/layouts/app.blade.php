@@ -72,7 +72,7 @@
                             <nav class="mt-5 px-2 space-y-1">
                                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                                 <x-jet-nav-link href="{{ route('dashboard') }}"  :active="request()->routeIs('dashboard')">
-                                    <div class="flex inline-flex">
+                                    <div class="flex flex-row">
                                     <!-- Current: "text-gray-300", Default: "text-gray-400 group-hover:text-gray-300" -->
                                     <!-- Heroicon name: home -->
                                     <svg class="text-gray-300 mr-4 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -83,7 +83,7 @@
                                 </x-jet-nav-link>
 
                                 <x-jet-nav-link href="{{route('notifications.index')}}"  :active="request()->routeIs('notifications*')">
-                                    <div class="flex inline-flex">
+                                    <div class="flex flex-row">
                                         <!-- Heroicon name: bell -->
                                         <svg class="text-gray-400 group-hover:text-gray-300 mr-4 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
@@ -93,7 +93,7 @@
                                 </x-jet-nav-link>
 
                                 <x-jet-nav-link href="{{route('commissions.index') }}"  :active="request()->routeIs('commissions.index')">
-                                    <div class="flex inline-flex">
+                                    <div class="flex flex-row">
                                         <!-- Heroicon name: folder -->
                                         <svg class="text-gray-400 group-hover:text-gray-300 mr-4 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
@@ -103,7 +103,7 @@
                                 </x-jet-nav-link>
 
                                 <x-jet-nav-link href="{{route('commissions.orders') }}"  :active="request()->routeIs('commissions.orders')">
-                                    <div class="flex inline-flex">
+                                    <div class="flex flex-row">
                                         <!-- Heroicon name: folder -->
                                         <svg class="text-gray-400 group-hover:text-gray-300 mr-4 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
@@ -115,7 +115,7 @@
                         </div>
                         <div class="flex-shrink-0 flex hover:bg-gray-700 transform transform-color duration-150 p-4">
                             <a href="{{route('profile.show')}}" class="flex-shrink-0 group block">
-                                <div class="flex items-center">
+                                <div class="flex flex-row">
                                     <div>
                                         <img class="inline-block h-10 w-10 rounded-full" src="{{auth()->user()->profile_photo_url}}" alt="">
                                     </div>
@@ -160,7 +160,7 @@
                                 </x-jet-nav-link>
 
                                 <x-jet-nav-link href="{{route('notifications.index')}}" :active="request()->routeIs('notifications*')">
-                                    <div class="flex inline-flex">
+                                    <div class="flex flex-row">
                                         <!-- Heroicon name: bell -->
                                         <svg class="text-gray-400 group-hover:text-gray-300 mr-3 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
@@ -171,7 +171,7 @@
 
                                 <x-jet-nav-link :active="request()->routeIs('commissions.index')"
                                     href="{{route('commissions.index')}}">
-                                    <div class="flex inline-flex">
+                                    <div class="flex flex-row">
                                     <!-- Heroicon name: folder -->
                                     <svg class="text-gray-400 group-hover:text-gray-300 mr-3 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
@@ -182,7 +182,7 @@
 
                                 <x-jet-nav-link :active="request()->routeIs('commissions.orders')"
                                     href="{{route('commissions.orders')}}">
-                                    <div class="flex inline-flex">
+                                    <div class="flex flex-row">
                                         <!-- Heroicon name: folder -->
                                         <svg class="text-gray-400 group-hover:text-gray-300 mr-3 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
@@ -194,7 +194,7 @@
                         </div>
                         <div class="flex-shrink-0 flex hover:bg-gray-700 transform transform-color duration-150 p-4">
                             <a href="{{route('profile.show')}}" class="flex-shrink-0 w-full group block">
-                                <div class="flex items-center">
+                                <div class="flex flex-row">
                                     <div>
                                         <img src="{{auth()->user()->profile_photo_url}}" class="inline-block h-9 w-9 rounded-full" alt="">
                                     </div>

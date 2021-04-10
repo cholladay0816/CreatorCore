@@ -2,38 +2,30 @@
 
 namespace App\Nova;
 
-use App\Nova\Actions\RefundCommissionDispute;
-use App\Nova\Actions\ResolveCommissionDispute;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\Currency;
-use Laravel\Nova\Fields\Date;
-use Laravel\Nova\Fields\DateTime;
-use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\HasOne;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Commission extends Resource
+class Creator extends Resource
 {
-    public static $group = 'orders';
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Models\Commission::class;
+    public static $model = \App\Models\Creator::class;
+
+    public static $group = 'users';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'displayTitle';
+    public static $title = 'id';
 
     /**
      * The columns that should be searched.
@@ -41,7 +33,7 @@ class Commission extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'slug', 'displayTitle'
+        'id',
     ];
 
     /**
@@ -54,27 +46,11 @@ class Commission extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            BelongsTo::make('Buyer', 'buyer', '\App\Nova\User')->nullable(),
-            BelongsTo::make('Creator', 'creator', '\App\Nova\User')->nullable(),
-            BelongsTo::make('Commission Preset', 'preset')->nullable(),
-            Text::make('Title'),
-            Trix::make('Description'),
-            Trix::make('Memo'),
-            Currency::make('Price')
-                ->min(5)
-                ->max(1000)
-                ->default(5),
-            Select::make('Status')
-                ->options(\App\Models\Commission::statuses())
-                ->default('Unpaid'),
-            Number::make('Days to Complete')
-                ->default(7)
-                ->min(1),
-            DateTime::make('Expires At')
-                ->nullable()
-                ->hideWhenCreating(),
-            HasMany::make('Attachments'),
-            HasOne::make('Review')->nullable(),
+            BelongsTo::make('User', 'user', 'App\Nova\User'),
+            Text::make('Title')->required(),
+            Text::make('Headline')->required(),
+            Boolean::make('Open')->default(0),
+            Boolean::make('Allow Custom Commissions', 'allows_custom_commissions')->default(0),
         ];
     }
 
@@ -119,9 +95,6 @@ class Commission extends Resource
      */
     public function actions(Request $request)
     {
-        return [
-            new RefundCommissionDispute(),
-            new ResolveCommissionDispute(),
-        ];
+        return [];
     }
 }

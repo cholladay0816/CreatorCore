@@ -37,6 +37,10 @@ class Attachment extends Model
         }
         return false;
     }
+    public function getCanViewAttribute()
+    {
+        return $this->canView();
+    }
 
     public function canEdit()
     {
@@ -44,6 +48,10 @@ class Attachment extends Model
             return true;
         }
         return $this->commission->isCreator() && in_array($this->commission->status, ['Active', 'Overdue']);
+    }
+    public function getCanEditAttribute()
+    {
+        return $this->canEdit();
     }
 
     public function user()

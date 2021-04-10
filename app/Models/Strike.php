@@ -15,4 +15,25 @@ class Strike extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function checkForSuspension()
+    {
+        $strikes = $this->user->fresh()->strikes->where('expires_at', '>', now());
+        if ($strikes->count() >= 3) {
+            Suspension::create(['user_id' => $this->user->id, 'reason' => 'Too many strikes.', 'expires_at' => now()->addDays(7)]);
+
+            $strikes->each(function ($strike) {
+                $strike->update([
+                    'expires_at' => now(),
+                ]);
+            });
+        }
+    }
+
+    public static function booted()
+    {
+        static::created(function ($strike) {
+            $strike->checkForSuspension();
+        });
+    }
 }

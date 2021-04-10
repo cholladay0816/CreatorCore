@@ -16,4 +16,12 @@ class Notification extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function read()
+    {
+        return $this->read_at != null;
+    }
+    public function getReadAttribute()
+    {
+        return $this->read();
+    }
 }
