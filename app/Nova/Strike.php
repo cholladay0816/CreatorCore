@@ -3,7 +3,10 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Strike extends Resource
@@ -14,6 +17,8 @@ class Strike extends Resource
      * @var string
      */
     public static $model = \App\Models\Strike::class;
+
+    public static $group = 'users';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -41,6 +46,11 @@ class Strike extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
+            BelongsTo::make('User', 'user', 'App\Nova\User'),
+            Text::make('Reason'),
+            DateTime::make('Expires', 'expires_at')
+                ->nullable()
+                ->default(now()->addDays(7))
         ];
     }
 
