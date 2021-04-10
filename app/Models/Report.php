@@ -19,10 +19,6 @@ class Report extends Model
     {
         return $this->belongsTo($this->model, 'model_id');
     }
-    public function administrator()
-    {
-        return $this->belongsTo(User::class, 'administrator_id');
-    }
 
 
     public function resolve($note)
