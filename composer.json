@@ -13,7 +13,6 @@
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
         "fideloper/proxy": "^4.4",
-        "friendsofphp/php-cs-fixer": "^2.18",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/cashier": "^12.6",
@@ -32,6 +31,7 @@
         "stripe/stripe-php": "^7.76"
     },
     "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.18",
         "brianium/paratest": "^6.1",
         "laracasts/cypress": "^1.3"
     },
