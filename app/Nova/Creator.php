@@ -3,7 +3,10 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Creator extends Resource
@@ -14,6 +17,8 @@ class Creator extends Resource
      * @var string
      */
     public static $model = \App\Models\Creator::class;
+
+    public static $group = 'users';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -41,6 +46,11 @@ class Creator extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
+            BelongsTo::make('User', 'user', 'App\Nova\User'),
+            Text::make('Title')->required(),
+            Text::make('Headline')->required(),
+            Boolean::make('Open')->default(0),
+            Boolean::make('Allow Custom Commissions', 'allows_custom_commissions')->default(0),
         ];
     }
 
