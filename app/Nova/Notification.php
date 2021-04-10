@@ -3,7 +3,12 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Notification extends Resource
@@ -14,6 +19,8 @@ class Notification extends Resource
      * @var string
      */
     public static $model = \App\Models\Notification::class;
+
+    public static $group = 'users';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -28,7 +35,7 @@ class Notification extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id', 'title'
     ];
 
     /**
@@ -41,6 +48,17 @@ class Notification extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
+            BelongsTo::make('User'),
+            Text::make('Title')->required(),
+            Trix::make('Description')->required(),
+            Text::make('URL')->nullable(),
+            Boolean::make('Read')
+                ->showOnCreating(false)
+                ->showOnIndex(true)
+                ->showOnDetail(false)
+                ->showOnUpdating(false),
+            DateTime::make('Read At')->nullable()->showOnIndex(false),
+
         ];
     }
 
