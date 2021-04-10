@@ -19,6 +19,8 @@ class Attachment extends Resource
      */
     public static $model = \App\Models\Attachment::class;
 
+    public static $group = 'orders';
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
@@ -49,10 +51,10 @@ class Attachment extends Resource
             Boolean::make('Is Public', 'can_view')->readonly(true),
             BelongsTo::make('Commission', 'commission', 'App\Nova\Commission'),
             BelongsTo::make('User', 'user', 'App\Nova\User'),
-            Text::make('Path'),
-            Text::make('Type'),
-            Number::make('Size'),
-            Text::make('Slug'),
+            Text::make('Path')->required(),
+            Text::make('Type')->required(),
+            Number::make('Size')->required(),
+            Text::make('Slug')->required(),
         ];
     }
 
