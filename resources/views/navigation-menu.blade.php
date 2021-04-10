@@ -3,9 +3,6 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center">
-                    <a href="{{ url('/') }}" class="flex-shrink-0">
-                        <img class="h-8 w-8" src="{{ asset('img/logos/primary-logo.svg') }}" alt="CreatorCore">
-                    </a>
                     <div class="hidden md:block">
                         <div class="ml-10 flex items-baseline space-x-4">
                             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
