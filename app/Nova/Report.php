@@ -3,7 +3,13 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Report extends Resource
@@ -41,6 +47,14 @@ class Report extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
+            BelongsTo::make('User'),
+            Text::make('Model'),
+            Number::make('Model ID'),
+            Text::make('Title'),
+            Trix::make('Description'),
+            Select::make('Status')
+            ->options(['Submitted', 'Resolved', 'Closed']),
+            Text::make('Action Description')->nullable(),
         ];
     }
 
