@@ -228,7 +228,9 @@
                             <h1 class="text-2xl font-semibold text-gray-900"></h1>
                         </div>
                         <div class="mx-auto ">
+                            <x-agnostic-layout>
                             {{ $slot }}
+                            </x-agnostic-layout>
                         </div>
                     </div>
                 </main>
