@@ -21,6 +21,8 @@ class Report extends Resource
      */
     public static $model = \App\Models\Report::class;
 
+    public static $group = 'administration';
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
