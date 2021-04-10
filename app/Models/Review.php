@@ -11,7 +11,7 @@ class Review extends Model
 
     protected $guarded = [];
 
-    public function owner()
+    public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
