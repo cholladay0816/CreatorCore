@@ -10,8 +10,6 @@ use Illuminate\Support\Str;
 
 class Attachment extends File
 {
-
-
     public function canView()
     {
         if (Gate::allows('manage-content')) {

@@ -9,5 +9,4 @@ use Illuminate\Support\Str;
 
 class Gallery extends File
 {
-
 }
