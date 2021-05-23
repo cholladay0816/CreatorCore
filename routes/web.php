@@ -47,6 +47,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         ->name('reviews.create');
     Route::post('/reviews/create/{commission}', [\App\Http\Controllers\ReviewController::class, 'store'])
         ->name('reviews.store');
+    Route::get('/ratings/create/{review}', [\App\Http\Controllers\RatingController::class, 'create'])
+        ->name('ratings.create');
+    Route::post('/ratings/create/{review}', [\App\Http\Controllers\RatingController::class, 'store'])
+        ->name('ratings.store');
 
     Route::resource('/commissionpresets', CommissionPresetController::class);
 
