@@ -27,4 +27,12 @@ class Review extends Model
     {
         return $this->hasMany(Rating::class, 'review_id');
     }
+    public function rating(): float
+    {
+        return $this->ratings->avg('positive');
+    }
+    public function getRatingAttribute(): float
+    {
+        return $this->rating();
+    }
 }
