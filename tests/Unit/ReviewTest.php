@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use App\Models\Attachment;
 use App\Models\Commission;
+use App\Models\Rating;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -94,5 +95,27 @@ class ReviewTest extends TestCase
         $this->assertEquals(5.0, $creator->fresh()->stars);
         Review::factory(2)->create(['commission_id' => $commission->id, 'user_id' => $buyer->id, 'positive' => 0]);
         $this->assertEquals(3.0, $creator->fresh()->stars);
+    }
+
+    /** @test */
+    public function it_can_have_ratings()
+    {
+        $review = Review::factory()->create();
+        $rating = Rating::factory()->create(['review_id' => $review->id]);
+        // Assert the rating is attached to the review
+        $this->assertEquals($rating->id, $review->ratings->first()->id);
+        // Create a new rating
+        Rating::factory()->create(['review_id' => $review->id]);
+        // Assert there are two ratings on this review
+        $this->assertCount(2, $review->fresh()->ratings);
+    }
+
+    /** @test */
+    public function it_can_have_a_score()
+    {
+        $review = Review::factory()->create();
+        Rating::factory()->create(['review_id' => $review->id, 'positive' => 1]);
+        Rating::factory()->create(['review_id' => $review->id, 'positive' => 0]);
+        $this->assertEquals(0.5, $review->rating);
     }
 }
