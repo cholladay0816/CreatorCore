@@ -22,7 +22,8 @@ class UserTest extends TestCase
     public function it_has_a_creator()
     {
         $user = User::factory()->create();
-        $creator = Creator::factory()->create(['user_id' => $user->id]);
+        $creator = $user->creator;
+        $this->assertEquals(get_class($creator), Creator::class);
         $this->assertEquals($user->creator->id, $creator->id);
     }
 }
