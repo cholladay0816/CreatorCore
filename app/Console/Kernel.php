@@ -28,6 +28,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('commissions:markoverdue')->daily();
+        $schedule->command('commissions:archive')->daily();
         $schedule->command('commissions:checkpurchasing')->everyThirtyMinutes();
     }
 
