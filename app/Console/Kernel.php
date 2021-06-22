@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\CheckPurchasingCommissions;
 use App\Console\Commands\MarkCommissionsOverdue;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -15,6 +16,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         MarkCommissionsOverdue::class,
+        CheckPurchasingCommissions::class,
     ];
 
     /**
@@ -26,6 +28,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('commissions:markoverdue')->daily();
+        $schedule->command('commissions:checkpurchasing')->everyThirtyMinutes();
     }
 
     /**
