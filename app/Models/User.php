@@ -190,6 +190,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasManyThrough(Attachment::class, Commission::class, 'creator_id', 'user_id');
     }
+    public function banner()
+    {
+        return $this->hasOne(Banner::class);
+    }
 
     public function bytesUsed()
     {

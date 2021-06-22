@@ -8,7 +8,7 @@
                         <a href="{{route('commissions.show', $commission)}}" class="block hover:bg-gray-50">
                             <div class="px-4 py-4 sm:px-6">
                                 <div class="flex items-center justify-between">
-                                    <p class="text-sm font-medium text-lightBlue-600 truncate">
+                                    <p class="text-sm font-medium text-sky-600 truncate">
                                         {{$commission->title}}
                                     </p>
                                     <livewire:status-badge status="{{$commission->status}}" />
@@ -64,7 +64,7 @@
         <div class="w-full min-h-screen flex">
             <div class="flex mx-auto my-auto ">
                 <span class="text-gray-400">
-                No orders yet, would you like to  <a href="{{ route('explore') }}" class="text-lightBlue-400"> explore creators</a>?
+                No orders yet, would you like to  <a href="{{ route('explore') }}" class="text-sky-400"> explore creators</a>?
                 </span>
             </div>
         </div>

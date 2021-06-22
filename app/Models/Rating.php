@@ -5,17 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Creator extends Model
+class Rating extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
 
-    protected $casts = [
-        'open' => 'boolean',
-        'allows_custom_commissions' => 'boolean'
-    ];
-
+    public function review()
+    {
+        return $this->belongsTo(Review::class);
+    }
     public function user()
     {
         return $this->belongsTo(User::class);

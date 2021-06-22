@@ -1,0 +1,28 @@
+<?php
+
+namespace Tests\Unit;
+
+use App\Models\Banner;
+use App\Models\Creator;
+use App\Models\User;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Tests\TestCase;
+
+class UserTest extends TestCase
+{
+    use DatabaseMigrations;
+    /** @test */
+    public function it_has_a_banner()
+    {
+        $user = User::factory()->create();
+        $banner = Banner::factory()->create(['user_id' => $user->id]);
+        $this->assertEquals($banner->id, $user->banner->id);
+    }
+    /** @test */
+    public function it_has_a_creator()
+    {
+        $user = User::factory()->create();
+        $creator = Creator::factory()->create(['user_id' => $user->id]);
+        $this->assertEquals($user->creator->id, $creator->id);
+    }
+}

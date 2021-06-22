@@ -2,16 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Creator;
-use App\Models\User;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
+use App\Models\Rating;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Livewire\Livewire;
 
-class CreatorController extends Controller
+class RatingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,9 +22,10 @@ class CreatorController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Review $review
      * @return Response
      */
-    public function create()
+    public function create(Review $review)
     {
         //
     }
@@ -36,33 +33,41 @@ class CreatorController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param Review $review
      * @param Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(Review $review, Request $request)
     {
-        //
+        $res = $request->validate([
+            'positive' => 'required|boolean'
+        ]);
+        $rating = Rating::create([
+            'user_id' => auth()->id(),
+            'review_id' => $review->id,
+            'positive' => $res['positive']
+        ]);
+        return \response('Rating created', 200);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param User $user
-     * @return Application|Factory|View|Response
+     * @param Rating $rating
+     * @return Response
      */
-    public function show(User $user, string $page = 'about')
+    public function show(Rating $rating)
     {
-        abort_if(!$user->isValidCreator(), 404);
-        return view('livewire.creator.show', ['user' => $user, 'page' => $page]);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Creator $creator
+     * @param Rating $rating
      * @return Response
      */
-    public function edit(Creator $creator)
+    public function edit(Rating $rating)
     {
         //
     }
@@ -71,10 +76,10 @@ class CreatorController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param Creator $creator
+     * @param Rating $rating
      * @return Response
      */
-    public function update(Request $request, Creator $creator)
+    public function update(Request $request, Rating $rating)
     {
         //
     }
@@ -82,10 +87,10 @@ class CreatorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Creator $creator
+     * @param Rating $rating
      * @return Response
      */
-    public function destroy(Creator $creator)
+    public function destroy(Rating $rating)
     {
         //
     }

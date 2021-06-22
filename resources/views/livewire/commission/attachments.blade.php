@@ -11,7 +11,7 @@
                     <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                 </svg>
                 <div class="flex text-sm text-gray-600">
-                    <label for="file-upload" class="relative cursor-pointer bg-white rounded-md font-medium text-lightBlue-600 hover:text-lightBlue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-lightBlue-500">
+                    <label for="file-upload" class="relative cursor-pointer bg-white rounded-md font-medium text-sky-600 hover:text-sky-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-sky-500">
                         <span>Upload a file</span>
                         </label>
                     <p class="pl-1">or drag and drop</p>
@@ -22,7 +22,7 @@
             </div>
             <div class="space-y-1 text-center" x-show="isUploading && !hasErrors">
                 <div>
-                    <span class="text-lightBlue-400 inline-flex items-center border border-transparent text-base leading-6 font-medium rounded-md transition ease-in-out duration-150">
+                    <span class="text-sky-400 inline-flex items-center border border-transparent text-base leading-6 font-medium rounded-md transition ease-in-out duration-150">
                         File uploading...
                     </span>
                 </div>

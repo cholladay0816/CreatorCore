@@ -25,6 +25,10 @@
                 </div>
                 <x-jet-section-border />
                 <div class="mt-10 sm:mt-0">
+                    @livewire('profile.creator')
+                </div>
+                <x-jet-section-border />
+                <div class="mt-10 sm:mt-0">
                     @livewire('profile.stripe')
                 </div>
                 <x-jet-section-border/>

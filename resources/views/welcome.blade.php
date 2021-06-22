@@ -7,23 +7,24 @@
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div class="relative shadow-xl sm:rounded-2xl sm:overflow-hidden">
                         <div class="absolute inset-0">
-                            <div class="absolute inset-0 bg-gradient-to-r from-lightBlue-400 to-lightBlue-500"></div>
+                            <div class="absolute inset-0 bg-gradient-to-r from-sky-400 to-sky-500"></div>
                         </div>
                         <div class="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
-                            <h1 class="text-center text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+                            <h1 class="hidden">Your all in one commissioning platform.</h1>
+                            <div class="text-center text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
                                 <span class="block text-white">Your all-in-one</span>
-                                <span class="block text-lightBlue-200">commissioning platform</span>
-                            </h1>
-                            <p class="mt-6 max-w-lg mx-auto text-center text-xl text-lightBlue-200 sm:max-w-3xl">
+                                <span class="block text-sky-200">commissioning platform</span>
+                            </div>
+                            <p class="mt-6 max-w-lg mx-auto text-center text-xl text-sky-200 sm:max-w-3xl">
                                 CreatorCore is a commission-based service for digital artists to make money doing what they love.
                             </p>
                             <div class="mt-10 max-w-sm mx-auto sm:max-w-none sm:flex sm:justify-center">
                                 <div class="space-y-4 sm:space-y-0 sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-5">
-                                    <a href="{{ route('register') }}" class="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-lightBlue-700 bg-white hover:bg-lightBlue-50 sm:px-8">
+                                    <a href="{{ route('register') }}" class="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-sky-700 bg-white hover:bg-sky-50 sm:px-8">
                                         Get started
                                     </a>
-                                    <a href="#" class="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-lightBlue-800 sm:px-8">
-                                        Live demo
+                                    <a href="{{ route('login') }}" class="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-sky-800 sm:px-8">
+                                        Log in
                                     </a>
                                 </div>
                             </div>
@@ -66,7 +67,7 @@
                         <div class="px-4 max-w-xl mx-auto sm:px-6 lg:py-16 lg:max-w-none lg:mx-0 lg:px-0">
                             <div>
                                 <div>
-                <span class="h-12 w-12 rounded-md flex items-center justify-center bg-gradient-to-r from-blue-600 to-lightBlue-600">
+                <span class="h-12 w-12 rounded-md flex items-center justify-center bg-gradient-to-r from-blue-600 to-sky-600">
                   <!-- Heroicon name: outline/inbox -->
                   <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
@@ -81,7 +82,7 @@
                                         Our tools will help you track and coordinate your commissions, so you always know what's next.
                                     </p>
                                     <div class="mt-6">
-                                        <a href="{{ route('register') }}" class="inline-flex px-4 py-2 text-base font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-blue-600 to-lightBlue-600 hover:from-blue-700 hover:to-lightBlue-700">
+                                        <a href="{{ route('register') }}" class="inline-flex px-4 py-2 text-base font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-blue-600 to-sky-600 hover:from-blue-700 hover:to-sky-700">
                                             Get started
                                         </a>
                                     </div>
@@ -119,7 +120,7 @@
                         <div class="px-4 max-w-xl mx-auto sm:px-6 lg:py-32 lg:max-w-none lg:mx-0 lg:px-0 lg:col-start-2">
                             <div>
                                 <div>
-                                    <span class="h-12 w-12 rounded-md flex items-center justify-center bg-gradient-to-r from-blue-500 to-lightBlue-400">
+                                    <span class="h-12 w-12 rounded-md flex items-center justify-center bg-gradient-to-r from-blue-500 to-sky-400">
                                       <!-- Heroicon name: outline/sparkles -->
                                       <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
@@ -137,7 +138,7 @@
                                         meaning you never have to worry about wasting your time and money.
                                     </p>
                                     <div class="mt-6">
-                                        <a href="{{ route('explore') }}" class="inline-flex px-4 py-2 text-base font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-blue-500 to-lightBlue-400 hover:from-blue-700 hover:to-lightBlue-600">
+                                        <a href="{{ route('explore') }}" class="inline-flex px-4 py-2 text-base font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-blue-500 to-sky-400 hover:from-blue-700 hover:to-sky-600">
                                             Find a Creator
                                         </a>
                                     </div>
@@ -154,7 +155,7 @@
             </div>
 
             <!-- Gradient Feature Section -->
-            <div class="bg-gradient-to-r from-lightBlue-600 to-lightBlue-800">
+            <div class="bg-gradient-to-r from-sky-600 to-sky-800">
                 <div class="max-w-4xl mx-auto px-4 py-16 sm:px-6 sm:pt-20 sm:pb-24 lg:max-w-7xl lg:pt-24 lg:px-8">
                     <h2 class="text-3xl font-extrabold text-white tracking-tight">
                         How CreatorCore benefits you
@@ -321,7 +322,7 @@
                 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8 xl:grid xl:grid-cols-2 xl:grid-flow-col-dense xl:gap-x-8">
                     <div class="relative pt-12 pb-64 sm:pt-24 sm:pb-64 xl:col-start-1 xl:pb-24">
                         <h2 class="text-sm font-semibold tracking-wide uppercase">
-                            <span class="text-lightBlue-300">Valuable Metrics</span>
+                            <span class="text-sky-300">Valuable Metrics</span>
                         </h2>
                         <p class="mt-3 text-3xl font-extrabold text-white">Get actionable data that will help grow your business</p>
                         <p class="mt-5 text-lg text-gray-300">Rhoncus sagittis risus arcu erat lectus bibendum. Ut in adipiscing quis in viverra tristique sem. Ornare feugiat viverra eleifend fusce orci in quis amet. Sit in et vitae tortor, massa. Dapibus laoreet amet lacus nibh integer quis. Eu vulputate diam sit tellus quis at.</p>
@@ -355,13 +356,13 @@
                 <div class="max-w-4xl mx-auto py-16 px-4 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8 lg:flex lg:items-center lg:justify-between">
                     <h2 class="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
                         <span class="block">Ready to start earning?</span>
-                        <span class="block bg-gradient-to-r from-blue-600 to-lightBlue-600 bg-clip-text text-transparent">Get in touch or create an account.</span>
+                        <span class="block bg-gradient-to-r from-blue-600 to-sky-600 bg-clip-text text-transparent">Get in touch or create an account.</span>
                     </h2>
                     <div class="mt-6 space-y-4 sm:space-y-0 sm:flex sm:space-x-5">
-                        <a href="#" class="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-blue-600 to-lightBlue-600 hover:from-lightBlue-700 hover:to-lightBlue-700">
+                        <a href="#" class="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-blue-600 to-sky-600 hover:from-sky-700 hover:to-sky-700">
                             Learn more
                         </a>
-                        <a href="{{ route('register') }}" class="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-lightBlue-800 bg-lightBlue-50 hover:bg-lightBlue-100">
+                        <a href="{{ route('register') }}" class="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-sky-800 bg-sky-50 hover:bg-sky-100">
                             Get started
                         </a>
                     </div>

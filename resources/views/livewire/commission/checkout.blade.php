@@ -73,7 +73,7 @@
             <div class="rounded-lg my-4 p-4 border border-gray-200">
                 <h3 class="text-lg leading-6 font-medium text-gray-900 pb-4">Pay with Stripe</h3>
                 <div class="flex flex-row gap-x-5">
-                    <div class="flex flex-1 bg-lightBlue-50 rounded-md border border-gray-200 px-2 py-3">
+                    <div class="flex flex-1 bg-sky-50 rounded-md border border-gray-200 px-2 py-3">
                         <div class="w-full" id="card-element"></div>
                     </div>
                     <button wire:click.prevent="submit" class="flex flex-shrink px-3 py-2 bg-indigo-500 text-white rounded-lg">
