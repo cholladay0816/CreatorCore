@@ -15,6 +15,16 @@ class ExploreController extends Controller
                 $creator->where('open', 1);
             })->paginate(15);
 
-        return view('explore.index', ['users' => $users]);
+        return view(
+            'explore.index',
+            [
+                'users' => $users,
+                'prevPage' => $users->previousPageUrl(),
+                'nextPage' => $users->nextPageUrl(),
+                'first' => $users->firstItem(),
+                'last' => $users->lastItem(),
+                'total' => $users->total()
+            ]
+        );
     }
 }
