@@ -27,6 +27,5 @@ class GalleryController extends Controller
             'user_id' => auth()->user()->id,
         ]);
         return redirect()->to(route('creator.show', [auth()->user(), 'gallery']));
-
     }
 }
