@@ -400,7 +400,7 @@ class Commission extends Model
         CommissionEvent::create(
             [
                 'commission_id' => $this->id,
-                'title' => 'Order completed', 'color' => 'bg-lightBlue-500', 'status' => 'Completed'
+                'title' => 'Order completed', 'color' => 'bg-sky-500', 'status' => 'Completed'
             ]
         );
     }
