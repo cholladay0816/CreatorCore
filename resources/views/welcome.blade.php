@@ -10,10 +10,11 @@
                             <div class="absolute inset-0 bg-gradient-to-r from-lightBlue-400 to-lightBlue-500"></div>
                         </div>
                         <div class="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
-                            <h1 class="text-center text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+                            <h1 class="hidden">Your all in one commissioning platform.</h1>
+                            <div class="text-center text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
                                 <span class="block text-white">Your all-in-one</span>
                                 <span class="block text-lightBlue-200">commissioning platform</span>
-                            </h1>
+                            </div>
                             <p class="mt-6 max-w-lg mx-auto text-center text-xl text-lightBlue-200 sm:max-w-3xl">
                                 CreatorCore is a commission-based service for digital artists to make money doing what they love.
                             </p>
@@ -22,8 +23,8 @@
                                     <a href="{{ route('register') }}" class="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-lightBlue-700 bg-white hover:bg-lightBlue-50 sm:px-8">
                                         Get started
                                     </a>
-                                    <a href="#" class="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-lightBlue-800 sm:px-8">
-                                        Live demo
+                                    <a href="{{ route('login') }}" class="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-lightBlue-800 sm:px-8">
+                                        Log in
                                     </a>
                                 </div>
                             </div>

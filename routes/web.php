@@ -7,6 +7,7 @@ use App\Http\Controllers\CommissionPresetController;
 use App\Http\Controllers\CreatorController;
 use App\Http\Controllers\ExploreController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\OnboardingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,8 +33,14 @@ Route::get('/', function () {
 Route::get('/explore', [ExploreController::class, 'index'])
 ->name('explore');
 
+Route::get('/onboarding', [OnboardingController::class, 'index'])
+    ->name('onboarding');
+
 Route::get('/creator/{user:name}/{page?}', [CreatorController::class, 'show'])
     ->name('creator.show');
+
+Route::get('/gallery/{gallery}', [\App\Http\Controllers\GalleryController::class, 'show'])
+    ->name('gallery.show');
 
 Route::get('/attachments/{attachment}', [AttachmentController::class, 'show'])
     ->middleware('attachments.canview')
@@ -51,6 +58,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         ->name('ratings.create');
     Route::post('/ratings/create/{review}', [\App\Http\Controllers\RatingController::class, 'store'])
         ->name('ratings.store');
+
+    Route::post('/gallery', [\App\Http\Controllers\GalleryController::class, 'store'])
+        ->name('gallery.store');
 
     Route::resource('/commissionpresets', CommissionPresetController::class);
 

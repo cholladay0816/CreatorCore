@@ -50,7 +50,7 @@ class CreatorController extends Controller
      * @param User $user
      * @return Application|Factory|View|Response
      */
-    public function show(User $user, $page = 'about')
+    public function show(User $user, string $page = 'about')
     {
         abort_if(!$user->isValidCreator(), 404);
         return view('livewire.creator.show', ['user' => $user, 'page' => $page]);

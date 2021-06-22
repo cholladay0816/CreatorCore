@@ -27,10 +27,10 @@
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
         "phpseclib/phpseclib": "^3.0.7",
-        "phpunit/phpunit": "^9.3.3",
         "stripe/stripe-php": "^7.76"
     },
     "require-dev": {
+        "phpunit/phpunit": "^9.3.3",
         "friendsofphp/php-cs-fixer": "^2.18",
         "brianium/paratest": "^6.1",
         "laracasts/cypress": "^1.3"

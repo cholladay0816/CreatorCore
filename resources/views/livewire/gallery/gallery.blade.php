@@ -1,23 +1,10 @@
-<div class="max-w-sm rounded overflow-hidden mx-auto">
-    <a target="_blank" href="{{url('/gallery/'.$gallery->id)}}" class="relative w-100">
-        @if($gallery->user_id == auth()->user())
-            <form method="POST" action="{{url('/gallery/'.$gallery->id)}}">
-                @csrf
-                @method('DELETE')
-                <div class="absolute flex">
-                    <button type="submit" class="z-10 rounded border border-gray-600 px-2 bg-red-500 text-white">X</button>
-                </div>
-            </form>
-        @endif
-
-        <img class="w-100" src="{{url('/gallery/'.$gallery->id)}}" alt="{{$gallery->title}}">
-    </a>
-    <div class="px-6 py-4">
-        <a target="_blank" href="{{url('/gallery/'.$gallery->id)}}" class="font-bold break-all text-xl mb-2">
-            {{$gallery->title}}
+<li class="relative">
+    <div class="group block w-full aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-lightBlue-500 overflow-hidden">
+        <img src="{{route('gallery.show', $gallery)}}" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
+        <a target="_blank" href="{{route('gallery.show', $gallery)}}" class="absolute inset-0 focus:outline-none">
+            <span class="sr-only">View details for {{ $gallery->getSlug() }}</span>
         </a>
-        <p class="text-gray-700 break-all text-base">
-            {{$gallery->description}}
-        </p>
     </div>
-</div>
+    <p style="" class="mt-2 block text-sm font-medium text-gray-900 truncate pointer-events-none">{{ $gallery->getSlug() }}</p>
+    <p class="block text-sm font-medium text-gray-500 pointer-events-none">{{ number_format($gallery->size / 1024, 2) }} KB</p>
+</li>

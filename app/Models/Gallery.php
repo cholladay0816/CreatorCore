@@ -9,4 +9,5 @@ use Illuminate\Support\Str;
 
 class Gallery extends File
 {
+    protected $identifier = 'gallery';
 }

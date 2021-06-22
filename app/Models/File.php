@@ -13,6 +13,8 @@ class File extends Model
 
     protected $guarded = [];
 
+    protected $identifier = 'file';
+
     public function getRouteKeyName()
     {
         return 'slug';
@@ -20,7 +22,7 @@ class File extends Model
 
     public function getSlug()
     {
-        return Str::slug($this->id . '-' . str_replace('file/', '', $this->path));
+        return Str::slug($this->id . '-' . str_replace(($this->identifier.'/'), '', $this->path));
     }
 
     public function user()
@@ -31,13 +33,13 @@ class File extends Model
     public static function booted()
     {
         static::creating(function ($file) {
-            $file->slug = str_replace('file/', '', $file->path);
+            $file->slug = str_replace(($file->identifier.'/'), '', $file->path);
         });
         static::created(function ($file) {
             $file->slug = $file->getSlug();
         });
         static::factory(function ($file) {
-            $file->slug = str_replace('file/', '', $file->path);
+            $file->slug = str_replace(($file->identifier.'/'), '', $file->path);
         });
 
         //If the object is being deleted, remove the saved attachment.
