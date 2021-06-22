@@ -10,8 +10,7 @@ class Creator extends Component
 
     public function mount()
     {
-        if(!auth()->user()->creator)
-        {
+        if (!auth()->user()->creator) {
             \App\Models\Creator::create([
                 'user_id' => auth()->user()->id,
             ]);
