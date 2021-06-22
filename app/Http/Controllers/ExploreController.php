@@ -13,8 +13,18 @@ class ExploreController extends Controller
         $users = User::with('creator')
             ->whereHas('creator', function ($creator) {
                 $creator->where('open', 1);
-            })->paginate(15);
+            })->paginate(16);
 
-        return view('explore.index', ['users' => $users]);
+        return view(
+            'explore.index',
+            [
+                'users' => $users,
+                'prevPage' => $users->previousPageUrl(),
+                'nextPage' => $users->nextPageUrl(),
+                'first' => $users->firstItem(),
+                'last' => $users->lastItem(),
+                'total' => $users->total()
+            ]
+        );
     }
 }
