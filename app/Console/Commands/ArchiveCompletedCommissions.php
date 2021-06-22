@@ -44,7 +44,7 @@ class ArchiveCompletedCommissions extends Command
                      'completed_at',
                      '<',
                      now()->subDays(config('commission.days_to_archive'))
-                 )
+                 )->get()
                  as $commission) {
             Log::info('Archiving ' . $commission->displayTitle);
             $commission->archive();

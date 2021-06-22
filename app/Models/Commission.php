@@ -508,7 +508,6 @@ class Commission extends Model
                 'transfer_group' => $this->slug,
             ]
         );
-
         CommissionEvent::create(
             [
                 'commission_id' => $this->id,
