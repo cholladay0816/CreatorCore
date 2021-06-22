@@ -242,6 +242,11 @@ class User extends Authenticatable implements MustVerifyEmail
     protected static function boot()
     {
         self::created(function ($user) {
+            Creator::create([
+                'user_id' => $user->id,
+                'open' => false,
+                'allows_custom_commissions' => false
+            ]);
             // $user->createOrGetStripeCustomer();
         });
 
