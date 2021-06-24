@@ -267,7 +267,7 @@ class Commission extends Model
     {
         $amount = $this->price * 100;
         $total = $amount + 30;
-        $total += ceil(($this->price * 0.06) * 100);
+        $total += ceil(($this->price * config('commission.sales_tax')) * 100);
         return floatval($total - $amount) / 100;
     }
     public function getFeesAttribute()
@@ -278,7 +278,7 @@ class Commission extends Model
     {
         $amount = $this->price * 100;
         $total = $amount + 30;
-        $total += ceil(($this->price * 0.06) * 100);
+        $total += ceil(($this->price * config('commission.sales_tax')) * 100);
         return floatval($total) / 100;
     }
     public function getTotalAttribute()

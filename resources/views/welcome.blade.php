@@ -248,7 +248,7 @@
                                 <h3 class="text-lg font-medium text-white">$0 Commission Fee</h3>
                                 <p class="mt-2 text-base text-purple-200">
                                     We promise to never take a single cent of your hard earned money.  All our expenses are paid upfront as a
-                                    6% sales fee, meaning our creators never foot the bill.
+                                    {{ number_format(config('commission.sales_tax') * 100, 0) }}% sales fee, meaning our creators never foot the bill.
                                 </p>
                             </div>
                         </div>
