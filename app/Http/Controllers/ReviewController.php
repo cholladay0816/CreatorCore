@@ -34,7 +34,12 @@ class ReviewController extends Controller
     public function create(Commission $commission)
     {
         if ($commission->status == 'Archived' && $commission->isBuyer()) {
-            return view('reviews.create', ['commission' => $commission]);
+// TODO:      if ($commission->has(Review::class)) {
+//            }
+            return view('reviews.create', [
+                'commission' => $commission,
+                'title' => 'Write a Review about ' . $commission->creator->name
+            ]);
         }
         abort(404);
     }
