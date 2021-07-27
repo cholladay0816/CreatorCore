@@ -92,16 +92,16 @@
                                 <blockquote>
                                     <div>
                                         <p class="text-base text-gray-500">
-                                            &ldquo;CreatorCore is incredibly effective for tracking my commissions, and it doesn't cost me a cent!&rdquo;
+                                            &ldquo;CreatorCore is incredibly effective for tracking my commissions!&rdquo;
                                         </p>
                                     </div>
                                     <footer class="mt-3">
                                         <div class="flex items-center space-x-3">
                                             <div class="flex-shrink-0">
-                                                <img class="h-6 w-6 rounded-full" src="https://images.unsplash.com/photo-1509783236416-c9ad59bae472?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80" alt="">
+                                                <img class="h-6 w-6 rounded-full" src="https://www.cholladayprojects.com/img/profile_picture.png" alt="">
                                             </div>
                                             <div class="text-base font-medium text-gray-700">
-                                                Marcia Hill, Digital Marketing Manager
+                                                Christian Holladay, the person who made this website
                                             </div>
                                         </div>
                                     </footer>
@@ -195,7 +195,8 @@
                             <div class="mt-6">
                                 <h3 class="text-lg font-medium text-white">Messaging</h3>
                                 <p class="mt-2 text-base text-purple-200">
-                                    Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.
+                                    We offer a messaging solution between artist and client that allows for excellent
+                                    communication when commissioning a product.
                                 </p>
                             </div>
                         </div>
@@ -230,19 +231,19 @@
                             <div class="mt-6">
                                 <h3 class="text-lg font-medium text-white">Reviews</h3>
                                 <p class="mt-2 text-base text-purple-200">
-                                    Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.
+                                    Feel free to leave a review for each commission you order, with the option to
+                                    attach a copy of your finished product.
                                 </p>
                             </div>
                         </div>
 
                         <div>
                             <div>
-                              <span class="flex items-center justify-center h-12 w-12 rounded-md bg-white bg-opacity-10">
-                                <!-- Heroicon name: outline/document-report -->
-                                <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                </svg>
-                              </span>
+                                <span class="flex items-center justify-center h-12 w-12 rounded-md bg-white bg-opacity-10">
+                                    <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
+                                </span>
                             </div>
                             <div class="mt-6">
                                 <h3 class="text-lg font-medium text-white">$0 Commission Fee</h3>
@@ -255,12 +256,11 @@
 
                         <div>
                             <div>
-                              <span class="flex items-center justify-center h-12 w-12 rounded-md bg-white bg-opacity-10">
-                                <!-- Heroicon name: outline/reply -->
-                                <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
-                                </svg>
-                              </span>
+                                <span class="flex items-center justify-center h-12 w-12 rounded-md bg-white bg-opacity-10">
+                                    <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+                                    </svg>
+                                </span>
                             </div>
                             <div class="mt-6">
                                 <h3 class="text-lg font-medium text-white">Easy-to-use Dashboard</h3>
@@ -282,9 +282,10 @@
                               </span>
                             </div>
                             <div class="mt-6">
-                                <h3 class="text-lg font-medium text-white">Email Commenting</h3>
+                                <h3 class="text-lg font-medium text-white">Stay notified</h3>
                                 <p class="mt-2 text-base text-purple-200">
-                                    Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.
+                                    Waiting on a client to get back to you?  Take a break for a while, we'll email you
+                                    when you're good to go!
                                 </p>
                             </div>
                         </div>
@@ -299,9 +300,11 @@
                               </span>
                             </div>
                             <div class="mt-6">
-                                <h3 class="text-lg font-medium text-white">Connect with Customers</h3>
+                                <h3 class="text-lg font-medium text-white">Streamline your Workflow</h3>
                                 <p class="mt-2 text-base text-purple-200">
-                                    Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.
+                                    Set up a few commission presets with our easy-to-use preset builder and have your
+                                    clients pick their order type from your shop,
+                                    think of it like an interactive commission sheet!
                                 </p>
                             </div>
                         </div>
@@ -310,46 +313,46 @@
             </div>
 
             <!-- Stats section -->
-            <div class="relative bg-gray-900">
-                <div class="h-80 absolute bottom-0 xl:inset-0 xl:h-full xl:w-full">
-                    <div class="h-full w-full xl:grid xl:grid-cols-2">
-                        <div class="h-full xl:relative xl:col-start-2">
-                            <img class="h-full w-full object-cover opacity-25 xl:absolute xl:inset-0" src="https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2830&q=80&sat=-100" alt="People working on laptops">
-                            <div aria-hidden="true" class="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-gray-900 xl:inset-y-0 xl:left-0 xl:h-full xl:w-32 xl:bg-gradient-to-r"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8 xl:grid xl:grid-cols-2 xl:grid-flow-col-dense xl:gap-x-8">
-                    <div class="relative pt-12 pb-64 sm:pt-24 sm:pb-64 xl:col-start-1 xl:pb-24">
-                        <h2 class="text-sm font-semibold tracking-wide uppercase">
-                            <span class="text-sky-300">Valuable Metrics</span>
-                        </h2>
-                        <p class="mt-3 text-3xl font-extrabold text-white">Get actionable data that will help grow your business</p>
-                        <p class="mt-5 text-lg text-gray-300">Rhoncus sagittis risus arcu erat lectus bibendum. Ut in adipiscing quis in viverra tristique sem. Ornare feugiat viverra eleifend fusce orci in quis amet. Sit in et vitae tortor, massa. Dapibus laoreet amet lacus nibh integer quis. Eu vulputate diam sit tellus quis at.</p>
-                        <div class="mt-12 grid grid-cols-1 gap-y-12 gap-x-6 sm:grid-cols-2">
-                            <p>
-                                <span class="block text-2xl font-bold text-white">8K+</span>
-                                <span class="mt-1 block text-base text-gray-300"><span class="font-medium text-white">Companies</span> use laoreet amet lacus nibh integer quis.</span>
-                            </p>
+{{--            <div class="relative bg-gray-900">--}}
+{{--                <div class="h-80 absolute bottom-0 xl:inset-0 xl:h-full xl:w-full">--}}
+{{--                    <div class="h-full w-full xl:grid xl:grid-cols-2">--}}
+{{--                        <div class="h-full xl:relative xl:col-start-2">--}}
+{{--                            <img class="h-full w-full object-cover opacity-25 xl:absolute xl:inset-0" src="https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2830&q=80&sat=-100" alt="People working on laptops">--}}
+{{--                            <div aria-hidden="true" class="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-gray-900 xl:inset-y-0 xl:left-0 xl:h-full xl:w-32 xl:bg-gradient-to-r"></div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8 xl:grid xl:grid-cols-2 xl:grid-flow-col-dense xl:gap-x-8">--}}
+{{--                    <div class="relative pt-12 pb-64 sm:pt-24 sm:pb-64 xl:col-start-1 xl:pb-24">--}}
+{{--                        <h2 class="text-sm font-semibold tracking-wide uppercase">--}}
+{{--                            <span class="text-sky-300">Valuable Metrics</span>--}}
+{{--                        </h2>--}}
+{{--                        <p class="mt-3 text-3xl font-extrabold text-white">Get actionable data that will help grow your business</p>--}}
+{{--                        <p class="mt-5 text-lg text-gray-300">Rhoncus sagittis risus arcu erat lectus bibendum. Ut in adipiscing quis in viverra tristique sem. Ornare feugiat viverra eleifend fusce orci in quis amet. Sit in et vitae tortor, massa. Dapibus laoreet amet lacus nibh integer quis. Eu vulputate diam sit tellus quis at.</p>--}}
+{{--                        <div class="mt-12 grid grid-cols-1 gap-y-12 gap-x-6 sm:grid-cols-2">--}}
+{{--                            <p>--}}
+{{--                                <span class="block text-2xl font-bold text-white">8K+</span>--}}
+{{--                                <span class="mt-1 block text-base text-gray-300"><span class="font-medium text-white">Companies</span> use laoreet amet lacus nibh integer quis.</span>--}}
+{{--                            </p>--}}
 
-                            <p>
-                                <span class="block text-2xl font-bold text-white">25K+</span>
-                                <span class="mt-1 block text-base text-gray-300"><span class="font-medium text-white">Countries around the globe</span> lacus nibh integer quis.</span>
-                            </p>
+{{--                            <p>--}}
+{{--                                <span class="block text-2xl font-bold text-white">25K+</span>--}}
+{{--                                <span class="mt-1 block text-base text-gray-300"><span class="font-medium text-white">Countries around the globe</span> lacus nibh integer quis.</span>--}}
+{{--                            </p>--}}
 
-                            <p>
-                                <span class="block text-2xl font-bold text-white">98%</span>
-                                <span class="mt-1 block text-base text-gray-300"><span class="font-medium text-white">Customer satisfaction</span> laoreet amet lacus nibh integer quis.</span>
-                            </p>
+{{--                            <p>--}}
+{{--                                <span class="block text-2xl font-bold text-white">98%</span>--}}
+{{--                                <span class="mt-1 block text-base text-gray-300"><span class="font-medium text-white">Customer satisfaction</span> laoreet amet lacus nibh integer quis.</span>--}}
+{{--                            </p>--}}
 
-                            <p>
-                                <span class="block text-2xl font-bold text-white">12M+</span>
-                                <span class="mt-1 block text-base text-gray-300"><span class="font-medium text-white">Issues resolved</span> lacus nibh integer quis.</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+{{--                            <p>--}}
+{{--                                <span class="block text-2xl font-bold text-white">12M+</span>--}}
+{{--                                <span class="mt-1 block text-base text-gray-300"><span class="font-medium text-white">Issues resolved</span> lacus nibh integer quis.</span>--}}
+{{--                            </p>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
 
             <!-- CTA Section -->
             <div class="bg-white">
@@ -359,12 +362,12 @@
                         <span class="block bg-gradient-to-r from-blue-600 to-sky-600 bg-clip-text text-transparent">Get in touch or create an account.</span>
                     </h2>
                     <div class="mt-6 space-y-4 sm:space-y-0 sm:flex sm:space-x-5">
-                        <a href="#" class="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-blue-600 to-sky-600 hover:from-sky-700 hover:to-sky-700">
-                            Learn more
+                        <a href="{{ route('register') }}" class="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-blue-600 to-sky-600 hover:from-sky-700 hover:to-sky-700">
+                            Get Started
                         </a>
-                        <a href="{{ route('register') }}" class="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-sky-800 bg-sky-50 hover:bg-sky-100">
-                            Get started
-                        </a>
+{{--                        <a href="{{ route('register') }}" class="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-sky-800 bg-sky-50 hover:bg-sky-100">--}}
+{{--                            Get started--}}
+{{--                        </a>--}}
                     </div>
                 </div>
             </div>
