@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Stripe\StripeClient;
@@ -230,6 +231,7 @@ class Commission extends Model
     }
     public function decline()
     {
+        Log::info('Declining commission #' . $this->id);
         // TODO: send notifications
         Mail::to($this->buyer->email)->queue(new Declined($this));
         $this->status = 'Declined';
@@ -253,6 +255,7 @@ class Commission extends Model
     }
     public function accept()
     {
+        Log::info('Accepting commission #' . $this->id);
         // TODO: send notifications
         Mail::to($this->buyer->email)->queue(new Accepted($this));
         $this->status = 'Purchasing';
@@ -302,7 +305,9 @@ class Commission extends Model
 
     public function attemptCharge($token = null)
     {
+        Log::info('Attempting to charge commission #' . $this->id);
         if ($this->invoice_id) {
+            Log::info('Invoice already exists for commission #' . $this->id);
             return null;
         }
 
@@ -310,6 +315,7 @@ class Commission extends Model
         $source = null;
         $stripe = new StripeClient(config('stripe.secret'));
         if ($token != null) {
+            Log::info('Stripe token exists, creating payment method for commission #' . $this->id);
             $source = $stripe->customers->createSource(
                 $customer->id,
                 [
@@ -319,7 +325,9 @@ class Commission extends Model
         }
 
         if ($this->buyer->hasPaymentMethod()) {
+            Log::info('Buyer has payment method for commission #' . $this->id);
             try {
+                Log::info('Drafting an invoice for commission #' . $this->id);
                 $stripe->invoiceItems->create([
                     'customer' => $customer->id,
                     'description' => $this->displayTitle(),
@@ -333,6 +341,7 @@ class Commission extends Model
                 if ($source != null) {
                     $invoiceData['default_source'] = $source->id;
                 }
+                Log::info('Creating invoice for commission #' . $this->id);
                 $invoice = $stripe->invoices->create($invoiceData);
                 //$invoice = $this->buyer->invoiceFor($this->displayTitle(), $total);
                 $this->invoice_id = $invoice->id;
@@ -342,6 +351,8 @@ class Commission extends Model
                 Mail::to($this->creator->email)->queue(new Pending($this));
                 return $invoice;
             } catch (\Exception $e) {
+                Log::error($e->getMessage());
+                Log::error($e->getTraceAsString());
                 return $e;
             }
         }
@@ -366,6 +377,7 @@ class Commission extends Model
 
     public function chargeSuccess()
     {
+        Log::info('Charge succeeded for commission #' . $this->id);
         // TODO: send notifications
         $this->status = 'Active';
         $this->save();
@@ -380,6 +392,7 @@ class Commission extends Model
 
     public function overdue()
     {
+        Log::info('Overdue commission #' . $this->id);
         // TODO: send notifications
         Mail::to($this->buyer->email)->queue(new OverdueBuyer($this));
         Mail::to($this->creator->email)->queue(new OverdueCreator($this));
@@ -396,6 +409,7 @@ class Commission extends Model
 
     public function chargeFail()
     {
+        Log::info('Charge failed for commission #' . $this->id);
         $this->status = 'Failed';
         $this->invoice_id = null;
         $this->save();
@@ -412,6 +426,7 @@ class Commission extends Model
 
     public function complete()
     {
+        Log::info('Completed commission #' . $this->id);
         $this->status = 'Completed';
         $this->save();
 
@@ -426,6 +441,7 @@ class Commission extends Model
     }
     public function dispute()
     {
+        Log::info('Disputed commission #' . $this->id);
         $this->status = 'Disputed';
         $this->save();
         // TODO: send notifications
@@ -462,11 +478,13 @@ class Commission extends Model
 
     public function expire()
     {
+        Log::info('Expired commission #' . $this->id);
         // TODO: send notifications
         Mail::to($this->creator->email)->queue(new Canceled($this));
         $this->status = 'Expired';
         $this->save();
         $stripe = new StripeClient(config('stripe.secret'));
+        Log::info('Generating refund for commission #' . $this->id);
         $invoice = $stripe->invoices->retrieve($this->invoice_id, ['expand' => ['charge']]);
         $stripe->refunds->create([
             'charge' => $invoice->charge,
@@ -478,12 +496,14 @@ class Commission extends Model
                 'title' => 'Expired', 'color' => 'bg-red-500', 'status' => 'Expired'
             ]
         );
+        Log::info('Deleting all attachments on commission #' . $this->id);
         foreach ($this->attachments as $attachment) {
             $attachment->delete();
         }
     }
     public function refund()
     {
+        Log::info('Refunding commission #' . $this->id);
         // TODO: send notifications
         Mail::to($this->buyer->email)->queue(new Refunded($this));
         Mail::to($this->creator->email)->queue(new Refunded($this));
@@ -507,6 +527,7 @@ class Commission extends Model
     }
     public function resolve()
     {
+        Log::info('Resolving commission #' . $this->id);
         // TODO: send notifications
         Mail::to($this->creator->email)->queue(new Resolved($this));
         Mail::to($this->buyer->email)->queue(new Resolved($this));
@@ -520,6 +541,7 @@ class Commission extends Model
     }
     public function archive()
     {
+        Log::info('Archiving commission #' . $this->id);
         // TODO: send notifications to creator
         Mail::to($this->creator->email)->queue(new Archived($this));
 
@@ -527,8 +549,9 @@ class Commission extends Model
         $this->save();
 
         $stripe = new StripeClient(config('stripe.secret'));
+        Log::info('Fetching invoice for commission #' . $this->id);
         $invoice = $stripe->invoices->retrieve($this->invoice_id, ['expand' => ['charge']]);
-
+        Log::info('Transferring funds for commission #' . $this->id);
         $transfer = $stripe->transfers->create(
             [
                 'amount' => $this->price * 100,
