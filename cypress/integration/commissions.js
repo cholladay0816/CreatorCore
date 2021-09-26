@@ -1,6 +1,6 @@
 describe('Commissions', function () {
-    describe('Create / Store', function () {
-        it('creates a Commission', function () {
+    describe('Create', function () {
+        it('Creates a Commission', function () {
             cy.login({'email': 'buyer@creator-core.com'}).visit('/commissions/new/creator')
                 .get('[name="title"]').type('Test Title')
                 .get('[name="description"]').type('Test Description')
