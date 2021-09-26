@@ -34,6 +34,7 @@ class Commission extends Model
         'created_at',
         'updated_at',
         'expires_at',
+        'completed_at'
     ];
 
     /**
