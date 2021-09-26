@@ -11,7 +11,6 @@ use Tests\TestCase;
 class ReviewFeatureTest extends TestCase
 {
     use RefreshDatabase;
-    use HasFactory;
 
     /** @test */
     public function they_are_visible()
