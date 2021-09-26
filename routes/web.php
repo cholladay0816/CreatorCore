@@ -46,7 +46,7 @@ Route::get('/attachments/{attachment}', [AttachmentController::class, 'show'])
     ->middleware('attachments.canview')
     ->name('attachments.show');
 
-Route::get('/reviews/{user}', [\App\Http\Controllers\ReviewController::class, 'index'])
+Route::get('/reviews', [\App\Http\Controllers\ReviewController::class, 'index'])
     ->name('reviews.index');
 
 Route::get('/reviews/{review}', [\App\Http\Controllers\ReviewController::class, 'show'])
