@@ -52,6 +52,9 @@ Route::get('/reviews', [\App\Http\Controllers\ReviewController::class, 'index'])
 Route::get('/reviews/{review}', [\App\Http\Controllers\ReviewController::class, 'show'])
     ->name('reviews.show');
 
+Route::delete('/reviews/{review}', [\App\Http\Controllers\ReviewController::class, 'destroy'])
+    ->name('reviews.destroy');
+
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/reviews/create/{commission}', [\App\Http\Controllers\ReviewController::class, 'create'])
         ->name('reviews.create');

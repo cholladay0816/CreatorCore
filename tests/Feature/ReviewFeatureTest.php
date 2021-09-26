@@ -67,4 +67,12 @@ class ReviewFeatureTest extends TestCase
 
         $this->assertNull($review->fresh());
     }
+    /** @test */
+    public function guests_cannot_delete_reviews()
+    {
+        $review = Review::factory()->create();
+
+        $this->delete(route('reviews.destroy', $review))
+            ->assertNotFound();
+    }
 }
