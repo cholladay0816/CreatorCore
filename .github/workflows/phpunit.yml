@@ -39,11 +39,6 @@ jobs:
         run: |
           mkdir -p database
           touch database/database.sqlite
-      - name: Run php-cs-fixer
-        run: ./vendor/bin/php-cs-fixer fix .
-      - uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: Apply php-cs-fixer changes
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         env:
           DB_CONNECTION: sqlite
