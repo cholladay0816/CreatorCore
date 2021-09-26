@@ -19,9 +19,19 @@ class ReviewController extends Controller
      *
      * @return Application|Factory|View|Response
      */
-    public function index(User $user)
+    public function index(Request $request)
     {
-        $reviews = Review::where('user_id', $user->id)->where('anonymous', '0')->paginate(15);
+        if ($request->query('user')) {
+            $user = User::where('name', $request->query('user'))
+                ->firstOrFail();
+            $reviews = $user->reviews->where('anonymous', '0')->paginate(15);
+        } elseif ($request->query('commission')) {
+            $commission = Commission::find($request->query('commission'))
+                ->firstOrFail();
+            $reviews = $commission->reviews->where('anonymous', '0')->paginate(15);
+        } else {
+            abort(404);
+        }
         return view('reviews.index', ['reviews' => $reviews]);
     }
 

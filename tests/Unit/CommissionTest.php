@@ -6,6 +6,7 @@ use App\Models\Commission;
 use App\Models\CommissionPreset;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Log;
 use Stripe\Exception\CardException;
 use Tests\TestCase;
 
@@ -51,7 +52,7 @@ class CommissionTest extends TestCase
         $expected_fee = $commission->price * (1 + $sales_tax);
         // Add the flat fee
         $expected_fee += $stripe_flat_fee;
-        echo('Expecting a fee of $' . number_format($expected_fee, 2));
+        Log::info('Expecting a fee of $' . number_format($expected_fee, 2));
 
         $this->assertEquals($expected_fee, $commission->total());
     }

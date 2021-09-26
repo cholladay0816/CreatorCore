@@ -54,5 +54,13 @@ class DemoSeeder extends Seeder
                 'created_at' => now()->addDays(2),
             ]
         );
+        Commission::factory()->create(
+            [
+                'buyer_id' => $buyer->id,
+                'creator_id' => $creator->id,
+                'status' => 'Archived',
+                'completed_at' => now()->subDays(7)
+            ]
+        );
     }
 }

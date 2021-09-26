@@ -483,7 +483,7 @@
     "name": "reviews.index",
     "domain": null,
     "action": "App\\Http\\Controllers\\ReviewController@index",
-    "uri": "reviews/{user}",
+    "uri": "reviews",
     "method": [
       "GET",
       "HEAD"
@@ -497,6 +497,15 @@
     "method": [
       "GET",
       "HEAD"
+    ]
+  },
+  "reviews.destroy": {
+    "name": "reviews.destroy",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\ReviewController@destroy",
+    "uri": "reviews/{review}",
+    "method": [
+      "DELETE"
     ]
   },
   "reviews.create": {
