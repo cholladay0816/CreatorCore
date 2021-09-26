@@ -53,4 +53,4 @@ jobs:
           PLAID_CLIENT_ID: ${{ secrets.PLAID_CLIENT_ID }}
           PLAID_KEY: ${{ secrets.PLAID_KEY }}
           PLAID_SECRET: ${{ secrets.PLAID_SECRET }}
-        run: vendor/bin/phpunit
+        run: php artisan test --parallel
