@@ -29,7 +29,7 @@ In order to ensure that CreatorCore is welcoming to all, please review and abide
 
 ## Security Vulnerabilities
 
-If you discover a security vulnerability within CreatorCore, please send an e-mail to Holladay Digital via [cholladay0816@gmail.com](mailto:cholladay0816@gmail.com). All security vulnerabilities will be promptly addressed.
+If you discover a security vulnerability within CreatorCore, please send an e-mail to Holladay Digital via [cholladay0816@holladaydigital.com](mailto:cholladay0816@holladaydigital.com). All security vulnerabilities will be promptly addressed.
 
 ## License
 

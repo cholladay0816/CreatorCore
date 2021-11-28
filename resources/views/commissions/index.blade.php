@@ -1,4 +1,7 @@
 <x-app-layout>
+    <div>
+        Export
+    </div>
     @if($commissions->count() > 0)
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 my-4">
         <div class="bg-white shadow overflow-hidden sm:rounded-md">

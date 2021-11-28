@@ -25,4 +25,11 @@ class RatingTest extends TestCase
         $rating = Rating::factory()->create(['user_id' => $user->id]);
         $this->assertEquals($user->id, $rating->user->id);
     }
+    /** @test */
+    public function it_cannot_divide_by_zero()
+    {
+        $user = User::factory()->create();
+
+        $this->assertNull($user->rating);
+    }
 }

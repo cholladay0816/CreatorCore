@@ -52,6 +52,12 @@ Route::get('/reviews', [\App\Http\Controllers\ReviewController::class, 'index'])
 Route::get('/reviews/{review}', [\App\Http\Controllers\ReviewController::class, 'show'])
     ->name('reviews.show');
 
+Route::get('/reviews/{review}/edit', [\App\Http\Controllers\ReviewController::class, 'edit'])
+    ->name('reviews.edit');
+
+Route::put('/reviews/{review}', [\App\Http\Controllers\ReviewController::class, 'update'])
+    ->name('reviews.update');
+
 Route::delete('/reviews/{review}', [\App\Http\Controllers\ReviewController::class, 'destroy'])
     ->name('reviews.destroy');
 

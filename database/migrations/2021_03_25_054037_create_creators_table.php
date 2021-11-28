@@ -21,6 +21,8 @@ class CreateCreatorsTable extends Migration
             $table->string('headline');
             $table->tinyInteger('allows_custom_commissions')->default(0);
             $table->tinyInteger('open')->default(0);
+            $table->text('bio')->nullable();
+            $table->string('banner_path')->nullable();
             $table->timestamps();
         });
     }
