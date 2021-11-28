@@ -1,62 +1,108 @@
-<x-jet-action-section>
+<x-jet-form-section submit="updateCreatorInformation">
     <x-slot name="title">
-        {{ __('Creator Information') }}
+        {{ __('Creator Settings') }}
     </x-slot>
 
     <x-slot name="description">
-        {{ __('Use this menu to customize your profile.') }}
+        {{ __('Configure and customize your creator profile.') }}
     </x-slot>
 
-    <x-slot name="content">
-        <div class="max-w-xl text-sm text-gray-600">
-            {{ __('Make changes here to start accepting commissions, update your creator page,
-                    and adjust various creator-only settings.') }}
+    <x-slot name="form">
+        <!-- Profile Photo -->
+        @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
+            <div x-data="{bannerName: null, bannerPreview: null}" class="col-span-6 sm:col-span-4">
+                <!-- Profile Photo File Input -->
+                <input type="file" class="hidden"
+                       wire:model="banner"
+                       x-ref="banner"
+                       x-on:change="
+                                    bannerName = $refs.banner.files[0].name;
+                                    const reader = new FileReader();
+                                    reader.onload = (e) => {
+                                        bannerPreview = e.target.result;
+                                    };
+                                    reader.readAsDataURL($refs.banner.files[0]);
+                            " />
+
+                <x-jet-label for="banner" value="{{ __('Banner') }}" />
+
+                <!-- Current Profile Photo -->
+                <div class="mt-2" x-show="! bannerPreview">
+                    <img src="{{ $this->creator->banner_url ?? '@TODO' }}" alt="{{ $this->user->name }}" class="h-20 w-20 object-cover">
+                </div>
+
+                <!-- New Profile Photo Preview -->
+                <div class="mt-2" x-show="bannerPreview">
+                    <span class="block rounded-full w-20 h-20"
+                          x-bind:style="'background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url(\'' + photoPreview + '\');'">
+                    </span>
+                </div>
+
+                <x-jet-secondary-button class="mt-2 mr-2" type="button" x-on:click.prevent="$refs.banner.click()">
+                    {{ __('Select A New Banner') }}
+                </x-jet-secondary-button>
+
+                @if ($this->user->banner_path)
+                    <x-jet-secondary-button type="button" class="mt-2" wire:click="deleteBanner">
+                        {{ __('Remove Banner') }}
+                    </x-jet-secondary-button>
+                @endif
+
+                <x-jet-input-error for="banner" class="mt-2" />
+            </div>
+    @endif
+
+    <!-- Name -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="subtitle" value="{{ __('Subtitle') }}" />
+            <x-jet-input id="subtitle" type="text" class="mt-1 block w-full" wire:model.defer="state.title" autocomplete="subtitle" />
+            <x-jet-input-error for="subtitle" class="mt-2" />
         </div>
 
-        <div class="mt-5">
-            <div>
-                <div class="space-y-6 sm:space-y-5 divide-y divide-gray-200">
-                    <div class="pt-6 sm:pt-5">
-                        <div role="group" aria-labelledby="label-email">
-                            <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-baseline">
-                                <div class="mt-4 sm:mt-0 sm:col-span-2">
-                                    <div class="max-w-lg space-y-4">
-{{--                                        <div class="relative flex items-start">--}}
-{{--                                            <div>--}}
-{{--                                                <label for="category" class="block text-sm font-medium text-gray-700">Commission Category</label>--}}
-{{--                                                <select id="category" name="category" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">--}}
-{{--                                                    <option selected>Digital Art</option>--}}
-{{--                                                    <option>Photography</option>--}}
-{{--                                                </select>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-                                        <div class="relative flex items-start">
-                                            <div class="flex items-center h-5">
-                                                <input wire:model="creator.open" id="commissions_enabled" name="commissions_enabled" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                            </div>
-                                            <div class="ml-3 text-sm">
-                                                <label for="commissions_enabled" class="font-medium text-gray-700">Enable Commissions</label>
-                                                <p class="text-gray-500">Toggle whether or not you are open for commissions.</p>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="relative flex items-start">
-                                                <div class="flex items-center h-5">
-                                                    <input wire:model="creator.allows_custom_commissions" id="custom_orders" name="custom_orders" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                </div>
-                                                <div class="ml-3 text-sm">
-                                                    <label for="custom_orders" class="font-medium text-gray-700">Custom Orders</label>
-                                                    <p class="text-gray-500">Toggle the ability to have users send in custom commissions.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <!-- Email -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="bio" value="{{ __('Bio') }}" />
+            <x-jet-input id="bio" type="text" class="mt-1 block w-full" wire:model.defer="state.bio" />
+            <x-jet-input-error for="bio" class="mt-2" />
+        </div>
+
+        <!-- Commissions open -->
+        <div class="col-span-6 sm:col-span-4">
+            <div class="relative flex items-start">
+                <x-jet-checkbox wire:model.defer="state.open" class="mr-3" id="commissions" name="commissions"/>
+                <div>
+                    <x-jet-label for="commissions" value="{{ __('Enable Commissions') }}" />
+                    <label class="block font-medium text-sm text-gray-500" for="commissions">
+                        {{ __('Toggles whether or not you are open for commissions.') }}
+                    </label>
                 </div>
             </div>
+            <x-jet-input-error for="commissions" class="mt-2" />
         </div>
+
+        <!-- Custom Commissions -->
+        <div class="col-span-6 sm:col-span-4">
+            <div class="relative flex items-start">
+                <x-jet-checkbox wire:model.defer="state.allows_custom_commissions" class="mr-3" id="customs" name="customs"/>
+                <div>
+                    <x-jet-label for="customs" value="{{ __('Enable Custom Commissions') }}" />
+                    <label class="block font-medium text-sm text-gray-500" for="test">
+                        {{ __('Toggles the ability to have users send in custom commissions.') }}
+                    </label>
+                </div>
+            </div>
+            <x-jet-input-error for="customs" class="mt-2" />
+        </div>
+
     </x-slot>
-</x-jet-action-section>
+
+    <x-slot name="actions">
+        <x-jet-action-message class="mr-3" on="saved">
+            {{ __('Saved.') }}
+        </x-jet-action-message>
+
+        <x-jet-button wire:loading.attr="disabled" wire:target="banner">
+            {{ __('Save') }}
+        </x-jet-button>
+    </x-slot>
+</x-jet-form-section>
