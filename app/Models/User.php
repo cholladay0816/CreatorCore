@@ -137,8 +137,9 @@ class User extends Authenticatable implements MustVerifyEmail
     public function rating()
     {
         $ratings = $this->ratings;
-        if($ratings->empty())
+        if ($ratings->empty()) {
             return null;
+        }
         return number_format(floatval($ratings->sum('positive')) / floatval($ratings->count()), 2);
     }
     public function getRatingAttribute()
