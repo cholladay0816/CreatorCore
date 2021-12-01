@@ -26,7 +26,6 @@ class ReviewController extends Controller
             $user = User::where('name', $request->query('user'))
                 ->firstOrFail();
             $reviews = Paginator::paginate($user->reviews->where('anonymous', '0'));
-
         } elseif ($request->query('creator')) {
             $user = User::where('name', $request->query('creator'))
                 ->firstOrFail();
