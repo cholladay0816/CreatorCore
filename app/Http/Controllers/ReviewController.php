@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Paginator;
 use App\Models\Commission;
 use App\Models\Review;
 use App\Models\User;
@@ -24,11 +25,16 @@ class ReviewController extends Controller
         if ($request->query('user')) {
             $user = User::where('name', $request->query('user'))
                 ->firstOrFail();
-            $reviews = $user->reviews->where('anonymous', '0')->paginate(15);
-        } elseif ($request->query('commission')) {
-            $commission = Commission::find($request->query('commission'))
+            $reviews = Paginator::paginate($user->reviews->where('anonymous', '0'));
+
+        } elseif ($request->query('creator')) {
+            $user = User::where('name', $request->query('creator'))
                 ->firstOrFail();
-            $reviews = $commission->reviews->where('anonymous', '0')->paginate(15);
+            $reviews = Paginator::paginate($user->ratings->where('anonymous', '0'));
+        } elseif ($request->query('commission')) {
+            $commission = Commission::where('slug', $request->query('commission'))
+                ->firstOrFail();
+            $reviews = Paginator::paginate($commission->reviews->where('anonymous', '0'));
         } else {
             abort(404);
         }
