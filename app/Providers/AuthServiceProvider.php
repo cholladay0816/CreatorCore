@@ -35,6 +35,9 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::before(function (User $user, $ability) {
+            if ($user->suspended()) {
+                return false;
+            }
             if ($user->hasAbility($ability)) {
                 return true;
             }

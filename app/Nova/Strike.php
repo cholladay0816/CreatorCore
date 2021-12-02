@@ -33,7 +33,7 @@ class Strike extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id', 'user_id'
     ];
 
     /**

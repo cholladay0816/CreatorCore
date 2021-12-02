@@ -21,7 +21,7 @@ class Report extends Model
     }
 
 
-    public function resolve($note)
+    public function resolve($note = null)
     {
         $this->action_description = $note;
         $this->status = 'Resolved';

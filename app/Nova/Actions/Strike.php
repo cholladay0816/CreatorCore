@@ -7,9 +7,11 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Collection;
 use Laravel\Nova\Actions\Action;
+use Laravel\Nova\Actions\DestructiveAction;
 use Laravel\Nova\Fields\ActionFields;
+use Laravel\Nova\Fields\Text;
 
-class Strike extends Action
+class Strike extends DestructiveAction
 {
     use InteractsWithQueue, Queueable;
 
@@ -22,7 +24,9 @@ class Strike extends Action
      */
     public function handle(ActionFields $fields, Collection $models)
     {
-        //
+        foreach ($models as $model) {
+            $model->addStrike($fields->get('Reason'));
+        }
     }
 
     /**
@@ -32,6 +36,8 @@ class Strike extends Action
      */
     public function fields()
     {
-        return [];
+        return [
+            Text::make('Reason')
+        ];
     }
 }
