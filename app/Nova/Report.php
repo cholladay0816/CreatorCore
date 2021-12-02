@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\ViewReportTarget;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Fields\BelongsTo;
@@ -64,7 +65,8 @@ class Report extends Resource
             Text::make('Title'),
             Trix::make('Description'),
             Select::make('Status')
-            ->options(['Submitted', 'Resolved', 'Closed'])->default(0),
+                ->options(['Submitted' => 'Submitted', 'Resolved' => 'Resolved', 'Closed' => 'Closed'])
+                ->default('Submitted'),
             Text::make('Action Description')->nullable(),
         ];
     }
@@ -111,7 +113,7 @@ class Report extends Resource
     public function actions(Request $request)
     {
         return [
-
+            ViewReportTarget::make()
         ];
     }
 }

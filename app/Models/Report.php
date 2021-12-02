@@ -17,7 +17,7 @@ class Report extends Model
 
     public function target()
     {
-        return $this->belongsTo($this->model, 'model_id');
+        return ($this->model)::find($this->model_id);
     }
 
 
