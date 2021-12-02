@@ -54,12 +54,12 @@ class Commission extends Resource
      */
     public static function indexQuery(NovaRequest $request, $query)
     {
-        if(Gate::allows('manage-orders')) {
+        if (Gate::allows('manage-orders')) {
             return $query;
         }
         return $query->whereIn(
-        'id',
-                \App\Models\Commission::where('creator_id', $request->user()->id)
+            'id',
+            \App\Models\Commission::where('creator_id', $request->user()->id)
                 ->orWhere('buyer_id', $request->user()->id)->get('id')
         );
     }
