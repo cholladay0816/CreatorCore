@@ -7,4 +7,11 @@
     </div>
     <p style="" class="mt-2 block text-sm font-medium text-gray-900 truncate pointer-events-none">{{ $gallery->getSlug() }}</p>
     <p class="block text-sm font-medium text-gray-500 pointer-events-none">{{ number_format($gallery->size / 1024, 2) }} KB</p>
+    @if($gallery->user_id == auth()->id())
+    <form method="POST" action="{{ route('gallery.destroy', $gallery) }}">
+        @csrf
+        @method("DELETE")
+        <button type="submit">[x]</button>
+    </form>
+    @endif
 </li>
