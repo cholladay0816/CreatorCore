@@ -47,7 +47,7 @@ class Attachment extends Resource
      */
     public static function indexQuery(NovaRequest $request, $query)
     {
-        if(Gate::allows('manage-users')) {
+        if (Gate::allows('manage-users')) {
             return $query;
         }
         return $query->whereIn('id', $request->user()->attachments->pluck('id'));
