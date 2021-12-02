@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
@@ -34,6 +35,14 @@ class Incentive extends Resource
     public static $search = [
         'id', 'user_id', 'amount'
     ];
+
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        if (Gate::allows('manage-finances')) {
+            return $query;
+        }
+        return $query->where('user_id', $request->user()->id);
+    }
 
     /**
      * Get the fields displayed by the resource.

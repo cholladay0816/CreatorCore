@@ -6,12 +6,11 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Laravel\Nova\Actions\Action;
-use Laravel\Nova\Actions\DestructiveAction;
 use Laravel\Nova\Fields\ActionFields;
-use Laravel\Nova\Fields\Text;
 
-class Strike extends DestructiveAction
+class ViewReportTarget extends Action
 {
     use InteractsWithQueue, Queueable;
 
@@ -25,7 +24,7 @@ class Strike extends DestructiveAction
     public function handle(ActionFields $fields, Collection $models)
     {
         foreach ($models as $model) {
-            $model->addStrike($fields->get('Reason'));
+            return self::redirect(url('nova/resources/' . Str::slug(Str::plural(class_basename($model->model))) . '/' . $model->model_id));
         }
     }
 
@@ -36,8 +35,6 @@ class Strike extends DestructiveAction
      */
     public function fields()
     {
-        return [
-            Text::make('Reason')
-        ];
+        return [];
     }
 }

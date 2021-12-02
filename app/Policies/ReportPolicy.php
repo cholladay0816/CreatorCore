@@ -19,7 +19,7 @@ class ReportPolicy
      */
     public function viewAny(User $user)
     {
-        return Gate::allows('manage-reports');
+        return true;
     }
 
     /**
@@ -31,7 +31,7 @@ class ReportPolicy
      */
     public function view(User $user, Report $report)
     {
-        return Gate::allows('manage-reports');
+        return Gate::allows('manage-reports') || $report->user_id == $user->id;
     }
 
     /**

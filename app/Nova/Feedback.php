@@ -3,29 +3,31 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Gallery extends Resource
+class Feedback extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Models\Gallery::class;
+    public static $model = \App\Models\Feedback::class;
 
-    public static $group = 'content';
+    public static $group = 'administration';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'slug';
+    public static $title = 'title';
 
     /**
      * The columns that should be searched.
@@ -33,8 +35,16 @@ class Gallery extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'user_id', 'slug', 'size','url'
+        'id', 'user_id', 'title', 'status'
     ];
+
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        if (Gate::allows('manage-content')) {
+            return $query;
+        }
+        return $query->where('user_id', $request->user()->id);
+    }
 
     /**
      * Get the fields displayed by the resource.
@@ -47,10 +57,14 @@ class Gallery extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
             BelongsTo::make('User'),
-            Text::make('Slug')->showOnCreating(false),
-            Number::make('Size')->showOnCreating(false),
-            Text::make('Path')->showOnCreating(false),
-            Text::make('Url')->showOnCreating(false)
+            Text::make('Title'),
+            Trix::make('Description'),
+            Select::make('Status')->options([
+                'Submitted' => 'Submitted',
+                'Closed' => 'Closed'
+            ])
+                ->showOnCreating(false)
+                ->showOnUpdating(Gate::allows('manage-content')),
         ];
     }
 

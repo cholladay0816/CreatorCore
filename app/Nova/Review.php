@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
@@ -35,6 +36,14 @@ class Review extends Resource
     public static $search = [
         'id', 'user_id', 'commission_id'
     ];
+
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        if (Gate::allows('manage-content')) {
+            return $query;
+        }
+        return $query->where('user_id', $request->user()->id);
+    }
 
     /**
      * Get the fields displayed by the resource.

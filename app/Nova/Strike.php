@@ -18,7 +18,7 @@ class Strike extends Resource
      */
     public static $model = \App\Models\Strike::class;
 
-    public static $group = 'users';
+    public static $group = 'administration';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -33,7 +33,7 @@ class Strike extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id', 'user_id'
     ];
 
     /**

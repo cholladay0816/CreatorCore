@@ -9,14 +9,14 @@ use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Gallery extends Resource
+class Banner extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Models\Gallery::class;
+    public static $model = \App\Models\Banner::class;
 
     public static $group = 'content';
 
@@ -33,7 +33,7 @@ class Gallery extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'user_id', 'slug', 'size','url'
+        'id', 'user_id', 'slug', 'size', 'url'
     ];
 
     /**
@@ -47,9 +47,8 @@ class Gallery extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
             BelongsTo::make('User'),
-            Text::make('Slug')->showOnCreating(false),
             Number::make('Size')->showOnCreating(false),
-            Text::make('Path')->showOnCreating(false),
+            Text::make('Slug')->showOnCreating(false),
             Text::make('Url')->showOnCreating(false)
         ];
     }

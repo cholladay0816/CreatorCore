@@ -2,12 +2,12 @@
 
 namespace App\Policies;
 
-use App\Models\CommissionPreset;
+use App\Models\Review;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Gate;
 
-class CommissionPresetPolicy
+class ReviewPolicy
 {
     use HandlesAuthorization;
 
@@ -15,7 +15,7 @@ class CommissionPresetPolicy
      * Determine whether the user can view any models.
      *
      * @param  \App\Models\User  $user
-     * @return mixed
+     * @return \Illuminate\Auth\Access\Response|bool
      */
     public function viewAny(User $user)
     {
@@ -26,19 +26,19 @@ class CommissionPresetPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\CommissionPreset  $commissionPreset
-     * @return mixed
+     * @param  \App\Models\Review  $review
+     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, CommissionPreset $commissionPreset)
+    public function view(User $user, Review $review)
     {
-        return Gate::allows('manage-content');
+        return Gate::allows('manage-content') || $user->id == $review->user_id;
     }
 
     /**
      * Determine whether the user can create models.
      *
      * @param  \App\Models\User  $user
-     * @return mixed
+     * @return \Illuminate\Auth\Access\Response|bool
      */
     public function create(User $user)
     {
@@ -49,47 +49,47 @@ class CommissionPresetPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\CommissionPreset  $commissionPreset
-     * @return mixed
+     * @param  \App\Models\Review  $review
+     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, CommissionPreset $commissionPreset)
+    public function update(User $user, Review $review)
     {
-        return Gate::allows('manage-content') || $user->id == $commissionPreset->user_id;
+        return Gate::allows('manage-content') || $user->id == $review->user_id;
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\CommissionPreset  $commissionPreset
-     * @return mixed
+     * @param  \App\Models\Review  $review
+     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, CommissionPreset $commissionPreset)
+    public function delete(User $user, Review $review)
     {
-        return Gate::allows('manage-content') || $user->id == $commissionPreset->user_id;
+        return Gate::allows('manage-content') || $user->id == $review->user_id;
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\CommissionPreset  $commissionPreset
-     * @return mixed
+     * @param  \App\Models\Review  $review
+     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, CommissionPreset $commissionPreset)
+    public function restore(User $user, Review $review)
     {
-        return Gate::allows('manage-content');
+        //
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\CommissionPreset  $commissionPreset
-     * @return mixed
+     * @param  \App\Models\Review  $review
+     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, CommissionPreset $commissionPreset)
+    public function forceDelete(User $user, Review $review)
     {
-        return Gate::allows('manage-content');
+        //
     }
 }

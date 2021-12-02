@@ -74,6 +74,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::post('/gallery', [\App\Http\Controllers\GalleryController::class, 'store'])
         ->name('gallery.store');
 
+    Route::delete('/gallery/{gallery}', [\App\Http\Controllers\GalleryController::class, 'destroy'])
+        ->name('gallery.destroy');
+
     Route::resource('/commissionpresets', CommissionPresetController::class);
 
     Route::resource('/notifications', NotificationController::class, ['index'])

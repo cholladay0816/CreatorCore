@@ -2,6 +2,8 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\Suspend;
+use App\Nova\Actions\Strike;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Fields\Gravatar;
@@ -46,7 +48,7 @@ class User extends Resource
      */
     public static function indexQuery(NovaRequest $request, $query)
     {
-        if(Gate::allows('manage-users')) {
+        if (Gate::allows('manage-users')) {
             return $query;
         }
         return $query->where('id', $request->user()->id);
@@ -131,6 +133,9 @@ class User extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            Strike::make(),
+            Suspend::make()
+        ];
     }
 }
