@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Jobs\TryBonusJob;
 use App\Mail\Commission\Accepted;
 use App\Mail\Commission\Archived;
 use App\Mail\Commission\Canceled;
@@ -574,40 +575,6 @@ class Commission extends Model
                 'title' => 'Order archived', 'color' => 'bg-green-500', 'status' => 'Archived'
             ]
         );
-        $this->tryBonus($this->price * 100);
-    }
-
-    public function tryBonus(int $amount)
-    {
-        if ($this->creator->incentive <= 0) {
-            return;
-        }
-
-        $total = min($this->creator->incentive, $amount);
-
-        $bonus = Bonus::create(['user_id' => $this->creator->id, 'amount' => $total]);
-
-        $stripe = new StripeClient(config('stripe.secret'));
-
-        Log::info('Fetching invoice for commission #' . $this->id);
-        $invoice = $stripe->invoices->retrieve($this->invoice_id, ['expand' => ['charge']]);
-
-        $transfer = $stripe->transfers->create(
-            [
-                'amount' => $bonus->amount,
-                'currency' => 'usd',
-                'source_transaction' => $invoice->charge->id,
-                'destination' => $bonus->user->stripe_account_id,
-                'description' => 'Incentive Bonus: $' . number_format($bonus->amount / 100, 2),
-                'transfer_group' => $this->slug,
-            ]
-        );
-
-        CommissionEvent::create(
-            [
-                'commission_id' => $this->id,
-                'title' => 'Incentive bonus of $' . number_format($bonus->amount / 100, 2), 'color' => 'bg-green-500', 'status' => 'Archived'
-            ]
-        );
+        TryBonusJob::dispatchSync($this);
     }
 }

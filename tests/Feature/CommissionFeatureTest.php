@@ -4,11 +4,13 @@ namespace Tests\Feature;
 
 use App\Models\Attachment;
 use App\Models\Commission;
+use App\Models\Incentive;
 use App\Models\Role;
 use App\Models\User;
 use Database\Seeders\RoleSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Log;
 use Laravel\Cashier\Exceptions\PaymentFailure;
 use phpseclib3\Crypt\Random;
 use Stripe\Account;
@@ -52,7 +54,6 @@ class CommissionFeatureTest extends TestCase
         $res->assertRedirect('/commissions/' . $commission->getSlug());
     }
 
-    // TODO: test to make sure unauthorized users (logged in or otherwise) cannot view.
     /** @test */
     public function a_commission_cannot_be_viewed_by_guests()
     {
@@ -255,5 +256,30 @@ class CommissionFeatureTest extends TestCase
         $stripe = new StripeClient(config('stripe.secret'));
         $balance = $stripe->balance->retrieve([], ['stripe_account' => $seller->stripe_account_id]);
         $this->assertEquals($commission->price * 100, $balance->pending[0]->amount);
+    }
+
+    /** @test */
+    public function an_incentive_commission_can_receive_a_bonus()
+    {
+        [$buyer, $seller] = $this->createBuyerAndSeller();
+        // $1000 bonus created, to make sure the sale amount X2 can be met
+        Incentive::create(['user_id' => $seller->id, 'amount' => 1000000]);
+
+        $commission = $this->getChargedCommission($buyer, $seller);
+        $commission->accept();
+        $commission->checkInvoiceStatus();
+        $commission->complete();
+
+        $res = $this->actingAs($buyer)
+            ->put(route('commissions.update', $commission->fresh()));
+        $res->assertSessionHas('success', 'Commission archived')
+            ->assertRedirect(route('commissions.orders'));
+
+        $this->assertEquals('Archived', $commission->fresh()->status);
+
+        $stripe = new StripeClient(config('stripe.secret'));
+        $balance = $stripe->balance->retrieve([], ['stripe_account' => $seller->stripe_account_id]);
+        Log::info('Checking balance for double transfer...');
+        $this->assertEquals($commission->price * 200, $balance->instant_available[0]->amount);
     }
 }
