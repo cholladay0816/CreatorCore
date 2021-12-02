@@ -5,9 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Laravel\Nova\Actions\Actionable;
 
 class Report extends Model
 {
+
+    use Actionable;
     use HasFactory;
 
     public function user()
