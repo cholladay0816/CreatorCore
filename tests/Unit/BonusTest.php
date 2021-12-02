@@ -12,7 +12,8 @@ class BonusTest extends TestCase
 {
     use RefreshDatabase;
     /** @test */
-    function a_bonus_has_a_user() {
+    public function a_bonus_has_a_user()
+    {
         $user = User::factory()->create();
         $bonus = Bonus::factory()
             ->create(['user_id' => $user->id]);
@@ -21,7 +22,8 @@ class BonusTest extends TestCase
     }
 
     /** @test */
-    function a_bonus_has_a_commission() {
+    public function a_bonus_has_a_commission()
+    {
         $commission = Commission::factory()->create();
         $bonus = Bonus::factory()
             ->create(['commission_id' => $commission->id]);
