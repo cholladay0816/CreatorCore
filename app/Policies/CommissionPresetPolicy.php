@@ -19,7 +19,7 @@ class CommissionPresetPolicy
      */
     public function viewAny(User $user)
     {
-        return Gate::allows('manage-content') || !$user->commissionPresets->empty();
+        return true;
     }
 
     /**
@@ -54,7 +54,7 @@ class CommissionPresetPolicy
      */
     public function update(User $user, CommissionPreset $commissionPreset)
     {
-        return Gate::allows('manage-content');
+        return Gate::allows('manage-content') || $user->id == $commissionPreset->user_id;
     }
 
     /**
@@ -66,7 +66,7 @@ class CommissionPresetPolicy
      */
     public function delete(User $user, CommissionPreset $commissionPreset)
     {
-        return Gate::allows('manage-content');
+        return Gate::allows('manage-content') || $user->id == $commissionPreset->user_id;
     }
 
     /**

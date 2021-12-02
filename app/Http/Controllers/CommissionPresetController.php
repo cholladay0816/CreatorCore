@@ -71,7 +71,7 @@ class CommissionPresetController extends Controller
      */
     public function edit(CommissionPreset $commissionPreset)
     {
-        //
+        return redirect()->to('nova/commissionpresets/' . $commissionPreset->id);
     }
 
     /**

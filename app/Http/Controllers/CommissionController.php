@@ -54,6 +54,9 @@ class CommissionController extends Controller
      */
     public function create(User $user, CommissionPreset $commissionPreset = null)
     {
+        if ($user->id == auth()->id()) {
+            return redirect()->back()->with(['error' => 'You can\'t commission yourself!']);
+        }
         return view('commissions.create', compact([$user, $commissionPreset]));
     }
 
