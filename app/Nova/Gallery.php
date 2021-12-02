@@ -15,6 +15,8 @@ class Gallery extends Resource
      */
     public static $model = \App\Models\Gallery::class;
 
+    public static $group = 'content';
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *

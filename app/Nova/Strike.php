@@ -18,7 +18,7 @@ class Strike extends Resource
      */
     public static $model = \App\Models\Strike::class;
 
-    public static $group = 'users';
+    public static $group = 'administration';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
