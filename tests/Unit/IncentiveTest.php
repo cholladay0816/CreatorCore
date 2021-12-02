@@ -13,7 +13,8 @@ class IncentiveTest extends TestCase
 {
     use RefreshDatabase;
     /** @test */
-    function a_user_has_an_incentive() {
+    public function a_user_has_an_incentive()
+    {
         $user = User::factory()->create();
 
         Incentive::factory()->create(['amount' => 10000, 'user_id' => $user->id]);
@@ -22,8 +23,8 @@ class IncentiveTest extends TestCase
     }
 
     /** @test */
-    function an_incentive_can_increase() {
-
+    public function an_incentive_can_increase()
+    {
         $user = User::factory()->create();
 
         Incentive::factory()->create(['amount' => 10000, 'user_id' => $user->id]);
@@ -36,7 +37,8 @@ class IncentiveTest extends TestCase
     }
 
     /** @test */
-    function an_incentive_can_decrease() {
+    public function an_incentive_can_decrease()
+    {
         $user = User::factory()->create();
 
         Incentive::factory()->create(['amount' => 10000, 'user_id' => $user->id]);

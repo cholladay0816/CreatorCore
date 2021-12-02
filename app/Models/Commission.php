@@ -579,8 +579,7 @@ class Commission extends Model
 
     public function tryBonus(int $amount)
     {
-        if($this->creator->incentive <= 0)
-        {
+        if ($this->creator->incentive <= 0) {
             return;
         }
 
