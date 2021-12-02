@@ -33,7 +33,7 @@ class Review extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id', 'user_id', 'commission_id'
     ];
 
     /**
@@ -46,8 +46,9 @@ class Review extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            BelongsTo::make('User'),
-            BelongsTo::make('Commission'),
+            BelongsTo::make('User')->required(),
+            BelongsTo::make('Commission')->required(),
+            BelongsTo::make('Attachment')->nullable(),
             Boolean::make('Positive')->required(),
             Boolean::make('Anonymous')->required(),
 

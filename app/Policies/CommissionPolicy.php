@@ -19,7 +19,7 @@ class CommissionPolicy
      */
     public function viewAny(User $user)
     {
-        return Gate::allows('view-admin-dashboard');
+        return true;
     }
 
     /**
@@ -31,7 +31,8 @@ class CommissionPolicy
      */
     public function view(User $user, Commission $commission)
     {
-        return Gate::allows('view-admin-dashboard');
+        return Gate::allows('view-admin-dashboard')
+            || (!$commission->review && !$commission->review->anonymous);
     }
 
     /**

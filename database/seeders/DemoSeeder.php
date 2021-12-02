@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use App\Models\Commission;
 use App\Models\CommissionEvent;
 use App\Models\Creator;
+use App\Models\Review;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -54,7 +55,7 @@ class DemoSeeder extends Seeder
                 'created_at' => now()->addDays(2),
             ]
         );
-        Commission::factory()->create(
+        $commission = Commission::factory()->create(
             [
                 'buyer_id' => $buyer->id,
                 'creator_id' => $creator->id,
@@ -62,5 +63,10 @@ class DemoSeeder extends Seeder
                 'completed_at' => now()->subDays(7)
             ]
         );
+        Review::factory()->create([
+            'commission_id' => $commission->id,
+            'user_id' => $commission->buyer->id,
+            'anonymous' => false
+        ]);
     }
 }

@@ -19,7 +19,7 @@ class CommissionPresetPolicy
      */
     public function viewAny(User $user)
     {
-        return Gate::allows('manage-content');
+        return Gate::allows('manage-content') || !$user->commissionPresets->empty();
     }
 
     /**
