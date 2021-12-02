@@ -83,6 +83,25 @@ class User extends Authenticatable implements MustVerifyEmail
             ->whereIn('status', Commission::statusesCommissions());
     }
 
+    public function incentives()
+    {
+        return $this->hasMany(Incentive::class);
+    }
+
+    public function bonuses()
+    {
+        return $this->hasMany(Bonus::class);
+    }
+
+    public function incentive()
+    {
+        return $this->incentives->sum('amount') - $this->bonuses->sum('amount');
+    }
+    public function getIncentiveAttribute()
+    {
+        return $this->incentive();
+    }
+
     public function suspensions()
     {
         return $this->hasMany(Suspension::class);

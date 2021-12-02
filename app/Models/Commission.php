@@ -253,6 +253,7 @@ class Commission extends Model
             $stripe->invoices->delete($invoice->id);
         }
     }
+
     public function accept()
     {
         Log::info('Accepting commission #' . $this->id);
@@ -286,10 +287,12 @@ class Commission extends Model
         $total += ceil(($this->price * config('commission.sales_tax')) * 100);
         return floatval($total - $amount) / 100;
     }
+
     public function getFeesAttribute()
     {
         return $this->fees();
     }
+
     public function total()
     {
         $amount = $this->price * 100;
@@ -301,7 +304,6 @@ class Commission extends Model
     {
         return $this->total();
     }
-
 
     public function attemptCharge($token = null)
     {
@@ -358,6 +360,7 @@ class Commission extends Model
         }
         return null;
     }
+
     // For testing only, verification handled by webhooks.
     public function checkInvoiceStatus()
     {
@@ -439,6 +442,7 @@ class Commission extends Model
             ]
         );
     }
+
     public function dispute()
     {
         Log::info('Disputed commission #' . $this->id);
@@ -501,6 +505,7 @@ class Commission extends Model
             $attachment->delete();
         }
     }
+
     public function refund()
     {
         Log::info('Refunding commission #' . $this->id);
@@ -525,6 +530,7 @@ class Commission extends Model
             $attachment->delete();
         }
     }
+
     public function resolve()
     {
         Log::info('Resolving commission #' . $this->id);
@@ -539,6 +545,7 @@ class Commission extends Model
         );
         $this->archive();
     }
+
     public function archive()
     {
         Log::info('Archiving commission #' . $this->id);
@@ -565,6 +572,42 @@ class Commission extends Model
             [
                 'commission_id' => $this->id,
                 'title' => 'Order archived', 'color' => 'bg-green-500', 'status' => 'Archived'
+            ]
+        );
+        $this->tryBonus($this->price * 100);
+    }
+
+    public function tryBonus(int $amount)
+    {
+        if($this->creator->incentive <= 0)
+        {
+            return;
+        }
+
+        $total = min($this->creator->incentive, $amount);
+
+        $bonus = Bonus::create(['user_id' => $this->creator->id, 'amount' => $total]);
+
+        $stripe = new StripeClient(config('stripe.secret'));
+
+        Log::info('Fetching invoice for commission #' . $this->id);
+        $invoice = $stripe->invoices->retrieve($this->invoice_id, ['expand' => ['charge']]);
+
+        $transfer = $stripe->transfers->create(
+            [
+                'amount' => $bonus->amount,
+                'currency' => 'usd',
+                'source_transaction' => $invoice->charge->id,
+                'destination' => $bonus->user->stripe_account_id,
+                'description' => 'Incentive Bonus: $' . number_format($bonus->amount / 100, 2),
+                'transfer_group' => $this->slug,
+            ]
+        );
+
+        CommissionEvent::create(
+            [
+                'commission_id' => $this->id,
+                'title' => 'Incentive bonus of $' . number_format($bonus->amount / 100, 2), 'color' => 'bg-green-500', 'status' => 'Archived'
             ]
         );
     }
