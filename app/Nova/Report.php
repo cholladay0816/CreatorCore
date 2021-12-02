@@ -37,7 +37,7 @@ class Report extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id', 'user_id', 'model'
     ];
 
     public static function indexQuery(NovaRequest $request, $query)
@@ -59,12 +59,12 @@ class Report extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
             BelongsTo::make('User'),
-            Text::make('Model'),
+            Text::make('Model')->default(\App\Models\User::class),
             Number::make('Model ID'),
             Text::make('Title'),
             Trix::make('Description'),
             Select::make('Status')
-            ->options(['Submitted', 'Resolved', 'Closed']),
+            ->options(['Submitted', 'Resolved', 'Closed'])->default(0),
             Text::make('Action Description')->nullable(),
         ];
     }
@@ -110,6 +110,8 @@ class Report extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+
+        ];
     }
 }
