@@ -9,7 +9,6 @@ use Laravel\Nova\Actions\Actionable;
 
 class Report extends Model
 {
-
     use Actionable;
     use HasFactory;
 
