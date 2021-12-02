@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
@@ -36,6 +37,21 @@ class Attachment extends Resource
     public static $search = [
         'id', 'slug'
     ];
+
+    /**
+     * Build an "index" query for the given resource.
+     *
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        if(Gate::allows('manage-users')) {
+            return $query;
+        }
+        return $query->whereIn('id', $request->user()->attachments->pluck('id'));
+    }
 
     /**
      * Get the fields displayed by the resource.
