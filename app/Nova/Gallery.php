@@ -3,7 +3,10 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Gallery extends Resource
@@ -22,7 +25,7 @@ class Gallery extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'slug';
 
     /**
      * The columns that should be searched.
@@ -30,7 +33,7 @@ class Gallery extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id', 'user_id', 'slug', 'size','url'
     ];
 
     /**
@@ -43,6 +46,11 @@ class Gallery extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
+            BelongsTo::make('User'),
+            Text::make('Slug')->showOnCreating(false),
+            Number::make('Size')->showOnCreating(false),
+            Text::make('Path')->showOnCreating(false),
+            Text::make('Url')->showOnCreating(false)
         ];
     }
 
