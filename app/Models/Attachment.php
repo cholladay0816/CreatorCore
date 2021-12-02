@@ -20,6 +20,9 @@ class Attachment extends File
         if ($this->review != null) {
             return true;
         }
+        if (!$this->commission) {
+            return true;
+        }
         if ($this->commission->isCreator()) {
             return true;
         }
@@ -38,6 +41,9 @@ class Attachment extends File
     public function canEdit()
     {
         if (Gate::allows('manage-content')) {
+            return true;
+        }
+        if (!$this->commission) {
             return true;
         }
         return $this->commission->isCreator() && in_array($this->commission->status, ['Active', 'Overdue']);
