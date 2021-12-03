@@ -21,6 +21,10 @@ class Report extends Model
     {
         return ($this->model)::find($this->model_id);
     }
+    public function getTargetAttribute()
+    {
+        return $this->target();
+    }
 
 
     public function resolve($note = null)
