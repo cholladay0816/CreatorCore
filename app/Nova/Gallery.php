@@ -37,6 +37,14 @@ class Gallery extends Resource
         'id', 'user_id', 'slug', 'size','url'
     ];
 
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        if (Gate::allows('manage-content')) {
+            return $query;
+        }
+        return $query->where('user_id', $request->user()->id);
+    }
+
     /**
      * Get the fields displayed by the resource.
      *
