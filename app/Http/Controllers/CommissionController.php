@@ -57,6 +57,10 @@ class CommissionController extends Controller
         if ($user->id == auth()->id()) {
             return redirect()->back()->with(['error' => 'You can\'t commission yourself!']);
         }
+        if( !$user->canBeCommissioned() )
+        {
+            return abort(403);
+        }
         return view('commissions.create', compact([$user, $commissionPreset]));
     }
 
@@ -70,6 +74,11 @@ class CommissionController extends Controller
      */
     public function store(Request $request, User $user, CommissionPreset $commissionPreset = null): RedirectResponse
     {
+        if(!$user->canBeCommissioned())
+        {
+            return abort(403);
+        }
+
         $res = $request->validate([
             'title' => 'required',
             'description' => 'required',

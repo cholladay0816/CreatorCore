@@ -5,7 +5,7 @@
     @endforeach
     @if($user->id == auth()->id())
         @livewire('preset.create')
-    @elseif($user->creator->open && $user->creator->allows_custom_commissions)
+    @elseif($user->canBeCommissioned() && $user->creator->allows_custom_commissions)
         @livewire('preset.custom', ['creator' => $creator])
     @endif
 </div>

@@ -236,6 +236,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return (count($account->requirements->currently_due) == 0);
     }
 
+    public function canBeCommissioned()
+    {
+        return $this->canAcceptPayments() && !$this->suspended() && $this->open;
+    }
+
     public function isOnboarded()
     {
         $account = $this->fetchStripeAccount();
