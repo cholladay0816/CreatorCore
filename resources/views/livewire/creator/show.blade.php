@@ -54,8 +54,8 @@
                         >
                             <div class="py-6 px-3 mt-32 sm:mt-0">
                                 <a @if(!$user->canBeCommissioned()) disabled @endif
-                                    class="bg-{{$user->canBeCommissioned()?'indigo-500':'gray-200'}}
-                                    active:bg-{{$user->canBeCommissioned()?'indigo-600':'gray-400'}}
+                                    class="{{$user->canBeCommissioned()?'bg-indigo-500':'bg-gray-200'}}
+                                    {{$user->canBeCommissioned()?'active:bg-indigo-600':'active:bg-gray-400'}}
                                     uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1"
                                     type="button"
                                     style="transition: all 0.15s ease 0s;"
