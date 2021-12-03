@@ -94,7 +94,7 @@
                             {{$user->name}}
                         </h3>
                         <div
-                            class="text-sm leading-normal mt-0 mb-2 text-gray-500 font-bold uppercase"
+                            class="text-sm leading-normal mt-0 mb-2 text-gray-500 font-bold"
                         >
                             <i
                                 class="fas fa-map-marker-alt mr-2 text-lg text-gray-500"
