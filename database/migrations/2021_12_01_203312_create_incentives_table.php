@@ -15,7 +15,7 @@ class CreateIncentivesTable extends Migration
     {
         Schema::create('incentives', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\User::class)->constrained()->nullOnDelete();
+            $table->foreignIdFor(\App\Models\User::class)->nullable()->constrained()->nullOnDelete();
             // incentive amount in cents
             $table->unsignedInteger('amount');
             $table->timestamps();

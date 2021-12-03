@@ -15,8 +15,8 @@ class CreateBonusesTable extends Migration
     {
         Schema::create('bonuses', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\User::class)->constrained()->nullOnDelete();
-            $table->foreignIdFor(\App\Models\Commission::class)->constrained()->nullOnDelete();
+            $table->foreignIdFor(\App\Models\User::class)->nullable()->constrained()->nullOnDelete();
+            $table->foreignIdFor(\App\Models\Commission::class)->nullable()->constrained()->nullOnDelete();
             $table->bigInteger('amount');
             $table->timestamps();
         });
