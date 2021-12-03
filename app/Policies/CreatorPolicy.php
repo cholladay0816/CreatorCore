@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Creator;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\Gate;
 
 class CreatorPolicy
 {
@@ -18,7 +19,7 @@ class CreatorPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return true;
     }
 
     /**
@@ -30,7 +31,7 @@ class CreatorPolicy
      */
     public function view(User $user, Creator $creator)
     {
-        //
+        return $user->id == $creator->user_id || Gate::allows('manage-users');
     }
 
     /**
@@ -41,7 +42,7 @@ class CreatorPolicy
      */
     public function create(User $user)
     {
-        //
+        return !$user->creator;
     }
 
     /**
@@ -53,7 +54,7 @@ class CreatorPolicy
      */
     public function update(User $user, Creator $creator)
     {
-        //
+        return $user->id == $creator->user_id || Gate::allows('manage-users');
     }
 
     /**
@@ -65,7 +66,7 @@ class CreatorPolicy
      */
     public function delete(User $user, Creator $creator)
     {
-        //
+        return Gate::allows('manage-users');
     }
 
     /**
