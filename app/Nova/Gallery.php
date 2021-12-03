@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
@@ -52,6 +53,11 @@ class Gallery extends Resource
             Text::make('Path')->showOnCreating(false),
             Text::make('Url')->showOnCreating(false)
         ];
+    }
+
+    public static function authorizeToCreate(Request $request)
+    {
+        return Gate::allows('manage-content');
     }
 
     /**
