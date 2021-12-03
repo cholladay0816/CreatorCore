@@ -31,7 +31,7 @@ class CommissionPresetPolicy
      */
     public function view(User $user, CommissionPreset $commissionPreset)
     {
-        return Gate::allows('manage-content');
+        return true;
     }
 
     /**
@@ -42,7 +42,7 @@ class CommissionPresetPolicy
      */
     public function create(User $user)
     {
-        return Gate::allows('manage-content');
+        return !$user->suspended();
     }
 
     /**
