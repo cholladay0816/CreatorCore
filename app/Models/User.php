@@ -297,9 +297,10 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getEarlierEarnings(int $start = 0, int $end = 30): int
     {
-        return Cache::remember('userEarnings_'.$this->id.'_'.$start.'-'.$end,
+        return Cache::remember(
+            'userEarnings_'.$this->id.'_'.$start.'-'.$end,
             now()->diffInSeconds(now()->addDay()),
-            function() use ($start, $end) {
+            function () use ($start, $end) {
                 return (
                     (
                         $this->commissions
@@ -314,12 +315,13 @@ class User extends Authenticatable implements MustVerifyEmail
                         ->where('completed_at', '>', now()->subDays($end))
                         ->sum('amount')
                 );
-        });
+            }
+        );
     }
 
     public function earningDifference(): int
     {
-        return $this->getRecentEarnings() - $this->getEarlierEarnings(30,60);
+        return $this->getRecentEarnings() - $this->getEarlierEarnings(30, 60);
     }
 
     public function earningIncrease(): bool
@@ -329,14 +331,15 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function earningChangePercentage(): int
     {
-        return Cache::remember('userEarningChangePercentage_'.$this->id,
+        return Cache::remember(
+            'userEarningChangePercentage_'.$this->id,
             now()->diffInSeconds(now()->addDay()),
-            function() {
-            if($this->getEarlierEarnings(30,60) == 0)
-            {
-                return $this->earningIncrease() ? 100 : 0;
+            function () {
+                if ($this->getEarlierEarnings(30, 60) == 0) {
+                    return $this->earningIncrease() ? 100 : 0;
+                }
+                return number_format(abs(($this->earningDifference() / $this->getEarlierEarnings(30, 60)) * 100), 0);
             }
-            return number_format(abs(($this->earningDifference() / $this->getEarlierEarnings(30,60)) * 100), 0);
-        });
+        );
     }
 }
