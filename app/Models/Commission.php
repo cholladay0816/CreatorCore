@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -555,6 +556,9 @@ class Commission extends Model
 
         $this->status = 'Archived';
         $this->save();
+
+        Cache::forget('userEarnings_'.$this->creator_id.'_0-30');
+        Cache::forget('userEarningChangePercentage_'.$this->creator_id);
 
         $stripe = new StripeClient(config('stripe.secret'));
         Log::info('Fetching invoice for commission #' . $this->id);
