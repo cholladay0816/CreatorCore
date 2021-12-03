@@ -19,7 +19,7 @@ class AbilityPolicy
      */
     public function viewAny(User $user)
     {
-        return Gate::allows('manage-admins');
+        return true;
     }
 
     /**
