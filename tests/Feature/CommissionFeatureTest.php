@@ -25,7 +25,7 @@ class CommissionFeatureTest extends TestCase
     public function a_commission_can_be_created()
     {
         // Generate a buyer and seller
-        [$buyer, $seller] = $this->createBuyerAndSeller();
+        [$buyer, $seller] = $this->createBuyerAndSeller(true);
 
         // Make a working commission
         $commission = Commission::factory()->make([

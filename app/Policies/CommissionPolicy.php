@@ -43,7 +43,7 @@ class CommissionPolicy
      */
     public function create(User $user)
     {
-        return Gate::allows('manage-content');
+        return true;
     }
 
     /**

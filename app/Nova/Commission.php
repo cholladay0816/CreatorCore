@@ -98,6 +98,11 @@ class Commission extends Resource
         ];
     }
 
+    public static function authorizeToCreate(Request $request)
+    {
+        return Gate::allows('manage-orders');
+    }
+
     /**
      * Get the cards available for the request.
      *
