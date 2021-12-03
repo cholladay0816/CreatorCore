@@ -26,6 +26,8 @@ class Team extends Resource
      */
     public static $title = 'name';
 
+    public static $group = 'users';
+
     /**
      * The columns that should be searched.
      *
