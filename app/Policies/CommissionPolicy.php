@@ -31,8 +31,8 @@ class CommissionPolicy
      */
     public function view(User $user, Commission $commission)
     {
-        return Gate::allows('view-admin-dashboard')
-            || (!$commission->review && !$commission->review->anonymous);
+        return $user->id == $commission->buyer_id || $user->id == $commission->creator_id
+            || Gate::allows('manage-orders');
     }
 
     /**

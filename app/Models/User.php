@@ -317,7 +317,7 @@ class User extends Authenticatable implements MustVerifyEmail
                     +
                     $this->bonuses
                         ->where('created_at', '<', now()->subDays($start))
-                        ->where('completed_at', '>', now()->subDays($end))
+                        ->where('created_at', '>', now()->subDays($end))
                         ->sum('amount')
                 );
             }

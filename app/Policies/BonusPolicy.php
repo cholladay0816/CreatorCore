@@ -19,7 +19,7 @@ class BonusPolicy
      */
     public function viewAny(User $user)
     {
-        return !$user->bonuses->empty() || Gate::allows('manage-financials');
+        return true;
     }
 
     /**
@@ -42,7 +42,7 @@ class BonusPolicy
      */
     public function create(User $user)
     {
-        Gate::allows('manage-financials');
+        return Gate::allows('manage-financials');
     }
 
     /**
@@ -54,7 +54,7 @@ class BonusPolicy
      */
     public function update(User $user, Bonus $bonus)
     {
-        Gate::allows('manage-financials');
+        return Gate::allows('manage-financials');
     }
 
     /**
@@ -66,7 +66,7 @@ class BonusPolicy
      */
     public function delete(User $user, Bonus $bonus)
     {
-        Gate::allows('manage-financials');
+        return Gate::allows('manage-financials');
     }
 
     /**

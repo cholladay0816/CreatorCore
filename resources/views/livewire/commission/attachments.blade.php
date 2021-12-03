@@ -20,13 +20,6 @@
                     PNG, JPG, GIF up to 4MB
                 </p>
             </div>
-            <div class="space-y-1 text-center" x-show="isUploading && !hasErrors">
-                <div>
-                    <span class="text-sky-400 inline-flex items-center border border-transparent text-base leading-6 font-medium rounded-md transition ease-in-out duration-150">
-                        File uploading...
-                    </span>
-                </div>
-            </div>
         </div>
         @error('file')
         <p class="text-sm text-red-500">

@@ -31,7 +31,7 @@ class AttachmentPolicy
      */
     public function view(User $user, Attachment $attachment)
     {
-        return $user->id == $attachment->user_id || Gate::allows('manage-content');
+        return $attachment->canView();
     }
 
     /**

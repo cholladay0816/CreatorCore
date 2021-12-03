@@ -38,7 +38,7 @@ class Bonus extends Resource
 
     public static function indexQuery(NovaRequest $request, $query)
     {
-        if (Gate::allows('manage-finances')) {
+        if (Gate::allows('manage-financials')) {
             return $query;
         }
         return $query->where('user_id', $request->user()->id);
