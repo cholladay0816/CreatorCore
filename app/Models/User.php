@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Cache;
 use Laravel\Cashier\Billable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
@@ -81,6 +82,25 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Commission::class, 'creator_id')
             ->whereIn('status', Commission::statusesCommissions());
+    }
+
+    public function incentives()
+    {
+        return $this->hasMany(Incentive::class);
+    }
+
+    public function bonuses()
+    {
+        return $this->hasMany(Bonus::class);
+    }
+
+    public function incentive()
+    {
+        return $this->incentives->sum('amount') - $this->bonuses->sum('amount');
+    }
+    public function getIncentiveAttribute()
+    {
+        return $this->incentive();
     }
 
     public function suspensions()
@@ -159,6 +179,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Commission::class, 'buyer_id');
     }
+    public function reports()
+    {
+        return $this->hasMany(Report::class);
+    }
     public function roles()
     {
         return $this->belongsToMany(Role::class);
@@ -210,6 +234,11 @@ class User extends Authenticatable implements MustVerifyEmail
         }
         $account = $this->fetchStripeAccount();
         return (count($account->requirements->currently_due) == 0);
+    }
+
+    public function canBeCommissioned()
+    {
+        return $this->canAcceptPayments() && !$this->suspended() && $this->creator->open;
     }
 
     public function isOnboarded()
@@ -264,5 +293,58 @@ class User extends Authenticatable implements MustVerifyEmail
 
 
         parent::boot();
+    }
+
+    public function getRecentEarnings(): int
+    {
+        return $this->getEarlierEarnings();
+    }
+
+    public function getEarlierEarnings(int $start = 0, int $end = 30): int
+    {
+        return Cache::remember(
+            'userEarnings_'.$this->id.'_'.$start.'-'.$end,
+            now()->diffInSeconds(now()->addDay()),
+            function () use ($start, $end) {
+                return (
+                    (
+                        $this->commissions
+                            ->where('status', 'Archived')
+                            ->where('completed_at', '<', now()->subDays($start))
+                            ->where('completed_at', '>', now()->subDays($end))
+                            ->sum('price') * 100
+                    )
+                    +
+                    $this->bonuses
+                        ->where('created_at', '<', now()->subDays($start))
+                        ->where('created_at', '>', now()->subDays($end))
+                        ->sum('amount')
+                );
+            }
+        );
+    }
+
+    public function earningDifference(): int
+    {
+        return $this->getRecentEarnings() - $this->getEarlierEarnings(30, 60);
+    }
+
+    public function earningIncrease(): bool
+    {
+        return $this->earningDifference() > 0;
+    }
+
+    public function earningChangePercentage(): int
+    {
+        return Cache::remember(
+            'userEarningChangePercentage_'.$this->id,
+            now()->diffInSeconds(now()->addDay()),
+            function () {
+                if ($this->getEarlierEarnings(30, 60) == 0) {
+                    return $this->earningIncrease() ? 100 : 0;
+                }
+                return number_format(abs(($this->earningDifference() / $this->getEarlierEarnings(30, 60)) * 100), 0);
+            }
+        );
     }
 }

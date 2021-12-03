@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Jobs\TryBonusJob;
 use App\Mail\Commission\Accepted;
 use App\Mail\Commission\Archived;
 use App\Mail\Commission\Canceled;
@@ -19,6 +20,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -253,6 +255,7 @@ class Commission extends Model
             $stripe->invoices->delete($invoice->id);
         }
     }
+
     public function accept()
     {
         Log::info('Accepting commission #' . $this->id);
@@ -286,10 +289,12 @@ class Commission extends Model
         $total += ceil(($this->price * config('commission.sales_tax')) * 100);
         return floatval($total - $amount) / 100;
     }
+
     public function getFeesAttribute()
     {
         return $this->fees();
     }
+
     public function total()
     {
         $amount = $this->price * 100;
@@ -301,7 +306,6 @@ class Commission extends Model
     {
         return $this->total();
     }
-
 
     public function attemptCharge($token = null)
     {
@@ -358,6 +362,7 @@ class Commission extends Model
         }
         return null;
     }
+
     // For testing only, verification handled by webhooks.
     public function checkInvoiceStatus()
     {
@@ -439,6 +444,7 @@ class Commission extends Model
             ]
         );
     }
+
     public function dispute()
     {
         Log::info('Disputed commission #' . $this->id);
@@ -501,6 +507,7 @@ class Commission extends Model
             $attachment->delete();
         }
     }
+
     public function refund()
     {
         Log::info('Refunding commission #' . $this->id);
@@ -525,6 +532,7 @@ class Commission extends Model
             $attachment->delete();
         }
     }
+
     public function resolve()
     {
         Log::info('Resolving commission #' . $this->id);
@@ -539,6 +547,7 @@ class Commission extends Model
         );
         $this->archive();
     }
+
     public function archive()
     {
         Log::info('Archiving commission #' . $this->id);
@@ -547,6 +556,9 @@ class Commission extends Model
 
         $this->status = 'Archived';
         $this->save();
+
+        Cache::forget('userEarnings_'.$this->creator_id.'_0-30');
+        Cache::forget('userEarningChangePercentage_'.$this->creator_id);
 
         $stripe = new StripeClient(config('stripe.secret'));
         Log::info('Fetching invoice for commission #' . $this->id);
@@ -567,5 +579,6 @@ class Commission extends Model
                 'title' => 'Order archived', 'color' => 'bg-green-500', 'status' => 'Archived'
             ]
         );
+        TryBonusJob::dispatchSync($this);
     }
 }

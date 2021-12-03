@@ -3,7 +3,11 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Gallery extends Resource
@@ -15,12 +19,14 @@ class Gallery extends Resource
      */
     public static $model = \App\Models\Gallery::class;
 
+    public static $group = 'content';
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'slug';
 
     /**
      * The columns that should be searched.
@@ -28,8 +34,16 @@ class Gallery extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id', 'user_id', 'slug', 'size','url'
     ];
+
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        if (Gate::allows('manage-content')) {
+            return $query;
+        }
+        return $query->where('user_id', $request->user()->id);
+    }
 
     /**
      * Get the fields displayed by the resource.
@@ -41,7 +55,17 @@ class Gallery extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
+            BelongsTo::make('User'),
+            Text::make('Slug')->showOnCreating(false),
+            Number::make('Size')->showOnCreating(false),
+            Text::make('Path')->showOnCreating(false),
+            Text::make('Url')->showOnCreating(false)
         ];
+    }
+
+    public static function authorizeToCreate(Request $request)
+    {
+        return Gate::allows('manage-content');
     }
 
     /**

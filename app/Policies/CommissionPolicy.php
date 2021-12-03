@@ -19,7 +19,7 @@ class CommissionPolicy
      */
     public function viewAny(User $user)
     {
-        return Gate::allows('view-admin-dashboard');
+        return true;
     }
 
     /**
@@ -31,7 +31,8 @@ class CommissionPolicy
      */
     public function view(User $user, Commission $commission)
     {
-        return Gate::allows('view-admin-dashboard');
+        return $user->id == $commission->buyer_id || $user->id == $commission->creator_id
+            || Gate::allows('manage-orders');
     }
 
     /**
@@ -42,7 +43,7 @@ class CommissionPolicy
      */
     public function create(User $user)
     {
-        return Gate::allows('manage-content');
+        return true;
     }
 
     /**

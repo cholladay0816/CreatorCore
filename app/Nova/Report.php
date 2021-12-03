@@ -2,9 +2,10 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\ViewReportTarget;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
@@ -36,8 +37,16 @@ class Report extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id', 'user_id', 'model'
     ];
+
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        if (Gate::allows('manage-users')) {
+            return $query;
+        }
+        return $query->where('user_id', $request->user()->id);
+    }
 
     /**
      * Get the fields displayed by the resource.
@@ -50,12 +59,13 @@ class Report extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
             BelongsTo::make('User'),
-            Text::make('Model'),
+            Text::make('Model')->default(\App\Models\User::class),
             Number::make('Model ID'),
             Text::make('Title'),
             Trix::make('Description'),
             Select::make('Status')
-            ->options(['Submitted', 'Resolved', 'Closed']),
+                ->options(['Submitted' => 'Submitted', 'Resolved' => 'Resolved', 'Closed' => 'Closed'])
+                ->default('Submitted'),
             Text::make('Action Description')->nullable(),
         ];
     }
@@ -101,6 +111,8 @@ class Report extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            ViewReportTarget::make()
+        ];
     }
 }

@@ -53,11 +53,15 @@
                             class="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center"
                         >
                             <div class="py-6 px-3 mt-32 sm:mt-0">
-                                <a
-                                    class="bg-indigo-500 active:bg-indigo-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1"
+                                <a @if(!$user->canBeCommissioned()) disabled @endif
+                                    class="{{$user->canBeCommissioned()?'bg-indigo-500':'bg-gray-200'}}
+                                    {{$user->canBeCommissioned()?'active:bg-indigo-600':'active:bg-gray-400'}}
+                                    uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1"
                                     type="button"
                                     style="transition: all 0.15s ease 0s;"
+                                   @if($user->canBeCommissioned())
                                     href="{{ route('creator.show', [$user, 'commissions']) }}"
+                                   @endif
                                 >
                                     Commission
                                 </a>
@@ -90,7 +94,7 @@
                             {{$user->name}}
                         </h3>
                         <div
-                            class="text-sm leading-normal mt-0 mb-2 text-gray-500 font-bold uppercase"
+                            class="text-sm leading-normal mt-0 mb-2 text-gray-500 font-bold"
                         >
                             <i
                                 class="fas fa-map-marker-alt mr-2 text-lg text-gray-500"

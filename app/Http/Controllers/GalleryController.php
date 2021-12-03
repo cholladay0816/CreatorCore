@@ -28,4 +28,15 @@ class GalleryController extends Controller
         ]);
         return redirect()->to(route('creator.show', [auth()->user(), 'gallery']));
     }
+
+    public function destroy(Gallery $gallery)
+    {
+        if ($gallery->user_id != auth()->id()) {
+            abort(403);
+        }
+
+        $gallery->delete();
+
+        return redirect()->back()->with(['success' => 'Gallery image deleted.']);
+    }
 }

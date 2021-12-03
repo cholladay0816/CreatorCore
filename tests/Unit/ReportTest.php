@@ -15,7 +15,7 @@ class ReportTest extends TestCase
     public function reports_have_a_model_that_can_be_accessed()
     {
         $user = User::factory()->create();
-        $report = Report::factory()->create([ 'model' => get_class($user), 'model_id' => $user->id ]);
+        $report = Report::factory()->create([ 'model' => User::class, 'model_id' => $user->id ]);
 
         $this->assertEquals($report->target->id, $user->id);
     }

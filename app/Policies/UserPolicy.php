@@ -18,7 +18,7 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        return Gate::allows('manage-users');
+        return true;
     }
 
     /**
@@ -30,7 +30,7 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-        return Gate::allows('manage-users');
+        return Gate::allows('manage-users') || $user->id == $model->id;
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
@@ -18,7 +19,7 @@ class Strike extends Resource
      */
     public static $model = \App\Models\Strike::class;
 
-    public static $group = 'users';
+    public static $group = 'administration';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -33,8 +34,16 @@ class Strike extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id', 'user_id'
     ];
+
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        if (Gate::allows('manage-users')) {
+            return $query;
+        }
+        return $query->where('user_id', $request->user()->id);
+    }
 
     /**
      * Get the fields displayed by the resource.

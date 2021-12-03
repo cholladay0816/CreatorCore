@@ -5,6 +5,7 @@ namespace App\Nova;
 use App\Nova\Actions\RefundCommissionDispute;
 use App\Nova\Actions\ResolveCommissionDispute;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\Date;
@@ -45,6 +46,25 @@ class Commission extends Resource
     ];
 
     /**
+     * Build an "index" query for the given resource.
+     *
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        if (Gate::allows('manage-orders')) {
+            return $query;
+        }
+        return $query->whereIn(
+            'id',
+            \App\Models\Commission::where('creator_id', $request->user()->id)
+                ->orWhere('buyer_id', $request->user()->id)->get('id')
+        );
+    }
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -76,6 +96,11 @@ class Commission extends Resource
             HasMany::make('Attachments'),
             HasOne::make('Review')->nullable(),
         ];
+    }
+
+    public static function authorizeToCreate(Request $request)
+    {
+        return Gate::allows('manage-orders');
     }
 
     /**
