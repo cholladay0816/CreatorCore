@@ -39,8 +39,7 @@ abstract class TestCase extends BaseTestCase
         $seller = User::factory()->create();
         $seller->creator->update(['open' => true]);
 
-        if($payment)
-        {
+        if ($payment) {
             $buyer->createOrGetStripeCustomer();
 
             $stripe = new StripeClient(config('stripe.secret'));
