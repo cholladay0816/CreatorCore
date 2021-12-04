@@ -19,7 +19,7 @@ class IncentivePolicy
      */
     public function viewAny(User $user)
     {
-        return !$user->incentives->empty() || Gate::allows('manage-financials');
+        return true;
     }
 
     /**

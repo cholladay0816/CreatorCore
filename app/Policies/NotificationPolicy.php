@@ -2,12 +2,12 @@
 
 namespace App\Policies;
 
-use App\Models\Banner;
+use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Gate;
 
-class BannerPolicy
+class NotificationPolicy
 {
     use HandlesAuthorization;
 
@@ -19,19 +19,19 @@ class BannerPolicy
      */
     public function viewAny(User $user)
     {
-        return false;
+        return true;
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Banner  $banner
+     * @param  \App\Models\Notification  $notification
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Banner $banner)
+    public function view(User $user, Notification $notification)
     {
-        return true;
+        return $user->id == $notification->user_id || Gate::allows('manage-users');
     }
 
     /**
@@ -42,41 +42,41 @@ class BannerPolicy
      */
     public function create(User $user)
     {
-        return !$user->banner;
+        return Gate::allows('manage-users');
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Banner  $banner
+     * @param  \App\Models\Notification  $notification
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Banner $banner)
+    public function update(User $user, Notification $notification)
     {
-        return $user->id == $banner->user_id || Gate::allows('manage-content');
+        return Gate::allows('manage-users');
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Banner  $banner
+     * @param  \App\Models\Notification  $notification
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Banner $banner)
+    public function delete(User $user, Notification $notification)
     {
-        $user->id == $banner->user_id || Gate::allows('manage-content');
+        return Gate::allows('manage-users');
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Banner  $banner
+     * @param  \App\Models\Notification  $notification
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Banner $banner)
+    public function restore(User $user, Notification $notification)
     {
         //
     }
@@ -85,10 +85,10 @@ class BannerPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Banner  $banner
+     * @param  \App\Models\Notification  $notification
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Banner $banner)
+    public function forceDelete(User $user, Notification $notification)
     {
         //
     }
