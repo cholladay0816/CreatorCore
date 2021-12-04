@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\Gate;
 
 class TeamPolicy
 {
@@ -18,7 +19,7 @@ class TeamPolicy
      */
     public function viewAny(User $user)
     {
-        return true;
+        return Gate::allows('manage-users');
     }
 
     /**
