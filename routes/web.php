@@ -30,8 +30,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::get('thank-you', function()
-{
+Route::get('thank-you', function () {
     return view('thanks');
 });
 
