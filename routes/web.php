@@ -30,6 +30,10 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
+Route::get('thank-you', function () {
+    return view('thanks');
+});
+
 Route::get('/explore', [ExploreController::class, 'index'])
 ->name('explore');
 
