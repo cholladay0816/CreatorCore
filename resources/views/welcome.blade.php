@@ -135,7 +135,9 @@
                         How {{ config('app.name') }} benefits you
                     </h2>
                     <p class="mt-4 max-w-3xl text-lg text-purple-200">
-                        {{ config('app.name') }} is the first truly creator-first platform, designed as a powerful tool for creators to
+                        {{ config('app.name') }} is the first truly
+                        <a class="text-sky-300" href="{{url('thank-you')}}">creator-first</a>
+                        platform, designed as a powerful tool for creators to
                         succeed.  Learn more about how we achieve this below:
                     </p>
                     <div class="mt-12 grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-16">
