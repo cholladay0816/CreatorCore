@@ -383,7 +383,7 @@
                         </a>
                     </div>
                     <p class="mt-8 text-base text-gray-400 md:mt-0 md:order-1">
-                        &copy; 2021 Holladay Digital LLC. All rights reserved.
+                        &copy; 2022 Holladay Digital LLC. All rights reserved.
                     </p>
                 </div>
             </div>
