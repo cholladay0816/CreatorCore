@@ -2,11 +2,9 @@ name: PHPUnit
 
 on:
   push:
-    branches-ignore: [ 'develop', 'main' ]
-    branches: [ '*' ]
+    branches: [ 'develop' ]
   pull_request:
-    branches-ignore: [ 'develop', 'main' ]
-    branches: [ '*' ]
+    branches: [ 'develop' ]
 
 jobs:
   laravel-tests:
@@ -51,3 +49,29 @@ jobs:
           PLAID_KEY: ${{ secrets.PLAID_KEY }}
           PLAID_SECRET: ${{ secrets.PLAID_SECRET }}
         run: php artisan test --parallel
+
+  deploy-staging:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Deployment
+        uses: appleboy/ssh-action@main
+        with:
+          host: ${{ secrets.SSH_HOST_STAGING }}
+          key: ${{ secrets.SSH_PRIVATE_KEY_STAGING }}
+          username: ${{ secrets.SSH_USERNAME_STAGING }}
+          script: |
+            cd /home/bitnami/htdocs/CreatorCore
+            git checkout -f
+            git pull
+            composer install --no-dev
+            php artisan migrate
+            php artisan optimize:clear
+            rm -rf public/storage
+            php artisan storage:link
+            php artisan optimize

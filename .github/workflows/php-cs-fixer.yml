@@ -2,6 +2,7 @@ name: PHP-CS-Fixer
 
 on:
   push:
+    branches-ignore: [ 'main' ]
     branches: [ '*' ]
 
 jobs:
