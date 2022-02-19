@@ -12,7 +12,7 @@
                         <div class="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
                             <h1 class="hidden">Your all in one commissioning platform.</h1>
                             <div class="text-center text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
-                                <span class="block text-white">Your all-in-one</span>
+                                <span class="block text-white">Your all in one</span>
                                 <span class="block text-sky-200">commissioning platform</span>
                             </div>
                             <p class="mt-6 max-w-lg mx-auto text-center text-xl text-sky-200 sm:max-w-3xl">
