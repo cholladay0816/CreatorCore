@@ -1,8 +1,8 @@
-name: Staging CI
+name: Production CI
 
 on:
   push:
-    branches: [ 'develop' ]
+    branches: [ 'main' ]
 
 jobs:
   php-cs-fixer:
@@ -83,9 +83,9 @@ jobs:
       - name: Deployment
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.SSH_HOST_STAGING }}
-          key: ${{ secrets.SSH_PRIVATE_KEY_STAGING }}
-          username: ${{ secrets.SSH_USERNAME_STAGING }}
+          host: ${{ secrets.SSH_HOST_PRODUCTION }}
+          key: ${{ secrets.SSH_PRIVATE_KEY_PRODUCTION }}
+          username: ${{ secrets.SSH_USERNAME_PRODUCTION }}
           script: |
             cd /home/bitnami/htdocs/CreatorCore
             git checkout -f
