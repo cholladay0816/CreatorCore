@@ -33,7 +33,7 @@ class LocationRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        if(config('app.env') == 'testing') {
+        if (config('app.env') == 'testing') {
             return true;
         }
 
