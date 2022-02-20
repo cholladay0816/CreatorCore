@@ -178,6 +178,11 @@ return [
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,
 
+        /*
+         * Third-Party Service Providers...
+         */
+        Stevebauman\Location\LocationServiceProvider::class,
+
     ],
 
     /*

@@ -4,9 +4,16 @@ namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
-class ReCaptchaRule implements Rule
+use Stevebauman\Location\Facades\Location;
+
+class LocationRule implements Rule
 {
-    private string $error_msg = 'Failed to verify captcha.';
+    private $error_msg = 'Failed to validate location.';
+
+    private $allowed_countries = [
+        'US'
+    ];
+
     /**
      * Create a new rule instance.
      *
@@ -30,18 +37,16 @@ class ReCaptchaRule implements Rule
             return true;
         }
 
-        $recaptcha = new \ReCaptcha\ReCaptcha(config('recaptcha.secret'));
-        $resp = $recaptcha->setExpectedHostname(request()->getHost())
-            ->setScoreThreshold(config('recaptcha.threshold'))
-            ->verify($value, request()->ip());
-        if ($resp->isSuccess()) {
-            if ($resp->getScore() < config('recaptcha.threshold')) {
-                $this->error_msg = 'Failed to verify captcha.';
+        if ($position = Location::get()) {
+            // Successfully retrieved position.
+            if (!in_array($position->countryCode, $this->allowed_countries)) {
+                $this->error_msg = 'Your country ('. $position->countryName  .') is currently not available.';
                 return false;
+            } else {
+                return true;
             }
-            return true;
         } else {
-            $this->error_msg = 'Failed to verify: ' . implode(', ', $resp->getErrorCodes());
+            $this->error_msg = 'Failed to confirm location.';
             return false;
         }
     }
