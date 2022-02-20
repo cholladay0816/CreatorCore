@@ -19,6 +19,13 @@ class UserTest extends TestCase
         $this->assertEquals($banner->id, $user->banner->id);
     }
     /** @test */
+    public function names_are_unique()
+    {
+        $user1 = User::factory()->create(['name' => 'Test']);
+        $this->expectError();
+        $user2 = User::factory()->create(['name' => 'Test']);
+    }
+    /** @test */
     public function it_has_a_creator()
     {
         $user = User::factory()->create();
