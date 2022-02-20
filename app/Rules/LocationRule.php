@@ -8,7 +8,7 @@ use Stevebauman\Location\Facades\Location;
 
 class LocationRule implements Rule
 {
-    private $error_msg = 'Failed to validate location.';
+    private $error_msg = 'Failed to confirm location.';
 
     private $allowed_countries = [
         'US'
