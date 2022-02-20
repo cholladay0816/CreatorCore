@@ -6,6 +6,7 @@ use Illuminate\Contracts\Validation\Rule;
 
 class ReCaptchaRule implements Rule
 {
+    private string $error_msg = 'Failed to verify captcha.';
     /**
      * Create a new rule instance.
      *
@@ -35,7 +36,7 @@ class ReCaptchaRule implements Rule
             ->verify($value, request()->ip());
         if ($resp->isSuccess()) {
             if ($resp->getScore() < config('recaptcha.threshold')) {
-                $this->error_msg = 'Failed to validate captcha.';
+                $this->error_msg = 'Failed to verify captcha.';
                 return false;
             }
             return true;
@@ -52,6 +53,6 @@ class ReCaptchaRule implements Rule
      */
     public function message()
     {
-        return 'Failed to validate captcha.';
+        return $this->error_msg;
     }
 }
