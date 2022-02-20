@@ -72,7 +72,7 @@ jobs:
             git checkout -f
             git pull
             composer install --no-dev
-            php artisan migrate
+            php artisan migrate --force
             php artisan optimize:clear
             rm -rf public/storage
             php artisan storage:link
