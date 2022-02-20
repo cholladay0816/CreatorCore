@@ -35,12 +35,10 @@ class LocationRule implements Rule
     {
         if ($position = Location::get()) {
             // Successfully retrieved position.
-            if(!in_array($position->countryCode, $this->allowed_countries))
-            {
+            if (!in_array($position->countryCode, $this->allowed_countries)) {
                 $this->error_msg = 'Your country ('. $position->countryName  .') is currently not available.';
                 return false;
-            }
-            else {
+            } else {
                 return true;
             }
         } else {
