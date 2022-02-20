@@ -88,6 +88,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME_PRODUCTION }}
           script: |
             cd /home/bitnami/htdocs/CreatorCore
+            php artisan down
             git checkout -f
             git pull
             composer install --no-dev
@@ -96,3 +97,4 @@ jobs:
             rm -rf public/storage
             php artisan storage:link
             php artisan optimize
+            php artisan up
