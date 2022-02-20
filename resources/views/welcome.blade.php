@@ -10,9 +10,9 @@
                             <div class="absolute inset-0 bg-gradient-to-r from-sky-400 to-sky-500"></div>
                         </div>
                         <div class="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
-                            <h1 class="hidden">Your all in one commissioning platform.</h1>
+                            <h1 class="hidden">Your all in one commissioning platform</h1>
                             <div class="text-center text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
-                                <span class="block text-white">Your all-in-one</span>
+                                <span class="block text-white">Your all in one</span>
                                 <span class="block text-sky-200">commissioning platform</span>
                             </div>
                             <p class="mt-6 max-w-lg mx-auto text-center text-xl text-sky-200 sm:max-w-3xl">
@@ -383,7 +383,8 @@
                         </a>
                     </div>
                     <p class="mt-8 text-base text-gray-400 md:mt-0 md:order-1">
-                        &copy; 2021 Holladay Digital LLC. All rights reserved.
+                        &copy; {{ \Illuminate\Support\Facades\Cache::remember('currentYear', now()->addYear()->firstOfYear(), function() { return now()->year; }) }}
+                        Holladay Digital LLC. All rights reserved.
                     </p>
                 </div>
             </div>

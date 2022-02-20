@@ -2,7 +2,9 @@ name: PHP-CS-Fixer
 
 on:
   push:
-    branches: [ '*' ]
+    branches-ignore: [ 'develop', 'main' ]
+  pull_request:
+    branches-ignore: [ 'develop', 'main' ]
 
 jobs:
   laravel-tests:

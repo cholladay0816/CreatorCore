@@ -1,12 +1,31 @@
-name: PHPUnit
+name: Production CI
 
 on:
   push:
-    branches-ignore: [ 'develop', 'main' ]
-  pull_request:
-    branches-ignore: [ 'develop', 'main' ]
+    branches: [ 'main' ]
 
 jobs:
+  php-cs-fixer:
+    timeout-minutes: 6
+    runs-on: ubuntu-latest
+    steps:
+      - uses: shivammathur/setup-php@b7d1d9c9a92d8d8463ce36d7f60da34d461724f8
+        with:
+          php-version: '8.0'
+      - uses: actions/checkout@v2
+      - name: Login to Laravel Nova
+        run: composer config http-basic.nova.laravel.com ${NOVA_USERNAME} ${NOVA_PASSWORD}
+        env:
+          NOVA_PASSWORD: ${{ secrets.NOVA_PASSWORD }}
+          NOVA_USERNAME: ${{ secrets.NOVA_USERNAME }}
+      - name: Install Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      - name: Run php-cs-fixer
+        run: ./vendor/bin/php-cs-fixer fix .
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Apply php-cs-fixer changes
+
   laravel-tests:
     timeout-minutes: 6
     runs-on: ubuntu-latest
@@ -49,3 +68,33 @@ jobs:
           PLAID_KEY: ${{ secrets.PLAID_KEY }}
           PLAID_SECRET: ${{ secrets.PLAID_SECRET }}
         run: php artisan test --parallel
+
+  deploy-staging:
+
+    runs-on: ubuntu-latest
+
+    needs: laravel-tests
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Deployment
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST_PRODUCTION }}
+          key: ${{ secrets.SSH_PRIVATE_KEY_PRODUCTION }}
+          username: ${{ secrets.SSH_USERNAME_PRODUCTION }}
+          script: |
+            cd /home/bitnami/htdocs/CreatorCore
+            php artisan down
+            git checkout -f
+            git pull
+            composer install --no-dev
+            php artisan migrate
+            php artisan optimize:clear
+            rm -rf public/storage
+            php artisan storage:link
+            php artisan optimize
+            php artisan up
