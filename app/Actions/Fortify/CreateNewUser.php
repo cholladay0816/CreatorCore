@@ -4,10 +4,12 @@ namespace App\Actions\Fortify;
 
 use App\Models\Team;
 use App\Models\User;
+use App\Rules\LocationRule;
 use App\Rules\ReCaptchaRule;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Jetstream;
 
@@ -23,12 +25,16 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $input)
     {
+        # This is kinda janky, but we're setting this field so that it validates
+        $input['location'] = 'LOCATION';
+
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['required', 'accepted'] : '',
             'recaptcha' => ['required', new ReCaptchaRule()],
+            'location' => ['required', new LocationRule()]
         ])->validate();
 
         return DB::transaction(function () use ($input) {
