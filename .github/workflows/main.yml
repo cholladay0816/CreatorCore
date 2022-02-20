@@ -49,7 +49,7 @@ jobs:
           PLAID_SECRET: ${{ secrets.PLAID_SECRET }}
         run: php artisan test --parallel
 
-  deploy-staging:
+  deploy-production:
 
     runs-on: ubuntu-latest
 
