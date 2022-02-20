@@ -25,8 +25,7 @@ class ReCaptchaRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        if(config('app.env') == 'testing')
-        {
+        if (config('app.env') == 'testing') {
             return true;
         }
 
@@ -35,8 +34,7 @@ class ReCaptchaRule implements Rule
             ->setScoreThreshold(config('recaptcha.threshold'))
             ->verify($value, request()->ip());
         if ($resp->isSuccess()) {
-            if($resp->getScore() < config('recaptcha.threshold'))
-            {
+            if ($resp->getScore() < config('recaptcha.threshold')) {
                 $this->error_msg = 'Failed to validate captcha.';
                 return false;
             }
