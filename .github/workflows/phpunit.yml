@@ -3,10 +3,8 @@ name: PHPUnit
 on:
   push:
     branches-ignore: [ 'develop', 'main' ]
-    branches: [ '*' ]
   pull_request:
     branches-ignore: [ 'develop', 'main' ]
-    branches: [ '*' ]
 
 jobs:
   laravel-tests:
