@@ -46,6 +46,10 @@
                 </div>
             @endif
 
+            <div>
+                <input type="hidden" id="recaptcha" name="recaptcha"/>
+            </div>
+
             <div class="flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
                     {{ __('Already registered?') }}
@@ -57,4 +61,11 @@
             </div>
         </form>
     </x-jet-authentication-card>
+        <script src="https://www.google.com/recaptcha/api.js?render={{ config('recaptcha.public') }}"></script>
+        <script>
+            grecaptcha.ready(function() {
+                grecaptcha.execute('{{ config('recaptcha.public') }}').then(function(token) {
+                    document.getElementById("recaptcha").value = token;
+                }); });
+        </script>
 </x-guest-layout>

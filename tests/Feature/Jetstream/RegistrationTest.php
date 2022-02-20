@@ -4,6 +4,7 @@ namespace Jetstream;
 
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Str;
 use Laravel\Jetstream\Jetstream;
 use Tests\TestCase;
 
@@ -26,6 +27,7 @@ class RegistrationTest extends TestCase
             'password' => 'password',
             'password_confirmation' => 'password',
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature(),
+            'recaptcha' => Str::random(5)
         ]);
 
         $this->assertAuthenticated();
