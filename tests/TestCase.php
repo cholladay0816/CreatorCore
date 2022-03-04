@@ -100,7 +100,7 @@ abstract class TestCase extends BaseTestCase
                 'type' => 'card',
                 'card' => [
                     'number' => '4242424242424242',
-                    'exp_month' => 1,
+                    'exp_month' => 2,
                     'exp_year' => now()->addYears(2)->year,
                     'cvc' => '123',
                 ],
@@ -198,7 +198,7 @@ abstract class TestCase extends BaseTestCase
             'type' => 'card',
             'card' => [
                 'number' => '4242424242424242',
-                'exp_month' => 1,
+                'exp_month' => 2,
                 'exp_year' => now()->addYears(2)->year,
                 'cvc' => '123',
             ],
