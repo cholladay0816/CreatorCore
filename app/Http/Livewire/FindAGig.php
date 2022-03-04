@@ -9,12 +9,13 @@ class FindAGig extends Component
 {
     public $search = "";
     private $commissions = [];
+    public $count = 20;
 
     public function mount()
     {
-        $this->commissions = CommissionPreset::where('active', 1)
-            ->orderBy('rating', 'DESC')
-            ->paginate();
+        $this->commissions = CommissionPreset::orderBy('rating', 'DESC')
+            ->orderBy('price', 'ASC')
+            ->paginate($this->count);
     }
 
     public function render()
@@ -26,6 +27,7 @@ class FindAGig extends Component
     {
         $this->commissions = CommissionPreset::where('title', 'LIKE', "%{$this->search}%")
             ->orderBy('rating', 'DESC')
-            ->paginate();
+            ->orderBy('price', 'ASC')
+            ->paginate($this->count);
     }
 }
