@@ -34,6 +34,9 @@ Route::get('thank-you', function () {
     return view('thanks');
 });
 
+Route::get('/find-a-gig', [ExploreController::class, 'commissionSearch'])
+    ->name('find-a-gig');
+
 Route::get('/explore', [ExploreController::class, 'index'])
 ->name('explore');
 

@@ -27,4 +27,8 @@ class ExploreController extends Controller
             ]
         );
     }
+    public function commissionSearch()
+    {
+        return view('explore.find-a-gig');
+    }
 }
