@@ -9,6 +9,8 @@
                             <x-jet-nav-link href="{{ auth()->user() ? route('dashboard') : route('welcome') }}" >Home</x-jet-nav-link>
 
                             <x-jet-nav-link :active="request()->routeIs('explore*')" href="{{ route('explore') }}" >Explore</x-jet-nav-link>
+
+                            <x-jet-nav-link :active="request()->routeIs('find-a-gig*')" href="{{ route('find-a-gig') }}" >Gig Finder</x-jet-nav-link>
                         </div>
                     </div>
                 </div>
@@ -80,6 +82,8 @@
                 <x-jet-nav-link href="{{ auth()->user() ? route('dashboard') : route('welcome') }}">Home</x-jet-nav-link>
 
                 <x-jet-nav-link  :active="request()->routeIs('explore*')" href="{{ route('explore') }}" >Explore</x-jet-nav-link>
+
+                <x-jet-nav-link  :active="request()->routeIs('find-a-gig*')" href="{{ route('find-a-gig') }}" >Gig Finder</x-jet-nav-link>
 
             </div>
             @auth()
