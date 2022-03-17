@@ -20,7 +20,7 @@
                 <ul role="list" class="divide-y divide-gray-200">
                     @foreach($commissions as $commission)
                     <li class="py-4">
-                        <a class="flex group" href="{{auth()->guest() ? route('creator.show', $commission->user) : route('commissions.create', $commission)}}">
+                        <a class="flex group" href="{{auth()->guest() ? route('creator.show', $commission->user) : route('commissions.create', [$commission->user, $commission])}}">
                             <div class="mr-4 flex-shrink-0 self-center">
                                 <img class="h-16 w-16 rounded-full border-2 group-hover:border-indigo-500 border-transparent bg-white text-gray-300" src="{{ $commission->user->profile_photo_url }}"/>
                             </div>
