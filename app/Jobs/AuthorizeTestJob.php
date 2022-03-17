@@ -81,6 +81,5 @@ class AuthorizeTestJob implements ShouldQueue
 //        $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
 //
 //        dd($response);
-
     }
 }
