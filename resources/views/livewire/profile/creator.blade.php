@@ -65,7 +65,7 @@
             <x-jet-input id="bio" type="text" class="mt-1 block w-full" wire:model.defer="state.bio" />
             <x-jet-input-error for="bio" class="mt-2" />
         </div>
-
+        @if(auth()->user()->isOnboarded())
         <!-- Commissions open -->
         <div class="col-span-6 sm:col-span-4">
             <div class="relative flex items-start">
@@ -93,6 +93,7 @@
             </div>
             <x-jet-input-error for="customs" class="mt-2" />
         </div>
+        @endif
 
     </x-slot>
 
