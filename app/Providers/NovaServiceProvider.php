@@ -42,8 +42,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function gate()
     {
         Gate::define('viewNova', function ($user) {
-            return !$user->suspended();
-            //return $user->hasAbility('view-admin-dashboard');
+            return !$user->suspended() && $user->hasAbility('view-admin-dashboard');
         });
     }
 
