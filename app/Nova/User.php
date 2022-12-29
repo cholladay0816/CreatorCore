@@ -79,8 +79,8 @@ class User extends Resource
 
             Password::make('Password')
                 ->onlyOnForms()
-                ->creationRules('required', 'string', 'min:8')
-                ->updateRules('nullable', 'string', 'min:8'),
+                ->creationRules('required', Rules\Password::defaults())
+                ->updateRules('nullable', Rules\Password::defaults()),
 
             Text::make('Stripe Customer ID', 'stripe_id'),
             Text::make('Stripe Account ID'),
