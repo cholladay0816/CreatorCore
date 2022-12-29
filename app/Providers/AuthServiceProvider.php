@@ -32,7 +32,6 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->registerPolicies();
 
         Gate::before(function (User $user, $ability) {
             if ($user->suspended()) {
@@ -42,5 +41,6 @@ class AuthServiceProvider extends ServiceProvider
                 return true;
             }
         });
+        $this->registerPolicies();
     }
 }
