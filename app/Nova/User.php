@@ -5,6 +5,7 @@ namespace App\Nova;
 use App\Nova\Actions\Suspend;
 use App\Nova\Actions\Strike;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\HasMany;
