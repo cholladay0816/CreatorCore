@@ -222,6 +222,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(Banner::class);
     }
 
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
+
     public function bytesUsed()
     {
         return $this->attachments->sum('size') + $this->gallery->sum('size');
