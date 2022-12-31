@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Storage;
 
 class AttachmentController extends Controller
 {
-
     /**
      * Display the specified resource.
      *

@@ -78,7 +78,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::post('/ratings/create/{review}', [\App\Http\Controllers\RatingController::class, 'store'])
         ->name('ratings.store');
 
-    Route::resource('tickets', \App\Http\Controllers\TicketController::class,
+    Route::resource(
+        'tickets',
+        \App\Http\Controllers\TicketController::class,
         ['index', 'create', 'store', 'show']
     );
 

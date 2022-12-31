@@ -14,6 +14,9 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
+    use RefreshDatabase;
+    use WithFaker;
+
     protected function tearDown(): void
     {
         $users = User::all();
@@ -30,9 +33,6 @@ abstract class TestCase extends BaseTestCase
 
         parent::tearDown();
     }
-
-    use RefreshDatabase;
-    use WithFaker;
     public function createBuyerAndSeller($payment = false)
     {
         $buyer = User::factory()->create();
@@ -78,7 +78,7 @@ abstract class TestCase extends BaseTestCase
                     'email' => $seller->email,
                     'first_name' => $this->faker->firstName,
                     'last_name' => $this->faker->lastName,
-                    'gender' => (random_int(0, 1)==1?'male':'female'),
+                    'gender' => (random_int(0, 1)==1 ? 'male' : 'female'),
                     'phone' => $this->faker->phoneNumber,
                 ],
                 'tos_acceptance' => [
@@ -166,7 +166,7 @@ abstract class TestCase extends BaseTestCase
                 'email' => $seller->email,
                 'first_name' => $this->faker->firstName,
                 'last_name' => $this->faker->lastName,
-                'gender' => (random_int(0, 1)==1?'male':'female'),
+                'gender' => (random_int(0, 1)==1 ? 'male' : 'female'),
                 'phone' => $this->faker->phoneNumber,
             ],
             'tos_acceptance' => [

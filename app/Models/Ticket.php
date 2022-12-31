@@ -28,10 +28,10 @@ class Ticket extends Model
     protected static function boot()
     {
         // Generate slug when creating or being faked
-        self::creating(function(Ticket $ticket) {
+        self::creating(function (Ticket $ticket) {
             $ticket->slug = static::generateSlug($ticket->user_id);
         });
-        self::factory(function(Ticket $ticket) {
+        self::factory(function (Ticket $ticket) {
             $ticket->slug = static::generateSlug($ticket->user_id);
         });
         parent::boot();
