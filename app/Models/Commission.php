@@ -164,7 +164,7 @@ class Commission extends Model
     }
     public function partner()
     {
-        return $this->isCreator()?$this->buyer:$this->creator;
+        return $this->isCreator() ? $this->buyer : $this->creator;
     }
     public function getPartnerAttribute()
     {

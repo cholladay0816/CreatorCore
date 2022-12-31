@@ -9,7 +9,8 @@ use Illuminate\Queue\SerializesModels;
 
 class Failed extends Mailable
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
     public Commission $commission;
     /**

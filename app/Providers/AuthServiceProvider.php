@@ -32,7 +32,6 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
         Gate::before(function (User $user, $ability) {
             if ($user->suspended()) {
                 return false;

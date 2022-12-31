@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class CommissionEvent extends Model
 {
-    protected $guarded = [];
     use HasFactory;
+    protected $guarded = [];
 
     public function commission(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
