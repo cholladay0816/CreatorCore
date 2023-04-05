@@ -8,7 +8,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.4|^8.0",
+        "php": "^8.0|^8.1",
         "authorizenet/authorizenet": "^2.0",
         "aws/aws-sdk-php": "^3.178",
         "facade/ignition": "^2.5",
