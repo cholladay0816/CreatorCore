@@ -69,7 +69,8 @@ class TryBonusJob implements ShouldQueue
                 'commission_id' => $this->commission->id,
                 'title' => 'Incentive bonus of $' . number_format($bonus->amount / 100, 2),
                 'color' => 'bg-yellow-500',
-                'status' => 'Archived'
+                'status' => 'Archived',
+                'for' => $this->commission->creator_id
             ]
         );
     }
