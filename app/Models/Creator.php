@@ -11,10 +11,6 @@ class Creator extends Model
 {
     use HasFactory;
 
-    public bool $open;
-    public bool $allows_custom_commissions;
-    public User $user;
-    public Collection $commissionPresets;
     protected $guarded = [];
 
     protected $casts = [
