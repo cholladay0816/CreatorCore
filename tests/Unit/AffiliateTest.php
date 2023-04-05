@@ -13,7 +13,8 @@ class AffiliateTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function affiliates_have_a_user() {
+    public function affiliates_have_a_user()
+    {
         # Create an affiliate with a user
         $user = User::factory()->create();
         $affiliate = Affiliate::factory()->create(['user_id' => $user]);
@@ -28,7 +29,8 @@ class AffiliateTest extends TestCase
      * @test
      * @depends affiliates_have_a_user
      */
-    function affiliates_have_many_commissions(Affiliate $affiliate) {
+    public function affiliates_have_many_commissions(Affiliate $affiliate)
+    {
         # Generate commissions with affiliate ID
         $commissions = Commission::factory(5)->create(['affiliate_id' => $affiliate->id]);
 

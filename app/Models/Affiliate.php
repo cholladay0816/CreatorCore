@@ -30,5 +30,4 @@ class Affiliate extends Model
     {
         return $this->hasMany(Commission::class);
     }
-
 }
