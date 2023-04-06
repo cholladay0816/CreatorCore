@@ -18,6 +18,6 @@ class CommissionEvent extends Model
 
     protected static function booted()
     {
-        static::addGlobalScope(new EventForScope);
+        static::addGlobalScope(new EventForScope());
     }
 }
