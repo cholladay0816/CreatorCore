@@ -255,7 +255,8 @@ class CommissionFeatureTest extends TestCase
 
         $stripe = new StripeClient(config('stripe.secret'));
         $balance = $stripe->balance->retrieve([], ['stripe_account' => $seller->stripe_account_id]);
-        $this->assertEquals($commission->price * 100, $balance->pending[0]->amount);
+        $expected = number_format($commission->price * 100, 0);
+        $this->assertEquals($expected, $balance->pending[0]->amount);
     }
 
     /** @test */
@@ -280,6 +281,7 @@ class CommissionFeatureTest extends TestCase
         $stripe = new StripeClient(config('stripe.secret'));
         $balance = $stripe->balance->retrieve([], ['stripe_account' => $seller->stripe_account_id]);
         Log::info('Checking balance for double transfer...');
-        $this->assertEquals($commission->price * 200, $balance->instant_available[0]->amount);
+        $expected = number_format($commission->price * 200, 0);
+        $this->assertEquals($expected, $balance->instant_available[0]->amount);
     }
 }
