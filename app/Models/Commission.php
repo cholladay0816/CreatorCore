@@ -40,6 +40,14 @@ class Commission extends Model
         'completed_at'
     ];
 
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'expires_at' => 'datetime',
+        'completed_at' => 'datetime',
+        'price' => 'decimal:2'
+    ];
+
     /**
      * Get the route key for the model.
      *
