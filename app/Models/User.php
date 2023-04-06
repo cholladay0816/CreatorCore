@@ -111,7 +111,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
     public function suspended()
     {
-        return $this->suspensions->where('expired', '=', false)->count() > 0;
+        return $this->suspensions()->where('expires_at', '>', now())->count() > 0;
     }
     public function getSuspendedAttribute()
     {
