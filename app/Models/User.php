@@ -236,7 +236,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function canAcceptPayments()
     {
-        if (config('app.env') == 'testing') {
+        if (config('app.env') == 'testing' || env('APP_ENV') == 'testing') {
             return true;
         }
         $account = $this->fetchStripeAccount();
