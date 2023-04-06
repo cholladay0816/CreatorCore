@@ -440,6 +440,7 @@ class Commission extends Model
     public function complete()
     {
         Log::info('Completed commission #' . $this->id);
+        \App\Events\Commission\Completed::dispatch($this);
         $this->status = 'Completed';
         $this->save();
 
@@ -559,11 +560,12 @@ class Commission extends Model
     public function archive()
     {
         Log::info('Archiving commission #' . $this->id);
+        \App\Events\Commission\Archived::dispatch($this);
+        $this->status = 'Archived';
+        $this->save();
         // TODO: send notifications to creator
         Mail::to($this->creator->email)->queue(new Archived($this));
 
-        $this->status = 'Archived';
-        $this->save();
 
         Cache::forget('userEarnings_'.$this->creator_id.'_0-30');
         Cache::forget('userEarningChangePercentage_'.$this->creator_id);
