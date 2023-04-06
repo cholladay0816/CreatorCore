@@ -37,7 +37,7 @@ abstract class TestCase extends BaseTestCase
     {
         $buyer = User::factory()->create();
         $seller = User::factory()->create();
-        $seller->creator->update(['open' => true]);
+        $seller->creator->fill(['open' => true, 'allows_custom_commissions' => true])->save();
 
         if ($payment) {
             $buyer->createOrGetStripeCustomer();
