@@ -60,7 +60,7 @@ class CommissionController extends Controller
         if (!$user->canBeCommissioned()) {
             return abort(403);
         }
-        return view('commissions.create', compact([$user, $commissionPreset]));
+        return view('commissions.create', ['user' => $user, 'commissionPreset' => $commissionPreset]);
     }
 
     /**
