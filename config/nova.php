@@ -100,6 +100,7 @@ return [
 
     'middleware' => [
         'web',
+        'can:viewNova',
         HandleInertiaRequests::class,
         DispatchServingNovaEvent::class,
         BootTools::class,
@@ -107,6 +108,7 @@ return [
 
     'api_middleware' => [
         'nova',
+        'can:viewNova',
         Authenticate::class,
         Authorize::class,
     ],
