@@ -2,6 +2,7 @@
 
 <p align="center">
 <a href="https://github.com/cholladay0816/CreatorCore"><img src="https://github.com/cholladay0816/CreatorCore/actions/workflows/phpunit.yml/badge.svg" alt="Build Status"></a>
+<a href="https://creativecommons.org/licenses/by-nc/4.0/"><img src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a>
 </p>
 <p align="center">
 <a href="https://forthebadge.com"><img height="40px" src="https://forthebadge.com/images/badges/works-on-my-machine.svg"/></a>
