@@ -286,6 +286,6 @@ class CommissionFeatureTest extends TestCase
         $balance = $stripe->balance->retrieve([], ['stripe_account' => $seller->stripe_account_id]);
         Log::info('Checking balance for double transfer...');
         $expected = number_format($commission->price * 200, 0);
-        $this->assertEquals($expected, $balance->instant_available[0]->amount);
+        $this->assertEquals($expected, str_replace(',', '', $balance->instant_available[0]->amount));
     }
 }
