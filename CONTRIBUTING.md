@@ -1,9 +1,9 @@
 # Contributing to CreatorCore
-Thank you so much for contributing!  Here are a few guidelines to make 
+Thank you so much for contributing!  Here are a few guidelines to make sure your pull requests are accepted.
 
 ## Guidelines
 1. Keep changes small.
-We appreciate any change, regardless if it fixes a breaking bug or improves documentation or comments.  Your work is incredibly important to us, and much appreciated.
+We appreciate any change, regardless if it fixes a breaking bug or improves documentation or comments.  Your work is incredibly important to us and much appreciated.
 
 2. Make sure your contributions pass our integration tests.
 At this time, we do not accept breaking changes.  Please review our tests, documentation, and the results of your PR to make sure your changes are compatible with our project.
