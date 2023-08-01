@@ -33,4 +33,4 @@ If you discover a security vulnerability within CreatorCore, please send an e-ma
 
 ## License
 
-CreatorCore is open-sourced software licensed under the [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International](https://creativecommons.org/licenses/by-nc/4.0/).  Under this license, you are free to use this code for non-commercial purposes, but may not make derivatives or commercial applications using the code provided.
+CreatorCore is open-sourced software licensed under [Creative Commons Attribution-NonCommercial 4.0 International](https://creativecommons.org/licenses/by-nc/4.0/).  Under this license, you are free to use this code for non-commercial purposes, but may not make commercial applications using the code provided.
