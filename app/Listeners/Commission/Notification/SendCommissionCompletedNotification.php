@@ -2,20 +2,18 @@
 
 namespace App\Listeners\Commission\Notification;
 
-use App\Events\Commission\Created;
+use App\Events\Commission\Completed;
 use App\Models\Notification;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 class SendCommissionCompletedNotification
 {
     /**
      * Handle the event.
      *
-     * @param  Created $event
+     * @param  Completed $event
      * @return void
      */
-    public function handle(Created $event)
+    public function handle(Completed $event)
     {
         Notification::create([
             'user_id' => $event->commission->buyer_id,

@@ -4,8 +4,6 @@ namespace App\Listeners\Commission\Notification;
 
 use App\Events\Commission\Created;
 use App\Models\Notification;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 class SendCommissionCreatedNotification
 {

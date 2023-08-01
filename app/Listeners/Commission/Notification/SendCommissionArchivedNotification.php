@@ -2,20 +2,18 @@
 
 namespace App\Listeners\Commission\Notification;
 
-use App\Events\Commission\Created;
+use App\Events\Commission\Archived;
 use App\Models\Notification;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 class SendCommissionArchivedNotification
 {
     /**
      * Handle the event.
      *
-     * @param  Created $event
+     * @param  Archived $event
      * @return void
      */
-    public function handle(Created $event)
+    public function handle(Archived $event)
     {
         Notification::create([
             'user_id' => $event->commission->creator_id,

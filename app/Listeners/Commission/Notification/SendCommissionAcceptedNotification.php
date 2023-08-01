@@ -2,20 +2,18 @@
 
 namespace App\Listeners\Commission\Notification;
 
-use App\Events\Commission\Created;
+use App\Events\Commission\Accepted;
 use App\Models\Notification;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 class SendCommissionAcceptedNotification
 {
     /**
      * Handle the event.
      *
-     * @param  Created $event
+     * @param  Accepted $event
      * @return void
      */
-    public function handle(Created $event)
+    public function handle(Accepted $event)
     {
         Notification::create([
             'user_id' => $event->commission->buyer_id,
