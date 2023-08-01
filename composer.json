@@ -20,7 +20,7 @@
         "laravel/cashier": "^12.6",
         "laravel/framework": "^8.40",
         "laravel/jetstream": "^2.3.0, !=2.3.1",
-        "laravel/nova": "~4.0",
+        "laravel/nova": "4.23.0",
         "laravel/sail": "^1.0.1",
         "laravel/sanctum": "^2.6",
         "laravel/socialite": "^5.1",
@@ -60,12 +60,12 @@
             "Tests\\": "tests/"
         }
     },
-	"repositories": [
-		{
-			"type": "composer",
-			"url": "https://nova.laravel.com"
-		}
-	],
+    "repositories": {
+        "nova": {
+            "type": "composer",
+            "url": "https://nova.laravel.com"
+        }
+    },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
@@ -79,10 +79,9 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ],
-        "phpunit" : "phpunit --verbose --testdox",
-        "phpcs" : "php-cs-fixer fix .",
-        "phpcs_validate" : "php-cs-fixer fix . --dry-run --diff",
-
+        "phpunit": "phpunit --verbose --testdox",
+        "phpcs": "php-cs-fixer fix .",
+        "phpcs_validate": "php-cs-fixer fix . --dry-run --diff",
         "test": [
             "@phpunit",
             "@phpcs"

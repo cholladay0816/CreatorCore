@@ -28,17 +28,35 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         Created::class => [
+            // @todo: add normal logic
+            // @todo: move email here
             SendCommissionCreatedNotification::class,
         ],
         Completed::class => [
+            // @todo: add normal logic
+            // @todo: move email here
             SendCommissionCompletedNotification::class,
         ],
         Archived::class => [
+            // @todo: add normal logic
+            // @todo: move email here
             SendCommissionArchivedNotification::class,
         ],
         Accepted::class => [
+            // @todo: add normal logic
+            // @todo: move email here
             SendCommissionAcceptedNotification::class,
         ],
+
+        /* @todo:
+         *
+         * Disputed
+         * Refunded
+         * Pending
+         * Failed Transaction
+         * Rejected order
+         * Overdue
+         */
 
     ];
 
