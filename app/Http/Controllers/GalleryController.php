@@ -19,7 +19,7 @@ class GalleryController extends Controller
         $request->validate([
             'file' => 'image|max:' . min(config('gallery.max_file_size'), config('gallery.max_size'))
         ]);
-        $file = $request->file->store('gallery');
+        $file = $request->file->store('gallery', Gallery::getDisk());
         Gallery::create([
             'size' => $request->file->getSize(),
             'path' => $file,
