@@ -28,6 +28,8 @@ class Ticket extends Resource
      */
     public static $title = 'id';
 
+    public static $group = 'support';
+
     /**
      * The columns that should be searched.
      *

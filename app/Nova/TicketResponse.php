@@ -34,6 +34,8 @@ class TicketResponse extends Resource
         'id',
     ];
 
+    public static $group = 'support';
+
     /**
      * Get the fields displayed by the resource.
      *
