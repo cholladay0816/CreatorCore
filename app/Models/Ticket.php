@@ -23,7 +23,7 @@ class Ticket extends Model
     // Generates a unique slug to limit number of tickets to one per hour
     protected static function generateSlug($id)
     {
-        return $id . '-' . now()->format('mDY-H');
+        return $id . '-' . now()->format('m-d-y-H');
     }
 
     protected static function boot()
