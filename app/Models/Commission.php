@@ -123,6 +123,27 @@ class Commission extends Model
             'Declined' => 11
         ];
     }
+    public static function ongoingStatuses(): array
+    {
+        return [
+            'Unpaid' => false,
+            'Purchasing' => false,
+            'Failed' => false,
+            'Pending' => true,
+            'Active' => true,
+            'Overdue' => true,
+            'Completed' => true,
+            'Disputed' => false,
+            'Archived' => false,
+            'Refunded' => false,
+            'Expired' => false,
+            'Declined' => false
+        ];
+    }
+    public function isOngoing()
+    {
+        return $this::ongoingStatuses()[$this->status];
+    }
 
     public function displayTitle(): string
     {

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Cache;
@@ -192,6 +193,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function notifications(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Notification::class);
+    }
+    public function getLastUnreadNotification(): HasMany|Notification|null
+    {
+        return $this->notifications()->whereNull('read_at')->orderByDesc('created_at')->first();
     }
     public function abilities()
     {

@@ -20,6 +20,12 @@ class CommissionMessage extends Model
         'deleted_at' => 'datetime'
     ];
 
+    protected $fillable = [
+        'commission_id',
+        'user_id',
+        'message'
+    ];
+
     public function commission(): BelongsTo|Commission
     {
         return $this->belongsTo(Commission::class);
