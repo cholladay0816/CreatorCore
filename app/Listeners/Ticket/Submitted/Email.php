@@ -30,6 +30,7 @@ class Email
     public function handle(Submitted $event)
     {
         Mail::to($event->ticket->user->email)
+            ->bcc(config('mail.support'))
             ->queue(new \App\Mail\Ticket\Submitted($event->ticket));
     }
 }
