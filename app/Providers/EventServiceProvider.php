@@ -55,7 +55,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         // Ticket Events
         \App\Events\Ticket\Submitted::class => [
-            \App\Listeners\Ticket\Submitted\Email::class
+            \App\Listeners\Ticket\Submitted\Email::class,
         ],
 
         /* @todo:
