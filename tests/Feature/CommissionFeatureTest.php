@@ -260,7 +260,7 @@ class CommissionFeatureTest extends TestCase
         $stripe = new StripeClient(config('stripe.secret'));
         $balance = $stripe->balance->retrieve([], ['stripe_account' => $seller->stripe_account_id]);
         $expected = number_format($commission->price * 100, 0);
-        $this->assertEquals($expected, $balance->pending[0]->amount);
+        $this->assertEquals(str_replace(',', '', $expected), str_replace(',', '', $balance->pending[0]->amount));
     }
 
     /** @test */
