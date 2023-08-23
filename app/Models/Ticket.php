@@ -15,6 +15,7 @@ class Ticket extends Model
 //    public $slug;
 //    public $title;
 //    public $description;
+//    public $status;
 //    public $ticketResponses;
 
     protected $guarded = [];
@@ -37,7 +38,7 @@ class Ticket extends Model
         parent::boot();
     }
 
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo|User
     {
         return $this->belongsTo(User::class);
     }

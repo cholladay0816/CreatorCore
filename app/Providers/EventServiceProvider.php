@@ -6,10 +6,12 @@ use App\Events\Commission\Accepted;
 use App\Events\Commission\Archived;
 use App\Events\Commission\Completed;
 use App\Events\Commission\Created;
+use App\Events\CommissionMessage\Send;
 use App\Listeners\Commission\Notification\SendCommissionAcceptedNotification;
 use App\Listeners\Commission\Notification\SendCommissionArchivedNotification;
 use App\Listeners\Commission\Notification\SendCommissionCompletedNotification;
 use App\Listeners\Commission\Notification\SendCommissionCreatedNotification;
+use App\Listeners\CommissionMessage\ReceivedNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -26,7 +28,7 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-
+        // Commission
         Created::class => [
             // @todo: add normal logic
             // @todo: move email here
@@ -46,6 +48,14 @@ class EventServiceProvider extends ServiceProvider
             // @todo: add normal logic
             // @todo: move email here
             SendCommissionAcceptedNotification::class,
+        ],
+        // Commission Message Received
+        Send::class => [
+            ReceivedNotification::class,
+        ],
+        // Ticket Events
+        \App\Events\Ticket\Submitted::class => [
+            \App\Listeners\Ticket\Submitted\Email::class
         ],
 
         /* @todo:

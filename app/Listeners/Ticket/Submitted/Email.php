@@ -6,19 +6,19 @@ use App\Events\Ticket\Submitted;
 use App\Models\Ticket;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Mail;
 
 class Email
 {
-    public Ticket $ticket;
 
     /**
      * Create the event listener.
      *
      * @return void
      */
-    public function __construct(Ticket $ticket)
+    public function __construct()
     {
-        $this->ticket = $ticket;
+
     }
 
     /**
@@ -29,8 +29,7 @@ class Email
      */
     public function handle(Submitted $event)
     {
-        (new \App\Mail\Ticket\Submitted($this->ticket))
-            ->to($this->ticket->user->email)
-            ->queue();
+        Mail::to($event->ticket->user->email)
+            ->queue(new \App\Mail\Ticket\Submitted($event->ticket));
     }
 }
