@@ -42,8 +42,9 @@ class TryBonusJob implements ShouldQueue
         if ($this->commission->creator->incentive <= 0) {
             return;
         }
+        // Calculate earnings
         $total = min($this->commission->creator->incentive, $this->commission->price * 100);
-
+        // Generate a bonus for paper trail
         $bonus = Bonus::create([
             'user_id' => $this->commission->creator->id,
             'amount' => $total,
@@ -54,7 +55,7 @@ class TryBonusJob implements ShouldQueue
 
         Log::info('Transferring bonus of $'. number_format($bonus->amount / 100, 2) .
         ' to: ' . $this->commission->creator->name);
-
+        // Transfer the bonus to this user
         $transfer = $stripe->transfers->create(
             [
                 'amount' => $bonus->amount,
