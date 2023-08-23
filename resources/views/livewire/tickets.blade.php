@@ -1,4 +1,7 @@
 <div>
+    <div class="flex flex-1 justify-end pt-2">
+        <a href="{{ route('tickets.create') }}" class="flex px-4 py-2 bg-sky-500 hover:bg-sky-600 text-white rounded-md">New</a>
+    </div>
     <ul class="divide-y divide-gray-200 pt-4">
         @foreach($tickets as $ticket)
         <li class="py-4 bg-white rounded-lg px-3">
@@ -6,7 +9,7 @@
                 <div class="flex-1 space-y-1">
                     <div class="flex items-center justify-between">
                         <h3 class="text-sm font-medium">
-                            <a>{{$ticket->title}}</a>
+                            <a>{{$ticket->title}}</a> - <span class="text-gray-700">{{ ucwords($ticket->status) }}</span>
                         </h3>
                         <div class="flex flex-row gap-3 my-auto">
                             <p class="text-sm text-gray-500">{{\Illuminate\Support\Carbon::parse($ticket->created_at)->diffForHumans()}}</p>
