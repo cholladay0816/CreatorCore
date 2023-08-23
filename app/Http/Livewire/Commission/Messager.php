@@ -29,6 +29,6 @@ class Messager extends Component
         ]);
         Send::dispatch($commissionMessage);
         $this->message = '';
-        $this->emitTo(History::class,'refresh');
+        $this->emitTo(History::class, 'refresh');
     }
 }

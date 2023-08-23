@@ -14,11 +14,13 @@ class History extends Component
         'refresh' => 'refresh'
     ];
 
-    public function mount() {
+    public function mount()
+    {
         $this->refresh();
     }
 
-    public function refresh() {
+    public function refresh()
+    {
         $this->commission = $this->commission->fresh();
         $this->events = $this->commission->messages->merge($this->commission->events)
             ->sortBy('created_at')
