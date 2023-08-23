@@ -99,7 +99,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function incentive()
     {
-        return $this->incentives->sum('amount') - $this->bonuses->sum('amount');
+        return $this->incentives()->sum('amount') - $this->bonuses()->sum('amount');
     }
     public function getIncentiveAttribute()
     {
