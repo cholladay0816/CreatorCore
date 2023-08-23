@@ -51,9 +51,11 @@
                         <a href="{{route('attachments.show', $attachment)}}" download class="font-medium text-indigo-600 hover:text-indigo-500">
                             Download
                         </a>
+                        @if(($commission->status == 'Active' || $commission->status == 'Overdue') && auth()->id() == $commission->creator_id)
                         <a @click.prevent="isVisible = false, $wire.call('delete',{{$attachment->id}})" class="cursor-pointer font-medium text-indigo-600 hover:text-indigo-500">
                             Delete
                         </a>
+                        @endif
                     </div>
                 </li>
             @endforeach
