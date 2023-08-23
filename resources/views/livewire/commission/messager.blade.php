@@ -1,5 +1,4 @@
 <div class="pt-4">
-    Message History
     @if($commission->isOngoing())
 
         <div class="block">
