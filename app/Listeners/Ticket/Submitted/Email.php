@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Mail;
 
 class Email
 {
-
     /**
      * Create the event listener.
      *
@@ -18,7 +17,6 @@ class Email
      */
     public function __construct()
     {
-
     }
 
     /**
