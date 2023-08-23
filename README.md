@@ -2,6 +2,7 @@
 
 <p align="center">
 <a href="https://github.com/cholladay0816/CreatorCore"><img src="https://github.com/cholladay0816/CreatorCore/actions/workflows/phpunit.yml/badge.svg" alt="Build Status"></a>
+<a href="https://creativecommons.org/licenses/by-nc/4.0/"><img src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"></a>
 </p>
 <p align="center">
 <a href="https://forthebadge.com"><img height="40px" src="https://forthebadge.com/images/badges/works-on-my-machine.svg"/></a>
@@ -33,4 +34,4 @@ If you discover a security vulnerability within CreatorCore, please send an e-ma
 
 ## License
 
-CreatorCore is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+CreatorCore is open-sourced software licensed under [Creative Commons Attribution-NonCommercial 4.0 International](https://creativecommons.org/licenses/by-nc/4.0/).  Under this license, you are free to use this code for non-commercial purposes, but may not make commercial applications using the code provided.

@@ -13,6 +13,12 @@ class CommissionPreset extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'price' => 'decimal:2'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');

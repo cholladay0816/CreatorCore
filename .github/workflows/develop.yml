@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: shivammathur/setup-php@b7d1d9c9a92d8d8463ce36d7f60da34d461724f8
         with:
-          php-version: '8.0'
+          php-version: '8.1'
       - uses: actions/checkout@v2
       - name: Login to Laravel Nova
         run: composer config http-basic.nova.laravel.com ${NOVA_USERNAME} ${NOVA_PASSWORD}
@@ -32,7 +32,7 @@ jobs:
     steps:
       - uses: shivammathur/setup-php@b7d1d9c9a92d8d8463ce36d7f60da34d461724f8
         with:
-          php-version: '8.0'
+          php-version: '8.1'
       - uses: actions/checkout@v2
       - name: Turnstyle
         uses: softprops/turnstyle@v1

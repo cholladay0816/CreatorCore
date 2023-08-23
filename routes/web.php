@@ -30,9 +30,15 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
+Route::get('/sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'index'])
+    ->name('sitemap');
+
 Route::get('thank-you', function () {
     return view('thanks');
 });
+
+Route::get('/find-a-gig', [ExploreController::class, 'commissionSearch'])
+    ->name('find-a-gig');
 
 Route::get('/explore', [ExploreController::class, 'index'])
 ->name('explore');
@@ -74,6 +80,12 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         ->name('ratings.create');
     Route::post('/ratings/create/{review}', [\App\Http\Controllers\RatingController::class, 'store'])
         ->name('ratings.store');
+
+    Route::resource(
+        'tickets',
+        \App\Http\Controllers\TicketController::class,
+        ['index', 'create', 'store', 'show']
+    );
 
     Route::post('/gallery', [\App\Http\Controllers\GalleryController::class, 'store'])
         ->name('gallery.store');

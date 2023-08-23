@@ -16,7 +16,10 @@ use Stripe\StripeClient;
 
 class TryBonusJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     public Commission $commission;
     /**
@@ -36,11 +39,18 @@ class TryBonusJob implements ShouldQueue
      */
     public function handle()
     {
+        // If the bonus exists, return
+        $bonus = Bonus::where('commission_id', $this->commission->id)->first();
+        if ($bonus) {
+            return;
+        }
+        // If the user does not have an incentive, return
         if ($this->commission->creator->incentive <= 0) {
             return;
         }
+        // Calculate earnings
         $total = min($this->commission->creator->incentive, $this->commission->price * 100);
-
+        // Generate a bonus for paper trail
         $bonus = Bonus::create([
             'user_id' => $this->commission->creator->id,
             'amount' => $total,
@@ -51,7 +61,7 @@ class TryBonusJob implements ShouldQueue
 
         Log::info('Transferring bonus of $'. number_format($bonus->amount / 100, 2) .
         ' to: ' . $this->commission->creator->name);
-
+        // Transfer the bonus to this user
         $transfer = $stripe->transfers->create(
             [
                 'amount' => $bonus->amount,
@@ -66,7 +76,8 @@ class TryBonusJob implements ShouldQueue
                 'commission_id' => $this->commission->id,
                 'title' => 'Incentive bonus of $' . number_format($bonus->amount / 100, 2),
                 'color' => 'bg-yellow-500',
-                'status' => 'Archived'
+                'status' => 'Archived',
+                'for' => $this->commission->creator_id
             ]
         );
     }

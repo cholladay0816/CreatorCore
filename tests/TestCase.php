@@ -14,6 +14,9 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
+    use RefreshDatabase;
+    use WithFaker;
+
     protected function tearDown(): void
     {
         $users = User::all();
@@ -30,14 +33,11 @@ abstract class TestCase extends BaseTestCase
 
         parent::tearDown();
     }
-
-    use RefreshDatabase;
-    use WithFaker;
     public function createBuyerAndSeller($payment = false)
     {
         $buyer = User::factory()->create();
         $seller = User::factory()->create();
-        $seller->creator->update(['open' => true]);
+        $seller->creator->fill(['open' => true, 'allows_custom_commissions' => true])->save();
 
         if ($payment) {
             $buyer->createOrGetStripeCustomer();
@@ -78,7 +78,7 @@ abstract class TestCase extends BaseTestCase
                     'email' => $seller->email,
                     'first_name' => $this->faker->firstName,
                     'last_name' => $this->faker->lastName,
-                    'gender' => (random_int(0, 1)==1?'male':'female'),
+                    'gender' => (random_int(0, 1)==1 ? 'male' : 'female'),
                     'phone' => $this->faker->phoneNumber,
                 ],
                 'tos_acceptance' => [
@@ -101,7 +101,7 @@ abstract class TestCase extends BaseTestCase
                 'card' => [
                     'number' => '4242424242424242',
                     'exp_month' => 2,
-                    'exp_year' => 2022,
+                    'exp_year' => now()->addYears(2)->year,
                     'cvc' => '123',
                 ],
             ]);
@@ -166,7 +166,7 @@ abstract class TestCase extends BaseTestCase
                 'email' => $seller->email,
                 'first_name' => $this->faker->firstName,
                 'last_name' => $this->faker->lastName,
-                'gender' => (random_int(0, 1)==1?'male':'female'),
+                'gender' => (random_int(0, 1)==1 ? 'male' : 'female'),
                 'phone' => $this->faker->phoneNumber,
             ],
             'tos_acceptance' => [
@@ -199,7 +199,7 @@ abstract class TestCase extends BaseTestCase
             'card' => [
                 'number' => '4242424242424242',
                 'exp_month' => 2,
-                'exp_year' => 2022,
+                'exp_year' => now()->addYears(2)->year,
                 'cvc' => '123',
             ],
         ]);

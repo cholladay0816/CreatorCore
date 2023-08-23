@@ -134,7 +134,7 @@
                     <h2 class="text-3xl font-extrabold text-white tracking-tight">
                         How {{ config('app.name') }} benefits you
                     </h2>
-                    <p class="mt-4 max-w-3xl text-lg text-purple-200">
+                    <p class="mt-4 max-w-3xl text-lg text-gray-200">
                         {{ config('app.name') }} is the first truly
                         <a class="text-sky-300" href="{{url('thank-you')}}">creator-first</a>
                         platform, designed as a powerful tool for creators to
@@ -152,7 +152,7 @@
                             </div>
                             <div class="mt-6">
                                 <h3 class="text-lg font-medium text-white">Stay Notified</h3>
-                                <p class="mt-2 text-base text-purple-200">
+                                <p class="mt-2 text-base text-gray-200">
                                     Our services track the progress of your order and keep you updated with notifications and emails.
                                     You'll always be able to check the status of your order and review your commission.
                                 </p>
@@ -170,7 +170,7 @@
                             </div>
                             <div class="mt-6">
                                 <h3 class="text-lg font-medium text-white">Messaging</h3>
-                                <p class="mt-2 text-base text-purple-200">
+                                <p class="mt-2 text-base text-gray-200">
                                     We offer a messaging solution between artist and client that allows for excellent
                                     communication when commissioning a product.
                                 </p>
@@ -188,7 +188,7 @@
                             </div>
                             <div class="mt-6">
                                 <h3 class="text-lg font-medium text-white">Dispute System</h3>
-                                <p class="mt-2 text-base text-purple-200">
+                                <p class="mt-2 text-base text-gray-200">
                                     If your order hasn't been completed properly, you can file a dispute to have a moderator review the order.
                                     We take disputes very seriously and will take swift and decisive action.
                                 </p>
@@ -206,7 +206,7 @@
                             </div>
                             <div class="mt-6">
                                 <h3 class="text-lg font-medium text-white">Reviews</h3>
-                                <p class="mt-2 text-base text-purple-200">
+                                <p class="mt-2 text-base text-gray-200">
                                     Feel free to leave a review for each commission you order, with the option to
                                     attach a copy of your finished product.
                                 </p>
@@ -223,7 +223,7 @@
                             </div>
                             <div class="mt-6">
                                 <h3 class="text-lg font-medium text-white">$0 Commission Fee</h3>
-                                <p class="mt-2 text-base text-purple-200">
+                                <p class="mt-2 text-base text-gray-200">
                                     We promise to never take a single cent of your hard earned money.  All our expenses are paid upfront as a
                                     {{ number_format(config('commission.sales_tax') * 100, 0) }}% sales fee, meaning our creators never foot the bill.
                                 </p>
@@ -240,7 +240,7 @@
                             </div>
                             <div class="mt-6">
                                 <h3 class="text-lg font-medium text-white">Easy-to-use Dashboard</h3>
-                                <p class="mt-2 text-base text-purple-200">
+                                <p class="mt-2 text-base text-gray-200">
                                     Our platform makes it easy to read, access, and interact with your orders.
                                     We extensively iterated the layout to make it as easy as possible to interact
                                     with your clients.
@@ -259,7 +259,7 @@
                             </div>
                             <div class="mt-6">
                                 <h3 class="text-lg font-medium text-white">Stay notified</h3>
-                                <p class="mt-2 text-base text-purple-200">
+                                <p class="mt-2 text-base text-gray-200">
                                     Waiting on a client to get back to you?  Take a break for a while, we'll email you
                                     when you're good to go!
                                 </p>
@@ -277,7 +277,7 @@
                             </div>
                             <div class="mt-6">
                                 <h3 class="text-lg font-medium text-white">Streamline your Workflow</h3>
-                                <p class="mt-2 text-base text-purple-200">
+                                <p class="mt-2 text-base text-gray-200">
                                     Set up a few commission presets with our easy-to-use preset builder and have your
                                     clients pick their order type from your shop,
                                     think of it like an interactive commission sheet!

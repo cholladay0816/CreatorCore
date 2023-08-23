@@ -12,7 +12,8 @@ class ExploreController extends Controller
     {
         $users = User::with('creator')
             ->whereHas('creator', function ($creator) {
-                $creator->where('open', 1);
+                $creator->where('open', 1)
+                    ->whereHas('commissionPresets');
             })->paginate(16);
 
         return view(
@@ -26,5 +27,9 @@ class ExploreController extends Controller
                 'total' => $users->total()
             ]
         );
+    }
+    public function commissionSearch()
+    {
+        return view('explore.find-a-gig');
     }
 }

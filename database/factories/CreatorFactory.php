@@ -27,6 +27,7 @@ class CreatorFactory extends Factory
             'title' => $this->faker->title,
             'headline' => $this->faker->sentence,
             'open' => 1,
+            'allows_custom_commissions' => 1
         ];
     }
 }
