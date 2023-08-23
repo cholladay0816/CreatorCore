@@ -40,7 +40,7 @@ class CommissionPreset extends Model
 
     public function getSlug()
     {
-        return Str::slug($this->id??'' . '-' . $this->title);
+        return Str::slug($this->id ?? '' . '-' . $this->title);
     }
 
     public static function booted()

@@ -55,7 +55,7 @@ abstract class TestCase extends BaseTestCase
                     'object' => 'bank_account',
                     'country' => 'us',
                     'currency' => 'usd',
-                    'routing_number'=>'110000000',
+                    'routing_number' => '110000000',
                     'account_number' => '000123456789'
                 ],
                 'individual' => [
@@ -64,10 +64,10 @@ abstract class TestCase extends BaseTestCase
                     'ssn_last_4' => '0000',
 
                     'address' => [
-                        'city' =>'Schenectady',
-                        'line1' =>'123 State St',
+                        'city' => 'Schenectady',
+                        'line1' => '123 State St',
                         'postal_code' => '12345',
-                        'country' =>'US',
+                        'country' => 'US',
                         'state' => 'NY',
                     ],
                     'dob' => [
@@ -78,7 +78,7 @@ abstract class TestCase extends BaseTestCase
                     'email' => $seller->email,
                     'first_name' => $this->faker->firstName,
                     'last_name' => $this->faker->lastName,
-                    'gender' => (random_int(0, 1)==1 ? 'male' : 'female'),
+                    'gender' => (random_int(0, 1) == 1 ? 'male' : 'female'),
                     'phone' => $this->faker->phoneNumber,
                 ],
                 'tos_acceptance' => [
@@ -143,7 +143,7 @@ abstract class TestCase extends BaseTestCase
                 'object' => 'bank_account',
                 'country' => 'us',
                 'currency' => 'usd',
-                'routing_number'=>'110000000',
+                'routing_number' => '110000000',
                 'account_number' => '000123456789'
             ],
             'individual' => [
@@ -152,10 +152,10 @@ abstract class TestCase extends BaseTestCase
                 'ssn_last_4' => '0000',
 
                 'address' => [
-                    'city' =>'Schenectady',
-                    'line1' =>'123 State St',
+                    'city' => 'Schenectady',
+                    'line1' => '123 State St',
                     'postal_code' => '12345',
-                    'country' =>'US',
+                    'country' => 'US',
                     'state' => 'NY',
                 ],
                 'dob' => [
@@ -166,7 +166,7 @@ abstract class TestCase extends BaseTestCase
                 'email' => $seller->email,
                 'first_name' => $this->faker->firstName,
                 'last_name' => $this->faker->lastName,
-                'gender' => (random_int(0, 1)==1 ? 'male' : 'female'),
+                'gender' => (random_int(0, 1) == 1 ? 'male' : 'female'),
                 'phone' => $this->faker->phoneNumber,
             ],
             'tos_acceptance' => [

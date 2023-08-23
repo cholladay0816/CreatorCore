@@ -62,31 +62,31 @@ class Commission extends Model
     public static function statuses()
     {
         return [
-            'Unpaid'=>'Unpaid',
-            'Pending'=>'Pending',
-            'Declined'=>'Declined',
-            'Purchasing'=>'Purchasing',
-            'Failed'=>'Failed',
-            'Active'=>'Active',
-            'Overdue'=>'Overdue',
-            'Expired'=>'Expired',
-            'Completed'=>'Completed',
-            'Disputed'=>'Disputed',
-            'Refunded'=>'Refunded',
-            'Archived'=>'Archived',
+            'Unpaid' => 'Unpaid',
+            'Pending' => 'Pending',
+            'Declined' => 'Declined',
+            'Purchasing' => 'Purchasing',
+            'Failed' => 'Failed',
+            'Active' => 'Active',
+            'Overdue' => 'Overdue',
+            'Expired' => 'Expired',
+            'Completed' => 'Completed',
+            'Disputed' => 'Disputed',
+            'Refunded' => 'Refunded',
+            'Archived' => 'Archived',
         ];
     }
     public static function statusesCommissions()
     {
         return [
-            'Pending'=>'Pending',
-            'Active'=>'Active',
-            'Overdue'=>'Overdue',
-            'Expired'=>'Expired',
-            'Completed'=>'Completed',
-            'Disputed'=>'Disputed',
-            'Refunded'=>'Refunded',
-            'Archived'=>'Archived',
+            'Pending' => 'Pending',
+            'Active' => 'Active',
+            'Overdue' => 'Overdue',
+            'Expired' => 'Expired',
+            'Completed' => 'Completed',
+            'Disputed' => 'Disputed',
+            'Refunded' => 'Refunded',
+            'Archived' => 'Archived',
         ];
     }
     public static function statusPriorityCommissions()
@@ -232,7 +232,7 @@ class Commission extends Model
 
     public function getSlug(): string
     {
-        return Str::slug(($this->id??(Commission::count() + 1)) . '-' . $this->title);
+        return Str::slug(($this->id ?? (Commission::count() + 1)) . '-' . $this->title);
     }
     public function getExpiresAtLocalAttribute(): \Illuminate\Support\Carbon
     {
@@ -400,9 +400,9 @@ class Commission extends Model
     // For testing only, verification handled by webhooks.
     public function checkInvoiceStatus()
     {
-//        if ($this->invoice_id == null) {
-//            return $this->chargeFail();
-//        }
+        //        if ($this->invoice_id == null) {
+        //            return $this->chargeFail();
+        //        }
         $stripe = new \Stripe\StripeClient(
             config('stripe.secret'),
         );
@@ -495,27 +495,27 @@ class Commission extends Model
         );
     }
 
-//    public function cancel()
-//    {
-//        // TODO: send emails and notifications
-//        $this->status = 'Canceled';
-//        $this->save();
-//        $stripe = new StripeClient(config('stripe.secret'));
-//        $invoice = $stripe->invoices->retrieve($this->invoice_id, ['expand' => ['charge']]);
-//        $stripe->refunds->create([
-//            'charge' => $invoice->charge->id,
-//            'reason' => 'requested_by_customer'
-//        ]);
-//
-//        $this->creator->addStrike('Canceled commission');
-//
-//        CommissionEvent::create(
-//            [
-//                'commission_id' => $this->id,
-//                'title' => 'Expired', 'color' => 'bg-red-500', 'status' => 'Canceled'
-//            ]
-//        );
-//    }
+    //    public function cancel()
+    //    {
+    //        // TODO: send emails and notifications
+    //        $this->status = 'Canceled';
+    //        $this->save();
+    //        $stripe = new StripeClient(config('stripe.secret'));
+    //        $invoice = $stripe->invoices->retrieve($this->invoice_id, ['expand' => ['charge']]);
+    //        $stripe->refunds->create([
+    //            'charge' => $invoice->charge->id,
+    //            'reason' => 'requested_by_customer'
+    //        ]);
+    //
+    //        $this->creator->addStrike('Canceled commission');
+    //
+    //        CommissionEvent::create(
+    //            [
+    //                'commission_id' => $this->id,
+    //                'title' => 'Expired', 'color' => 'bg-red-500', 'status' => 'Canceled'
+    //            ]
+    //        );
+    //    }
 
     public function expire()
     {

@@ -29,8 +29,8 @@ class CommissionFeatureTest extends TestCase
 
         // Make a working commission
         $commission = Commission::factory()->make([
-            'buyer_id'=>$buyer->id,
-            'creator_id'=>$seller->id
+            'buyer_id' => $buyer->id,
+            'creator_id' => $seller->id
         ]);
         $commission->memo = 'Test Memo';
 
@@ -49,7 +49,7 @@ class CommissionFeatureTest extends TestCase
                 route('commissions.store', [$seller, $commission->preset]),
                 $commission->attributesToArray()
             );
-//            ->assertSessionHas(['success' => 'Commission created successfully']);
+        //            ->assertSessionHas(['success' => 'Commission created successfully']);
 
         // Grab a fresh copy of our commission
         $commission = Commission::where('memo', 'Test Memo')->firstOrFail();

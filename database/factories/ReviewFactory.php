@@ -26,7 +26,7 @@ class ReviewFactory extends Factory
     {
         return [
             'user_id' => ($user = User::factory()->create())->id,
-            'commission_id' => ($commission = Commission::factory()->create(['buyer_id'=>$user->id, 'status' => 'Archived']))->id,
+            'commission_id' => ($commission = Commission::factory()->create(['buyer_id' => $user->id, 'status' => 'Archived']))->id,
             'attachment_id' => null,
             'positive' => $this->faker->numberBetween(0, 1),
             'message' => $this->faker->paragraph(3),

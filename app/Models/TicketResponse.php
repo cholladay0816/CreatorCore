@@ -9,15 +9,15 @@ class TicketResponse extends Model
 {
     use HasFactory;
 
-//    public int $ticket_id;
-//    public Ticket $ticket;
-//
-//    public User $sender;
-//    public int $sender_id;
-//    public User $receiver;
-//    public int $receiver_id;
-//
-//    public string $message;
+    //    public int $ticket_id;
+    //    public Ticket $ticket;
+    //
+    //    public User $sender;
+    //    public int $sender_id;
+    //    public User $receiver;
+    //    public int $receiver_id;
+    //
+    //    public string $message;
 
 
     public function ticket(): \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -21,11 +21,11 @@ class NotificationBadge extends Component
     public function fetchNotifications()
     {
         $this->existingNotifications->merge($this->pushedNotifications)->unique('id');
-//        $this->pushedNotifications = collect();
+        //        $this->pushedNotifications = collect();
         $notifications = auth()->user()->notifications;
 
         $toAdd = $notifications->whereNotIn('id', $this->existingNotifications->pluck('id'));
-//        dd($notifications, $toAdd);
+        //        dd($notifications, $toAdd);
         $this->pushedNotifications = $this->pushedNotifications->merge($toAdd)->unique('id');
     }
     public function removeNotification($id)

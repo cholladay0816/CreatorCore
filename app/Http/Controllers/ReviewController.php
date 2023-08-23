@@ -50,7 +50,7 @@ class ReviewController extends Controller
     {
         if ($commission->status == 'Archived' && $commission->isBuyer()) {
             // TODO:      if ($commission->has(Review::class)) {
-//            }
+            //            }
             return view('reviews.create', [
                 'commission' => $commission,
                 'title' => 'Write a Review about ' . $commission->creator->name

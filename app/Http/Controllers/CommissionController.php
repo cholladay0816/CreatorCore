@@ -181,7 +181,7 @@ class CommissionController extends Controller
         } elseif ($commission->status == 'Disputed') {
             if (Gate::allows('manage-users')) {
                 $commission->resolve();
-            // TODO: redirect for admin
+                // TODO: redirect for admin
             } else {
                 abort(401);
             }
@@ -237,7 +237,7 @@ class CommissionController extends Controller
         } elseif ($commission->status == 'Disputed') {
             if (Gate::allows('manage-users')) {
                 $commission->refund();
-            // TODO: redirect for admin
+                // TODO: redirect for admin
             } else {
                 abort(401);
             }

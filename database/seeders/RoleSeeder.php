@@ -15,8 +15,8 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        $administrator = Role::factory()->create(['title'=>'Administrator']);
-        $moderator = Role::factory()->create(['title'=>'Moderator']);
+        $administrator = Role::factory()->create(['title' => 'Administrator']);
+        $moderator = Role::factory()->create(['title' => 'Moderator']);
 
         $manage_users = Ability::factory()->create(['title' => 'Manage Users'])->id;
         $manage_content = Ability::factory()->create(['title' => 'Manage Content'])->id;

@@ -10,13 +10,13 @@ class Ticket extends Model
 {
     use HasFactory;
 
-//    public $user_id;
-//    public $user;
-//    public $slug;
-//    public $title;
-//    public $description;
-//    public $status;
-//    public $ticketResponses;
+    //    public $user_id;
+    //    public $user;
+    //    public $slug;
+    //    public $title;
+    //    public $description;
+    //    public $status;
+    //    public $ticketResponses;
 
     protected $guarded = [];
 
