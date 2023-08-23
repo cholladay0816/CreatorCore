@@ -7,7 +7,7 @@
         </div>
     @else
         <div class="min-h-screen flex">
-            <div class="pointer-events-none my-auto mx-auto font-light text-gray-500 text-2xl">You have no support tickets.  Would you like to <a class="text-blue-500" href="{{route('tickets.create')}}">create one?</a></div>
+            <div class="pointer-events-none my-auto mx-auto font-light text-gray-500 text-2xl">You have no support tickets.  Would you like to <a href="{{ route('tickets.create') }}" class="text-blue-500 pointer-events-auto">create one?</a></div>
         </div>
     @endif
 
