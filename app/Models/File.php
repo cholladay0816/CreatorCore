@@ -35,6 +35,11 @@ class File extends Model
         return 'do_public';
     }
 
+    public function getUrl()
+    {
+        return Storage::disk($this::getDisk())->url($this->path);
+    }
+
     public static function booted()
     {
         static::creating(function ($file) {

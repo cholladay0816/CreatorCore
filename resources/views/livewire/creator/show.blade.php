@@ -44,7 +44,7 @@
                                 <img
                                     alt="Profile Picture"
                                     src="{{ $user->profile_photo_url }}"
-                                    class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16"
+                                    class="shadow-xl rounded-full h-auto align-middle object-cover aspect-square border-none absolute -m-16 -ml-20 lg:-ml-16"
                                     style="width:150px;max-width: 150px;"
                                 />
                             </div>

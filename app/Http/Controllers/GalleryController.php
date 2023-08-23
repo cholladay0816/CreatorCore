@@ -11,7 +11,9 @@ class GalleryController extends Controller
     public function show(Gallery $gallery)
     {
         //return $gallery;
-        return response()->file(Storage::path($gallery->path));
+        return response(Storage::disk($gallery::getDisk())->get($gallery->path))
+            ->header('Content-Type', $gallery->type);
+
     }
 
     public function store(Request $request)
