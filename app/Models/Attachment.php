@@ -12,6 +12,11 @@ class Attachment extends File
 {
     protected $identifier = 'attachments';
 
+    public static function getDisk()
+    {
+        return 'do';
+    }
+
     public function canView()
     {
         if (Gate::allows('manage-content')) {

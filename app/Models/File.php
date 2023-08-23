@@ -30,6 +30,11 @@ class File extends Model
         return $this->belongsTo(User::class);
     }
 
+    public static function getDisk()
+    {
+        return 'do_public';
+    }
+
     public static function booted()
     {
         static::creating(function ($file) {
@@ -44,7 +49,7 @@ class File extends Model
 
         //If the object is being deleted, remove the saved attachment.
         static::deleting(function ($file) {
-            Storage::delete($file->path);
+            Storage::disk($file::getDisk())->delete($file->path);
         });
     }
 }
