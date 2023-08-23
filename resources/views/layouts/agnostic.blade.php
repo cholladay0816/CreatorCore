@@ -24,6 +24,15 @@
 
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11311108656"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'AW-11311108656');
+    </script>
+
 </head>
 <body class="font-sans antialiased">
 <div>
