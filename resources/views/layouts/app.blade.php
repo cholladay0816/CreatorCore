@@ -31,6 +31,11 @@
 
             gtag('config', 'AW-11311108656');
         </script>
+        <!-- Event snippet for Website traffic conversion page -->
+        <script>
+            gtag('event', 'conversion', {'send_to': 'AW-11311108656/IjXMCKC6ztYYELCkx5Eq'});
+        </script>
+
 
     </head>
     <body class="font-sans antialiased">
