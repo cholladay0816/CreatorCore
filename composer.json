@@ -8,7 +8,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.0|^8.1",
+        "php": "^8.1",
         "authorizenet/authorizenet": "^2.0",
         "aws/aws-sdk-php": "^3.178",
         "facade/ignition": "^2.5",
@@ -25,6 +25,7 @@
         "laravel/sanctum": "^2.6",
         "laravel/socialite": "^5.1",
         "laravel/tinker": "^2.5",
+        "league/flysystem-aws-s3-v3": "^1.0",
         "livewire/livewire": "^2.0",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
