@@ -41,8 +41,7 @@ class TryBonusJob implements ShouldQueue
     {
         // If the bonus exists, return
         $bonus = Bonus::where('commission_id', $this->commission->id)->first();
-        if($bonus)
-        {
+        if ($bonus) {
             return;
         }
         // If the user does not have an incentive, return
