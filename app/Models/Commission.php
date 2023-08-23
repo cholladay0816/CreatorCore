@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
@@ -123,16 +124,16 @@ class Commission extends Model
         ];
     }
 
-    public function displayTitle()
+    public function displayTitle(): string
     {
         return '[$' . $this->price . '] ' . $this->title;
     }
-    public function getDisplayTitleAttribute()
+    public function getDisplayTitleAttribute(): string
     {
         return $this->displayTitle();
     }
 
-    public function canView()
+    public function canView(): bool
     {
         if (Gate::allows('manage-content')) {
             return true;
@@ -146,7 +147,7 @@ class Commission extends Model
 
         return true;
     }
-    public function canEdit()
+    public function canEdit(): bool
     {
         if (Gate::allows('manage-content')) {
             return true;
@@ -156,59 +157,63 @@ class Commission extends Model
         }
         return false;
     }
-    public function isBuyer()
+    public function isBuyer(): bool
     {
         if (auth()->guest()) {
             return false;
         }
         return auth()->id() == $this->buyer_id;
     }
-    public function isCreator()
+    public function isCreator(): bool
     {
         if (auth()->guest()) {
             return false;
         }
         return auth()->id() == $this->creator_id;
     }
-    public function partner()
+    public function partner(): User
     {
         return $this->isCreator() ? $this->buyer : $this->creator;
     }
-    public function getPartnerAttribute()
+    public function getPartnerAttribute(): User
     {
         return $this->partner();
     }
 
-    public function events(): HasMany
+    public function events(): HasMany|CommissionEvent
     {
         return $this->hasMany(CommissionEvent::class);
     }
-    public function review()
+    public function review(): HasOne|Review
     {
         return $this->hasOne(Review::class);
     }
-    public function buyer(): BelongsTo
+    public function buyer(): BelongsTo|User
     {
         return $this->belongsTo(User::class, 'buyer_id');
     }
-    public function creator(): BelongsTo
+    public function creator(): BelongsTo|User
     {
         return $this->belongsTo(User::class, 'creator_id');
     }
-    public function preset(): BelongsTo
+    public function preset(): BelongsTo|CommissionPreset
     {
         return $this->belongsTo(CommissionPreset::class, 'commission_preset_id');
     }
-    public function attachments()
+    public function attachments(): HasMany|Attachment
     {
         return $this->hasMany(Attachment::class, 'commission_id');
     }
+    public function messages(): HasMany|CommissionMessage
+    {
+        return $this->hasMany(CommissionMessage::class);
+    }
 
-    public function getSlug()
+    public function getSlug(): string
     {
         return Str::slug(($this->id??(Commission::count() + 1)) . '-' . $this->title);
     }
-    public function getExpiresAtLocalAttribute()
+    public function getExpiresAtLocalAttribute(): \Illuminate\Support\Carbon
     {
         return $this->expires_at->setTimezone('America/Chicago');
     }
@@ -303,14 +308,14 @@ class Commission extends Model
         return $this->fees();
     }
 
-    public function total()
+    public function total(): float|int
     {
         $amount = $this->price * 100;
         $total = $amount + 30;
         $total += ceil(($this->price * config('commission.sales_tax')) * 100);
         return floatval($total) / 100;
     }
-    public function getTotalAttribute()
+    public function getTotalAttribute(): float|int
     {
         return $this->total();
     }
