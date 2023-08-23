@@ -16,6 +16,7 @@ class TicketFactory extends Factory
     {
         return [
             'title' => $this->faker->uuid(),
+            'description' => $this->faker->sentence,
             'user_id' => (User::factory()->create())->id
         ];
     }
