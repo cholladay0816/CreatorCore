@@ -18,7 +18,7 @@
 
     <!-- This example requires Tailwind CSS v2.0+ -->
     <!-- Global notification live region, render this permanently at the end of the document -->
-    <div wire:poll.60s="fetchNotifications" aria-live="assertive" class="fixed z-10 inset-0 flex items-end px-4 py-6 pointer-events-none sm:p-6 sm:items-start">
+    <div wire:poll.10s="fetchNotifications" aria-live="assertive" class="fixed z-10 inset-0 flex items-end px-4 py-6 pointer-events-none sm:p-6 sm:items-start">
         <div class="w-full flex flex-col items-center space-y-4 sm:items-end mt-12">
             <!--
               Notification panel, dynamically insert this into the live region when it needs to be displayed
@@ -43,10 +43,10 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
                             </svg>
                         </div>
-                        <div class="ml-3 w-0 flex-1 pt-0.5">
+                        <a class="ml-3 w-0 flex-1 pt-0.5" href="{{ $notification['url'] ?? '' }}">
                             <p class="text-sm font-medium text-gray-900">{{ $notification['title'] }}</p>
                             <p class="mt-1 text-sm text-gray-500">{{ $notification['description'] }}</p>
-                        </div>
+                        </a>
                         <div class="ml-4 flex-shrink-0 flex">
                             <button @click="notification{{$notification['id']}} = false" wire:click="removeNotification({{$notification['id']}})" class="bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                 <span class="sr-only">Close</span>
