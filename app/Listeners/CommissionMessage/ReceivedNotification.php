@@ -35,8 +35,7 @@ class ReceivedNotification
         // Get last notification not read
         $lastNotification = $recipient->getLastUnreadNotification();
         // If it's the same thing, don't send another
-        if($lastNotification?->title == $title)
-        {
+        if ($lastNotification?->title == $title) {
             return;
         }
 
