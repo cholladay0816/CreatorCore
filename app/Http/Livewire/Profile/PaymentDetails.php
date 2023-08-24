@@ -9,9 +9,8 @@ class PaymentDetails extends Component
     public string|null $redirect = null;
     public function mount()
     {
-        if(is_null($this->redirect))
-        {
-           $this->redirect = route('profile.show');
+        if(is_null($this->redirect)) {
+            $this->redirect = route('profile.show');
         }
     }
     public function render()

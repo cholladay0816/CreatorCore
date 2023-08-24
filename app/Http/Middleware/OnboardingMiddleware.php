@@ -16,8 +16,7 @@ class OnboardingMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!auth()->user()->onboarded_at)
-        {
+        if(!auth()->user()->onboarded_at) {
             return redirect()->route('onboarding');
         }
         return $next($request);

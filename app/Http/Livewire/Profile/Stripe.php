@@ -12,8 +12,7 @@ class Stripe extends Component
 
     public function mount()
     {
-        if(is_null($this->redirect))
-        {
+        if(is_null($this->redirect)) {
             $this->redirect = route('profile.show');
         }
     }
