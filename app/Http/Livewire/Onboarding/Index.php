@@ -18,12 +18,14 @@ class Index extends Component
     public ?Creator $creator;
 
 
-    public function mount() {
+    public function mount()
+    {
         $this->form['account_type'] = Session::get('account_type');
         $this->refresh();
     }
 
-    public function updatedForm($value, $key){
+    public function updatedForm($value, $key)
+    {
         Session::put($key, $value);
     }
 
