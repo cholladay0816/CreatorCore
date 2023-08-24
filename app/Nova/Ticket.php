@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
@@ -26,7 +27,7 @@ class Ticket extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'title';
 
     public static $group = 'support';
 
@@ -53,7 +54,9 @@ class Ticket extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            BelongsTo::make('User'),
+            BelongsTo::make('User')
+            ->sortable()
+            ->filterable(),
             Slug::make('Slug')->exceptOnForms(),
             Text::make('Title')->required(true),
             Textarea::make('Description')->required(true),
@@ -62,8 +65,12 @@ class Ticket extends Resource
                 'active' => 'Active',
                 'resolved' => 'Resolved',
                 'closed' => 'Closed'
-            ]),
+            ])
+            ->sortable()
+            ->filterable(),
             HasMany::make('Ticket Responses'),
+            DateTime::make('Created At')->sortable()->filterable(),
+            DateTime::make('Updated At')->sortable()->filterable()
         ];
     }
 
