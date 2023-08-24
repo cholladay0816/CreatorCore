@@ -24,17 +24,19 @@
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
         <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11311108656"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
+        @if(config('app.env') === 'production')
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
 
-            gtag('config', 'AW-11311108656');
-        </script>
+                gtag('config', 'AW-11311108656');
+            </script>
         <!-- Event snippet for Website traffic conversion page -->
         <script>
             gtag('event', 'conversion', {'send_to': 'AW-11311108656/IjXMCKC6ztYYELCkx5Eq'});
         </script>
+        @endif
 
 
     </head>
@@ -264,8 +266,10 @@
                             <x-agnostic-layout>
                             {{ $slot }}
                             </x-agnostic-layout>
+
                         </div>
                     </div>
+
                 </main>
             </div>
         </div>

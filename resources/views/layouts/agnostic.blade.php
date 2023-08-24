@@ -25,6 +25,7 @@
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11311108656"></script>
+    @if(config('app.env') === 'production')
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
@@ -32,6 +33,7 @@
 
         gtag('config', 'AW-11311108656');
     </script>
+    @endif
 
 </head>
 <body class="font-sans antialiased">
