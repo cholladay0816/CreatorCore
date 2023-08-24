@@ -32,7 +32,7 @@ class Index extends Component
     public function refresh()
     {
         $this->user = auth()->user();
-        $this->buyer_verified = $this->user->isOnboarded();
+        $this->buyer_verified = $this->user->hasPaymentMethod();
         $this->creator_verified = $this->user->canAcceptPayments();
         $this->creator = $this->user->creator;
     }
