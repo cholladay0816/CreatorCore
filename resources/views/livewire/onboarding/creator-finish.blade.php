@@ -1,12 +1,12 @@
 
 <div class="grid">
     <div>
-        <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            <div class="block">
+        <ul class="grid grid-cols-1 gap-6  lg:grid-cols-4">
+            <div class="hidden lg:flex">
 
             </div>
         @include('livewire.explore.card')
-            <li class="col-span-2 md:col-span-3 lg:col-span-3">
+            <li class="col-span-2">
                 <div class="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
                     <div class="px-4 py-5 sm:px-6">
                         Confirmation
