@@ -7,6 +7,8 @@ use App\Nova\Actions\Strike;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Gate;
+use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
@@ -78,6 +80,8 @@ class User extends Resource
                 ->creationRules('unique:users,email')
                 ->updateRules('unique:users,email,{{resourceId}}'),
 
+            Boolean::make('Onboarded', 'onboarded_at')->onlyOnIndex(),
+
             Password::make('Password')
                 ->onlyOnForms()
                 ->creationRules('required', Rules\Password::defaults())
@@ -90,6 +94,9 @@ class User extends Resource
             HasMany::make('Reports', 'reports', 'App\Nova\Report'),
             HasMany::make('Strikes', 'strikes', 'App\Nova\Strike'),
             HasMany::make('Suspensions', 'suspensions', 'App\Nova\Suspension'),
+            DateTime::make('Created At')->sortable(),
+            DateTime::make('Updated At')->sortable(),
+            DateTime::make('Onboarded At')->nullable()->sortable()->filterable()
         ];
     }
 
