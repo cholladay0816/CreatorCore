@@ -83,16 +83,22 @@ class Commission extends Resource
             Currency::make('Price')
                 ->min(5)
                 ->max(1000)
-                ->default(5),
+                ->default(5)
+                ->sortable()
+                ->filterable(),
             Select::make('Status')
                 ->options(\App\Models\Commission::statuses())
-                ->default('Unpaid'),
+                ->default('Unpaid')
+                ->sortable()
+                ->filterable(),
             Number::make('Days to Complete')
                 ->default(7)
                 ->min(1),
             DateTime::make('Expires At')
                 ->nullable()
-                ->hideWhenCreating(),
+                ->hideWhenCreating()
+                ->sortable()
+                ->filterable(),
             HasMany::make('Attachments'),
             HasOne::make('Review')->nullable(),
         ];
