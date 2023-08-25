@@ -10,7 +10,6 @@ use Laravel\Socialite\Facades\Socialite;
 
 class GoogleController
 {
-
     public function redirectToGoogle()
     {
         return Socialite::driver('google')->redirect();
@@ -26,15 +25,12 @@ class GoogleController
 
         if($finduser) {
             Auth::login($finduser);
-        }
-        elseif($findemailuser)
-        {
+        } elseif($findemailuser) {
             $findemailuser->forceFill([
                 'google_id' => $user->id
             ])->save();
             Auth::login($findemailuser);
-        }
-        else {
+        } else {
             $referral = Affiliate::where('code', Session::get('affiliate_code'))->first();
             $newUser = User::create([
                 'name' => $user->name,
