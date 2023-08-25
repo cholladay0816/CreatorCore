@@ -9,8 +9,7 @@ class ReferralInterceptor extends Component
 {
     public function mount()
     {
-        if(request()->get('aref'))
-        {
+        if(request()->get('aref')) {
             request()->session()->put('affiliate_code', request()->get('aref'));
         }
     }
