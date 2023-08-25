@@ -30,8 +30,6 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::get('/sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'index'])
-    ->name('sitemap');
 
 Route::get('thank-you', function () {
     return view('thanks');
