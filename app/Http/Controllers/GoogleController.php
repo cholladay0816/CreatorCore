@@ -32,9 +32,8 @@ class GoogleController
             Auth::login($findemailuser);
         } else {
             $referral = Affiliate::where('code', Session::get('affiliate_code'))->first();
-            if(User::where('name', $user->name)->exists())
-            {
-                $randomName = $user->name . '-' . random_int(10000,99999);
+            if(User::where('name', $user->name)->exists()) {
+                $randomName = $user->name . '-' . random_int(10000, 99999);
             }
             $newUser = User::create([
                 'name' => $randomName ?? $user->name,
