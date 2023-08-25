@@ -22,8 +22,17 @@ class GoogleController
 
         $finduser = User::where('google_id', $user->id)->first();
 
+        $findemailuser = User::where('email', $user->email)->first();
+
         if($finduser) {
             Auth::login($finduser);
+        }
+        elseif($findemailuser)
+        {
+            $findemailuser->forceFill([
+                'google_id' => $user->id
+            ])->save();
+            Auth::login($findemailuser);
         }
         else {
             $referral = Affiliate::where('code', Session::get('affiliate_code'))->first();
