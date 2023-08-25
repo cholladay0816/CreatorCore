@@ -41,8 +41,12 @@ class CreateNewUser implements CreatesNewUsers
 
         return DB::transaction(function () use ($input) {
             $referral = Affiliate::where('code', Session::get('affiliate_code'))->first();
+            if(User::where('name', $input['name'])->exists())
+            {
+                $randomName = $input['name'] . '-' . random_int(10000,99999);
+            }
             return tap(User::create([
-                'name' => $input['name'],
+                'name' => $randomName ?? $input['name'],
                 'email' => $input['email'],
                 'password' => Hash::make($input['password']),
                 'affiliate_id' => $referral?->id
