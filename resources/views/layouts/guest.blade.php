@@ -42,5 +42,6 @@
         @stack('modals')
 
         @livewireScripts
+        <livewire:referral-interceptor/>
     </body>
 </html>

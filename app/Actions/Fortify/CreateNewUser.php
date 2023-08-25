@@ -2,12 +2,14 @@
 
 namespace App\Actions\Fortify;
 
+use App\Models\Affiliate;
 use App\Models\Team;
 use App\Models\User;
 use App\Rules\LocationRule;
 use App\Rules\ReCaptchaRule;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
@@ -38,10 +40,12 @@ class CreateNewUser implements CreatesNewUsers
         ])->validate();
 
         return DB::transaction(function () use ($input) {
+            $referral = Affiliate::where('code', Session::get('affiliate_code'))->first();
             return tap(User::create([
                 'name' => $input['name'],
                 'email' => $input['email'],
                 'password' => Hash::make($input['password']),
+                'affiliate_id' => $referral?->id
             ]), function (User $user) {
                 $this->createTeam($user);
             });

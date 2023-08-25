@@ -49,6 +49,7 @@
     @stack('modals')
 
     @livewireScripts
+<livewire:referral-interceptor/>
 <div class="fixed bottom-0 inset-x-0 pb-2 sm:pb-5">
     <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
 @if(session()->has('success'))

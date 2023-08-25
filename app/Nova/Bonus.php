@@ -5,8 +5,8 @@ namespace App\Nova;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Bonus extends Resource
@@ -33,7 +33,7 @@ class Bonus extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'user_id', 'amount', 'commission_id'
+        'id', 'user_id', 'amount', 'commission_id', 'reason'
     ];
 
     public static function indexQuery(NovaRequest $request, $query)
@@ -54,9 +54,9 @@ class Bonus extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            BelongsTo::make('User'),
+            BelongsTo::make('User')->sortable()->filterable(),
             BelongsTo::make('Commission'),
-            Number::make('Amount')
+            Currency::make('Amount')->asMinorUnits()->sortable()
         ];
     }
 

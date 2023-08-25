@@ -7,6 +7,7 @@ use App\Nova\Actions\Strike;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Gate;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Gravatar;
@@ -80,22 +81,24 @@ class User extends Resource
                 ->creationRules('unique:users,email')
                 ->updateRules('unique:users,email,{{resourceId}}'),
 
-            Boolean::make('Onboarded', 'onboarded_at')->onlyOnIndex(),
+            Boolean::make('Onboarded', 'onboarded_at')->onlyOnIndex()->sortable()->filterable(),
+            BelongsTo::make('Affiliate')->nullable()->sortable()->filterable(),
 
             Password::make('Password')
                 ->onlyOnForms()
                 ->creationRules('required', Rules\Password::defaults())
                 ->updateRules('nullable', Rules\Password::defaults()),
 
-            Text::make('Stripe Customer ID', 'stripe_id'),
-            Text::make('Stripe Account ID'),
+            Text::make('Stripe Customer ID', 'stripe_id')->hideFromIndex(),
+            Text::make('Stripe Account ID')->hideFromIndex(),
+            Text::make('Google ID')->nullable()->hideFromIndex(),
 
             HasMany::make('Roles', 'roles', 'App\Nova\Role'),
             HasMany::make('Reports', 'reports', 'App\Nova\Report'),
             HasMany::make('Strikes', 'strikes', 'App\Nova\Strike'),
             HasMany::make('Suspensions', 'suspensions', 'App\Nova\Suspension'),
-            DateTime::make('Created At')->sortable(),
-            DateTime::make('Updated At')->sortable(),
+            DateTime::make('Created At')->sortable()->filterable(),
+            DateTime::make('Updated At')->sortable()->filterable(),
             DateTime::make('Onboarded At')->nullable()->sortable()->filterable()
         ];
     }

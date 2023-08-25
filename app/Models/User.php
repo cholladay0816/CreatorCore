@@ -33,7 +33,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'affiliate_id'
     ];
 
     /**
@@ -46,6 +46,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'remember_token',
         'two_factor_recovery_codes',
         'two_factor_secret',
+        'google_id',
     ];
 
     /**
@@ -91,6 +92,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function incentives()
     {
         return $this->hasMany(Incentive::class);
+    }
+
+    public function affiliate()
+    {
+        return $this->belongsTo(Affiliate::class);
     }
 
     public function bonuses()

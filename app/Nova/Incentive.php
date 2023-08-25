@@ -5,8 +5,9 @@ namespace App\Nova;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Incentive extends Resource
@@ -54,8 +55,9 @@ class Incentive extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            BelongsTo::make('User'),
-            Number::make('Amount')
+            BelongsTo::make('User')->sortable()->filterable(),
+            Currency::make('Amount')->asMinorUnits()->sortable()->filterable(),
+            Text::make('Reason')->nullable()
         ];
     }
 
