@@ -15,6 +15,7 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\URL;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class User extends Resource
@@ -92,6 +93,7 @@ class User extends Resource
             Text::make('Stripe Customer ID', 'stripe_id')->hideFromIndex(),
             Text::make('Stripe Account ID')->hideFromIndex(),
             Text::make('Google ID')->nullable()->hideFromIndex(),
+            URL::make('Profile Photo URL')->hideFromIndex(),
 
             HasMany::make('Roles', 'roles', 'App\Nova\Role'),
             HasMany::make('Reports', 'reports', 'App\Nova\Report'),
