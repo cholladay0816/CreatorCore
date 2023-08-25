@@ -69,7 +69,7 @@ Route::put('/reviews/{review}', [\App\Http\Controllers\ReviewController::class, 
 Route::delete('/reviews/{review}', [\App\Http\Controllers\ReviewController::class, 'destroy'])
     ->name('reviews.destroy');
 
-Route::get('auth/google', [\App\Http\Controllers\GoogleController::class, 'redirectToGoogle']);
+Route::post('auth/google', [\App\Http\Controllers\GoogleController::class, 'redirectToGoogle']);
 Route::get('auth/google/callback', [\App\Http\Controllers\GoogleController::class, 'handleGoogleCallback']);
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
