@@ -23,7 +23,7 @@
         "laravel/nova": "4.23.0",
         "laravel/sail": "^1.0.1",
         "laravel/sanctum": "^3.2",
-        "laravel/socialite": "^5.1",
+        "laravel/socialite": "^5.8",
         "laravel/tinker": "^2.5",
         "league/flysystem-aws-s3-v3": "^3.0",
         "livewire/livewire": "^2.0",
