@@ -15,7 +15,11 @@
                         <span>Please verify that this profile looks correct.  You can change this information any time
                         by visiting your account profile.</span>
                         <hr class="mt-2 pb-2">
-                        <button class="bg-indigo-500 text-white px-5 py-3 rounded-lg font-bold" wire:click="onboard">Looks Good!</button>
+                        <button
+                            @if(!$creator_verified || !$creator->title)
+                                disabled
+                            @endif
+                            class="disabled:bg-gray-400 disabled:cursor-not-allowed bg-indigo-500 text-white px-5 py-3 rounded-lg font-bold" wire:click="onboard">Looks Good!</button>
                     </div>
                 </div>
             </li>

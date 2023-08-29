@@ -262,7 +262,6 @@
                             <x-agnostic-layout>
                             {{ $slot }}
                             </x-agnostic-layout>
-
                         </div>
                     </div>
 

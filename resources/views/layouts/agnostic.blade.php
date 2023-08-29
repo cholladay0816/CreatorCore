@@ -85,6 +85,7 @@
             </div>
         </div>
     </div>
+    </div>
 @endif
 @if(session()->has('error'))
     <div x-data="{error:true}">
@@ -117,6 +118,10 @@
 @endif
 </div>
 </div>
-
+@auth
+@if(!\Illuminate\Support\Facades\Session::has('feedback_dismissed'))
+    <livewire:feedback-program/>
+@endif
+@endauth
 </body>
 </html>

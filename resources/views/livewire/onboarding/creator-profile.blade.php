@@ -7,7 +7,8 @@
         @endif
         </span>
     </div>
-    <div class="px-4 py-5 sm:p-6">
+    <div class="grid grid-cols-1 px-4 py-5 sm:p-6 gap-y-2">
+        @livewire('profile.update-profile-information-form')
         @livewire('profile.creator')
     </div>
 </div>
