@@ -29,6 +29,13 @@ class Index extends Component
         Session::put($key, $value);
     }
 
+    public function skip()
+    {
+        Session::put('skip_onboarding', true);
+
+        $this->redirect(route('dashboard'));
+    }
+
     public function refresh()
     {
         $this->user = auth()->user();

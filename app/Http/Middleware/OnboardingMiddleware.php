@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class OnboardingMiddleware
 {
@@ -16,7 +17,7 @@ class OnboardingMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!auth()->user()->onboarded_at) {
+        if(is_null(auth()->user()->onboarded_at) && !Session::has('skip_onboarding')) {
             return redirect()->route('onboarding');
         }
         return $next($request);
