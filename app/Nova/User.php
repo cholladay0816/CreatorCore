@@ -93,14 +93,15 @@ class User extends Resource
             Text::make('Stripe Customer ID', 'stripe_id')->hideFromIndex(),
             Text::make('Stripe Account ID')->hideFromIndex(),
             Text::make('Google ID')->nullable()->hideFromIndex(),
-            URL::make('Profile Photo URL')->hideFromIndex(),
+            URL::make('Profile Photo URL')->exceptOnForms(),
+            URL::make('Profile Photo Path')->onlyOnForms(),
 
             HasMany::make('Roles', 'roles', 'App\Nova\Role'),
             HasMany::make('Reports', 'reports', 'App\Nova\Report'),
             HasMany::make('Strikes', 'strikes', 'App\Nova\Strike'),
             HasMany::make('Suspensions', 'suspensions', 'App\Nova\Suspension'),
-            DateTime::make('Created At')->sortable()->filterable(),
-            DateTime::make('Updated At')->sortable()->filterable(),
+            DateTime::make('Created At')->sortable()->filterable()->hideWhenCreating(),
+            DateTime::make('Updated At')->sortable()->filterable()->hideWhenUpdating(),
             DateTime::make('Onboarded At')->nullable()->sortable()->filterable()
         ];
     }
