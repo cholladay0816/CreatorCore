@@ -7,7 +7,6 @@ use Livewire\Component;
 
 class OnboardingBanner extends Component
 {
-
     public function dismiss()
     {
         Session::put('onboarding_dismissed', true);
