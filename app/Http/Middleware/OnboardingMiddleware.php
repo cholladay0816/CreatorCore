@@ -17,7 +17,7 @@ class OnboardingMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(is_null(auth()->user()->onboarded_at) && !Session::has('skip_onboarding')) {
+        if(is_null(auth()->user()->onboarded_at) && !Session::has('skip_onboarding') && !Session::has('onboarding_dismissed')) {
             return redirect()->route('onboarding');
         }
         return $next($request);
