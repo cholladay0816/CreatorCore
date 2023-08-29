@@ -41,9 +41,6 @@ Route::get('/find-a-gig', [ExploreController::class, 'commissionSearch'])
 Route::get('/explore', [ExploreController::class, 'index'])
 ->name('explore');
 
-Route::get('/onboarding', [OnboardingController::class, 'index'])
-    ->name('onboarding');
-
 Route::get('/creator/{user:name}/{page?}', [CreatorController::class, 'show'])
     ->name('creator.show');
 
@@ -73,6 +70,10 @@ Route::post('auth/google', [\App\Http\Controllers\GoogleController::class, 'redi
 Route::get('auth/google/callback', [\App\Http\Controllers\GoogleController::class, 'handleGoogleCallback']);
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+
+    Route::get('/onboarding', [OnboardingController::class, 'index'])
+        ->name('onboarding');
+
     Route::get('/reviews/create/{commission}', [\App\Http\Controllers\ReviewController::class, 'create'])
         ->name('reviews.create');
     Route::post('/reviews/create/{commission}', [\App\Http\Controllers\ReviewController::class, 'store'])
