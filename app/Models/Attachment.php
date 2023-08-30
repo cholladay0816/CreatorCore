@@ -32,7 +32,7 @@ class Attachment extends File
             return true;
         }
         if ($this->commission->isBuyer()) {
-            if (in_array($this->commission->status, ['Completed', 'Archived'])) {
+            if (in_array($this->commission->status, ['Active', 'Overdue', 'Completed', 'Archived'])) {
                 return true;
             }
         }
