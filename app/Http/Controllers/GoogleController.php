@@ -40,7 +40,8 @@ class GoogleController
                 'email' => $user->email,
                 'google_id' => $user->id,
                 'password' => '',
-                'affiliate_id' => $referral?->id
+                'affiliate_id' => $referral?->id,
+                'email_verified_at' => now()
             ]);
 
             Auth::login($newUser);
