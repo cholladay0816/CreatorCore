@@ -31,9 +31,8 @@ class CreateIncentive
         /** @var Commission $commission */
         $commission = $event->commission;
         /** @var Affiliate $affiliate */
-        $affiliate = $commission->creator->affiliate;
-
-        if(!$affiliate?->incentive_amount || !$affiliate?->uses)
+        $affiliate = $commission->creator->activeAffiliate;
+        if(!$affiliate?->incentive_amount)
         {
             return;
         }

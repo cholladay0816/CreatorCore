@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Cache;
@@ -97,6 +98,13 @@ class User extends Authenticatable implements MustVerifyEmail
     public function affiliate()
     {
         return $this->belongsTo(Affiliate::class);
+    }
+
+    public function activeAffiliate(): HasOne|Affiliate
+    {
+        return $this->hasOne(Affiliate::class)
+            ->where('expires_at', '>', now())
+            ->where('uses', '>', 0);
     }
 
     public function bonuses()
