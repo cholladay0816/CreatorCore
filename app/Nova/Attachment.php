@@ -75,8 +75,7 @@ class Attachment extends Resource
             Text::make('Slug')->readonly(true)->exceptOnForms(),
             Image::make('Image', 'path', 'do')
                 ->storeSize('size')
-            ->preview(function ($path, $disk)
-            {
+            ->preview(function ($path, $disk) {
                 return Storage::temporaryUrl($path, now()->addMinute());
             }),
             Number::make('Size')->readonly(true)->exceptOnForms(),
