@@ -104,7 +104,8 @@ class User extends Resource
             HasMany::make('Suspensions', 'suspensions', 'App\Nova\Suspension'),
             DateTime::make('Created At')->sortable()->filterable()->hideWhenCreating(),
             DateTime::make('Updated At')->sortable()->filterable()->hideWhenUpdating(),
-            DateTime::make('Onboarded At')->nullable()->sortable()->filterable()
+            DateTime::make('Onboarded At')->nullable()->sortable()->filterable(),
+            DateTime::make('Email Verified At')->nullable()->hideFromIndex(),
         ];
     }
 
