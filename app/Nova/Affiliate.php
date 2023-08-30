@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
@@ -50,9 +51,11 @@ class Affiliate extends Resource
             Text::make('Code')->required()->sortable(),
             BelongsTo::make('User')->sortable()->filterable(),
             Number::make('Uses')->default(500)->sortable()->filterable(),
+            Number::make('Percentage')->default(0)->step(0.01),
+            Currency::make('Incentive Amount')->asMinorUnits(),
             DateTime::make('Expires at')->default(now()->addMonths(3))->sortable()->filterable(),
             DateTime::make('Created at')->hideWhenCreating()->sortable()->filterable(),
-            DateTime::make('Updated at')->hideWhenCreating()->sortable()->filterable(),
+            DateTime::make('Updated at')->exceptOnForms()->sortable()->filterable(),
             DateTime::make('Deleted at')->nullable()->default(null)->hideFromIndex()->hideWhenCreating()
         ];
     }
