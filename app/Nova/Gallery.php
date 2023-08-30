@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -55,11 +56,12 @@ class Gallery extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            BelongsTo::make('User'),
-            Text::make('Slug')->showOnCreating(false),
-            Number::make('Size')->showOnCreating(false),
-            Text::make('Path')->showOnCreating(false),
-            Text::make('Url')->showOnCreating(false)
+            BelongsTo::make('User')->sortable()->filterable(),
+            Text::make('Slug')->readonly(true)->exceptOnForms(),
+            Image::make('Image', 'path', 'do_public')
+            ->storeSize('size'),
+            Number::make('Size')->readonly(true)->exceptOnForms(),
+            Text::make('Path')->readonly(true)->exceptOnForms()
         ];
     }
 

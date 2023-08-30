@@ -4,9 +4,13 @@ namespace App\Nova;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -66,11 +70,17 @@ class Attachment extends Resource
             Boolean::make('Can Be Edited', 'can_edit')->readonly(true),
             Boolean::make('Is Public', 'can_view')->readonly(true),
             BelongsTo::make('Commission', 'commission', 'App\Nova\Commission'),
-            BelongsTo::make('User', 'user', 'App\Nova\User'),
-            Text::make('Path')->required(),
-            Text::make('Type')->required(),
-            Number::make('Size')->required(),
-            Text::make('Slug')->required(),
+            HasOne::make('Review'),
+            BelongsTo::make('User')->sortable()->filterable(),
+            Text::make('Slug')->readonly(true)->exceptOnForms(),
+            Image::make('Image', 'path', 'do')
+                ->storeSize('size')
+            ->preview(function ($path, $disk)
+            {
+                return Storage::temporaryUrl($path, now()->addMinute());
+            }),
+            Number::make('Size')->readonly(true)->exceptOnForms(),
+            Text::make('Path')->readonly(true)->exceptOnForms()
         ];
     }
 

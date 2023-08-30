@@ -48,6 +48,9 @@ class File extends Model
         static::created(function ($file) {
             $file->slug = $file->getSlug();
         });
+        static::updating(function ($file) {
+            $file->slug = $file->getSlug();
+        });
         static::factory(function ($file) {
             $file->slug = str_replace(($file->identifier.'/'), '', $file->path);
         });
