@@ -6,6 +6,7 @@
     <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
         {{ $slot }}
     </div>
+    @if(request()->routeIs('login') || request()->routeIs('register'))
     <a class="mt-4 py-2 px-3">
         <script src="https://accounts.google.com/gsi/client" async defer></script>
         <div id="g_id_onload"
@@ -23,4 +24,5 @@
              data-logo_alignment="left">
         </div>
     </a>
+    @endif
 </div>
