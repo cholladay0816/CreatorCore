@@ -33,8 +33,7 @@ class CreateIncentive
         /** @var Affiliate $affiliate */
         $affiliate = $commission->creator->affiliate;
 
-        if(!$affiliate?->incentive_amount || !$affiliate?->uses)
-        {
+        if(!$affiliate?->incentive_amount || !$affiliate?->uses) {
             return;
         }
 
