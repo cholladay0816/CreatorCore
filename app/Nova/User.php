@@ -7,10 +7,10 @@ use App\Nova\Actions\Strike;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Gate;
+use Laravel\Nova\Fields\Avatar;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\DateTime;
-use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
@@ -71,7 +71,8 @@ class User extends Resource
         return [
             ID::make()->sortable(),
 
-            Gravatar::make()->maxWidth(50),
+            Avatar::make('Profile Photo', 'profile_photo_path')->disk('do_public')
+                ->aspect('aspect-square'),
 
             Text::make('Name')
                 ->sortable()
@@ -94,9 +95,6 @@ class User extends Resource
             Text::make('Stripe Customer ID', 'stripe_id')->hideFromIndex(),
             Text::make('Stripe Account ID')->hideFromIndex(),
             Text::make('Google ID')->nullable()->hideFromIndex(),
-            Image::make('Profile Photo', 'profile_photo_path', 'do_public')->onlyOnDetail(),
-            URL::make('Profile Photo URL')->exceptOnForms(),
-            Text::make('Profile Photo Path')->onlyOnForms(),
 
             HasMany::make('Roles', 'roles', 'App\Nova\Role'),
             HasMany::make('Reports', 'reports', 'App\Nova\Report'),
