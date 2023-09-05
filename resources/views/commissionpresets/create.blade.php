@@ -2,9 +2,9 @@
     <!-- This example requires Tailwind CSS v2.0+ -->
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white rounded-lg p-5 my-4">
-
-            <form action="{{ route('commissionpresets.store') }}" class="space-y-8 divide-y divide-gray-200" method="POST">
+            <form action="{{ isset($commissionPreset) ? route('commissionpresets.update', $commissionPreset) : route('commissionpresets.store') }}" class="space-y-8 divide-y divide-gray-200" method="POST">
                 @csrf
+                @method(isset($commissionPreset) ? 'PUT' : 'POST')
                 <div class="space-y-8 divide-y divide-gray-200">
                     <div>
                         <div>
@@ -22,7 +22,7 @@
                                     Title @error('title') <span class="text-red-400">[{{$message}}]</span> @enderror
                                 </label>
                                 <div class="mt-1 flex rounded-md shadow-sm">
-                                    <input value="{{ $preset->title ?? old('title') }}" type="text" name="title" id="title" autocomplete="title"
+                                    <input value="{{ $commissionPreset->title ?? old('title') }}" type="text" name="title" id="title" autocomplete="title"
                                            class="flex-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full min-w-0 rounded-md sm:text-sm
                                            @error('title')
                                                border-red-300
@@ -43,7 +43,7 @@
                                         border-red-300
                                     @enderror
                                     border-gray-300
-                                    rounded-md">{{ $preset->description ?? old('description') }}</textarea>
+                                    rounded-md">{{ $commissionPreset->description ?? old('description') }}</textarea>
                                 </div>
                                 <p class="mt-2 text-sm text-gray-500">Write a few sentences about what you offer.</p>
                             </div>
@@ -57,7 +57,7 @@
                                     <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm">
                                       $
                                     </span>
-                                        <input value="{{ $preset->price ?? old('price') ?? 5 }}" type="number" min="5" max="1000" step="0.01" name="price" id="price" autocomplete="price" class="flex-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300">
+                                        <input value="{{ $commissionPreset->price ?? old('price') ?? 5 }}" type="number" min="5" max="1000" step="0.01" name="price" id="price" autocomplete="price" class="flex-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300">
                                     </div>
                                 </div>
                             </div>
@@ -79,7 +79,7 @@
                                         Minimum days to complete order @error('days_to_complete') <span class="text-red-400">[{{$message}}]</span> @enderror
                                     </label>
                                     <div class="mt-1 flex rounded-md shadow-sm">
-                                        <input value="{{ $preset->days_to_complete ?? old('days_to_complete') ?? 7 }}" type="number" min="1" step="1" name="days_to_complete" id="days_to_complete" autocomplete="days_to_complete" class="flex-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full min-w-0 rounded-none rounded-l-md sm:text-sm border-gray-300">
+                                        <input value="{{ $commissionPreset->days_to_complete ?? old('days_to_complete') ?? 7 }}" type="number" min="1" step="1" name="days_to_complete" id="days_to_complete" autocomplete="days_to_complete" class="flex-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full min-w-0 rounded-none rounded-l-md sm:text-sm border-gray-300">
                                         <span class="inline-flex items-center px-3 rounded-r-md border border-l-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm">
                                         days
                                         </span>
