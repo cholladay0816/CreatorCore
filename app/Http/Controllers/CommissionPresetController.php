@@ -71,7 +71,7 @@ class CommissionPresetController extends Controller
      */
     public function edit(CommissionPreset $commissionPreset)
     {
-        return redirect()->to('nova/resources/commission-presets/' . $commissionPreset->id);
+        return \view('commissionpresets.create', ['commissionPreset' => $commissionPreset]);
     }
 
     /**
@@ -79,11 +79,21 @@ class CommissionPresetController extends Controller
      *
      * @param Request $request
      * @param CommissionPreset $commissionPreset
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, CommissionPreset $commissionPreset)
     {
-        //
+        $res = $this->validate($request, [
+            'title' => 'required',
+            'description' => 'required',
+            'days_to_complete' => 'required|min:1',
+            'price' => 'required|numeric|min:5|max:1000'
+        ]);
+
+        $commissionPreset->fill($res)->save();
+
+        return redirect()->to(route('creator.show', [auth()->user(), 'commissions']))
+            ->with(['success' => 'Your Commission Preset has been created!']);
     }
 
     /**
@@ -94,6 +104,13 @@ class CommissionPresetController extends Controller
      */
     public function destroy(CommissionPreset $commissionPreset)
     {
-        //
+        if($commissionPreset->user_id != auth()->id())
+        {
+            abort(403);
+        }
+        $commissionPreset->delete();
+
+        return redirect()->to(route('creator.show', [auth()->user(), 'commissions']))
+            ->with(['success' => 'Your Commission Preset has been deleted']);
     }
 }
