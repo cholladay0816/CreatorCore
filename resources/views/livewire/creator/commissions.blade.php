@@ -6,7 +6,7 @@
     @if($user->id == auth()->id())
         @livewire('preset.create')
     @elseif($user->creator->allows_custom_commissions)
-        @livewire('preset.custom', ['user' => $user])
+        @include('livewire.preset.custom')
     @endif
 </div>
 @else
