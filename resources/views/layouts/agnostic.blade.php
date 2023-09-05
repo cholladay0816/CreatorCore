@@ -56,12 +56,12 @@
 
     @livewireScripts
 <livewire:referral-interceptor/>
-<div class="fixed bottom-0 inset-x-0 pb-2 sm:pb-5">
+<div class="fixed bottom-0 inset-x-0 pb-2 sm:pb-5 pointer-events-none">
     <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
 @if(session()->has('success'))
     <div x-data="{success:true}">
     <!-- This example requires Tailwind CSS v2.0+ -->
-    <div class="rounded-md bg-green-50 p-4" x-show="success">
+    <div class="rounded-md bg-green-50 p-4 pointer-events-auto" x-show="success">
         <div class="flex">
             <div class="flex-shrink-0">
                 <!-- Heroicon name: solid/check-circle -->
@@ -90,7 +90,7 @@
 @if(session()->has('error'))
     <div x-data="{error:true}">
     <!-- This example requires Tailwind CSS v2.0+ -->
-    <div class="rounded-md bg-red-50 p-4" x-show="error">
+    <div class="rounded-md bg-red-50 p-4 pointer-events-auto" x-show="error">
         <div class="flex">
             <div class="flex-shrink-0">
                 <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
