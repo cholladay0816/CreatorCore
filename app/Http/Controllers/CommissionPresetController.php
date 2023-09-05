@@ -104,8 +104,7 @@ class CommissionPresetController extends Controller
      */
     public function destroy(CommissionPreset $commissionPreset)
     {
-        if($commissionPreset->user_id != auth()->id())
-        {
+        if($commissionPreset->user_id != auth()->id()) {
             abort(403);
         }
         $commissionPreset->delete();
