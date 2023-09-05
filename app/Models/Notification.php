@@ -12,15 +12,15 @@ class Notification extends Model
     protected $guarded = [];
     protected $dates = ['created_at', 'updated_at', 'read_at'];
 
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo|User
     {
         return $this->belongsTo(User::class);
     }
-    public function read()
+    public function read(): bool
     {
         return $this->read_at != null;
     }
-    public function getReadAttribute()
+    public function getReadAttribute(): bool
     {
         return $this->read();
     }

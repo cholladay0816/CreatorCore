@@ -12,6 +12,11 @@ class Attachment extends File
 {
     protected $identifier = 'attachments';
 
+    public static function getDisk()
+    {
+        return 'do';
+    }
+
     public function canView()
     {
         if (Gate::allows('manage-content')) {
@@ -27,7 +32,7 @@ class Attachment extends File
             return true;
         }
         if ($this->commission->isBuyer()) {
-            if (in_array($this->commission->status, ['Completed', 'Archived'])) {
+            if (in_array($this->commission->status, ['Active', 'Overdue', 'Completed', 'Archived'])) {
                 return true;
             }
         }

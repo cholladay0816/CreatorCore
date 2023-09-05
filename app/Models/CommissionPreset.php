@@ -13,6 +13,12 @@ class CommissionPreset extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'price' => 'decimal:2'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
@@ -34,7 +40,7 @@ class CommissionPreset extends Model
 
     public function getSlug()
     {
-        return Str::slug($this->id??'' . '-' . $this->title);
+        return Str::slug($this->id ?? '' . '-' . $this->title);
     }
 
     public static function booted()

@@ -18,7 +18,7 @@ class ReviewTest extends TestCase
     public function a_review_has_an_owner()
     {
         $user = User::factory()->create();
-        $review = Review::factory()->create(['user_id'=>$user->id]);
+        $review = Review::factory()->create(['user_id' => $user->id]);
 
         $this->assertEquals($review->user->id, $user->id);
     }
@@ -26,7 +26,7 @@ class ReviewTest extends TestCase
     public function a_review_has_a_commission()
     {
         $commission = Commission::factory()->create();
-        $review = Review::factory()->create(['commission_id'=>$commission->id]);
+        $review = Review::factory()->create(['commission_id' => $commission->id]);
 
         $this->assertEquals($review->commission->id, $commission->id);
     }
@@ -34,8 +34,8 @@ class ReviewTest extends TestCase
     public function a_review_can_have_an_attachment()
     {
         $commission = Commission::factory()->create();
-        $attachment = Attachment::factory()->create(['commission_id'=>$commission->id]);
-        $review = Review::factory()->create(['attachment_id'=>$attachment->id]);
+        $attachment = Attachment::factory()->create(['commission_id' => $commission->id]);
+        $review = Review::factory()->create(['attachment_id' => $attachment->id]);
         $this->assertEquals($review->attachment->id, $attachment->id);
 
         $attachment->delete();

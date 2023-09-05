@@ -14,6 +14,9 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
+    use RefreshDatabase;
+    use WithFaker;
+
     protected function tearDown(): void
     {
         $users = User::all();
@@ -30,14 +33,11 @@ abstract class TestCase extends BaseTestCase
 
         parent::tearDown();
     }
-
-    use RefreshDatabase;
-    use WithFaker;
     public function createBuyerAndSeller($payment = false)
     {
         $buyer = User::factory()->create();
         $seller = User::factory()->create();
-        $seller->creator->update(['open' => true]);
+        $seller->creator->fill(['open' => true, 'allows_custom_commissions' => true])->save();
 
         if ($payment) {
             $buyer->createOrGetStripeCustomer();
@@ -55,7 +55,7 @@ abstract class TestCase extends BaseTestCase
                     'object' => 'bank_account',
                     'country' => 'us',
                     'currency' => 'usd',
-                    'routing_number'=>'110000000',
+                    'routing_number' => '110000000',
                     'account_number' => '000123456789'
                 ],
                 'individual' => [
@@ -64,10 +64,10 @@ abstract class TestCase extends BaseTestCase
                     'ssn_last_4' => '0000',
 
                     'address' => [
-                        'city' =>'Schenectady',
-                        'line1' =>'123 State St',
+                        'city' => 'Schenectady',
+                        'line1' => '123 State St',
                         'postal_code' => '12345',
-                        'country' =>'US',
+                        'country' => 'US',
                         'state' => 'NY',
                     ],
                     'dob' => [
@@ -78,7 +78,7 @@ abstract class TestCase extends BaseTestCase
                     'email' => $seller->email,
                     'first_name' => $this->faker->firstName,
                     'last_name' => $this->faker->lastName,
-                    'gender' => (random_int(0, 1)==1?'male':'female'),
+                    'gender' => (random_int(0, 1) == 1 ? 'male' : 'female'),
                     'phone' => $this->faker->phoneNumber,
                 ],
                 'tos_acceptance' => [
@@ -101,7 +101,7 @@ abstract class TestCase extends BaseTestCase
                 'card' => [
                     'number' => '4242424242424242',
                     'exp_month' => 2,
-                    'exp_year' => 2022,
+                    'exp_year' => now()->addYears(2)->year,
                     'cvc' => '123',
                 ],
             ]);
@@ -143,7 +143,7 @@ abstract class TestCase extends BaseTestCase
                 'object' => 'bank_account',
                 'country' => 'us',
                 'currency' => 'usd',
-                'routing_number'=>'110000000',
+                'routing_number' => '110000000',
                 'account_number' => '000123456789'
             ],
             'individual' => [
@@ -152,10 +152,10 @@ abstract class TestCase extends BaseTestCase
                 'ssn_last_4' => '0000',
 
                 'address' => [
-                    'city' =>'Schenectady',
-                    'line1' =>'123 State St',
+                    'city' => 'Schenectady',
+                    'line1' => '123 State St',
                     'postal_code' => '12345',
-                    'country' =>'US',
+                    'country' => 'US',
                     'state' => 'NY',
                 ],
                 'dob' => [
@@ -166,7 +166,7 @@ abstract class TestCase extends BaseTestCase
                 'email' => $seller->email,
                 'first_name' => $this->faker->firstName,
                 'last_name' => $this->faker->lastName,
-                'gender' => (random_int(0, 1)==1?'male':'female'),
+                'gender' => (random_int(0, 1) == 1 ? 'male' : 'female'),
                 'phone' => $this->faker->phoneNumber,
             ],
             'tos_acceptance' => [
@@ -199,7 +199,7 @@ abstract class TestCase extends BaseTestCase
             'card' => [
                 'number' => '4242424242424242',
                 'exp_month' => 2,
-                'exp_year' => 2022,
+                'exp_year' => now()->addYears(2)->year,
                 'cvc' => '123',
             ],
         ]);

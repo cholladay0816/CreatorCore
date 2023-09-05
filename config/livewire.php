@@ -83,8 +83,8 @@ return [
     'temporary_file_upload' => [
         'disk' => null,        // Example: 'local', 's3'              Default: 'default'
         'rules' => ['file', 'mimes:png,jpg,jpeg,gif,bmp,svg', 'max:' . config('commission.max_file_size')],       // Example: ['file', 'mimes:png,jpg']  Default: ['required', 'file', 'max:12288'] (12MB)
-        'directory' => null,   // Example: 'tmp'                      Default  'livewire-tmp'
-        'middleware' => 'throttle:3,1',
+        'directory' => '/tmp',   // Example: 'tmp'                      Default  'livewire-tmp'
+        'middleware' => 'throttle:6,1',
         'preview_mimes' => [   // Supported file types for temporary pre-signed file URLs.
             'png', 'gif', 'bmp', 'svg', 'wav', 'mp4',
             'mov', 'avi', 'wmv', 'mp3', 'm4a',

@@ -15,7 +15,7 @@ class MessageTest extends TestCase
     public function a_message_has_a_sender()
     {
         $user = User::factory()->create();
-        $message = Message::factory()->create(['sender_id'=>$user->id]);
+        $message = Message::factory()->create(['sender_id' => $user->id]);
 
         $this->assertEquals($message->sender->id, $user->id);
     }
@@ -24,7 +24,7 @@ class MessageTest extends TestCase
     public function a_message_has_a_receiver()
     {
         $user = User::factory()->create();
-        $message = Message::factory()->create(['receiver_id'=>$user->id]);
+        $message = Message::factory()->create(['receiver_id' => $user->id]);
 
         $this->assertEquals($message->receiver->id, $user->id);
     }
@@ -33,7 +33,7 @@ class MessageTest extends TestCase
     public function a_message_has_content()
     {
         // Create a message with the content 'Test'
-        $message = Message::factory()->create(['message'=>'Test']);
+        $message = Message::factory()->create(['message' => 'Test']);
 
         // Assert this content is set
         $this->assertEquals('Test', $message->message);

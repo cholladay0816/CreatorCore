@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Cache;
@@ -12,6 +14,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Nova\Actions\Actionable;
+use Laravel\Nova\Auth\Impersonatable;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -24,13 +27,14 @@ class User extends Authenticatable implements MustVerifyEmail
     use TwoFactorAuthenticatable;
     use Billable;
     use Actionable;
+    use Impersonatable;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'affiliate_id'
     ];
 
     /**
@@ -43,6 +47,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'remember_token',
         'two_factor_recovery_codes',
         'two_factor_secret',
+        'google_id',
     ];
 
     /**
@@ -52,6 +57,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'onboarded_at' => 'datetime'
     ];
 
     /**
@@ -89,6 +95,18 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Incentive::class);
     }
 
+    public function affiliate()
+    {
+        return $this->belongsTo(Affiliate::class);
+    }
+
+    public function activeAffiliate(): HasOne|Affiliate
+    {
+        return $this->hasOne(Affiliate::class)
+            ->where('expires_at', '>', now())
+            ->where('uses', '>', 0);
+    }
+
     public function bonuses()
     {
         return $this->hasMany(Bonus::class);
@@ -96,7 +114,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function incentive()
     {
-        return $this->incentives->sum('amount') - $this->bonuses->sum('amount');
+        return $this->incentives()->sum('amount') - $this->bonuses()->sum('amount');
     }
     public function getIncentiveAttribute()
     {
@@ -109,7 +127,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
     public function suspended()
     {
-        return $this->suspensions->where('expired', '=', false)->count() > 0;
+        return $this->suspensions()->where('expires_at', '>', now())->count() > 0;
     }
     public function getSuspendedAttribute()
     {
@@ -191,6 +209,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Notification::class);
     }
+    public function getLastUnreadNotification(): HasMany|Notification|null
+    {
+        return $this->notifications()->whereNull('read_at')->orderByDesc('created_at')->first();
+    }
     public function abilities()
     {
         return $this->roles->map->abilities->flatten();
@@ -222,6 +244,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(Banner::class);
     }
 
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
+
     public function bytesUsed()
     {
         return $this->attachments->sum('size') + $this->gallery->sum('size');
@@ -229,16 +256,19 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function canAcceptPayments()
     {
-        if (config('app.env') == 'testing') {
+        if (config('app.env') == 'testing' || env('APP_ENV') == 'testing') {
             return true;
         }
         $account = $this->fetchStripeAccount();
         return (count($account->requirements->currently_due) == 0);
     }
 
-    public function canBeCommissioned()
+    public function canBeCommissioned(): bool
     {
-        return $this->canAcceptPayments() && !$this->suspended() && $this->creator->open;
+        return $this->canAcceptPayments()
+            && !$this->suspended()
+            && $this->creator->open
+            && ($this->creator->allows_custom_commissions || $this->creator->user->commissionPresets->count() > 0);
     }
 
     public function isOnboarded()

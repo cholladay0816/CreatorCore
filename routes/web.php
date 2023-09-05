@@ -30,15 +30,16 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
+
 Route::get('thank-you', function () {
     return view('thanks');
 });
 
+Route::get('/find-a-gig', [ExploreController::class, 'commissionSearch'])
+    ->name('find-a-gig');
+
 Route::get('/explore', [ExploreController::class, 'index'])
 ->name('explore');
-
-Route::get('/onboarding', [OnboardingController::class, 'index'])
-    ->name('onboarding');
 
 Route::get('/creator/{user:name}/{page?}', [CreatorController::class, 'show'])
     ->name('creator.show');
@@ -65,7 +66,14 @@ Route::put('/reviews/{review}', [\App\Http\Controllers\ReviewController::class, 
 Route::delete('/reviews/{review}', [\App\Http\Controllers\ReviewController::class, 'destroy'])
     ->name('reviews.destroy');
 
+Route::post('auth/google', [\App\Http\Controllers\GoogleController::class, 'redirectToGoogle']);
+Route::get('auth/google/callback', [\App\Http\Controllers\GoogleController::class, 'handleGoogleCallback']);
+
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+
+    Route::get('/onboarding', [OnboardingController::class, 'index'])
+        ->name('onboarding');
+
     Route::get('/reviews/create/{commission}', [\App\Http\Controllers\ReviewController::class, 'create'])
         ->name('reviews.create');
     Route::post('/reviews/create/{commission}', [\App\Http\Controllers\ReviewController::class, 'store'])
@@ -74,6 +82,12 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         ->name('ratings.create');
     Route::post('/ratings/create/{review}', [\App\Http\Controllers\RatingController::class, 'store'])
         ->name('ratings.store');
+
+    Route::resource(
+        'tickets',
+        \App\Http\Controllers\TicketController::class,
+        ['index', 'create', 'store', 'show']
+    );
 
     Route::post('/gallery', [\App\Http\Controllers\GalleryController::class, 'store'])
         ->name('gallery.store');
@@ -88,7 +102,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('/dashboard', function () {
         return view('dashboard');
-    })->name('dashboard');
+    })->name('dashboard')->middleware(\App\Http\Middleware\OnboardingMiddleware::class);
 
     Route::prefix('commissions')->group(function () {
         Route::get('/new/{user}/{commissionpreset?}', [CommissionController::class, 'create'])

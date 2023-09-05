@@ -8,8 +8,8 @@
     </x-slot>
 
     <x-slot name="form">
-        <!-- Profile Photo -->
-        @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
+        <!-- Banner @TODO -->
+        @if (false)
             <div x-data="{bannerName: null, bannerPreview: null}" class="col-span-6 sm:col-span-4">
                 <!-- Profile Photo File Input -->
                 <input type="file" class="hidden"
@@ -54,9 +54,9 @@
 
     <!-- Name -->
         <div class="col-span-6 sm:col-span-4">
-            <x-jet-label for="subtitle" value="{{ __('Subtitle') }}" />
-            <x-jet-input id="subtitle" type="text" class="mt-1 block w-full" wire:model.defer="state.title" autocomplete="subtitle" />
-            <x-jet-input-error for="subtitle" class="mt-2" />
+            <x-jet-label for="title" value="{{ __('Headline') }}" />
+            <x-jet-input id="title" type="text" class="mt-1 block w-full" wire:model.defer="state.title" autocomplete="title" />
+            <x-jet-input-error for="title" class="mt-2" />
         </div>
 
         <!-- Email -->
@@ -65,7 +65,7 @@
             <x-jet-input id="bio" type="text" class="mt-1 block w-full" wire:model.defer="state.bio" />
             <x-jet-input-error for="bio" class="mt-2" />
         </div>
-
+        @if(auth()->user()->isOnboarded())
         <!-- Commissions open -->
         <div class="col-span-6 sm:col-span-4">
             <div class="relative flex items-start">
@@ -93,6 +93,7 @@
             </div>
             <x-jet-input-error for="customs" class="mt-2" />
         </div>
+        @endif
 
     </x-slot>
 

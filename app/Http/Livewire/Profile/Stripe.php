@@ -8,6 +8,14 @@ use Stripe\Exception\ApiErrorException;
 class Stripe extends Component
 {
     public $onboarded;
+    public string|null $redirect = null;
+
+    public function mount()
+    {
+        if(is_null($this->redirect)) {
+            $this->redirect = route('profile.show');
+        }
+    }
 
     public function render()
     {
@@ -20,8 +28,8 @@ class Stripe extends Component
         $this->redirect(
             \Stripe\AccountLink::create([
                 'account' => auth()->user()->stripe_account_id,
-                'refresh_url' => route('profile.show'),
-                'return_url' => route('profile.show'),
+                'refresh_url' => $this->redirect,
+                'return_url' => $this->redirect,
                 'type' => 'account_onboarding',
             ])->url
         );

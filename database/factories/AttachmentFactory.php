@@ -25,7 +25,7 @@ class AttachmentFactory extends Factory
     {
         return [
             'user_id' => ($user = User::factory()->create())->id,
-            'commission_id' => Commission::factory()->create(['creator_id'=>$user->id])->id,
+            'commission_id' => Commission::factory()->create(['creator_id' => $user->id])->id,
             'size' => $this->faker->numberBetween(1, 1024),
             'path' => 'attachments/' . $this->faker->imageUrl(),
             'type' => 'image/png',

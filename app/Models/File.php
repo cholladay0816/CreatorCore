@@ -30,6 +30,16 @@ class File extends Model
         return $this->belongsTo(User::class);
     }
 
+    public static function getDisk()
+    {
+        return 'do_public';
+    }
+
+    public function getUrl()
+    {
+        return Storage::disk($this::getDisk())->url($this->path);
+    }
+
     public static function booted()
     {
         static::creating(function ($file) {
@@ -38,13 +48,16 @@ class File extends Model
         static::created(function ($file) {
             $file->slug = $file->getSlug();
         });
+        static::updating(function ($file) {
+            $file->slug = $file->getSlug();
+        });
         static::factory(function ($file) {
             $file->slug = str_replace(($file->identifier.'/'), '', $file->path);
         });
 
         //If the object is being deleted, remove the saved attachment.
         static::deleting(function ($file) {
-            Storage::delete($file->path);
+            Storage::disk($file::getDisk())->delete($file->path);
         });
     }
 }

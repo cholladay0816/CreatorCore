@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\Commission\Created;
 use App\Helpers\Paginator;
 use App\Models\Commission;
 use App\Models\CommissionPreset;
@@ -60,7 +61,7 @@ class CommissionController extends Controller
         if (!$user->canBeCommissioned()) {
             return abort(403);
         }
-        return view('commissions.create', compact([$user, $commissionPreset]));
+        return view('commissions.create', ['user' => $user, 'commissionPreset' => $commissionPreset]);
     }
 
     /**
@@ -89,14 +90,16 @@ class CommissionController extends Controller
         ]);
 
         $commission = new Commission($res);
-        $commission->creator_id = $user->id;
-        $commission->buyer_id = auth()->user()->id;
-        $commission->commission_preset_id = $commissionPreset;
+        $commission->fill([
+            'creator_id' => $user->id,
+            'buyer_id' => auth()->user()->id,
+            'commission_preset_id' => $commissionPreset,
+        ])->save();
 
-        $commission->save();
-
+        $commission = $commission->fresh();
+        Created::dispatch($commission);
         return redirect()
-            ->to(route('commissions.show', $commission->fresh()))
+            ->to(route('commissions.show', $commission))
             ->with(['success' => 'Commission created successfully']);
     }
 
@@ -178,7 +181,7 @@ class CommissionController extends Controller
         } elseif ($commission->status == 'Disputed') {
             if (Gate::allows('manage-users')) {
                 $commission->resolve();
-            // TODO: redirect for admin
+                // TODO: redirect for admin
             } else {
                 abort(401);
             }
@@ -234,7 +237,7 @@ class CommissionController extends Controller
         } elseif ($commission->status == 'Disputed') {
             if (Gate::allows('manage-users')) {
                 $commission->refund();
-            // TODO: redirect for admin
+                // TODO: redirect for admin
             } else {
                 abort(401);
             }

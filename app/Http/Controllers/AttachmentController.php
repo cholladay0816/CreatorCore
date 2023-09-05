@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Storage;
 
 class AttachmentController extends Controller
 {
-
     /**
      * Display the specified resource.
      *
@@ -22,6 +21,6 @@ class AttachmentController extends Controller
      */
     public function show(Attachment $attachment)
     {
-        return response(Storage::get($attachment->path), '200', ["Content-Type"=>$attachment->type]);
+        return response(Storage::get($attachment->path), '200', ["Content-Type" => $attachment->type]);
     }
 }

@@ -1,7 +1,4 @@
 <x-app-layout>
-    <div>
-        Export
-    </div>
     @if($commissions->count() > 0)
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 my-4">
         <div class="bg-white shadow overflow-hidden sm:rounded-md">
@@ -85,11 +82,19 @@
             </ul>
         </div>
     </div>
-    @else
+    @elseif(request()->routeIs('commissions.orders'))
         <div class="w-full min-h-screen flex">
             <div class="flex mx-auto my-auto ">
                 <span class="text-gray-400">
                 No orders yet, would you like to  <a href="{{ route('explore') }}" class="text-sky-400"> explore creators</a>?
+                </span>
+            </div>
+        </div>
+        @else
+        <div class="w-full min-h-screen flex">
+            <div class="flex mx-auto my-auto ">
+                <span class="text-gray-400">
+                No commissions yet, would you like to <a href="{{ route('profile.show') }}" class="text-sky-400"> edit your profile</a>?
                 </span>
             </div>
         </div>

@@ -12,7 +12,7 @@
         <meta property='og:image' content='{{ asset('img/logos/primary-logo.png') }}'/>
         <meta name="keywords" content="CreatorCore, creator-core, Commission, Artist, Art, Creator, Digital Art, Holladay Digital, Digital, Holladay">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'CreatorCore') }}</title>
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
@@ -23,6 +23,17 @@
 
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11311108656"></script>
+        @if(config('app.env') === 'production')
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', 'AW-11311108656');
+            </script>
+        @endif
+
     </head>
     <body>
         <div class="font-sans text-gray-900 antialiased">
@@ -31,5 +42,6 @@
         @stack('modals')
 
         @livewireScripts
+        <livewire:referral-interceptor/>
     </body>
 </html>
