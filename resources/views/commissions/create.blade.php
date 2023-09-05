@@ -7,14 +7,15 @@
 
                 <div class="block">
                     <x-jet-label for="title" value="{{ __('Title') }}"/>
-                    <x-jet-input id="title" type="text" name="title" :value="old('title')" required autofocus
+                    <x-jet-input id="title" type="text"
+                                 name="title" value="{{isset($commissionPreset) ? $commissionPreset->title : old('title')}}" required autofocus
                                  class="block mt-1 w-full"
                     />
                     <x-jet-input-error for="title"/>
                 </div>
                 <div class="block">
                     <x-jet-label for="description" value="{{ __('Description') }}"/>
-                    <x-inputs.textarea id="description" rows="3" name="description" :value="old('description')" required
+                    <x-inputs.textarea id="description" rows="3" name="description" value="{{isset($commissionPreset) ? $commissionPreset->description : old('description')}}" required
                                        autofocus
                                        class="block mt-1 w-full"
                     />
@@ -35,7 +36,7 @@
                             $
                           </span>
                         </div>
-                        <x-jet-input type="number" step="0.01" min="5" max="1000" name="price" :value="old('price')??5" class="block w-full pl-7 pr-12 border-gray-300 rounded-md" placeholder="0.00" aria-describedby="price-currency"/>
+                        <x-jet-input type="number" step="0.01" min="5" max="1000" name="price" value="{{(isset($commissionPreset) ? $commissionPreset->price :old('price')) ?? 5 }}" class="block w-full pl-7 pr-12 border-gray-300 rounded-md" placeholder="0.00" aria-describedby="price-currency"/>
                         <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                           <span class="text-gray-500 sm:text-sm" id="price-currency">
                             USD
@@ -46,7 +47,7 @@
                 </div>
                 <div class="block">
                     <x-jet-label for="days_to_complete" value="{{ __('Days to Complete') }}"/>
-                    <x-jet-input id="days_to_complete" min="1" type="number" name="days_to_complete" :value="old('days_to_complete')??7"
+                    <x-jet-input id="days_to_complete" min="1" type="number" name="days_to_complete" value="{{ (isset($commissionPreset) ? $commissionPreset->days_to_complete :old('days_to_complete')) ?? 7 }}"
                                  required autofocus
                                  class="block mt-1 w-full"
                     />

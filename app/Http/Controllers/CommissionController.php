@@ -53,7 +53,7 @@ class CommissionController extends Controller
      * @param CommissionPreset|null $commissionPreset
      * @return Application|Factory|View|Response
      */
-    public function create(User $user, CommissionPreset $commissionPreset = null)
+    public function create(User $user, CommissionPreset|null $commissionPreset = null)
     {
         if ($user->id == auth()->id()) {
             return redirect()->back()->with(['error' => 'You can\'t commission yourself!']);

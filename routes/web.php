@@ -105,9 +105,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     })->name('dashboard')->middleware(\App\Http\Middleware\OnboardingMiddleware::class);
 
     Route::prefix('commissions')->group(function () {
-        Route::get('/new/{user}/{commissionpreset?}', [CommissionController::class, 'create'])
+        Route::get('/new/{user}/{commissionPreset?}', [CommissionController::class, 'create'])
             ->name('commissions.create');
-        Route::post('/new/{user}/{commissionpreset?}', [CommissionController::class, 'store'])
+        Route::post('/new/{user}/{commissionPreset?}', [CommissionController::class, 'store'])
             ->name('commissions.store');
         Route::get('/{commission}/checkout', [CommissionController::class, 'checkout'])
             ->middleware('commissions.canview')
