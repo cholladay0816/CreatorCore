@@ -246,8 +246,6 @@ class Commission extends Model
                 if($preset) {
                     $commission->title = $preset->title;
                     $commission->description = $preset->description;
-                    $commission->price = $preset->price;
-                    $commission->days_to_complete = $preset->days_to_complete;
                 }
             }
             $commission->slug = $commission->getSlug();
