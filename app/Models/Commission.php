@@ -242,11 +242,13 @@ class Commission extends Model
     {
         self::creating(function ($commission) {
             if ($commission->commission_preset_id != null) {
-                $preset = $commission->preset;
-                $commission->title = $preset->title;
-                $commission->description = $preset->description;
-                $commission->price = $preset->price;
-                $commission->days_to_complete = $preset->days_to_complete;
+                $preset = CommissionPreset::find($commission->commission_preset_id);
+                if($preset) {
+                    $commission->title = $preset->title;
+                    $commission->description = $preset->description;
+                    $commission->price = $preset->price;
+                    $commission->days_to_complete = $preset->days_to_complete;
+                }
             }
             $commission->slug = $commission->getSlug();
         });
