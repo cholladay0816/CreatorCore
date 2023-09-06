@@ -83,10 +83,10 @@ class CommissionController extends Controller
             'description' => 'required',
             'memo' => 'required|max:2048',
             'price' => 'required|numeric|max:1000|min:'
-                .($commissionPreset ? $commissionPreset->price : '5'),
+                .($commissionPreset?->price ?? '5'),
 
             'days_to_complete' => 'required|integer|min:'
-                .($commissionPreset ? $commissionPreset->days_to_complete : '1'),
+                .($commissionPreset?->days_to_complete ?? '1'),
         ]);
 
         $commission = new Commission($res);
