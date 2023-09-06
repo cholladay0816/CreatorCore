@@ -37,6 +37,8 @@ class CommissionEvent extends Resource
         'status'
     ];
 
+    public static $group = 'orders';
+
     /**
      * Get the fields displayed by the resource.
      *
@@ -51,8 +53,8 @@ class CommissionEvent extends Resource
             BelongsTo::make('Commission')->sortable()->filterable(),
             Text::make('Status')->sortable()->filterable(),
             Text::make('Color'),
-            DateTime::make('Created At')->sortable()->hideWhenCreating(),
-            DateTime::make('Updated At')->hideFromIndex()->exceptOnForms()
+            DateTime::make('Created At')->sortable()->onlyOnDetail(),
+            DateTime::make('Updated At')->onlyOnDetail()
         ];
     }
 

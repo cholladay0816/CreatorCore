@@ -53,11 +53,11 @@ class CommissionMessage extends Resource
                 ->required()
                 ->maxlength(4096),
             DateTime::make('Created At')->default(now())
-            ->hideWhenCreating(),
+            ->onlyOnDetail(),
             DateTime::make('Updated At')->default(now())
-            ->hideWhenCreating(),
+            ->onlyOnDetail(),
             DateTime::make('Deleted At')->nullable()
-            ->hideWhenCreating()
+            ->onlyOnDetail()
         ];
     }
 
