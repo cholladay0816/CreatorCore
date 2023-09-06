@@ -72,7 +72,7 @@ class CommissionController extends Controller
      * @param CommissionPreset|null $commissionPreset
      * @return RedirectResponse
      */
-    public function store(Request $request, User $user, CommissionPreset $commissionPreset = null): RedirectResponse
+    public function store(Request $request, User $user, CommissionPreset|null $commissionPreset = null): RedirectResponse
     {
         if (!$user->canBeCommissioned()) {
             return abort(403);
@@ -93,7 +93,7 @@ class CommissionController extends Controller
         $commission->fill([
             'creator_id' => $user->id,
             'buyer_id' => auth()->user()->id,
-            'commission_preset_id' => $commissionPreset,
+            'commission_preset_id' => $commissionPreset?->id,
         ])->save();
 
         $commission = $commission->fresh();
