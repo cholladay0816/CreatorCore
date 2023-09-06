@@ -41,7 +41,7 @@
                             </div>
                             <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
                                 <div>
-                                    <p class="text-sm text-gray-500">{{$event->message}}</p>
+                                    <p class="text-sm text-gray-500">{!! nl2br(e($event->message)) !!}</p>
                                 </div>
                                 <div class="text-right text-sm whitespace-nowrap text-gray-500">
                                     <time datetime="{{$event->created_at}}">{{(new \Illuminate\Support\Carbon($event->created_at))->timezone('America/Chicago')->format("M d [h:i A]")}}</time>
