@@ -14,6 +14,8 @@ class TrustHosts extends Middleware
     public function hosts()
     {
         return [
+            'billing.stripe.com',
+            'stripe.com',
             $this->allSubdomainsOfApplicationUrl(),
         ];
     }
