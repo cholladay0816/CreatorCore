@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class CommissionMessage extends Resource
@@ -48,7 +48,10 @@ class CommissionMessage extends Resource
             ID::make()->sortable(),
             BelongsTo::make('Commission'),
             BelongsTo::make('User'),
-            Text::make('Message')->required()->maxlength(256),
+            Textarea::make('Message')
+                ->hideFromIndex()
+                ->required()
+                ->maxlength(4096),
             DateTime::make('Created At')->default(now())
             ->hideWhenCreating(),
             DateTime::make('Updated At')->default(now())
