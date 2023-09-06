@@ -28,9 +28,9 @@ class Creator extends Model
         return $this->hasMany(CommissionPreset::class, 'user_id', 'user_id');
     }
 
-    public function banner_url(): string|null {
-        if(is_null($this->banner_path))
-        {
+    public function banner_url(): string|null
+    {
+        if(is_null($this->banner_path)) {
             return null;
         }
 
