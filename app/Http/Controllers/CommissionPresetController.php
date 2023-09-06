@@ -83,8 +83,7 @@ class CommissionPresetController extends Controller
      */
     public function update(Request $request, CommissionPreset $commissionPreset)
     {
-        if($commissionPreset->user_id != auth()->id())
-        {
+        if($commissionPreset->user_id != auth()->id()) {
             abort(403);
         }
         $res = $this->validate($request, [
