@@ -22,7 +22,7 @@ class History extends Component
     public function refresh()
     {
         $this->commission = $this->commission->fresh();
-        $this->events = $this->commission->messages->merge($this->commission->events)
+        $this->events = $this->commission->messages->concat($this->commission->events)
             ->sortBy('created_at')
             ->values()
             ->all();
