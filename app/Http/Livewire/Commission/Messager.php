@@ -12,7 +12,7 @@ class Messager extends Component
     public Commission $commission;
     public string $message;
     public array $rules = [
-        'message' => 'required|max:256'
+        'message' => 'required|max:2048'
     ];
     public function render()
     {
