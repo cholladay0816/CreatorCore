@@ -1,7 +1,7 @@
 <li class="relative">
     <div class="group block w-full aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-sky-500 overflow-hidden">
-        <img src="{{route('gallery.show', $gallery)}}" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
-        <a target="_blank" href="{{route('gallery.show', $gallery)}}" class="absolute inset-0 focus:outline-none">
+        <img src="{{ $gallery->getUrl() }}" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
+        <a target="_blank" href="{{ $gallery->getUrl() }}" class="absolute inset-0 focus:outline-none">
             <span class="sr-only">View details for {{ $gallery->getSlug() }}</span>
         </a>
     </div>

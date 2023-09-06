@@ -78,8 +78,8 @@ return [
             'use_path_style_endpoint' => env('DO_USE_PATH_STYLE_ENDPOINT', false),
             'root' => env('DO_FOLDER') . '/public',
             'visibility' => 'public',
-        ],
-
+            'options' => ['CacheControl' => 'max-age=604800, public']
+            ],
     ],
 
     /*

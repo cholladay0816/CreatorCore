@@ -10,4 +10,10 @@ use Illuminate\Support\Str;
 class Gallery extends File
 {
     protected $identifier = 'gallery';
+
+
+    public function getUrl()
+    {
+        return Storage::url($this->path);
+    }
 }
