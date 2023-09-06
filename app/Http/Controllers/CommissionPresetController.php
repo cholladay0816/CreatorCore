@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 
 class CommissionPresetController extends Controller
 {
@@ -43,11 +44,20 @@ class CommissionPresetController extends Controller
             'title' => 'required',
             'description' => 'required',
             'days_to_complete' => 'required|min:1',
-            'price' => 'required|numeric|min:5|max:1000'
+            'price' => 'required|numeric|min:5|max:1000',
+            'image' => CommissionPreset::$IMAGE_RULES
         ]);
-        $preset = CommissionPreset::make($res);
-        $preset->user_id = auth()->id();
-        $preset->save();
+        $commissionPreset = CommissionPreset::create([
+            'user_id' => auth()->id(),
+            'title' => $res['title'],
+            'description' => $res['description'],
+            'days_to_complete' => $res['days_to_complete'],
+            'price' => $res['price']
+        ]);
+        # Optional File Upload
+        $res = $request->image->store('commission-presets', 'do_public');
+        $commissionPreset->forceFill(['image_path' => $res])->save();
+
         return redirect()->to(route('creator.show', [auth()->user(), 'commissions']))
             ->with(['success' => 'Your Commission Preset has been created!']);
     }
@@ -90,13 +100,23 @@ class CommissionPresetController extends Controller
             'title' => 'required',
             'description' => 'required',
             'days_to_complete' => 'required|min:1',
-            'price' => 'required|numeric|min:5|max:1000'
+            'price' => 'required|numeric|min:5|max:1000',
+            'image' => CommissionPreset::$IMAGE_RULES
         ]);
 
-        $commissionPreset->fill($res)->save();
+        $commissionPreset->fill([
+            'title' => $res['title'],
+            'description' => $res['description'],
+            'days_to_complete' => $res['days_to_complete'],
+            'price' => $res['price']
+        ])->save();
+
+        # Optional File Upload
+        $res = $request->image->store('commission-presets', 'do_public');
+        $commissionPreset->forceFill(['image_path' => $res])->save();
 
         return redirect()->to(route('creator.show', [auth()->user(), 'commissions']))
-            ->with(['success' => 'Your Commission Preset has been created!']);
+            ->with(['success' => 'Your Commission Preset has been updated']);
     }
 
     /**

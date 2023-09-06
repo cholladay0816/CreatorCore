@@ -13,7 +13,7 @@ class CommissionPreset extends Model
 
     protected $guarded = [];
 
-    public static $IMAGE_RULES = ['image','max:10240'];
+    public static $IMAGE_RULES = ['nullable', 'image','max:10240'];
 
     protected $casts = [
         'created_at' => 'datetime',
@@ -52,7 +52,7 @@ class CommissionPreset extends Model
 
     public function getSlug()
     {
-        return Str::slug($this->id ?? '' . '-' . $this->title);
+        return Str::slug($this->id ?? ($this->user_id . '-' . now()->format('mdY-Hi')). '-' . $this->title);
     }
 
     public static function booted()
@@ -62,6 +62,15 @@ class CommissionPreset extends Model
         });
         static::created(function ($preset) {
             $preset->slug = $preset->getSlug();
+        });
+        static::updating(function($preset) {
+            if($preset->isDirty('image_path'))
+            {
+                Storage::delete($preset->getOriginal('image_path'));
+            }
+        });
+        static::deleting(function($preset) {
+            Storage::delete($preset->image_path);
         });
         static::factory(function ($preset) {
             $preset->slug = $preset->getSlug();
