@@ -244,7 +244,6 @@ class Commission extends Model
             if ($commission->commission_preset_id != null) {
                 $preset = CommissionPreset::where('id', $commission->commission_preset_id)->first();
                 if($preset) {
-                    dd($preset);
                     $commission->title = $preset->title;
                     $commission->description = $preset->description;
                     $commission->price = $preset->price;
