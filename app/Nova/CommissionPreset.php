@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
@@ -64,6 +65,8 @@ class CommissionPreset extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
             BelongsTo::make('Creator', 'user', '\App\Nova\User')->required(),
+            Image::make('Image', 'image_path')->disk('do_public')
+            ->rules(\App\Models\CommissionPreset::$IMAGE_RULES),
             Text::make('Title')->required(),
             Trix::make('Description')->required(),
             Currency::make('Price')

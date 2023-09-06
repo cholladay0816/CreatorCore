@@ -1,6 +1,6 @@
 
-<div class="max-w-sm rounded overflow-hidden shadow-lg mx-auto">
-    <a href="{{ $url }}"><img class="w-full" src="https://tailwindcss.com/img/card-top.jpg" alt="Sunset in the mountains"></a>
+<div class="max-w-sm rounded overflow-hidden shadow-lg mx-auto w-full">
+    <a target="_blank" href="{{ $preset->image_url() ?? $url }}"><img class="w-full object-cover h-64" src="{{ $preset->image_url() ?? 'https://tailwindcss.com/img/card-top.jpg' }}" alt="Sunset in the mountains"></a>
     <div class="px-6 py-4">
         <a href="{{ $url }}" class="font-bold text-xl mb-2 break-words">[${{$preset->price}}]
             {{$preset->title}}

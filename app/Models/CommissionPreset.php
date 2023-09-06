@@ -13,11 +13,23 @@ class CommissionPreset extends Model
 
     protected $guarded = [];
 
+    public static $IMAGE_RULES = ['image','max:10240'];
+
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'price' => 'decimal:2'
     ];
+
+    public function image_url()
+    {
+        if(is_null($this->image_path))
+        {
+            return null;
+        }
+
+        return Storage::url($this->image_path);
+    }
 
     public function user()
     {
