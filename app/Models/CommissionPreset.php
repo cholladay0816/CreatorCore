@@ -62,13 +62,12 @@ class CommissionPreset extends Model
         static::created(function ($preset) {
             $preset->slug = $preset->getSlug();
         });
-        static::updating(function($preset) {
-            if($preset->isDirty('image_path'))
-            {
+        static::updating(function ($preset) {
+            if($preset->isDirty('image_path')) {
                 Storage::delete($preset->getOriginal('image_path'));
             }
         });
-        static::deleting(function($preset) {
+        static::deleting(function ($preset) {
             Storage::delete($preset->image_path);
         });
         static::factory(function ($preset) {
