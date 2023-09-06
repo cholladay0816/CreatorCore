@@ -296,7 +296,6 @@ class Commission extends Model
         // TODO: send notifications
         Mail::to($this->buyer->email)->queue(new Accepted($this));
         $this->status = 'Purchasing';
-        $this->expires_at = now()->addDays($this->days_to_complete);
         $this->save();
         CommissionEvent::create(
             [
@@ -419,6 +418,7 @@ class Commission extends Model
         Log::info('Charge succeeded for commission #' . $this->id);
         // TODO: send notifications
         $this->status = 'Active';
+        $this->expires_at = now()->addDays($this->days_to_complete);
         $this->save();
 
         CommissionEvent::create(
