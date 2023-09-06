@@ -23,8 +23,7 @@ class CommissionPreset extends Model
 
     public function image_url()
     {
-        if(is_null($this->image_path))
-        {
+        if(is_null($this->image_path)) {
             return null;
         }
 
