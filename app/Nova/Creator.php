@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -56,8 +57,9 @@ class Creator extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
             BelongsTo::make('User', 'user', 'App\Nova\User'),
-            Text::make('Title')->required(),
-            Text::make('Headline')->required(),
+            Text::make('Title')->nullable(),
+            Text::make('Headline')->nullable(),
+            Image::make('Banner', 'banner_path')->disk('do_public')->nullable()->hideFromIndex(),
             Boolean::make('Open')->default(0),
             Boolean::make('Allow Custom Commissions', 'allows_custom_commissions')->default(0),
         ];
