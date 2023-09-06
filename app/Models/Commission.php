@@ -242,8 +242,9 @@ class Commission extends Model
     {
         self::creating(function ($commission) {
             if ($commission->commission_preset_id != null) {
-                $preset = CommissionPreset::find($commission->commission_preset_id);
+                $preset = CommissionPreset::where('id', $commission->commission_preset_id)->first();
                 if($preset) {
+                    dd($preset);
                     $commission->title = $preset->title;
                     $commission->description = $preset->description;
                     $commission->price = $preset->price;
