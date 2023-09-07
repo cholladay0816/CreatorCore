@@ -114,9 +114,10 @@ class CommissionPresetController extends Controller
         ])->save();
 
         # Optional File Upload
-        $res = $request->image->store('commission-presets', 'do_public');
-        $commissionPreset->forceFill(['image_path' => $res])->save();
-
+        if($request->image) {
+            $res = $request->image->store('commission-presets', 'do_public');
+            $commissionPreset->forceFill(['image_path' => $res])->save();
+        }
         return redirect()->to(route('creator.show', [auth()->user(), 'commissions']))
             ->with(['success' => 'Your Commission Preset has been updated']);
     }

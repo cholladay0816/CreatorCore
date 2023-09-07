@@ -68,7 +68,9 @@ class CommissionPreset extends Model
             }
         });
         static::deleting(function ($preset) {
-            Storage::delete($preset->image_path);
+            if(!is_null($preset->image_path)) {
+                Storage::delete($preset->image_path);
+            }
         });
         static::factory(function ($preset) {
             $preset->slug = $preset->getSlug();

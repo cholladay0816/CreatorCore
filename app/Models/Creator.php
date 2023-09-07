@@ -53,7 +53,9 @@ class Creator extends Model
             }
         });
         static::deleting(function ($creator) {
-            Storage::delete($creator->banner_path);
+            if(!is_null($creator->banner_path)) {
+                Storage::delete($creator->banner_path);
+            }
         });
     }
 }
