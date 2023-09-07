@@ -3,15 +3,27 @@
 namespace App\Http\Livewire\Profile;
 
 use App\Contracts\UpdatesCreatorInformation;
+use App\Models\CommissionPreset;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
 use Livewire\Component;
+use Livewire\TemporaryUploadedFile;
+use Livewire\WithFileUploads;
 
 class Creator extends Component
 {
+    use WithFileUploads;
     public $creator;
 
     public $user;
+
+    public bool $uploading = false;
+
+    public $listeners = [
+        'updatedCurrentPath' => 'handleUpdatedCurrentPath',
+        'uploadedImage' => 'handleImageUpload',
+        'uploading' => 'handleUploading'
+    ];
 
     /**
      * The component's state.
@@ -20,11 +32,7 @@ class Creator extends Component
      */
     public $state = [];
 
-    /**
-     * The new banner for the creator.
-     *
-     * @var mixed
-     */
+
     public $banner;
 
     public function mount()
@@ -40,23 +48,35 @@ class Creator extends Component
         $this->state = $this->creator->withoutRelations()->toArray();
     }
 
+    public function handleUploading($uploading)
+    {
+        $this->uploading = $uploading;
+    }
+
+    public function handleUpdatedCurrentPath($path) {
+        $this->creator->fill(['banner_path' => $path])->save();
+    }
+
     /**
-     * Update the user's profile information.
+     * Update the user's creator information.
      *
      * @return void
      */
     public function updateCreatorInformation()
     {
         $this->resetErrorBag();
-
-        Auth::user()->creator->update(
-            $this->banner
-                ? array_merge($this->state, ['banner' => $this->banner])
-                : $this->state
-        );
-
-        if (isset($this->banner)) {
-            return redirect()->route('profile.show');
+        if(!is_null($this->banner)) {
+            $path = $this->banner->storePublicly('/banners');
+            Auth::user()->creator->update(
+                $this->banner
+                    ? array_merge($this->state, ['banner_path' => $path])
+                    : $this->state
+            );
+        }
+        else {
+            Auth::user()->creator->update(
+                $this->state
+            );
         }
 
         $this->emit('saved');
@@ -65,7 +85,7 @@ class Creator extends Component
     }
 
     /**
-     * Delete user's profile photo.
+     * Delete user's banner photo.
      *
      * @return void
      */
@@ -74,6 +94,12 @@ class Creator extends Component
         $this->creator->deleteBanner();
 
         $this->emit('refresh-navigation-menu');
+    }
+
+    public function handleImageUpload($image)
+    {
+        // Update banner object
+        $this->banner = new TemporaryUploadedFile($image, 'do_public');
     }
 
     /**

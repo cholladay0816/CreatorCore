@@ -59,7 +59,7 @@ class Creator extends Resource
             BelongsTo::make('User', 'user', 'App\Nova\User'),
             Text::make('Title')->nullable(),
             Text::make('Headline')->nullable(),
-            Image::make('Banner', 'banner_path')->disk('do_public')->nullable()->hideFromIndex(),
+            Image::make('Banner', 'banner_path')->disk('do_public')->path('/banners')->nullable()->hideFromIndex(),
             Boolean::make('Open')->default(0),
             Boolean::make('Allow Custom Commissions', 'allows_custom_commissions')->default(0),
         ];
