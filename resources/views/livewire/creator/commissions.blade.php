@@ -1,4 +1,4 @@
-@if($user->canBeCommissioned())
+@if($user->canBeCommissioned(false))
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-10">
     @foreach($user->commissionPresets as $preset)
         @livewire('preset.card', ['preset' => $preset, 'url' => $user->id == auth()->id() ? route('commissionpresets.edit', $preset) : route('commissions.create', [$user, $preset])])

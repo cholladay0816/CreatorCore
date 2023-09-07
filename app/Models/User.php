@@ -272,12 +272,12 @@ class User extends Authenticatable implements MustVerifyEmail
         return (count($account->requirements->currently_due) == 0);
     }
 
-    public function canBeCommissioned(): bool
+    public function canBeCommissioned(bool $requireCommission = true): bool
     {
         return $this->canAcceptPayments()
             && !$this->suspended()
             && $this->creator->open
-            && ($this->creator->allows_custom_commissions || $this->creator->user->commissionPresets->count() > 0);
+            && ($this->creator->allows_custom_commissions || (!$requireCommission || $this->creator->user->commissionPresets->count() > 0));
     }
 
     public function isOnboarded()
