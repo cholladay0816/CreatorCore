@@ -53,6 +53,12 @@ class SitemapController extends Controller
                     'priority' => '0.9'
                 ],
                 [
+                    'path' => route('password.request'),
+                    'lastmod' => now()->firstOfYear()->toDateString(),
+                    'changefreq' => 'yearly',
+                    'priority' => '0.8'
+                ],
+                [
                     'path' => route('terms.show'),
                     'lastmod' => now()->firstOfMonth()->toDateString(),
                     'changefreq' => 'monthly',
