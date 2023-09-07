@@ -16,7 +16,7 @@ class SitemapController extends Controller
             $creators = User::getExploreCreatorQuery()->get()->map(function($user) {
                 return [
                     'path' => route('creator.show', $user),
-                    'lastmod' => now()->firstOfMonth(),
+                    'lastmod' => today()->firstOfMonth()->toDateString(),
                     'changefreq' => 'weekly',
                     'priority' => $user?->rating ?? '0.5'
                 ];
@@ -24,43 +24,43 @@ class SitemapController extends Controller
             return collect([
                 [
                     'path' => url('/'),
-                    'lastmod' => now()->firstOfYear(),
+                    'lastmod' => now()->firstOfYear()->toDateString(),
                     'changefreq' => 'yearly',
                     'priority' => '1'
                 ],
                 [
                     'path' => url('thank-you'),
-                    'lastmod' => now()->firstOfYear(),
+                    'lastmod' => now()->firstOfYear()->toDateString(),
                     'changefreq' => 'yearly',
                     'priority' => '0.9'
                 ],
                 [
                     'path' => route('explore'),
-                    'lastmod' => now()->firstOfMonth(),
+                    'lastmod' => now()->firstOfMonth()->toDateString(),
                     'changefreq' => 'weekly',
                     'priority' => '0.9'
                 ],
                 [
                     'path' => route('login'),
-                    'lastmod' => now()->firstOfYear(),
+                    'lastmod' => now()->firstOfYear()->toDateString(),
                     'changefreq' => 'yearly',
                     'priority' => '0.9'
                 ],
                 [
                     'path' => route('register'),
-                    'lastmod' => now()->firstOfYear(),
+                    'lastmod' => now()->firstOfYear()->toDateString(),
                     'changefreq' => 'yearly',
                     'priority' => '0.9'
                 ],
                 [
                     'path' => route('terms.show'),
-                    'lastmod' => now()->firstOfMonth(),
+                    'lastmod' => now()->firstOfMonth()->toDateString(),
                     'changefreq' => 'monthly',
                     'priority' => '0.9'
                 ],
                 [
                     'path' => url('privacy-policy'),
-                    'lastmod' => now()->firstOfMonth(),
+                    'lastmod' => now()->firstOfMonth()->toDateString(),
                     'changefreq' => 'monthly',
                     'priority' => '0.9'
                 ]
