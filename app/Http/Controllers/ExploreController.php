@@ -10,11 +10,8 @@ class ExploreController extends Controller
 {
     public function index()
     {
-        $users = User::with('creator')
-            ->whereHas('creator', function ($creator) {
-                $creator->where('open', 1)
-                    ->whereHas('commissionPresets');
-            })->paginate(16);
+        $users = User::getExploreCreatorQuery()
+            ->paginate(16);
 
         return view(
             'explore.index',

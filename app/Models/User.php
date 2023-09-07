@@ -79,6 +79,15 @@ class User extends Authenticatable implements MustVerifyEmail
         return 'name';
     }
 
+    public static function getExploreCreatorQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        return User::with('creator')
+                ->whereHas('creator', function ($creator) {
+                    $creator->where('open', 1)
+                        ->whereHas('commissionPresets');
+                });
+    }
+
     public function commissionPresets()
     {
         return $this->hasMany(CommissionPreset::class);
