@@ -40,7 +40,8 @@ class ImageUpload extends Component
         $this->emitUp('uploading', false);
     }
 
-    public function deleteImage() {
+    public function deleteImage()
+    {
         if($this->current_path) {
             Storage::disk($this->disk ?? 'do_public')->delete($this->current_path);
         }

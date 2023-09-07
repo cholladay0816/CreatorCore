@@ -37,7 +37,8 @@ class Creator extends Model
         return Storage::url($this->banner_path);
     }
 
-    public function deleteBanner() {
+    public function deleteBanner()
+    {
 
         Storage::delete($this->banner_path);
 
