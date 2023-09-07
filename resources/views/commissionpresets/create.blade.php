@@ -101,7 +101,7 @@
                             <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
                                 <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
                                     @include('livewire.image-upload', [
-                                        'current_url' => $commissionPreset?->image_url(),
+                                        'current_url' => isset($commissionPreset) ? $commissionPreset?->image_url() : null,
                                         'title' => 'Cover photo',
                                         'name' => 'image'
                                     ])
