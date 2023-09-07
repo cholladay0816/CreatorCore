@@ -53,7 +53,8 @@ class Creator extends Component
         $this->uploading = $uploading;
     }
 
-    public function handleUpdatedCurrentPath($path) {
+    public function handleUpdatedCurrentPath($path)
+    {
         $this->creator->fill(['banner_path' => $path])->save();
     }
 
@@ -72,8 +73,7 @@ class Creator extends Component
                     ? array_merge($this->state, ['banner_path' => $path])
                     : $this->state
             );
-        }
-        else {
+        } else {
             Auth::user()->creator->update(
                 $this->state
             );
