@@ -1,4 +1,5 @@
 <x-agnostic-layout>
+    @section('description', 'CreatorCore is a commission-based service for digital artists to make money doing what they love.')
     <div class="bg-white" x-data="{ solutions:false, open:false }">
         <main class="mt-12">
             <!-- Hero section -->

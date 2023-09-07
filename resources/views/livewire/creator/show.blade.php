@@ -1,4 +1,7 @@
 <x-agnostic-layout>
+    @section('title', $user->name . ' - ')
+    @section('image', $user->profile_photo_url)
+    @section('description', $user->creator->title)
 <div class="profile-page">
     <section class="relative block" style="height: 500px;">
         <div
