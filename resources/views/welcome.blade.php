@@ -62,25 +62,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="mt-8 border-t border-gray-200 pt-6">
-                                <blockquote>
-                                    <div>
-                                        <p class="text-base text-gray-500">
-                                            &ldquo;CreatorCore is incredibly effective for tracking my commissions!&rdquo;
-                                        </p>
-                                    </div>
-                                    <footer class="mt-3">
-                                        <div class="flex items-center space-x-3">
-                                            <div class="flex-shrink-0">
-                                                <img class="h-6 w-6 rounded-full" src="https://www.cholladayprojects.com/img/profile_picture.png" alt="">
-                                            </div>
-                                            <div class="text-base font-medium text-gray-700">
-                                                Christian Holladay, lead developer of the website you're on right now
-                                            </div>
-                                        </div>
-                                    </footer>
-                                </blockquote>
-                            </div>
                         </div>
                         <div class="mt-12 sm:mt-16 lg:mt-0">
                             <div class="pl-4 -mr-48 sm:pl-6 md:-mr-16 lg:px-0 lg:m-0 lg:relative lg:h-full">
