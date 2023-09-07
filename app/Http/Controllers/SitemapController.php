@@ -12,8 +12,8 @@ class SitemapController extends Controller
 {
     public function index()
     {
-        $urls = Cache::remember('sitemap', now()->addDays(7), function() {
-            $creators = User::getExploreCreatorQuery()->get()->map(function($user) {
+        $urls = Cache::remember('sitemap', now()->addDays(7), function () {
+            $creators = User::getExploreCreatorQuery()->get()->map(function ($user) {
                 return [
                     'path' => route('creator.show', $user),
                     'lastmod' => today()->firstOfMonth()->toDateString(),
