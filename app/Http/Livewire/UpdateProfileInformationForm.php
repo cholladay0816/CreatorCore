@@ -9,7 +9,7 @@ class UpdateProfileInformationForm extends \Laravel\Jetstream\Http\Livewire\Upda
         $this->validateOnly(
             'photo',
             [
-                'photo' => ['nullable', 'image', 'max:1024']
+                'photo' => ['nullable', 'image', 'max:2048']
             ]
         );
     }
