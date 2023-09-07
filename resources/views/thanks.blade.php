@@ -1,4 +1,5 @@
 <x-guest-layout>
+    @section('title', 'Thank You! - ')
     <!-- This example requires Tailwind CSS v2.0+ -->
     <div class="bg-white">
         <div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:py-24 lg:px-8">
