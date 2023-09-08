@@ -129,7 +129,7 @@
             </dd>
         </div>
         @if($affiliate)
-        <div class="col-span-3 relative bg-white pt-5 px-4 pb-12 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
+        <div class="order-first md:col-span-3 sm:col-span-2 relative bg-white pt-5 px-4 pb-12 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
             <dt>
                 <div class="absolute bg-indigo-500 rounded-md p-3">
                     <!-- Heroicon name: outline/users -->
@@ -139,9 +139,20 @@
                 </div>
                 <p class="ml-16 text-sm font-medium text-gray-500 truncate">Affiliate Referral Link</p>
             </dt>
-            <dd class="ml-16 flex items-baseline">
-                <span class="bg-gray-50 text-lg font-semibold text-indigo-700 rounded-md px-3 py-2">
+            <dd class="ml-16 flex items-baseline" x-data="{clicked: false}">
+                <span class="overflow-auto break-all flex flex-row bg-gray-50 text-lg font-semibold text-indigo-700 rounded-md px-3 py-2 mx-2">
                     {{ route('creator.show', [auth()->user(), 'commissions']) . '?aref=' . $affiliate->code }}
+                    <span x-show="!clicked" x-on:click.debounce.2000ms="clicked=false" class="cursor-pointer text-indigo-600 hover:text-indigo-700 ml-2 my-auto" @click="clicked=true;navigator.clipboard.writeText('{{ route('creator.show', [auth()->user(), 'commissions']) . '?aref=' . $affiliate->code }}')">
+                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+                        </svg>
+                    </span>
+                    <span x-show="clicked" class="cursor-pointer text-indigo-600 hover:text-indigo-700 ml-2 my-auto" @click="clicked=true;navigator.clipboard.writeText('{{ route('creator.show', [auth()->user(), 'commissions']) . '?aref=' . $affiliate->code }}')">
+                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                        </svg>
+
+                    </span>
                 </span>
             </dd>
         </div>
