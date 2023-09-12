@@ -31,7 +31,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('commissions:archive')->daily();
         $schedule->command('commissions:checkpurchasing')->everyThirtyMinutes();
         // Database backups
-        if(env('APP_ENV') == 'production') {
+        if(config('app.env') == 'production') {
             $schedule->command('backup:run')->daily()
                 ->runInBackground();
         } else {
