@@ -195,8 +195,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
     public function stars()
     {
-        if(is_null($this->rating()))
-        {
+        if(is_null($this->rating())) {
             return null;
         }
         return number_format(($this->rating * 5), 1);
