@@ -74,6 +74,7 @@ class Commission extends Model
             'Completed' => 'Completed',
             'Disputed' => 'Disputed',
             'Refunded' => 'Refunded',
+            'Archiving' => 'Archiving',
             'Archived' => 'Archived',
         ];
     }
@@ -87,6 +88,7 @@ class Commission extends Model
             'Completed' => 'Completed',
             'Disputed' => 'Disputed',
             'Refunded' => 'Refunded',
+            'Archiving' => 'Archiving',
             'Archived' => 'Archived',
         ];
     }
@@ -105,6 +107,7 @@ class Commission extends Model
             'Declined' => 11,
             'Unpaid' => 11,
             'Failed' => 11,
+            'Archiving' => 11,
         ];
     }
     public static function statusPriorityOrders()
@@ -121,7 +124,8 @@ class Commission extends Model
             'Archived' => 8,
             'Refunded' => 9,
             'Expired' => 10,
-            'Declined' => 11
+            'Declined' => 11,
+            'Archiving' => 11,
         ];
     }
     public static function ongoingStatuses(): array
@@ -138,7 +142,8 @@ class Commission extends Model
             'Archived' => false,
             'Refunded' => false,
             'Expired' => false,
-            'Declined' => false
+            'Declined' => false,
+            'Archiving' => false,
         ];
     }
     public function isOngoing()
@@ -593,16 +598,8 @@ class Commission extends Model
     public function archive()
     {
         Log::info('Archiving commission #' . $this->id);
-        \App\Events\Commission\Archived::dispatch($this);
-        $this->status = 'Archived';
+        $this->status = 'Archiving';
         $this->save();
-        // TODO: send notifications to creator
-        Mail::to($this->creator->email)->queue(new Archived($this));
-
-
-        Cache::forget('userEarnings_'.$this->creator_id.'_0-30');
-        Cache::forget('userEarningChangePercentage_'.$this->creator_id);
-
         $stripe = new StripeClient(config('stripe.secret'));
         Log::info('Fetching invoice for commission #' . $this->id);
         $invoice = $stripe->invoices->retrieve($this->invoice_id, ['expand' => ['charge']]);
@@ -616,6 +613,13 @@ class Commission extends Model
                 'transfer_group' => $this->slug,
             ]
         );
+        $this->status = 'Archived';
+        $this->save();
+        \App\Events\Commission\Archived::dispatch($this);
+
+
+        Cache::forget('userEarnings_'.$this->creator_id.'_0-30');
+        Cache::forget('userEarningChangePercentage_'.$this->creator_id);
         CommissionEvent::create(
             [
                 'commission_id' => $this->id,

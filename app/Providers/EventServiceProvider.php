@@ -9,6 +9,7 @@ use App\Events\Commission\Created;
 use App\Events\CommissionMessage\Send;
 use App\Listeners\Commission\Incentive\CreateIncentive;
 use App\Listeners\Commission\Notification\SendCommissionAcceptedNotification;
+use App\Listeners\Commission\Notification\SendCommissionArchivedEmail;
 use App\Listeners\Commission\Notification\SendCommissionArchivedNotification;
 use App\Listeners\Commission\Notification\SendCommissionCompletedNotification;
 use App\Listeners\Commission\Notification\SendCommissionCreatedNotification;
@@ -43,7 +44,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         Archived::class => [
             // @todo: add normal logic
-            // @todo: move email here
+            SendCommissionArchivedEmail::class,
             SendCommissionArchivedNotification::class,
         ],
         Accepted::class => [
