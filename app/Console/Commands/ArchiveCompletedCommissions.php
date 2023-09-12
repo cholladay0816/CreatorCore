@@ -39,13 +39,14 @@ class ArchiveCompletedCommissions extends Command
      */
     public function handle()
     {
-        foreach (Commission::where('status', 'Completed')
-                 ->where(
-                     'completed_at',
-                     '<',
-                     now()->subDays(config('commission.days_to_archive'))
-                 )->get()
-                 as $commission) {
+        $commissions = Commission::where('status', 'Completed')
+            ->where(
+                'completed_at',
+                '<',
+                now()->subDays(config('commission.days_to_archive'))
+            )->get();
+
+        foreach ($commissions as $commission) {
             Log::info('Archiving ' . $commission->displayTitle);
             $commission->archive();
         };
