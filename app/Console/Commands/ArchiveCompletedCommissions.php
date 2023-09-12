@@ -2,9 +2,11 @@
 
 namespace App\Console\Commands;
 
+use App\Mail\Commission\ArchiveFailed;
 use App\Models\Commission;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class ArchiveCompletedCommissions extends Command
 {
@@ -48,7 +50,12 @@ class ArchiveCompletedCommissions extends Command
 
         foreach ($commissions as $commission) {
             Log::info('Archiving ' . $commission->displayTitle);
-            $commission->archive();
+            try {
+                $commission->archive();
+            } catch(\Exception $exception) {
+                Mail::to(config('mail.support'))
+                    ->queue(new ArchiveFailed($commission, $exception));
+            }
         };
         return 0;
     }
