@@ -33,7 +33,7 @@
             </dt>
             <dd class="ml-16 flex items-baseline">
                 <p class="text-2xl font-semibold text-gray-900">
-                    {{ auth()->user()->rating() ?? 'N/A' }}
+                    {{ auth()->user()->stars() ?? 'N/A' }}
                 </p>
             </dd>
         </div>
