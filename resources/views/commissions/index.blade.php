@@ -48,7 +48,7 @@
                                             </svg>
                                             <p>
                                                 Archives in
-                                                <time datetime="{{$commission->expires_at->format("Y-m-d")}}">{{$commission->expires_at->diffForHumans(null, false, true, 2)}}</time>
+                                                <time datetime="{{$commission->archivesAt()->format("Y-m-d")}}">{{$commission->archivesAt()->diffForHumans(null, false, true, 2)}}</time>
                                             </p>
                                         </div>
                                     @elseif($commission->status == 'Archived')

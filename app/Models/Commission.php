@@ -16,6 +16,7 @@ use App\Mail\Commission\Pending;
 use App\Mail\Commission\Refunded;
 use App\Mail\Commission\Resolved;
 use App\Mail\Commission\Sent;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -467,6 +468,7 @@ class Commission extends Model
     {
         Log::info('Completed commission #' . $this->id);
         \App\Events\Commission\Completed::dispatch($this);
+        $this->completed_at = now();
         $this->status = 'Completed';
         $this->save();
 
@@ -478,6 +480,11 @@ class Commission extends Model
                 'title' => 'Order completed', 'color' => 'bg-sky-500', 'status' => 'Completed'
             ]
         );
+    }
+
+    public function archivesAt(): Carbon|null
+    {
+        return $this->completed_at->addDays(config('commission.days_to_archive'));
     }
 
     public function dispute()
