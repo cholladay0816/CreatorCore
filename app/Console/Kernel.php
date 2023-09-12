@@ -34,8 +34,7 @@ class Kernel extends ConsoleKernel
         if(env('APP_ENV') == 'production') {
             $schedule->command('backup:run')->daily()
                 ->runInBackground();
-        }
-        else {
+        } else {
             $schedule->command('backup:run')->weeklyOn(Schedule::SUNDAY)
                 ->runInBackground();
         }
