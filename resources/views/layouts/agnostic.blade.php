@@ -124,6 +124,11 @@
             <livewire:feedback-program/>
         @endif
     @endauth
+        @guest
+        @if(request()->routeIs('welcome'))
+            <livewire:welcome-questions/>
+        @endif
+        @endguest
 </div>
 </div>
 
