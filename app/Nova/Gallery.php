@@ -35,7 +35,7 @@ class Gallery extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'user_id', 'slug', 'size','url'
+        'id', 'user_id', 'slug', 'size', 'user.name'
     ];
 
     public static function indexQuery(NovaRequest $request, $query)
