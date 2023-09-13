@@ -70,16 +70,15 @@ class Attachment extends Resource
             Boolean::make('Can Be Edited', 'can_edit')->readonly(true),
             Boolean::make('Is Public', 'can_view')->readonly(true),
             BelongsTo::make('Commission', 'commission', 'App\Nova\Commission'),
-            HasOne::make('Review'),
             BelongsTo::make('User')->sortable()->filterable(),
             Text::make('Slug')->readonly(true)->exceptOnForms(),
             Image::make('Image', 'path', 'do')
                 ->storeSize('size')
             ->preview(function ($path, $disk) {
                 return Storage::temporaryUrl($path, now()->addMinute());
-            }),
+            })->hideFromIndex(),
             Number::make('Size')->readonly(true)->exceptOnForms(),
-            Text::make('Path')->readonly(true)->exceptOnForms()
+            Text::make('Path')->hideFromIndex()->readonly(true)->exceptOnForms()
         ];
     }
 
