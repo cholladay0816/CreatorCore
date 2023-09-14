@@ -26,7 +26,7 @@ class FindAGig extends Component
     public function updatedSearch()
     {
         $this->commissions = CommissionPreset::where('title', 'LIKE', "%{$this->search}%")
-            ->orderBy('rating', 'DESC')
+//            ->orderBy('rating', 'DESC')
             ->orderBy('price', 'ASC')
             ->paginate($this->count);
     }

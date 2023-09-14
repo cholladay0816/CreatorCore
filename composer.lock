@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e312069e5be8ebbe7cddc51e145a6fff",
+    "content-hash": "2b526514cc89877b173d2ac5b9063aa5",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2502,6 +2502,79 @@
                 }
             ],
             "time": "2020-06-13T08:05:20+00:00"
+        },
+        {
+            "name": "jeremykenedy/laravel-exception-notifier",
+            "version": "v3.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jeremykenedy/laravel-exception-notifier.git",
+                "reference": "02217d7727923d55d172a6d0b1af0bb1589ef86a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jeremykenedy/laravel-exception-notifier/zipball/02217d7727923d55d172a6d0b1af0bb1589ef86a",
+                "reference": "02217d7727923d55d172a6d0b1af0bb1589ef86a",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "laravel/framework": "9.*"
+            },
+            "type": "package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "jeremykenedy\\laravelexceptionnotifier\\LaravelExceptionNotifier"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "jeremykenedy\\laravelexceptionnotifier\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "jeremykenedy",
+                    "email": "jeremykenedy@gmail.com"
+                }
+            ],
+            "description": "Laravel exception notifier will send an email of of the error along with the stack trace to the chosen recipients.",
+            "keywords": [
+                "Laravel-Exceptions",
+                "email",
+                "email-notification",
+                "email-notifications",
+                "exception",
+                "exception-email",
+                "exception-emails",
+                "exception-handler",
+                "exception-messages",
+                "laravel",
+                "notification"
+            ],
+            "support": {
+                "issues": "https://github.com/jeremykenedy/laravel-exception-notifier/issues",
+                "source": "https://github.com/jeremykenedy/laravel-exception-notifier/tree/v3.1.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/jeremykenedy",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/jeremykenedy",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2022-09-28T06:47:06+00:00"
         },
         {
             "name": "laravel/cashier",
