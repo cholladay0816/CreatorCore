@@ -13,7 +13,7 @@ class CheckPurchasingCommissions extends Command
      *
      * @var string
      */
-    protected $signature = 'commission:checkpurchasing';
+    protected $signature = 'commissions:checkpurchasing';
 
     /**
      * The console command description.
