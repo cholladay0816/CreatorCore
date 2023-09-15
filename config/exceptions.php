@@ -24,7 +24,7 @@ return [
     */
 
     'emailExceptionFrom'        => env('EMAIL_EXCEPTION_FROM'),
-    'emailExceptionFromDefault' => 'email@email.com',
+    'emailExceptionFromDefault' => env('MAIL_FROM_ADDRESS'),
 
     /*
     |--------------------------------------------------------------------------
@@ -72,7 +72,7 @@ return [
     */
 
     'emailExceptionSubject'        => env('EMAIL_EXCEPTION_SUBJECT'),
-    'emailExceptionSubjectDefault' => 'Error on '.config('app.env'),
+    'emailExceptionSubjectDefault' => 'Error on '.env('APP_ENV'),
 
     /*
     |--------------------------------------------------------------------------
