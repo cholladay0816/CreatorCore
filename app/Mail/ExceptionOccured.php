@@ -56,7 +56,7 @@ class ExceptionOccured extends Mailable
             $subject = config('exceptions.emailExceptionSubjectDefault');
         }
 
-        return $this->from($fromSender)
+        return $this->from($fromSender, config('mail.from.name'))
                     ->to($emailsTo)
                     ->cc($ccEmails)
                     ->bcc($bccEmails)
