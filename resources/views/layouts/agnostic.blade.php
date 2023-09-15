@@ -120,7 +120,7 @@
         @if(!auth()->user()->onboarded_at && !\Illuminate\Support\Facades\Session::has('onboarding_dismissed') && !request()->routeIs('onboarding'))
             <livewire:onboarding-banner/>
         @endif
-        @if(!\Illuminate\Support\Facades\Session::has('feedback_dismissed'))
+        @if(!\Illuminate\Support\Facades\Session::has('feedback_dismissed') && !request()->routeIs('onboarding'))
             <livewire:feedback-program/>
         @endif
     @endauth
