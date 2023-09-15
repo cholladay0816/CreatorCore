@@ -1,5 +1,5 @@
 
-<div class="sm:col-span-4"  x-data="{imageName: null, imagePreview: null}">
+<div class="col-span-6 sm:col-span-4"  x-data="{imageName: null, imagePreview: null}">
     <label for="cover-photo" class="block text-sm font-medium leading-6 text-gray-900">{{ $title }}</label>
     <!-- Current Profile Photo -->
     @if($current_url ?? false)
