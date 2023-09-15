@@ -84,8 +84,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'noreply@creator-core.com'),
+        'name' => env('MAIL_FROM_NAME', 'CreatorCore'),
     ],
 
     'support' => env('MAIL_SUPPORT'),
