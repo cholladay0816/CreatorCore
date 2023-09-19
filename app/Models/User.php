@@ -34,7 +34,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'affiliate_id', 'email_verified_at'
+        'name', 'email', 'password', 'affiliate_id', 'email_verified_at', 'google_id'
     ];
 
     /**
@@ -183,7 +183,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function rating()
     {
-        $ratings = $this->ratings;
+        $ratings = $this->ratings();
         if ($ratings->count() == 0) {
             return null;
         }
