@@ -49,6 +49,20 @@ class CommissionPreset extends Model
         return $this->hasMany(Commission::class);
     }
 
+    public function ratings()
+    {
+        return $this->hasManyThrough(Review::class, Commission::class, 'commission_preset_id', 'commission_id');
+    }
+
+    public function rating(): float|null
+    {
+        $ratings = $this->ratings();
+        if ($ratings->count() == 0) {
+            return null;
+        }
+        return number_format(floatval($ratings->sum('positive')) / floatval($ratings->count()), 2);
+    }
+
     public function getSlug()
     {
         return Str::slug($this->id ?? ($this->user_id . '-' . now()->format('mdY-Hi')). '-' . $this->title);
