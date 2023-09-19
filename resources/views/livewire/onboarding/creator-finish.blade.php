@@ -19,7 +19,7 @@
                             @if(!$creator_verified || !$creator->title)
                                 disabled
                             @endif
-                            class="disabled:bg-gray-400 disabled:cursor-not-allowed bg-indigo-500 text-white px-5 py-3 rounded-lg font-bold" wire:click="onboard">Looks Good!</button>
+                            class="disabled:bg-gray-400 disabled:cursor-not-allowed bg-indigo-500 text-white px-5 py-3 rounded-lg font-bold" wire:click="onboardCreator">Looks Good!</button>
                     </div>
                 </div>
             </li>

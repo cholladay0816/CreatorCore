@@ -52,6 +52,14 @@ class Index extends Component
         return $this->redirect(route('dashboard'));
     }
 
+    public function onboardCreator()
+    {
+        $this->user->forceFill([
+            'onboarded_at' => now()
+        ])->save();
+        return $this->redirect(route('creator.show', [$this->user]));
+    }
+
     public function render()
     {
         return view('livewire.onboarding.index');
