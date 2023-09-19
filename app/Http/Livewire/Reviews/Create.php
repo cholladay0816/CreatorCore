@@ -13,7 +13,7 @@ class Create extends Component
     protected $rules = [
         'review.positive' => 'required|min:0|max:1',
         'review.anonymous' => 'required|min:0|max:1',
-        'review.message' => '',
+        'review.message' => 'nullable|max:255',
     ];
 
     public function mount()
