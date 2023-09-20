@@ -1,7 +1,7 @@
-@if($value)
+@if(isset($value))
     @php $rating = ($value * 5); @endphp
 @endif
-<div class="flex flex-row" @if($value) title="{{ number_format($rating, 1) }}" @endif>
+<div class="flex flex-row" @if(isset($value)) title="{{ number_format($rating, 1) }}" @endif>
     @if(is_null($value))
         No Ratings
     @else
