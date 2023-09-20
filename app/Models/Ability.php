@@ -12,6 +12,9 @@ class Ability extends Model
 
     protected $guarded = [];
 
+    public static string $MANAGE_USERS = 'manage-users';
+    public static string $MANAGE_CONTENT = 'manage-content';
+
     public function roles()
     {
         return $this->belongsToMany(Role::class);
