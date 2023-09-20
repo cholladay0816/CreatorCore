@@ -2,9 +2,11 @@
 
 namespace App\Policies;
 
+use App\Models\Ability;
 use App\Models\Suspension;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\Gate;
 
 class SuspensionPolicy
 {
@@ -41,7 +43,7 @@ class SuspensionPolicy
      */
     public function create(User $user)
     {
-        //
+        Gate::allows(Ability::$MANAGE_USERS);
     }
 
     /**
@@ -53,7 +55,7 @@ class SuspensionPolicy
      */
     public function update(User $user, Suspension $suspension)
     {
-        //
+        Gate::allows(Ability::$MANAGE_USERS);
     }
 
     /**
@@ -65,7 +67,7 @@ class SuspensionPolicy
      */
     public function delete(User $user, Suspension $suspension)
     {
-        //
+        Gate::allows(Ability::$MANAGE_USERS);
     }
 
     /**
@@ -77,7 +79,7 @@ class SuspensionPolicy
      */
     public function restore(User $user, Suspension $suspension)
     {
-        //
+        Gate::allows(Ability::$MANAGE_USERS);
     }
 
     /**
@@ -89,6 +91,6 @@ class SuspensionPolicy
      */
     public function forceDelete(User $user, Suspension $suspension)
     {
-        //
+        Gate::allows(Ability::$MANAGE_USERS);
     }
 }
