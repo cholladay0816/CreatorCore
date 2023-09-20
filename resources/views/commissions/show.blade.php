@@ -2,7 +2,7 @@
 
     <!-- This example requires Tailwind CSS v2.0+ -->
     <!-- Be sure to use this with a layout container that is full-width on mobile -->
-    <div class="bg-gray-50 overflow-hidden sm:rounded-lg">
+    <div class="bg-gray-50 overflow-hidden sm:rounded-lg" x-data="{ dispute: false }">
         <div class="px-4 py-5 sm:p-6">
             <!-- This example requires Tailwind CSS v2.0+ -->
             <div class="bg-white shadow overflow-hidden sm:rounded-lg">
@@ -125,6 +125,11 @@
                 </div>
             </div>
         </div>
+        @if($commission->isBuyer() && $commission->status == 'Completed')
+            <div x-show="dispute">
+                @include('components.commission.dispute-modal')
+            </div>
+        @endif
     </div>
 
 </x-app-layout>
