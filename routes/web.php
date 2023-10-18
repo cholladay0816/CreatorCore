@@ -134,12 +134,14 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         ->name('commissions.orders');
 });
 
-Route::get('/.well-known/apple-developer-merchantid-domain-association',
-function() {
-    return "
+Route::get(
+    '/.well-known/apple-developer-merchantid-domain-association',
+    function () {
+        return "
 [ZoneTransfer]<br>
 ZoneId=3<br>
 ReferrerUrl=https://dashboard.stripe.com/<br>
 HostUrl=https://stripe.com/files/apple-pay/apple-developer-merchantid-domain-association
 ";
-});
+    }
+);
