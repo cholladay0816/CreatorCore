@@ -116,6 +116,16 @@ class User extends Authenticatable implements MustVerifyEmail
             ->where('uses', '>', 0);
     }
 
+    public function getBadges(): array
+    {
+        $badges = [];
+        if($this->activeAffiliate()->count())
+        {
+            $badges[] .= 'badges.affiliate';
+        }
+        return $badges;
+    }
+
     public function bonuses()
     {
         return $this->hasMany(Bonus::class);
