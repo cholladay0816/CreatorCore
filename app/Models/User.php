@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Laravel\Cashier\Billable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -116,11 +117,12 @@ class User extends Authenticatable implements MustVerifyEmail
             ->where('uses', '>', 0);
     }
 
-    public function getBadges(): array
+    public function getBadges(): array|Collection
     {
-        $badges = [];
-        if($this->activeAffiliate()->count()) {
-            $badges[] .= 'badges.affiliate';
+        $badges = collect();
+        if($this->activeAffiliate()->count())
+        {
+            $badges->push('badges.affiliate');
         }
         return $badges;
     }
