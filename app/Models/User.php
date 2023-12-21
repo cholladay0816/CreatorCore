@@ -91,7 +91,7 @@ class User extends Authenticatable implements MustVerifyEmail
                 })
                 ->orderBy('user_statistics.last_commission_at', 'ASC')
                 ->orderBy('user_statistics.rating', 'DESC')
-            ;
+        ;
     }
 
     public function commissionPresets()
