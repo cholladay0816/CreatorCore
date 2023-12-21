@@ -19,7 +19,7 @@ class SendCommissionCompletedNotification
             'user_id' => $event->commission->buyer_id,
             'title' => 'Commission Complete: ' . $event->commission->displayTitle(),
             'description' => 'Your commission to ' . $event->commission->creator->name . ' has been completed!
-            You have ' . config('commission.days_to_archive') . 'days to review and accept the final product.',
+            You have ' . config('commission.days_to_archive') . ' days to review and accept the final product.',
             'url' => route('commissions.show', $event->commission)
         ]);
     }
