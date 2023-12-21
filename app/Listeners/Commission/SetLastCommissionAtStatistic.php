@@ -26,7 +26,7 @@ class SetLastCommissionAtStatistic
     public function handle(\App\Events\Commission\Accepted $event)
     {
         $event->commission->creator->userStatistic->fill([
-            'last_commission_at' => now()->weekday(0)->setTime(0,0,0)
+            'last_commission_at' => now()->weekday(0)->setTime(0, 0, 0)
         ])->save();
     }
 }
