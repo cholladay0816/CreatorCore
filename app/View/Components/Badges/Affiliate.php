@@ -11,12 +11,13 @@ class Affiliate extends Component
      *
      * @return void
      */
-    public function __construct(public string $text = 'Affiliate',
-                                public string $title = 'This user is a verified affiliate',
-                                public string $textColor = 'text-blue-700',
-                                public string $bg = 'bg-blue-100',
-                                public string $fill = 'fill-blue-500')
-    {
+    public function __construct(
+        public string $text = 'Affiliate',
+        public string $title = 'This user is a verified affiliate',
+        public string $textColor = 'text-blue-700',
+        public string $bg = 'bg-blue-100',
+        public string $fill = 'fill-blue-500'
+    ) {
         //
     }
 
