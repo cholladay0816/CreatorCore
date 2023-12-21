@@ -13,7 +13,11 @@ use App\Listeners\Commission\Notification\SendCommissionArchivedEmail;
 use App\Listeners\Commission\Notification\SendCommissionArchivedNotification;
 use App\Listeners\Commission\Notification\SendCommissionCompletedNotification;
 use App\Listeners\Commission\Notification\SendCommissionCreatedNotification;
+use App\Listeners\Commission\SetLastCommissionAtStatistic;
 use App\Listeners\CommissionMessage\ReceivedNotification;
+use App\Listeners\Review\UpdateUserRatingStatistic;
+use App\Listeners\User\SetLastLoginAtStatistic;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -30,6 +34,11 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        // User login
+        Login::class => [
+            SetLastLoginAtStatistic::class,
+        ],
+
         // Commission
         Created::class => [
             // @todo: add normal logic
@@ -51,6 +60,7 @@ class EventServiceProvider extends ServiceProvider
             // @todo: add normal logic
             // @todo: move email here
             SendCommissionAcceptedNotification::class,
+            SetLastCommissionAtStatistic::class,
         ],
         // Commission Message Received
         Send::class => [
@@ -59,6 +69,15 @@ class EventServiceProvider extends ServiceProvider
         // Ticket Events
         \App\Events\Ticket\Submitted::class => [
             \App\Listeners\Ticket\Submitted\Email::class,
+        ],
+
+        // Review created
+        \App\Events\Review\Created::class => [
+            UpdateUserRatingStatistic::class
+        ],
+        // Review Updated
+        \App\Events\Review\Updated::class => [
+            UpdateUserRatingStatistic::class
         ],
 
         /* @todo:
