@@ -323,6 +323,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $account;
     }
 
+    public function userStatistic(): HasOne
+    {
+        return $this->hasOne(UserStatistic::class);
+    }
+
     protected static function boot()
     {
         self::created(function ($user) {
@@ -331,6 +336,8 @@ class User extends Authenticatable implements MustVerifyEmail
                 'open' => false,
                 'allows_custom_commissions' => false
             ]);
+
+            UserStatistic::firstOrCreate(['user_id' => $user->id], ['last_login_at' => now()]);
             // $user->createOrGetStripeCustomer();
         });
 
