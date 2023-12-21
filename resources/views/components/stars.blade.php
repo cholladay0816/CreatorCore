@@ -3,7 +3,7 @@
 @endif
 <div class="flex flex-row" @if(isset($value)) title="{{ number_format($rating, 1) }}" @endif>
     @if(is_null($value))
-        No Ratings
+        <span>No Ratings</span>
     @else
     @foreach(range(1,5) as $i)
         <span class="text-indigo-500">
