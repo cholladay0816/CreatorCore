@@ -11,12 +11,13 @@ class Badge extends Component
      *
      * @return void
      */
-    public function __construct(public string $text,
-                                public ?string $title = null,
-                                public string $textColor = 'text-purple-700',
-                                public string $bg = 'bg-purple-100',
-                                public string $fill = 'fill-purple-500')
-    {
+    public function __construct(
+        public string $text,
+        public ?string $title = null,
+        public string $textColor = 'text-purple-700',
+        public string $bg = 'bg-purple-100',
+        public string $fill = 'fill-purple-500'
+    ) {
         //
     }
 
