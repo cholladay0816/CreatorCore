@@ -16,7 +16,7 @@ return new class () extends Migration {
         Schema::create('user_statistics', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\User::class)->constrained()->cascadeOnDelete();
-            $table->unsignedDecimal('rating', 4, 4)->nullable();
+            $table->unsignedDecimal('rating', 8, 4)->nullable();
             $table->dateTime('last_login_at')->nullable();
             $table->dateTime('last_commission_at')->nullable();
             $table->timestamps();
