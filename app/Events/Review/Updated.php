@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Events\Commission;
+namespace App\Events\Review;
 
-use App\Models\Commission;
+use App\Models\Review;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -11,7 +11,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class Accepted
+class Updated
 {
     use Dispatchable;
     use InteractsWithSockets;
@@ -22,9 +22,9 @@ class Accepted
      *
      * @return void
      */
-    public function __construct(public Commission $commission)
+    public function __construct(public Review $review)
     {
-
+        //
     }
 
     /**

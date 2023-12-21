@@ -9,6 +9,7 @@ module.exports = {
             './resources/**/*.htm',
             './resources/**/*.js',
             './resources/**/*.vue',
+            './app/View/Components/**/*.php',
             './app/Http/Livewire/**/*.php',
             './app/Models/Commission.php',
         ],

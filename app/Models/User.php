@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Laravel\Cashier\Billable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -82,10 +83,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public static function getExploreCreatorQuery(): \Illuminate\Database\Eloquent\Builder
     {
         return User::with('creator')
+                ->join('user_statistics', 'user_id', '=', 'users.id')
+                ->where('user_statistics.last_login_at', '>', now()->subMonth())
                 ->whereHas('creator', function ($creator) {
                     $creator->where('open', 1)
                         ->whereHas('commissionPresets');
-                });
+                })
+                ->orderBy('user_statistics.last_commission_at', 'ASC')
+                ->orderBy('user_statistics.rating', 'DESC')
+        ;
     }
 
     public function commissionPresets()
@@ -114,6 +120,15 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(Affiliate::class)
             ->where('expires_at', '>', now())
             ->where('uses', '>', 0);
+    }
+
+    public function getBadges(): array|Collection
+    {
+        $badges = collect();
+        if($this->activeAffiliate()->count()) {
+            $badges->push('badges.affiliate');
+        }
+        return $badges;
     }
 
     public function bonuses()
@@ -313,6 +328,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $account;
     }
 
+    public function userStatistic(): HasOne
+    {
+        return $this->hasOne(UserStatistic::class);
+    }
+
     protected static function boot()
     {
         self::created(function ($user) {
@@ -321,6 +341,8 @@ class User extends Authenticatable implements MustVerifyEmail
                 'open' => false,
                 'allows_custom_commissions' => false
             ]);
+
+            UserStatistic::firstOrCreate(['user_id' => $user->id], ['last_login_at' => now()]);
             // $user->createOrGetStripeCustomer();
         });
 

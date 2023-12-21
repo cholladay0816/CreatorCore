@@ -12,6 +12,7 @@ use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Password;
@@ -95,6 +96,8 @@ class User extends Resource
             Text::make('Stripe Customer ID', 'stripe_id')->hideFromIndex(),
             Text::make('Stripe Account ID')->hideFromIndex(),
             Text::make('Google ID')->nullable()->hideFromIndex(),
+
+            HasOne::make('Statistics', 'userStatistic', UserStatistic::class),
 
             HasMany::make('Roles', 'roles', 'App\Nova\Role'),
             HasMany::make('Reports', 'reports', 'App\Nova\Report'),

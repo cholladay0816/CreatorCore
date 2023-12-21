@@ -47,7 +47,9 @@
                                 <img
                                     alt="Profile Picture"
                                     src="{{ $user->profile_photo_url }}"
-                                    class="shadow-xl rounded-full w-36 h-36 align-middle object-cover aspect-square border-none absolute -m-16 -ml-20 lg:-ml-16"
+                                    class="shadow-xl rounded-full w-36 h-36 align-middle object-cover aspect-square
+                                        absolute -m-16 -ml-20 lg:-ml-16
+                                        {{ $user->activeAffiliate()->count() ? 'border-2 border-lightBlue-500' : 'border-none' }}"
                                     style="width:150px;max-width: 150px;"
                                 />
                             </div>
@@ -92,9 +94,18 @@
                     </div>
                     <div class="text-center mt-12">
                         <h3 id="displayNameHeader"
-                            class="text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
+                            class="text-4xl flex font-semibold leading-normal mb-2 text-gray-800 mb-2 mx-auto justify-center"
                         >
+                            <span class="flex my-auto">
                             {{$user->name}}
+                            </span>
+                            @if($user->activeAffiliate()->count())
+                            <span class="flex my-auto" title="This user is a verified affiliate of {{ config('app.name') }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-lightBlue-400">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+                                </svg>
+                            </span>
+                            @endif
                         </h3>
                         <div
                             class="text-sm leading-normal mt-0 mb-2 text-gray-500 font-bold"

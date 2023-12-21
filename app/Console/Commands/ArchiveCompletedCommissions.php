@@ -48,6 +48,7 @@ class ArchiveCompletedCommissions extends Command
                 now()->subDays(config('commission.days_to_archive'))
             )->get();
 
+        /** @var Commission $commission */
         foreach ($commissions as $commission) {
             Log::info('Archiving ' . $commission->displayTitle);
             try {
