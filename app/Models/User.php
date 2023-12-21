@@ -120,8 +120,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getBadges(): array|Collection
     {
         $badges = collect();
-        if($this->activeAffiliate()->count())
-        {
+        if($this->activeAffiliate()->count()) {
             $badges->push('badges.affiliate');
         }
         return $badges;
