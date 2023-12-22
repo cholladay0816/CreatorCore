@@ -55,12 +55,12 @@ class Commission extends Model
      *
      * @return string
      */
-    public function getRouteKeyName()
+    public function getRouteKeyName(): string
     {
         return 'slug';
     }
 
-    public static function statuses()
+    public static function statuses(): array
     {
         return [
             'Unpaid' => 'Unpaid',
@@ -78,7 +78,7 @@ class Commission extends Model
             'Archived' => 'Archived',
         ];
     }
-    public static function statusesCommissions()
+    public static function statusesCommissions(): array
     {
         return [
             'Pending' => 'Pending',
@@ -92,7 +92,7 @@ class Commission extends Model
             'Archived' => 'Archived',
         ];
     }
-    public static function statusPriorityCommissions()
+    public static function statusPriorityCommissions(): array
     {
         return [
             'Overdue' => 0,
@@ -110,7 +110,7 @@ class Commission extends Model
             'Archiving' => 11,
         ];
     }
-    public static function statusPriorityOrders()
+    public static function statusPriorityOrders(): array
     {
         return [
             'Unpaid' => 0,
@@ -146,7 +146,7 @@ class Commission extends Model
             'Archiving' => false,
         ];
     }
-    public function isOngoing()
+    public function isOngoing(): bool
     {
         return $this::ongoingStatuses()[$this->status];
     }
@@ -321,7 +321,7 @@ class Commission extends Model
         );
     }
 
-    public function fees()
+    public function fees(): float
     {
         $amount = $this->price * 100;
         $total = $amount + 30;
@@ -329,7 +329,7 @@ class Commission extends Model
         return floatval($total - $amount) / 100;
     }
 
-    public function getFeesAttribute()
+    public function getFeesAttribute(): float
     {
         return $this->fees();
     }

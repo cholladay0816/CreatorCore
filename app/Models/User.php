@@ -4,7 +4,10 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -94,23 +97,23 @@ class User extends Authenticatable implements MustVerifyEmail
         ;
     }
 
-    public function commissionPresets()
+    public function commissionPresets(): HasMany
     {
         return $this->hasMany(CommissionPreset::class);
     }
 
-    public function commissions()
+    public function commissions(): HasMany
     {
         return $this->hasMany(Commission::class, 'creator_id')
             ->whereIn('status', Commission::statusesCommissions());
     }
 
-    public function incentives()
+    public function incentives(): HasMany
     {
         return $this->hasMany(Incentive::class);
     }
 
-    public function affiliate()
+    public function affiliate(): BelongsTo
     {
         return $this->belongsTo(Affiliate::class);
     }
@@ -131,29 +134,29 @@ class User extends Authenticatable implements MustVerifyEmail
         return $badges;
     }
 
-    public function bonuses()
+    public function bonuses(): HasMany
     {
         return $this->hasMany(Bonus::class);
     }
 
-    public function incentive()
+    public function incentive(): int
     {
         return $this->incentives()->sum('amount') - $this->bonuses()->sum('amount');
     }
-    public function getIncentiveAttribute()
+    public function getIncentiveAttribute(): int
     {
         return $this->incentive();
     }
 
-    public function suspensions()
+    public function suspensions(): HasMany
     {
         return $this->hasMany(Suspension::class);
     }
-    public function suspended()
+    public function suspended(): bool
     {
         return $this->suspensions()->where('expires_at', '>', now())->count() > 0;
     }
-    public function getSuspendedAttribute()
+    public function getSuspendedAttribute(): bool
     {
         return $this->suspended();
     }
@@ -196,7 +199,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasManyThrough(Review::class, Commission::class, 'creator_id', 'commission_id');
     }
 
-    public function rating()
+    public function rating(): string|null
     {
         $ratings = $this->ratings();
         if ($ratings->count() == 0) {
@@ -204,35 +207,35 @@ class User extends Authenticatable implements MustVerifyEmail
         }
         return number_format(floatval($ratings->sum('positive')) / floatval($ratings->count()), 2);
     }
-    public function getRatingAttribute()
+    public function getRatingAttribute(): string|null
     {
         return $this->rating();
     }
-    public function stars()
+    public function stars(): string|null
     {
         if(is_null($this->rating())) {
             return null;
         }
         return number_format(($this->rating * 5), 1);
     }
-    public function getStarsAttribute()
+    public function getStarsAttribute(): string|null
     {
         return $this->stars();
     }
 
-    public function orders()
+    public function orders(): HasMany
     {
         return $this->hasMany(Commission::class, 'buyer_id');
     }
-    public function reports()
+    public function reports(): HasMany
     {
         return $this->hasMany(Report::class);
     }
-    public function roles()
+    public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class);
     }
-    public function notifications(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function notifications(): HasMany
     {
         return $this->hasMany(Notification::class);
     }
@@ -249,39 +252,39 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->abilities();
     }
 
-    public function hasAbility($slug)
+    public function hasAbility($slug): bool
     {
         return $this->abilities->where('slug', $slug)->count() > 0;
     }
 
-    public function creator()
+    public function creator(): HasOne
     {
         return $this->hasOne(Creator::class);
     }
-    public function isValidCreator()
+    public function isValidCreator(): bool
     {
         return $this->creator != null;
     }
-    public function attachments()
+    public function attachments(): HasManyThrough
     {
         return $this->hasManyThrough(Attachment::class, Commission::class, 'creator_id', 'user_id');
     }
-    public function banner()
+    public function banner(): HasOne
     {
         return $this->hasOne(Banner::class);
     }
 
-    public function tickets()
+    public function tickets(): HasMany
     {
         return $this->hasMany(Ticket::class);
     }
 
-    public function bytesUsed()
+    public function bytesUsed(): int
     {
         return $this->attachments->sum('size') + $this->gallery->sum('size');
     }
 
-    public function canAcceptPayments()
+    public function canAcceptPayments(): bool
     {
         if (config('app.env') == 'testing' || env('APP_ENV') == 'testing') {
             return true;
@@ -298,7 +301,7 @@ class User extends Authenticatable implements MustVerifyEmail
             && ($this->creator->allows_custom_commissions || (!$requireCommission || $this->creator->user->commissionPresets->count() > 0));
     }
 
-    public function isOnboarded()
+    public function isOnboarded(): bool
     {
         $account = $this->fetchStripeAccount();
         return $account->details_submitted;
