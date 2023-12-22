@@ -4,7 +4,7 @@
             <h3 class="mt-6 text-sm font-medium text-gray-900">{{ $user->name }}</h3>
             <dl class="mt-1 flex flex-grow flex-col justify-between">
                 <dt class="sr-only">Title</dt>
-                <dd class="text-sm text-gray-500 mx-auto"><x-stars :value="$user->rating()"/></dd>
+                <dd class="text-sm text-gray-500 mx-auto"><x-stars :value="$user->rating"/></dd>
                 <dt class="sr-only">Role</dt>
                 <dd class="mt-3">
                     @foreach($user->getBadges() as $badge)
@@ -46,7 +46,7 @@
                     @endforeach
                 </dd>
             </div>
-            <p class="mt-1 text-gray-500 text-sm"><x-stars :value="$user->rating()"/></p>
+            <p class="mt-1 text-gray-500 text-sm"><x-stars :value="$user->rating"/></p>
         </div>
         <img class="w-10 h-10 bg-gray-300 rounded-full flex-shrink-0" src="{{ $user->profile_photo_url }}" alt="">
     </div>
