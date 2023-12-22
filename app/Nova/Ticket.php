@@ -56,7 +56,8 @@ class Ticket extends Resource
             ID::make(__('ID'), 'id')->sortable(),
             BelongsTo::make('User')
             ->sortable()
-            ->filterable(),
+            ->filterable()
+            ->nullable(),
             Slug::make('Slug')->exceptOnForms(),
             Text::make('Title')->required(true),
             Textarea::make('Description')->required(true),
