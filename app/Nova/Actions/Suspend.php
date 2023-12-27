@@ -27,8 +27,7 @@ class Suspend extends DestructiveAction
      */
     public function handle(ActionFields $fields, Collection $models)
     {
-        foreach($models as $model)
-        {
+        foreach($models as $model) {
             $model->suspend($fields->get('days'), $fields->get('reason'));
         }
     }
