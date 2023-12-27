@@ -24,14 +24,14 @@ class Strike extends Model
 
     public function checkForSuspension()
     {
-        $strikes = $this->user->fresh()->strikes->where('expires_at', '>', now());
+        $strikes = $this->user->strikes()->where('expires_at', '>', now())->get();
         if ($strikes->count() >= 3) {
-            Suspension::create(['user_id' => $this->user->id, 'reason' => 'Too many strikes.', 'expires_at' => now()->addDays(7)]);
+            Suspension::create(['user_id' => $this->user_id, 'reason' => 'Too many strikes.', 'expires_at' => now()->addDays(7)]);
 
             $strikes->each(function ($strike) {
-                $strike->update([
+                $strike->forceFill([
                     'expires_at' => now(),
-                ]);
+                ])->save();
             });
         }
     }
