@@ -13,14 +13,16 @@ use Illuminate\Queue\SerializesModels;
 
 class StrikeCreated
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct( public Strike $strike )
+    public function __construct(public Strike $strike)
     {
         //
     }
