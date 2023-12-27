@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Laravel\Nova\Actions\Actionable;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
@@ -12,6 +13,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Strike extends Resource
 {
+    use Actionable;
     /**
      * The model the resource corresponds to.
      *
