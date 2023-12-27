@@ -2,9 +2,11 @@
 
 namespace App\Policies;
 
+use App\Models\Ability;
 use App\Models\Strike;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\Gate;
 
 class StrikePolicy
 {
@@ -30,7 +32,7 @@ class StrikePolicy
      */
     public function view(User $user, Strike $strike)
     {
-        return $user->id == $strike->user_id;
+        return $user->id == $strike->user_id || Gate::allows(Ability::$MANAGE_USERS);
     }
 
     /**
@@ -41,7 +43,7 @@ class StrikePolicy
      */
     public function create(User $user)
     {
-        //
+        return Gate::allows(Ability::$MANAGE_USERS);
     }
 
     /**
@@ -53,7 +55,7 @@ class StrikePolicy
      */
     public function update(User $user, Strike $strike)
     {
-        //
+        return Gate::allows(Ability::$MANAGE_USERS);
     }
 
     /**
@@ -65,7 +67,7 @@ class StrikePolicy
      */
     public function delete(User $user, Strike $strike)
     {
-        //
+        return $this->update($user, $strike);
     }
 
     /**
