@@ -184,17 +184,17 @@ class User extends Authenticatable implements MustVerifyEmail
         //TODO: check for three, then suspend
     }
 
-    public function gallery()
+    public function gallery(): HasMany
     {
         return $this->hasMany(Gallery::class);
     }
 
-    public function reviews()
+    public function reviews(): HasMany
     {
         return $this->hasMany(Review::class);
     }
 
-    public function ratings()
+    public function ratings(): HasManyThrough
     {
         return $this->hasManyThrough(Review::class, Commission::class, 'creator_id', 'commission_id');
     }
