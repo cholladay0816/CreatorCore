@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * The purpose of this model is to provide statistics about a user,
+ * primarily for the purpose of sorting a creator on the Explore page
+ */
 class UserStatistic extends Model
 {
     use HasFactory;
