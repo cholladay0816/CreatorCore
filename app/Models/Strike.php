@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\StrikeCreated;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -39,6 +40,7 @@ class Strike extends Model
     public static function booted()
     {
         static::created(function ($strike) {
+            StrikeCreated::dispatch($strike);
             $strike->checkForSuspension();
         });
     }
