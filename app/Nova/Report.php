@@ -60,7 +60,7 @@ class Report extends Resource
             ID::make(__('ID'), 'id')->sortable(),
             BelongsTo::make('User'),
             Text::make('Model')->default(\App\Models\User::class),
-            Number::make('Model ID'),
+            Number::make('Model ID')->default($request->get('viaResourceId')),
             Text::make('Title'),
             Trix::make('Description'),
             Select::make('Status')
