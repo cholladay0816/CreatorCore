@@ -519,7 +519,7 @@ class Commission extends Model
     //            'reason' => 'requested_by_customer'
     //        ]);
     //
-    //        $this->creator->addStrike('Canceled commission');
+    //        $this->creator->addStrike(7, 'Canceled commission');
     //
     //        CommissionEvent::create(
     //            [
