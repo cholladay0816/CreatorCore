@@ -32,7 +32,7 @@ class SuspensionPolicy
      */
     public function view(User $user, Suspension $suspension)
     {
-        return $user->id == $suspension->user_id;
+        return $user->id == $suspension->user_id || Gate::allows(Ability::$MANAGE_USERS);
     }
 
     /**
@@ -43,7 +43,7 @@ class SuspensionPolicy
      */
     public function create(User $user)
     {
-        Gate::allows(Ability::$MANAGE_USERS);
+        return Gate::allows(Ability::$MANAGE_USERS);
     }
 
     /**
@@ -55,7 +55,7 @@ class SuspensionPolicy
      */
     public function update(User $user, Suspension $suspension)
     {
-        Gate::allows(Ability::$MANAGE_USERS);
+        return Gate::allows(Ability::$MANAGE_USERS);
     }
 
     /**
@@ -67,7 +67,7 @@ class SuspensionPolicy
      */
     public function delete(User $user, Suspension $suspension)
     {
-        Gate::allows(Ability::$MANAGE_USERS);
+        return $this->update($user, $suspension);
     }
 
     /**
@@ -79,7 +79,7 @@ class SuspensionPolicy
      */
     public function restore(User $user, Suspension $suspension)
     {
-        Gate::allows(Ability::$MANAGE_USERS);
+        return Gate::allows(Ability::$MANAGE_USERS);
     }
 
     /**
@@ -91,6 +91,6 @@ class SuspensionPolicy
      */
     public function forceDelete(User $user, Suspension $suspension)
     {
-        Gate::allows(Ability::$MANAGE_USERS);
+        return Gate::allows(Ability::$MANAGE_USERS);
     }
 }
