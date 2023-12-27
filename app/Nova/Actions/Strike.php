@@ -9,6 +9,7 @@ use Illuminate\Support\Collection;
 use Laravel\Nova\Actions\Action;
 use Laravel\Nova\Actions\DestructiveAction;
 use Laravel\Nova\Fields\ActionFields;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -27,7 +28,7 @@ class Strike extends DestructiveAction
     public function handle(ActionFields $fields, Collection $models)
     {
         foreach ($models as $model) {
-            $model->addStrike($fields->get('reason'));
+            $model->addStrike($fields->get('days'), $fields->get('reason'));
         }
     }
 
@@ -39,6 +40,7 @@ class Strike extends DestructiveAction
     public function fields(NovaRequest $request)
     {
         return [
+            Number::make('Days')->default(7),
             Text::make('Reason')
         ];
     }
