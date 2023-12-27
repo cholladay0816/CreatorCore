@@ -168,8 +168,6 @@ class User extends Authenticatable implements MustVerifyEmail
             'reason' => $reason,
             'expires_at' => $days > 0 ? now()->addDays($days) : null,
         ]);
-
-        //TODO: send out emails, notifications, and restrict access
     }
 
     public function strikes()
@@ -180,7 +178,6 @@ class User extends Authenticatable implements MustVerifyEmail
     public function addStrike($days = 7, $reason = 'No reason provided.')
     {
         Strike::create(['user_id' => $this->id, 'reason' => $reason, 'expires_at' => now()->addDays(7)]);
-        //TODO: send out emails, notifications
     }
 
     public function gallery(): HasMany
