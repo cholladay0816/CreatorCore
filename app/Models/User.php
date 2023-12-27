@@ -179,7 +179,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function addStrike($reason = 'No reason provided.')
     {
-        Strike::create(['user_id' => $this->id]);
+        Strike::create(['user_id' => $this->id, 'reason' => $reason]);
         //TODO: send out emails, notifications
         //TODO: check for three, then suspend
     }
