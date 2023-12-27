@@ -27,7 +27,7 @@ class Strike extends DestructiveAction
     public function handle(ActionFields $fields, Collection $models)
     {
         foreach ($models as $model) {
-            $model->addStrike($fields->get('Reason'));
+            $model->addStrike($fields->get('reason'));
         }
     }
 
