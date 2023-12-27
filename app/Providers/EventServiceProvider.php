@@ -7,6 +7,8 @@ use App\Events\Commission\Archived;
 use App\Events\Commission\Completed;
 use App\Events\Commission\Created;
 use App\Events\CommissionMessage\Send;
+use App\Events\StrikeCreated;
+use App\Events\SuspensionCreated;
 use App\Listeners\Commission\Incentive\CreateIncentive;
 use App\Listeners\Commission\Notification\SendCommissionAcceptedNotification;
 use App\Listeners\Commission\Notification\SendCommissionArchivedEmail;
@@ -37,6 +39,16 @@ class EventServiceProvider extends ServiceProvider
         // User login
         Login::class => [
             SetLastLoginAtStatistic::class,
+        ],
+
+        StrikeCreated::class => [
+            // @todo: create notification
+            // @todo: create email
+        ],
+
+        SuspensionCreated::class => [
+            // @todo: create notification
+            // @todo: create email
         ],
 
         // Commission
