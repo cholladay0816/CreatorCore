@@ -414,4 +414,9 @@ class User extends Authenticatable implements MustVerifyEmail
             }
         );
     }
+
+    public function passwordSet(): bool
+    {
+        return !(empty($this->password));
+    }
 }
