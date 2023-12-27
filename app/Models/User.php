@@ -177,11 +177,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Strike::class)->where('created_at', '>', now()->addDays(-7));
     }
 
-    public function addStrike($reason = 'No reason provided.')
+    public function addStrike($days = 7, $reason = 'No reason provided.')
     {
-        Strike::create(['user_id' => $this->id, 'reason' => $reason]);
+        Strike::create(['user_id' => $this->id, 'reason' => $reason, 'expires_at' => now()->addDays(7)]);
         //TODO: send out emails, notifications
-        //TODO: check for three, then suspend
     }
 
     public function gallery(): HasMany
