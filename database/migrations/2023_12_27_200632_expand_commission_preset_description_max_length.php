@@ -19,6 +19,7 @@ return new class extends Migration
 
         Schema::table('commissions', function(Blueprint $table) {
             $table->text('description')->change();
+            $table->text('memo')->change();
         });
     }
 
