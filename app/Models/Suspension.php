@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\SuspensionCreated;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -27,5 +28,12 @@ class Suspension extends Model
     public function getExpiredAttribute(): bool
     {
         return $this->expired();
+    }
+
+    public static function booted()
+    {
+        static::created(function ($suspension) {
+            SuspensionCreated::dispatch($suspension);
+        });
     }
 }
