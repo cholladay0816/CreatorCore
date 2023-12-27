@@ -9,6 +9,8 @@ use Illuminate\Support\Collection;
 use Laravel\Nova\Actions\Action;
 use Laravel\Nova\Actions\DestructiveAction;
 use Laravel\Nova\Fields\ActionFields;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Suspend extends DestructiveAction
@@ -25,7 +27,10 @@ class Suspend extends DestructiveAction
      */
     public function handle(ActionFields $fields, Collection $models)
     {
-        //
+        foreach($models as $model)
+        {
+            $model->suspend($fields->get('days'), $fields->get('reason'));
+        }
     }
 
     /**
@@ -35,6 +40,9 @@ class Suspend extends DestructiveAction
      */
     public function fields(NovaRequest $request)
     {
-        return [];
+        return [
+            Number::make('Days'),
+            Text::make('Reason')
+        ];
     }
 }
